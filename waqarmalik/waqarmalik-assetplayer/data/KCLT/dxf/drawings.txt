@@ -1,0 +1,13 @@
+# Filename           Color        zOrder
+#-----------------------------------------
+ramp.dxf             #586e75       1
+ramp_marks.dxf       #002b36       2
+rwys.dxf             #93a1a1       3
+rwy_marks.dxf        #073642       4
+twys.dxf             #657b83       5
+twy_marks.dxf        #002b36       6
+bldgs.dxf            #073642       7
+hold_short_marks.dxf #aaaa00       8
+nes_marks.dxf        #aa0000       9
+
+

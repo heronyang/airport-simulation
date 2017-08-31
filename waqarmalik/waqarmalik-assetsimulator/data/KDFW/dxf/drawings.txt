@@ -1,0 +1,8 @@
+# Filename      Color        zOrder
+#-----------------------------------
+DFW_polygon_object_out.dxf       	#111111      1
+DFW_txwy_out.dxf        	 	#999999      2
+DFW_txwy_segment_out.dxf     	 	#aaaaaa      3
+DFW_rwy_out.dxf      			#000000      4
+DFW_rwy_mrk_polygon_out.dxf   		#777777      5
+DFW_rwy_mrk_line_out.dxf		#777777	     6
