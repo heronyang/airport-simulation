@@ -2,7 +2,7 @@
 
 ## Build
 
-    $ cd assetplayer/bulid 
+    $ cd assetplayer/build 
     $ make
 
 ## Run
