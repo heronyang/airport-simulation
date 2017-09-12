@@ -18,6 +18,17 @@
     $ cd assetplayer/build
     $ make
 
-## Run
+## Run Player
 
     $ ./assetplayer --airport=KDFW --track=out-20.asset
+
+## Run Simulator
+
+### Server
+
+    $ pip3 install --user pandas
+    $ python3 kdfw_scheduler.py
+
+### Client
+
+    $ python3 simulate.py --airport=kdfw --scenario=data/scen-dfw.scenario --cdr
