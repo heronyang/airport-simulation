@@ -1,5 +1,10 @@
-class Gate:
+from node import Node
 
-    def __init__(self, name, node):
+class Gate(Node):
+
+    def __init__(self, index, name, geo_pos):
         self.name = name
-        self.node = node
+        Node.__init__(self, index, geo_pos)
+
+    def __repr__(self):
+        return "<GATE: %s>" % self.name

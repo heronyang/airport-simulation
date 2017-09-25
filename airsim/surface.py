@@ -1,0 +1,3 @@
+class Surface:
+
+    gates = []

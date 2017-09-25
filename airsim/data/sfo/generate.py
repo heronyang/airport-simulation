@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 import json
 import csv
 from map_adapter import MapAdapter
@@ -81,7 +81,7 @@ def export_to_json(filename, data):
 
 def export_to_csv(filename, header, data):
 
-    with open(filename, "wb") as f:
+    with open(filename, "w") as f:
         writer = csv.writer(f, delimiter = ",")
         writer.writerow(header)
         writer.writerows(data)

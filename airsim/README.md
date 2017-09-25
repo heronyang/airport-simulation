@@ -11,12 +11,14 @@ airport code).
 
 ## Installation
 
-    $ pip install --user -r requirements.txt
+    $ pip3 install --user -r requirements.txt
+    $ brew install pyqt # install python qt for mac users
+    $ sudo apt-get install python-qt5 # for Ubuntu users
 
 ## Run Tests
 
-    $ python -m unittest discover tests
+    $ python3 -m unittest discover tests
 
 ## Run
 
-    $ python simulate.py --airport sfo --schedule sep-11
+    $ python3 run.py --airport sfo --schedule sep-11

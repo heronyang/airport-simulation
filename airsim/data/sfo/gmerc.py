@@ -33,10 +33,10 @@ def ll2px(lat, lng, zoom):
     section currently in view.
 
     """
-    assert isinstance(lat, (float, int, long)), \
+    assert isinstance(lat, (float, int, int)), \
         ValueError("lat must be a float")
     lat = float(lat)
-    assert isinstance(lng, (float, int, long)), \
+    assert isinstance(lng, (float, int, int)), \
         ValueError("lng must be a float")
     lng = float(lng)
     assert isinstance(zoom, int), TypeError("zoom must be an int from 0 to 30")
@@ -65,10 +65,6 @@ def px2ll(x, y, zoom):
     section currently in view.
 
     """
-    assert isinstance(x, (int, long)), \
-        ValueError("px must be a 2-tuple of ints")
-    assert isinstance(y, (int, long)), \
-        ValueError("px must be a 2-tuple of ints")
     assert isinstance(zoom, int), TypeError("zoom must be an int from 0 to 30")
     assert 0 <= zoom <= 30, ValueError("zoom must be an int from 0 to 30")
 

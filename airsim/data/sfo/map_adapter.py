@@ -1,6 +1,6 @@
 import os
 import requests
-import urllib
+import urllib.parse
 
 from gmerc import ll2px, px2ll
 
@@ -28,8 +28,8 @@ class MapAdapter:
                             "documentation/static-maps/get-api-key")
         
         api_key = os.environ["GOOGLE_MAP_API_KEY"]
-        encoded_center = urllib.quote(str(center["lat"]) + ", " +
-                                      str(center["lng"]))
+        encoded_center = urllib.parse.quote(str(center["lat"]) + ", " +
+                                            str(center["lng"]))
         url = "https://maps.googleapis.com/maps/api/staticmap" \
                 "?center=%s&size=%s&zoom=%d&scale=%d&maptype=%s" \
                 "&style=%s&style=%skey=%s" \
