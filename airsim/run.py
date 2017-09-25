@@ -19,6 +19,5 @@ def main():
     # Initializes the monitor
     monitor = Monitor(simulation)
 
-
 if __name__ == "__main__":
     main()

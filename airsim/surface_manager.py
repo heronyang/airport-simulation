@@ -1,6 +1,8 @@
 import os
 import csv
+import json
 
+from airport import Airport
 from gate import Gate
 from surface import Surface
 
@@ -25,6 +27,7 @@ class SurfaceManager:
             raise Exception("Airport %s data is not ready" % iata_airport_code)
 
         self.airport_code = iata_airport_code
+        self.__load_airport()
         self.__load_gates()
 
     def __is_data_ready(self):
@@ -40,6 +43,14 @@ class SurfaceManager:
                 return False
 
         return True
+
+    def __load_airport(self):
+        with open(self.dir_path + "airport-metadata.json") as f:
+            airport_md = json.load(f)
+            self.surface.airport = Airport(
+                airport_md["name"], airport_md["center"],
+                airport_md["corners"], self.DATA_ROOT_DIR_PATH +
+                self.airport_code+ "/airport.jpg")
 
     def __load_gates(self):
 
