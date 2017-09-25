@@ -7,8 +7,8 @@ class Node:
         if not self.__is_valid_geo_pos(geo_pos):
             raise Exception("Invalid geo position")
 
-        self.__index = index
-        self.__geo_pos = geo_pos
+        self.index = index
+        self.geo_pos = geo_pos
 
     def __is_valid_geo_pos(self, geo_pos):
         lat = geo_pos["lat"]
@@ -19,16 +19,10 @@ class Node:
             return False
         return True
 
-    def get_index(self):
-        return self.__index
-    
-    def get_geo_pos(self):
-        return self.__geo_pos
-
     # Returns the distance from this node to another in feets
     def get_distance_to(self, node):
-        sp = self.get_geo_pos()
-        ss = node.get_geo_pos()
+        sp = self.geo_pos
+        ss = node.geo_pos
         distance = vincenty(
             (sp["lat"], sp["lng"]),
             (ss["lat"], ss["lng"]),

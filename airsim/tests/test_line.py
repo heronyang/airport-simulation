@@ -16,7 +16,7 @@ class TestLine(unittest.TestCase):
 
     def test_init(self):
         line = Line("line-123", self.nodes)
-        self.assertEqual(line.get_nodes(), self.nodes)
+        self.assertEqual(line.nodes, self.nodes)
 
     def test_get_length(self):
         line = Line("line-123", self.nodes)

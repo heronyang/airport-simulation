@@ -13,8 +13,8 @@ class TestNode(unittest.TestCase):
         index = "node-123"
         geo_pos = { "lat": 51.5033640, "lng": -0.1276250 }
         node = Node(index, geo_pos)
-        self.assertDictEqual(node.get_geo_pos(), geo_pos)
-        self.assertEqual(node.get_index(), index)
+        self.assertDictEqual(node.geo_pos, geo_pos)
+        self.assertEqual(node.index, index)
 
     def test_invalid_geo_pos(self):
         index = "123"

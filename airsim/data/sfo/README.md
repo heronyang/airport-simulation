@@ -19,3 +19,7 @@ raw data. Install IPython for interactive supports.
 ## Generate files for simulator
 
     $ python generate.py
+
+## Reference
+
+- https://github.com/whit537/gheat/blob/master/__/lib/python/gmerc.py

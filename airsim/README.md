@@ -6,7 +6,8 @@
 
 ## Prepare airport data
 
-Place airport related data under `data` folder like `data/sfo`.
+Place airport related data under `data` folder like `data/sfo` (use IATA
+airport code).
 
 ## Installation
 
