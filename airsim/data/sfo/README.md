@@ -18,7 +18,7 @@ raw data. Install IPython for interactive supports.
 
 ## Generate files for simulator
 
-    $ python generate.py
+    $ python3 generate.py
 
 ## Reference
 
