@@ -1,5 +1,4 @@
 import os
-import csv
 import json
 
 from node import Node
@@ -63,8 +62,10 @@ class Manager:
     FILES_TO_CHECK = [
         "airport-metadata.json",
         "airport.jpg",
-        "gates.csv",
-        "spots.csv"
+        "gates.json",
+        "spots.json",
+        "runways.json",
+        "taxiways.json"
     ]
 
     airport = None
@@ -117,13 +118,23 @@ class Manager:
 
     def retrieve_node_with_type(self, nodes, type_name):
 
-        with open(self.dir_path + type_name + ".csv") as f:
-            reader = csv.reader(f, delimiter = ",")
-            next(reader)    # Skips the header
-            for row in reader:
-                index, name, lat, lng =\
-                        row[0], row[1], float(row[2]), float(row[3])
-                nodes.append(Spot(index, name, {"lat": lat, "lng": lng}))
+        with open(self.dir_path + type_name + ".json") as f:
+            nodes_raw = json.load(f)
+            for node_raw in nodes_raw:
+                if type_name == "spots":
+                    nodes.append(Spot(
+                        node_raw["index"],
+                        node_raw["name"],
+                        {"lat": node_raw["lat"], "lng": node_raw["lng"]}
+                    ))
+                elif type_name == "gates":
+                    nodes.append(Gate(
+                        node_raw["index"],
+                        node_raw["name"],
+                        {"lat": node_raw["lat"], "lng": node_raw["lng"]}
+                    ))
+                else:
+                    raise Exception("Unknown node type")
 
     def load_runway(self):
 

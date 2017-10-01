@@ -1,17 +1,11 @@
 #!/usr/bin/env python3
 import os, errno
 import json
-import csv
 import sys
 import logging
 from fastkml import kml
 from map_adapter import MapAdapter
 from IPython.core.debugger import Tracer
-
-"""
-This script generates files needed by the simulation including nodes.csv,
-lines.csv, etc, by reading from source data files.
-"""
 
 OUTPUT_FOLDER = "./build/"
 
@@ -115,7 +109,6 @@ def get_center(coordinates):
 
 def generate_gates_data(items):
 
-    header = ["index", "name", "lat", "lng"]
     nodes = []
 
     # Finds gate nodes
@@ -127,21 +120,19 @@ def generate_gates_data(items):
         name = item["properties"]["ref"]
         lat = item["geometry"]["coordinates"][1]
         lng = item["geometry"]["coordinates"][0]
-        nodes.append([index, name, lat, lng])
+        nodes.append({ "index": index, "name": name, "lat": lat, "lng": lng })
 
-    output_filename = OUTPUT_FOLDER + "gates.csv"
-    export_to_csv(output_filename, header, nodes)
+    output_filename = OUTPUT_FOLDER + "gates.json"
+    export_to_json(output_filename, nodes)
 
 def generate_spot_position_data():
 
     # Create the KML object to store the parsed result
     k = kml.KML()
+    nodes = []
 
     # Reads spot data from input KML file
     with open("spot.kml", "rb") as f:
-
-        header = ["index", "name", "lat", "lng"]
-        nodes = []
 
         k.from_string(f.read())
         items = list(list(k.features())[0].features())
@@ -149,10 +140,15 @@ def generate_spot_position_data():
         for item in items:
             index, name = int(item.name[1:]), item.name
             lat, lng = item.geometry.y, item.geometry.x
-            nodes.append([index, name, lat, lng])
+            nodes.append({
+                "index": index,
+                "name": name,
+                "lat": lat,
+                "lng": lng
+            })
 
-        output_filename = OUTPUT_FOLDER + "spots.csv"
-        export_to_csv(output_filename, header, nodes)
+    output_filename = OUTPUT_FOLDER + "spots.json"
+    export_to_json(output_filename, nodes)
 
 def generate_line_data(items, type_name):
 
@@ -187,13 +183,6 @@ def generate_line_data(items, type_name):
 def export_to_json(filename, data):
     with open(filename, "w") as f:
         json.dump(data, f)
-
-def export_to_csv(filename, header, data):
-
-    with open(filename, "w") as f:
-        writer = csv.writer(f, delimiter = ",")
-        writer.writerow(header)
-        writer.writerows(data)
 
 if __name__ == "__main__":
     main()
