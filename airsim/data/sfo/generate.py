@@ -1,31 +1,69 @@
 #!/usr/bin/env python3
+import os, errno
 import json
 import csv
+import sys
+import logging
+from fastkml import kml
 from map_adapter import MapAdapter
+from IPython.core.debugger import Tracer
 
 """
 This script generates files needed by the simulation including nodes.csv,
 lines.csv, etc, by reading from source data files.
 """
 
-def generate_gates_data(items):
+OUTPUT_FOLDER = "./build/"
 
-    header = ["index", "name", "lat", "lng"]
-    nodes = []
+# Setups logger
+logger = logging.getLogger(__name__)
+logger_handler = logging.StreamHandler(sys.stdout)
+logger_handler.setFormatter(logging.Formatter('%(asctime)s %(message)s'))
+logger_handler.setLevel(logging.DEBUG)
+logger.addHandler(logger_handler)
+logger.setLevel(logging.DEBUG)
 
-    # Finds gate nodes
-    for item in items:
-        # Filters out other items
-        if item["properties"]["aeroway"] != "gate":
-            continue
-        index = item["id"].split("/")[1]
-        name = item["properties"]["ref"]
-        lat = item["geometry"]["coordinates"][1]
-        lng = item["geometry"]["coordinates"][0]
-        nodes.append([index, name, lat, lng])
+def main():
 
-    output_filename = "gates.csv"
-    export_to_csv(output_filename, header, nodes)
+    with open("surface.json") as f:    
+
+        # Creates the output folder
+        create_output_folder()
+
+        # Reads data from the input file
+        surface_data = json.load(f)
+        items = surface_data["features"]
+
+        # Generates airport data
+        logger.debug("Generating airport metadata")
+        generate_airport_data(items)
+        logger.debug("Airport metadata generated")
+
+        # Generates gate data
+        logger.debug("Generating gate data")
+        generate_gates_data(items)
+        logger.debug("Gate data generated")
+
+        # Generates spot position
+        logger.debug("Generating spot position data")
+        generate_spot_position_data()
+        logger.debug("Spot position data generated")
+
+        # Generates runway data
+        logger.debug("Genenrating runway data")
+        generate_line_data(items, "runway")
+        logger.debug("Runway data generated")
+
+        # Generates taxiway data
+        logger.debug("Genenrating taxiway data")
+        generate_line_data(items, "taxiway")
+        logger.debug("Taxiway data generated")
+
+def create_output_folder():
+    try:
+        os.makedirs(OUTPUT_FOLDER)
+    except OSError as e:
+        pass
 
 def generate_airport_data(items):
 
@@ -48,11 +86,11 @@ def generate_airport_data(items):
     }
 
     # Export data to file
-    filename = "airport-metadata.json"
+    filename = OUTPUT_FOLDER + "airport-metadata.json"
     export_to_json(filename, airport)
 
     # Downloads the map
-    filename = "airport.jpg"
+    filename = OUTPUT_FOLDER + "airport.jpg"
     map_adapter.download(filename, center)
 
 def get_center(coordinates):
@@ -75,6 +113,77 @@ def get_center(coordinates):
         "lng": (most_west + most_east) / 2
     }
 
+def generate_gates_data(items):
+
+    header = ["index", "name", "lat", "lng"]
+    nodes = []
+
+    # Finds gate nodes
+    for item in items:
+        # Filters out other items
+        if item["properties"]["aeroway"] != "gate":
+            continue
+        index = item["id"].split("/")[1]
+        name = item["properties"]["ref"]
+        lat = item["geometry"]["coordinates"][1]
+        lng = item["geometry"]["coordinates"][0]
+        nodes.append([index, name, lat, lng])
+
+    output_filename = OUTPUT_FOLDER + "gates.csv"
+    export_to_csv(output_filename, header, nodes)
+
+def generate_spot_position_data():
+
+    # Create the KML object to store the parsed result
+    k = kml.KML()
+
+    # Reads spot data from input KML file
+    with open("spot.kml", "rb") as f:
+
+        header = ["index", "name", "lat", "lng"]
+        nodes = []
+
+        k.from_string(f.read())
+        items = list(list(k.features())[0].features())
+
+        for item in items:
+            index, name = int(item.name[1:]), item.name
+            lat, lng = item.geometry.y, item.geometry.x
+            nodes.append([index, name, lat, lng])
+
+        output_filename = OUTPUT_FOLDER + "spots.csv"
+        export_to_csv(output_filename, header, nodes)
+
+def generate_line_data(items, type_name):
+
+    lines = []
+
+    for item in items:
+
+        # Filters out other items
+        if item["properties"]["aeroway"] != type_name:
+            continue
+
+        # Retrieves the fields we want
+        index = item["id"].split("/")[1]
+        name = ""
+        if "name" in item["properties"]:
+            name = item["properties"]["name"]
+        elif "ref" in item["properties"]:
+            name = item["properties"]["ref"]
+        nodes = item["geometry"]["coordinates"]
+
+        # Puts to the buffer and will export to file later
+        lines.append({
+            "index": index,
+            "name": name,
+            "nodes": nodes
+        })
+
+    # Add s for plural as the output filename
+    output_filename = OUTPUT_FOLDER + type_name + "s.json"
+    export_to_json(output_filename, lines)
+
 def export_to_json(filename, data):
     with open(filename, "w") as f:
         json.dump(data, f)
@@ -87,15 +196,4 @@ def export_to_csv(filename, header, data):
         writer.writerows(data)
 
 if __name__ == "__main__":
-
-    with open("surface.json") as f:    
-        surface_data = json.load(f)
-        items = surface_data["features"]
-
-        print("Generating airport metadata")
-        generate_airport_data(items)
-        print("Airport metadata generated")
-
-        print("Generating gate data")
-        generate_gates_data(items)
-        print("Gate data generated")
+    main()

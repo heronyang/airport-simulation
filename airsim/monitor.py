@@ -12,7 +12,7 @@ SIZE = 640
 class Screen(QWidget):
 
 
-    def __init__(self, airport, gates):
+    def __init__(self, airport, gates, spots):
 
         super().__init__()
 
@@ -25,8 +25,9 @@ class Screen(QWidget):
         # Draws the background image
         self.draw_background(airport.image_filepath)
 
-        # Saves gates and draw them later
+        # Saves gates and spots then draw them later
         self.gates = gates
+        self.spots = spots
 
         # Shows
         self.show()
@@ -45,13 +46,21 @@ class Screen(QWidget):
 
     def paintEvent(self, event):
 
-        # Draw all gates
         painter = QPainter()
         painter.begin(self)
+
+        # Draw all gates
         painter.setPen(Qt.blue)
         for gate in self.gates:
             point = QPoint(gate[0], gate[1])
             painter.drawEllipse(point, 3, 3)
+
+        # Draw all spots
+        painter.setPen(Qt.red)
+        for spot in self.spots:
+            point = QPoint(spot[0], spot[1])
+            painter.drawEllipse(point, 3, 3)
+
         painter.end()
 
 class Monitor:
@@ -64,7 +73,7 @@ class Monitor:
     def __init__(self, simulation):
 
         static_state = simulation.get_static_state()
-        surface = static_state["surface"]
+        airport = static_state["airport"]
 
         # Initializes the screen
         self.simulation = simulation
@@ -72,13 +81,20 @@ class Monitor:
 
         # Parse gates
         gates = []
-        for gate in surface.gates:
-            px_pos = ll2px(gate.geo_pos, surface.airport.corners, SIZE)
+        for gate in airport.gates:
+            px_pos = ll2px(gate.geo_pos, airport.corners, SIZE)
             print(px_pos)
             gates.append(px_pos)
 
+        # Parse spots
+        spots = []
+        for spot in airport.spots:
+            px_pos = ll2px(spot.geo_pos, airport.corners, SIZE)
+            print(px_pos)
+            spots.append(px_pos)
+
         # Starts screen and holds
-        self.screen = Screen(surface.airport, gates)
+        self.screen = Screen(airport, gates, spots)
         self.app.exec_()
 
     def close(self):

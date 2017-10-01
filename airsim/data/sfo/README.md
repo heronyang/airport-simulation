@@ -5,6 +5,10 @@
 - [overpass-turbo](http://overpass-turbo.eu/s/rFN)
 - [Node-link Language](http://wiki.openstreetmap.org/wiki/Aeroways)
 
+## Map
+
+[Google Map](https://drive.google.com/open?id=1votbJbKKRUF5gDumno4GXOxVLAE&usp=sharing) (request for edit)
+
 ## Note
 
 - `surface.json` is downloaded json data from [overpass-turbo](http://overpass-turbo.eu/s/rFN) (click on export and download GeoJSON file)

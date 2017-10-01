@@ -1,9 +1,10 @@
-class Line:
+class Link:
 
-    def __init__(self, index, nodes):
+    def __init__(self, index, name, nodes):
         if len(nodes) < 2:
             raise Exception("Less than two nodes were given")
         self.index = index
+        self.name = name
         self.nodes = nodes
 
     def get_length(self):
