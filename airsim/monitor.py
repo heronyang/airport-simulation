@@ -7,7 +7,7 @@ from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 
 REFRESH_RATE = 1 # fps
-SIZE = 640
+SIZE = 960
 
 class Screen(QMainWindow):
 
@@ -20,6 +20,7 @@ class Screen(QMainWindow):
 
         # Sets the window size
         self.setGeometry(0, 0, SIZE, SIZE)
+        self.setFixedSize(SIZE, SIZE)
 
         # Draws the background image
         self.draw_background(airport.image_filepath)
@@ -88,6 +89,7 @@ class Screen(QMainWindow):
                 curr_geo_pos = ll2px(node.geo_pos, self.airport.corners, SIZE)
                 painter.drawLine(prev_geo_pos[0], prev_geo_pos[1],
                                  curr_geo_pos[0], curr_geo_pos[1])
+                print(prev_geo_pos, curr_geo_pos)
             previous_node = node
 
         # Closes the painter

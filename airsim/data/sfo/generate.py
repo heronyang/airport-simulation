@@ -102,6 +102,10 @@ def get_center(coordinates):
         most_north = max(most_north, c[1])
         most_south = min(most_south, c[1])
 
+    # return {
+        # "lat": 37.616324,
+        # "lng": -122.385995
+    # }
     return {
         "lat": (most_north + most_south) / 2,
         "lng": (most_west + most_east) / 2

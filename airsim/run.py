@@ -38,14 +38,14 @@ def main():
     is_finished = True
 
 def run_simulation_in_background(simulation, monitor):
+
     global is_finished
+
     try:
         while not is_finished:
             print("Updating...")
             simulation.update()
             monitor.update()
-            time.sleep(1)
-            simulation.get_airport().gates = []
             time.sleep(1)
     except KeyboardInterrupt:
         print("Background simulation done")
