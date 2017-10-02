@@ -9,7 +9,7 @@ from PyQt5.QtWidgets import *
 REFRESH_RATE = 1 # fps
 SIZE = 640
 
-class Screen(QWidget):
+class Screen(QMainWindow):
 
     def __init__(self, airport):
 
@@ -33,7 +33,6 @@ class Screen(QWidget):
     def draw_background(self, image_filepath):
 
         # Sets the image object
-        print(image_filepath)
         pixmap = QPixmap(image_filepath, "1")
         scaled_pixmap = pixmap.scaled(self.size(), Qt.KeepAspectRatio)
 
@@ -104,16 +103,16 @@ class Monitor:
 
     def __init__(self, simulation):
 
-        static_state = simulation.get_static_state()
-        airport = static_state["airport"]
-
-        # Initializes the screen
-        self.simulation = simulation
         self.app = QApplication(sys.argv)
+        self.simulation = simulation
+        self.screen = Screen(self.simulation.get_airport())
 
-        # Starts screen and holds
-        self.screen = Screen(airport)
+    def start(self):
         self.app.exec_()
+        print("Start ends")
 
     def close(self):
         self.screen.close()
+
+    def update(self):
+        self.screen.update()

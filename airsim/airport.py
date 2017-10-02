@@ -167,8 +167,6 @@ class Manager:
             for node in link_raw["nodes"]:
                 nodes.append(RunwayNode({"lat": node[1], "lng": node[0]}))
 
-            print(index, name, nodes)
-
             if type_name == "runways":
                 links.append(Runway(index, name, nodes))
             elif type_name == "taxiways":
