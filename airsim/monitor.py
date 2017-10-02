@@ -11,8 +11,7 @@ SIZE = 640
 
 class Screen(QWidget):
 
-
-    def __init__(self, airport, gates, spots):
+    def __init__(self, airport):
 
         super().__init__()
 
@@ -25,9 +24,8 @@ class Screen(QWidget):
         # Draws the background image
         self.draw_background(airport.image_filepath)
 
-        # Saves gates and spots then draw them later
-        self.gates = gates
-        self.spots = spots
+        # Saves the current airport state
+        self.airport = airport
 
         # Shows
         self.show()
@@ -45,23 +43,57 @@ class Screen(QWidget):
         self.setPalette(palette)
 
     def paintEvent(self, event):
+        self.draw_gates()
+        self.draw_spots()
+        self.draw_runways()
+        self.draw_taxiways()
+
+    def draw_gates(self):
+        for gate in self.airport.gates:
+            self.draw_node(gate, Qt.darkGreen)
+
+    def draw_spots(self):
+        for spot in self.airport.spots:
+            self.draw_node(spot, Qt.red)
+
+    def draw_node(self, node, color):
 
         painter = QPainter()
         painter.begin(self)
-
-        # Draw all gates
-        painter.setPen(Qt.blue)
-        for gate in self.gates:
-            point = QPoint(gate[0], gate[1])
-            painter.drawEllipse(point, 3, 3)
-
-        # Draw all spots
-        painter.setPen(Qt.red)
-        for spot in self.spots:
-            point = QPoint(spot[0], spot[1])
-            painter.drawEllipse(point, 3, 3)
-
+        painter.setPen(color)
+        px_pos = ll2px(node.geo_pos, self.airport.corners, SIZE)
+        point = QPoint(px_pos[0], px_pos[1])
+        painter.drawEllipse(point, 3, 3)
         painter.end()
+
+    def draw_runways(self):
+        for runway in self.airport.runways:
+            self.draw_link(runway, Qt.blue)
+
+    def draw_taxiways(self):
+        for taxiway in self.airport.taxiways:
+            self.draw_link(taxiway, Qt.black)
+
+    def draw_link(self, link, color):
+
+        # Setups painter
+        painter = QPainter()
+        painter.begin(self)
+        painter.setPen(color)
+
+        # Draws all nodes of the link
+        previous_node = None
+        for node in link.nodes:
+            if previous_node:
+                prev_geo_pos = ll2px(previous_node.geo_pos, self.airport.corners, SIZE)
+                curr_geo_pos = ll2px(node.geo_pos, self.airport.corners, SIZE)
+                painter.drawLine(prev_geo_pos[0], prev_geo_pos[1],
+                                 curr_geo_pos[0], curr_geo_pos[1])
+            previous_node = node
+
+        # Closes the painter
+        painter.end()
+
 
 class Monitor:
     """ Monitor works as an observer which pull states from the simulation and
@@ -79,22 +111,8 @@ class Monitor:
         self.simulation = simulation
         self.app = QApplication(sys.argv)
 
-        # Parse gates
-        gates = []
-        for gate in airport.gates:
-            px_pos = ll2px(gate.geo_pos, airport.corners, SIZE)
-            print(px_pos)
-            gates.append(px_pos)
-
-        # Parse spots
-        spots = []
-        for spot in airport.spots:
-            px_pos = ll2px(spot.geo_pos, airport.corners, SIZE)
-            print(px_pos)
-            spots.append(px_pos)
-
         # Starts screen and holds
-        self.screen = Screen(airport, gates, spots)
+        self.screen = Screen(airport)
         self.app.exec_()
 
     def close(self):

@@ -4,10 +4,7 @@
 
 - [overpass-turbo](http://overpass-turbo.eu/s/rFN)
 - [Node-link Language](http://wiki.openstreetmap.org/wiki/Aeroways)
-
-## Map
-
-[Google Map](https://drive.google.com/open?id=1votbJbKKRUF5gDumno4GXOxVLAE&usp=sharing) (request for edit)
+- Spot position are manually added on [Google Map](https://drive.google.com/open?id=1votbJbKKRUF5gDumno4GXOxVLAE&usp=sharing) (request for edit)
 
 ## Note
 

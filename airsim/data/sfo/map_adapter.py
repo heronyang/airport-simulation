@@ -9,7 +9,7 @@ Google API user
 """
 SIZE = 640
 SCALE = 2
-ZOOM_LEVEL = 15
+ZOOM_LEVEL = 14
 MAP_TYPE = "terrain"
 STYLE_VISIBILITY = "feature:all|element:labels|visibility:off"
 STYLE_COLOR = "feature:transit.station.airport|lightness:-12|saturation:100" \
