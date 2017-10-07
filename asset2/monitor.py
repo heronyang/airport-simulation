@@ -10,6 +10,9 @@ REFRESH_RATE = 1 # fps
 SIZE = 960
 
 class Screen(QMainWindow):
+    """
+    Screen draws the airport states onto the screen using PyQt5.
+    """
 
     def __init__(self, airport):
 
@@ -98,7 +101,8 @@ class Screen(QMainWindow):
 
 
 class Monitor:
-    """ Monitor works as an observer which pull states from the simulation and
+    """
+    Monitor works as an observer which pull states from the simulation and
     draw them on the screen. Two types of states are used. Static states
     contain states that won't change during the whole simulation process; 
     runtime states indicates the states the changes within simulation.

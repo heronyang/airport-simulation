@@ -5,7 +5,12 @@ from schedule import ScheduleFactory
 from IPython.core.debugger import Tracer
 
 class Airport:
-
+    """
+    Airport contains the surface, the arrival/departure schedule, and all the
+    aircrafts currently moving or parking in this airport. The flight data in
+    `schedule` is for lookups while the `aircraft` list represents the real
+    aircrafts in the airport.
+    """
 
     # Static data
     code = None

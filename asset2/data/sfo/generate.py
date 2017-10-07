@@ -53,6 +53,11 @@ def main():
         generate_line_data(items, "taxiway")
         logger.debug("Taxiway data generated")
 
+        # Generates schedule
+        logger.debug("Generating schedule")
+        generate_schedule()
+        logger.debug("Schedule generated")
+
 def create_output_folder():
     try:
         os.makedirs(OUTPUT_FOLDER)
@@ -183,6 +188,9 @@ def generate_line_data(items, type_name):
     # Add s for plural as the output filename
     output_filename = OUTPUT_FOLDER + type_name + "s.json"
     export_to_json(output_filename, lines)
+
+def generate_schedule():
+    pass
 
 def export_to_json(filename, data):
     with open(filename, "w") as f:
