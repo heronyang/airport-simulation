@@ -16,14 +16,14 @@ class Screen(QMainWindow):
         super().__init__()
 
         # Sets the window title
-        self.setWindowTitle(airport.name)
+        self.setWindowTitle(airport.code)
 
         # Sets the window size
         self.setGeometry(0, 0, SIZE, SIZE)
         self.setFixedSize(SIZE, SIZE)
 
         # Draws the background image
-        self.draw_background(airport.image_filepath)
+        self.draw_background(airport.surface.image_filepath)
 
         # Saves the current airport state
         self.airport = airport
@@ -49,11 +49,11 @@ class Screen(QMainWindow):
         self.draw_taxiways()
 
     def draw_gates(self):
-        for gate in self.airport.gates:
+        for gate in self.airport.surface.gates:
             self.draw_node(gate, Qt.darkGreen)
 
     def draw_spots(self):
-        for spot in self.airport.spots:
+        for spot in self.airport.surface.spots:
             self.draw_node(spot, Qt.red)
 
     def draw_node(self, node, color):
@@ -61,17 +61,17 @@ class Screen(QMainWindow):
         painter = QPainter()
         painter.begin(self)
         painter.setPen(color)
-        px_pos = ll2px(node.geo_pos, self.airport.corners, SIZE)
+        px_pos = ll2px(node.geo_pos, self.airport.surface.corners, SIZE)
         point = QPoint(px_pos[0], px_pos[1])
         painter.drawEllipse(point, 3, 3)
         painter.end()
 
     def draw_runways(self):
-        for runway in self.airport.runways:
+        for runway in self.airport.surface.runways:
             self.draw_link(runway, Qt.blue)
 
     def draw_taxiways(self):
-        for taxiway in self.airport.taxiways:
+        for taxiway in self.airport.surface.taxiways:
             self.draw_link(taxiway, Qt.black)
 
     def draw_link(self, link, color):
@@ -82,11 +82,12 @@ class Screen(QMainWindow):
         painter.setPen(color)
 
         # Draws all nodes of the link
+        corners = self.airport.surface.corners
         previous_node = None
         for node in link.nodes:
             if previous_node:
-                prev_geo_pos = ll2px(previous_node.geo_pos, self.airport.corners, SIZE)
-                curr_geo_pos = ll2px(node.geo_pos, self.airport.corners, SIZE)
+                prev_geo_pos = ll2px(previous_node.geo_pos, corners, SIZE)
+                curr_geo_pos = ll2px(node.geo_pos, corners, SIZE)
                 painter.drawLine(prev_geo_pos[0], prev_geo_pos[1],
                                  curr_geo_pos[0], curr_geo_pos[1])
                 print(prev_geo_pos, curr_geo_pos)
@@ -107,7 +108,7 @@ class Monitor:
 
         self.app = QApplication(sys.argv)
         self.simulation = simulation
-        self.screen = Screen(self.simulation.get_airport())
+        self.screen = Screen(self.simulation.airport)
 
     def start(self):
         self.app.exec_()
