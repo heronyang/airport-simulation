@@ -13,3 +13,11 @@ def ll2px(geo_pos, corners, px_size):
 
 def px_bound(px, size):
     return max(min(px, size), 0)
+
+def str2time(s):
+
+    from datetime import time
+    hours = int(s[0:2])
+    mins = int(s[2:4])
+
+    return time(hours, mins)

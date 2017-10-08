@@ -1,6 +1,7 @@
 from datetime import date, datetime, time, timedelta
 
-"""In simulation, every SIM_SECOND seconds represents REAL_MINUTE minutes in
+"""
+In simulation, every SIM_SECOND seconds represents REAL_MINUTE minutes in
 real world. And, every SIM_SECOND seconds in simulation (or REAL_MINUTE
 minutes in real world) the simluation sends a request to schedule for a new
 schedule.

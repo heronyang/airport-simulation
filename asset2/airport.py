@@ -41,6 +41,6 @@ class AirportFactory:
             raise Exception("Surface data is not ready")
 
         surface = SurfaceFactory.create(dir_path)
-        schedule = ScheduleFactory.create(dir_path)
+        schedule = ScheduleFactory.create(dir_path, surface)
 
         return Airport(code, surface, schedule)

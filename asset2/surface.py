@@ -23,6 +23,39 @@ class Surface:
     def __repr__(self):
         return "<Surface>"
 
+    """
+    Gets the node with its name and raises exception if no such node is found
+    since we should always work on nodes that we know.
+    """
+    def get_node(self, name):
+
+        # FIXME: a more efficient way can be implemented in the future
+        for gate in self.gates:
+            if gate.name == name:
+                return gate
+
+        for spot in self.spots:
+            if spot.name == name:
+                return spot
+
+        raise Exception("Getting an unknown node")
+
+    """
+    Gets the link with its name and raises exception if no such link is found.
+    """
+    def get_link(self, name):
+
+        # FIXME: a more efficient way can be implemented in the future
+        for runway in self.runways:
+            if runway.name == name:
+                return runway
+
+        for taxiway in self.taxiways:
+            if taxiway.name == name:
+                return taxiway
+
+        raise Exception("Getting an unknown link")
+
 class Gate(Node):
 
     def __init__(self, index, name, geo_pos):
@@ -81,10 +114,10 @@ class SurfaceFactory:
 
     @classmethod
     def create(self, dir_path):
-        with open(dir_path + "airport-metadata.json") as f:
-            airport_raw = json.load(f)
         if not SurfaceFactory.__is_data_ready(dir_path):
             raise Exception("Surface data is not ready")
+        with open(dir_path + "airport-metadata.json") as f:
+            airport_raw = json.load(f)
         surface = Surface(airport_raw["center"], airport_raw["corners"],
                           dir_path + "airport.jpg")
         SurfaceFactory.__load_gates(surface, dir_path)
@@ -141,6 +174,7 @@ class SurfaceFactory:
     @classmethod
     def __load_runway(self, surface, dir_path):
         surface.runways = SurfaceFactory.__retrive_link("runways", dir_path)
+        print(surface.runways)
 
     @classmethod
     def __load_taxiway(self, surface, dir_path):
@@ -171,3 +205,4 @@ class SurfaceFactory:
                 raise Exception("Unknown link type")
 
         return links
+

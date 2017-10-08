@@ -1,0 +1,57 @@
+{
+  "arrivals": [
+    {
+      "callsign": "AAL121",
+      "model": "A319",
+      "airport": "SJC",
+      "gate": "A2",
+      "spot": "S2",
+      "runway": "10R/28L",
+      "time": "0700"
+    },
+    {
+      "callsign": "AAL122",
+      "model": "A329",
+      "airport": "JFK",
+      "gate": "A1",
+      "spot": "S1",
+      "runway": "1R/19L",
+      "time": "1300"
+    },
+    {
+      "callsign": "AAL123",
+      "model": "A339",
+      "airport": "DFW",
+      "gate": "A4",
+      "spot": "S4",
+      "runway": "1R/19L",
+      "time": "2100"
+    }
+  ],
+  "departures": [
+    {
+      "callsign": "AAL121",
+      "model": "A319",
+      "airport": "SJC",
+      "spot": "S2",
+      "runway": "10R/28L",
+      "time": "0730"
+    },
+    {
+      "callsign": "AAL122",
+      "model": "A329",
+      "airport": "JFK",
+      "spot": "S1",
+      "runway": "1R/19L",
+      "time": "1330"
+    },
+    {
+      "callsign": "AAL123",
+      "model": "A339",
+      "airport": "DFW",
+      "spot": "S4",
+      "runway": "1R/19L",
+      "time": "2130"
+    }
+  ]
+}

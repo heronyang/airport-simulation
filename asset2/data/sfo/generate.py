@@ -190,11 +190,73 @@ def generate_line_data(items, type_name):
     export_to_json(output_filename, lines)
 
 def generate_schedule():
-    pass
+    """
+    Schedule is manually generated since we don't have any existing data.
+    """
+    schedule = {
+        "arrivals": [
+            {
+                "callsign": "AAL121",
+                "model": "A319",
+                "airport": "SJC",
+                "gate": "A2",
+                "spot": "S2",
+                "runway": "10R/28L",
+                "time": "0700"
+            },
+            {
+                "callsign": "AAL122",
+                "model": "A329",
+                "airport": "JFK",
+                "gate": "A1",
+                "spot": "S1",
+                "runway": "1R/19L",
+                "time": "1300"
+            },
+            {
+                "callsign": "AAL123",
+                "model": "A339",
+                "airport": "DFW",
+                "gate": "A4",
+                "spot": "S4",
+                "runway": "1R/19L",
+                "time": "2100"
+            }
+        ],
+        "departures": [
+            {
+                "callsign": "AAL121",
+                "model": "A319",
+                "airport": "SJC",
+                "spot": "S2",
+                "runway": "10R/28L",
+                "time": "0730"
+            },
+            {
+                "callsign": "AAL122",
+                "model": "A329",
+                "airport": "JFK",
+                "spot": "S1",
+                "runway": "1R/19L",
+                "time": "1330"
+            },
+            {
+                "callsign": "AAL123",
+                "model": "A339",
+                "airport": "DFW",
+                "spot": "S4",
+                "runway": "1R/19L",
+                "time": "2130"
+            }
+        ]
+    }
+
+    output_filename = OUTPUT_FOLDER + "schedule.json"
+    export_to_json(output_filename, schedule)
 
 def export_to_json(filename, data):
     with open(filename, "w") as f:
-        json.dump(data, f)
+        json.dump(data, f, indent = 2)
 
 if __name__ == "__main__":
     main()

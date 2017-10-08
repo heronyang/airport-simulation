@@ -93,7 +93,6 @@ class Screen(QMainWindow):
                 curr_geo_pos = ll2px(node.geo_pos, corners, SIZE)
                 painter.drawLine(prev_geo_pos[0], prev_geo_pos[1],
                                  curr_geo_pos[0], curr_geo_pos[1])
-                print(prev_geo_pos, curr_geo_pos)
             previous_node = node
 
         # Closes the painter
