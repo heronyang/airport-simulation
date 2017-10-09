@@ -86,5 +86,5 @@ class RouteExpert:
     def __init__(self, nodes, links):
         pass
 
-    def get_shorted_route(self, start, end):
+    def get_shortest_route(self, start, end):
         return Route(start, end, [])
