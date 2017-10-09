@@ -29,7 +29,7 @@ class Airport:
     aircraft with its expected completion time.
     """
     def add_target(self, aircraft, target, expected_completion_time):
-        route = route_expert(aircraft.location, target)
+        route = route_expert.get_shorted_route(aircraft.location, target)
         aircraft.add_itinerary(Itinerary(route, expected_completion_time))
 
 class AirportFactory:
