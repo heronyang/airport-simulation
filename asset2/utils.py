@@ -21,3 +21,13 @@ def str2time(s):
     mins = int(s[2:4])
 
     return time(hours, mins)
+
+def is_valid_geo_pos(geo_pos):
+    lat = geo_pos["lat"]
+    lng = geo_pos["lng"]
+    if lat < -90 or lat > 90:
+        return False
+    if lng < -180 or lng > 180:
+        return False
+    return True
+

@@ -12,20 +12,25 @@ class Airport:
     aircrafts in the airport.
     """
 
-    # Static data
-    code = None
-    surface = None
-
-    # Read only data
-    schedule = None
-
     # Runtime data
     aircrafts = []
 
     def __init__(self, code, surface, schedule):
+
+        # Static data
         self.code = code
         self.surface = surface
+
+        # Read only data
         self.schedule = schedule
+
+    """
+    Callback function for handling the schedule response. Adds target for an
+    aircraft with its expected completion time.
+    """
+    def add_target(self, aircraft, target, expected_completion_time):
+        route = route_expert(aircraft.location, target)
+        aircraft.add_itinerary(Itinerary(route, expected_completion_time))
 
 class AirportFactory:
 

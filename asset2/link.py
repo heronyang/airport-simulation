@@ -14,3 +14,9 @@ class Link:
             to_node = self.nodes[i]
             length += from_node.get_distance_to(to_node)
         return length
+
+    def get_start(self):
+        return nodes[0]
+
+    def get_end(self):
+        return nodes[len(nodes) - 1]

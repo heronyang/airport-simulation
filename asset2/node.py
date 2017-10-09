@@ -1,26 +1,22 @@
+from utils import is_valid_geo_pos
 from geopy.distance import vincenty
 
 class Node:
 
+    SAME_NODE_THRESHOLD_FEET = 10
+
     def __init__(self, index, name, geo_pos):
 
-        if not self.is_valid_geo_pos(geo_pos):
+        if not is_valid_geo_pos(geo_pos):
             raise Exception("Invalid geo position")
 
         self.name = name
         self.index = index
         self.geo_pos = geo_pos
 
-    def is_valid_geo_pos(self, geo_pos):
-        lat = geo_pos["lat"]
-        lng = geo_pos["lng"]
-        if lat < -90 or lat > 90:
-            return False
-        if lng < -180 or lng > 180:
-            return False
-        return True
-
-    # Returns the distance from this node to another in feets
+    """
+    Returns the distance from this node to another in feets
+    """
     def get_distance_to(self, node):
         sp = self.geo_pos
         ss = node.geo_pos
@@ -29,3 +25,11 @@ class Node:
             (ss["lat"], ss["lng"]),
         )
         return distance.feet
+
+    """
+    If the node is in SAME_NODE_THRESHOLD_FEET feets from the current node, we
+    take them as the same node
+    """
+    def is_same(self, node):
+        distance_feet = self.get_distance_to(node)
+        return distance_feet < self.SAME_NODE_THRESHOLD_FEET
