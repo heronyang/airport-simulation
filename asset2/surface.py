@@ -96,6 +96,14 @@ class Taxiway(Link):
     def __repr__(self):
         return "<TAXIWAY: %s>" % self.name
 
+class PushbackWay(Link):
+
+    def __init__(self, index, name, nodes):
+        Link.__init__(self, index, name, nodes)
+
+    def __repr__(self):
+        return "<PUSHBACKWAY: %s>" % self.name
+
 class SurfaceFactory:
     """
     SurfaceFactory loads surface data files under `dir_path` and uses them for
@@ -109,6 +117,7 @@ class SurfaceFactory:
         "gates.json",
         "spots.json",
         "runways.json",
+        "pushback_ways.json",
         "taxiways.json"
     ]
 
@@ -124,6 +133,7 @@ class SurfaceFactory:
         SurfaceFactory.__load_spots(surface, dir_path)
         SurfaceFactory.__load_runway(surface, dir_path)
         SurfaceFactory.__load_taxiway(surface, dir_path)
+        SurfaceFactory.__load_pushback_way(surface, dir_path)
         return surface
 
     @classmethod
@@ -181,6 +191,11 @@ class SurfaceFactory:
         surface.taxiways = SurfaceFactory.__retrive_link("taxiways", dir_path)
 
     @classmethod
+    def __load_pushback_way(self, surface, dir_path):
+        surface.pushback_ways = SurfaceFactory.__retrive_link("pushback_ways",
+                                                              dir_path)
+
+    @classmethod
     def __retrive_link(self, type_name, dir_path):
 
         links = []
@@ -201,6 +216,8 @@ class SurfaceFactory:
                 links.append(Runway(index, name, nodes))
             elif type_name == "taxiways":
                 links.append(Taxiway(index, name, nodes))
+            elif type_name == "pushback_ways":
+                links.append(PushbackWay(index, name, nodes))
             else:
                 raise Exception("Unknown link type")
 

@@ -50,6 +50,7 @@ class Screen(QMainWindow):
         self.draw_spots()
         self.draw_runways()
         self.draw_taxiways()
+        self.draw_pushback_ways()
 
     def draw_gates(self):
         for gate in self.airport.surface.gates:
@@ -76,6 +77,10 @@ class Screen(QMainWindow):
     def draw_taxiways(self):
         for taxiway in self.airport.surface.taxiways:
             self.draw_link(taxiway, Qt.black)
+
+    def draw_pushback_ways(self):
+        for taxiway in self.airport.surface.pushback_ways:
+            self.draw_link(taxiway, Qt.green)
 
     def draw_link(self, link, color):
 

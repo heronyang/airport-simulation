@@ -45,12 +45,17 @@ def main():
 
         # Generates runway data
         logger.debug("Genenrating runway data")
-        generate_line_data(items, "runway")
+        generate_link_data(items, "runway")
         logger.debug("Runway data generated")
 
         # Generates taxiway data
         logger.debug("Genenrating taxiway data")
-        generate_line_data(items, "taxiway")
+        generate_link_data(items, "taxiway")
+        logger.debug("Taxiway data generated")
+
+        # Generates pushback way data
+        logger.debug("Genenrating taxiway data")
+        generate_pushback_way()
         logger.debug("Taxiway data generated")
 
         # Generates schedule
@@ -142,26 +147,52 @@ def generate_spot_position_data():
 
     # Reads spot data from input KML file
     with open("spot.kml", "rb") as f:
-
         k.from_string(f.read())
-        items = list(list(k.features())[0].features())
 
-        for item in items:
-            index, name = int(item.name[1:]), item.name
-            lat, lng = item.geometry.y, item.geometry.x
-            nodes.append({
-                "index": index,
-                "name": name,
-                "lat": lat,
-                "lng": lng
-            })
+    items = list(list(k.features())[0].features())
+    for item in items:
+        index, name = int(item.name[1:]), item.name
+        lat, lng = item.geometry.y, item.geometry.x
+        nodes.append({
+            "index": index,
+            "name": name,
+            "lat": lat,
+            "lng": lng
+        })
 
     output_filename = OUTPUT_FOLDER + "spots.json"
     export_to_json(output_filename, nodes)
 
-def generate_line_data(items, type_name):
+def generate_pushback_way():
 
-    lines = []
+    k = kml.KML()
+    nodes = []
+
+    # Reads spot data from input KML file
+    with open("pushback_way.kml", "rb") as f:
+        k.from_string(f.read())
+
+    links = []
+    items = list(list(k.features())[0].features())
+    for item in items:
+        name = item.name
+        index = name[1:]
+        nodes = []
+        for coordinate in item.geometry.coords:
+            nodes.append(coordinate[:2])
+        links.append({
+            "name": name,
+            "index": index,
+            "nodes": nodes
+        })
+
+    output_filename = OUTPUT_FOLDER + "pushback_ways.json"
+    export_to_json(output_filename, links)
+
+
+def generate_link_data(items, type_name):
+
+    links = []
 
     for item in items:
 
@@ -179,7 +210,7 @@ def generate_line_data(items, type_name):
         nodes = item["geometry"]["coordinates"]
 
         # Puts to the buffer and will export to file later
-        lines.append({
+        links.append({
             "index": index,
             "name": name,
             "nodes": nodes
@@ -187,7 +218,7 @@ def generate_line_data(items, type_name):
 
     # Add s for plural as the output filename
     output_filename = OUTPUT_FOLDER + type_name + "s.json"
-    export_to_json(output_filename, lines)
+    export_to_json(output_filename, links)
 
 def generate_schedule():
     """
