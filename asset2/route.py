@@ -62,15 +62,15 @@ class Route:
 # TODO
 class Itinerary:
 
-    def __init__(self, route, expected_completion_time):
+    def __init__(self, route, expected_start_time):
         self.current_location = route.start
         self.route = route
-        self.expected_completion_time = expected_completion_time
+        self.expected_start_time = expected_start_time
 
     def get_distance_left(self):
         return 0
 
-    def get_estimated_finished_time(self, v):
+    def get_estimated_finish_time(self, v):
         return 0
 
     def move_distance_feet(self, distance):
