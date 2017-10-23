@@ -118,12 +118,3 @@ class Itinerary:
 
     def is_completed(self):
         return self.current_location.is_close_to(self.route.end)
-
-# TODO
-class RouteExpert:
-
-    def __init__(self, nodes, links):
-        pass
-
-    def get_shortest_route(self, start, end):
-        return Route(start, end, [])
