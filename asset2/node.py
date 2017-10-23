@@ -3,7 +3,7 @@ from geopy.distance import vincenty
 
 class Node:
 
-    SAME_NODE_THRESHOLD_FEET = 10
+    CLOSE_NODE_THRESHOLD_FEET = 30
 
     def __init__(self, index, name, geo_pos):
 
@@ -27,9 +27,12 @@ class Node:
         return distance.feet
 
     """
-    If the node is in SAME_NODE_THRESHOLD_FEET feets from the current node, we
+    If the node is in CLOSE_NODE_THRESHOLD_FEET feets from the current node, we
     take them as the same node
     """
-    def is_same(self, node):
+    def is_close_to(self, node):
         distance_feet = self.get_distance_to(node)
-        return distance_feet < self.SAME_NODE_THRESHOLD_FEET
+        return distance_feet < self.CLOSE_NODE_THRESHOLD_FEET
+
+    def __repr__(self):
+        return "<Node: %s>" % self.name

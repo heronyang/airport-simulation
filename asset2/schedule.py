@@ -12,9 +12,6 @@ class Schedule:
     schedule we see on the screens in the airports.
     """
 
-    arrivals = []
-    departures = []
-
     def __init__(self, arrivals, departures):
         self.arrivals = arrivals
         self.departures = departures

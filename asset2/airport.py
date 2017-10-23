@@ -12,10 +12,10 @@ class Airport:
     aircrafts in the airport.
     """
 
-    # Runtime data
-    aircrafts = []
-
     def __init__(self, code, surface, schedule):
+
+        # Runtime data
+        selfaircrafts = []
 
         # Static data
         self.code = code

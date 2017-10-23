@@ -6,9 +6,6 @@ class Aircraft:
     knows. It won't obtain information other than its own state and operation.
     """
 
-    itineraries = []
-    velocity = 0
-
     class State(enum.Enum):
         unknown = 0
         scheduled = 1
@@ -17,6 +14,9 @@ class Aircraft:
         departing = 4
 
     def __init__(self, callsign, model, state, location):
+
+        self.itineraries = []
+        self.velocity = 0
 
         self.callsign = callsign
         self.model = model

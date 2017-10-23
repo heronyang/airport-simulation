@@ -10,12 +10,13 @@ class Surface:
     an airport, including its gates, spot positions, runways, etc.
     """
 
-    gates = []
-    spots = []
-    runways = []
-    taxiways = []
-
     def __init__(self, center, corners, image_filepath):
+
+        self.gates = []
+        self.spots = []
+        self.runways = []
+        self.taxiways = []
+
         self.center = center
         self.corners = corners
         self.image_filepath = image_filepath

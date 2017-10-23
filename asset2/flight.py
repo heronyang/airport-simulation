@@ -1,7 +1,9 @@
 from aircraft import Aircraft
 
 class Flight:
-    aircraft = None
+
+    def __init__():
+        self.aircraft = None
 
 class ArrivalFlight(Flight):
 
