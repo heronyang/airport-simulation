@@ -64,10 +64,7 @@ class FCFSScheduler:
             self.print(sch)
 
         return schedule            
-            
-
-        pass
-
+        
 
     def get_delay(self, start_node, end_node, airline):
         """
