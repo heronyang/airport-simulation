@@ -16,7 +16,7 @@ class FCFSScheduler:
         """
 
         self.requests = sorted(requests, key = lambda x: x[2])
-        self. checker = checker
+        self.checker = checker
         self.method = method
         self.debug = debug
 
@@ -24,7 +24,7 @@ class FCFSScheduler:
         if self.debug:
             print(args)
 
-    def generateSchedule(self):
+    def generate_schedule(self):
 
         """
             Method responsible for generating the schedule based on the requests obtained
@@ -69,7 +69,7 @@ class FCFSScheduler:
         pass
 
 
-    def getDelay(self, start_node, end_node, airline):
+    def get_delay(self, start_node, end_node, airline):
         """
          Return:
             -time required for the airpline to move from start node to destination node
@@ -77,7 +77,7 @@ class FCFSScheduler:
 
         return 1
 
-    def getRoute(self, gate):
+    def get_route(self, gate):
         """
             Return:
                 -List of nodes on the route from the gate to the nearest runway
@@ -85,7 +85,7 @@ class FCFSScheduler:
 
         pass
 
-    def checkConflict(self, schedule):
+    def check_conflict(self, schedule):
         """
             Checks for conflicts in the given schedule
             Return: 
@@ -111,7 +111,7 @@ class FCFSScheduler:
                     occupied_nodes[node] = airline
         return None
 
-    def resolveConflict(self, conflictInfo, schedule):
+    def resolve_conflict(self, conflictInfo, schedule):
         """
             Params:
                 - conflictInfo: (time, node, airline1, airline2) involved in the conflict
