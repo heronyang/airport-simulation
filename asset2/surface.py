@@ -57,6 +57,20 @@ class Surface:
 
         raise Exception("Getting an unknown link")
 
+    """
+    Returns all links.
+    """
+    @property
+    def links(self):
+        return self.runways + self.taxiways
+
+    """
+    Returns all nodes.
+    """
+    @property
+    def nodes(self):
+        return self.gates + self.spots
+
 class Gate(Node):
 
     def __init__(self, index, name, geo_pos):
@@ -185,7 +199,6 @@ class SurfaceFactory:
     @classmethod
     def __load_runway(self, surface, dir_path):
         surface.runways = SurfaceFactory.__retrive_link("runways", dir_path)
-        print(surface.runways)
 
     @classmethod
     def __load_taxiway(self, surface, dir_path):

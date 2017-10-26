@@ -1,4 +1,3 @@
-from IPython.core.debugger import Tracer
 class Route:
     """
     Route represents a long path composed with a start node, an end node, and
@@ -101,7 +100,6 @@ class Route:
 class Itinerary:
 
     def __init__(self, route, expected_start_time):
-        self.current_location = route.start
         self.route = route
         self.expected_start_time = expected_start_time
 

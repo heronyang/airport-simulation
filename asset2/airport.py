@@ -1,31 +1,34 @@
 import os
+import logging
 
 from surface import SurfaceFactory
-from schedule import ScheduleFactory
-from IPython.core.debugger import Tracer
+from scenario import ScenarioFactory
 
 class Airport:
     """
-    Airport contains the surface, the arrival/departure schedule, and all the
+    Airport contains the surface, the arrival/departure scenario, and all the
     aircrafts currently moving or parking in this airport. The flight data in
-    `schedule` is for lookups while the `aircraft` list represents the real
+    `scenario` is for lookups while the `aircraft` list represents the real
     aircrafts in the airport.
     """
 
-    def __init__(self, code, surface, schedule):
+    def __init__(self, code, surface, scenario):
 
         # Runtime data
-        selfaircrafts = []
+        self.aircrafts = []
 
         # Static data
         self.code = code
         self.surface = surface
 
         # Read only data
-        self.schedule = schedule
+        self.scenario = scenario
+
+        # Setups the logger
+        self.logger = logging.getLogger(__name__)
 
     """
-    Callback function for handling the schedule response. Adds target for an
+    Callback function for handling the scenario response. Adds target for an
     aircraft with its expected completion time.
     """
     def add_target(self, aircraft, target, expected_completion_time):
@@ -46,6 +49,6 @@ class AirportFactory:
             raise Exception("Surface data is not ready")
 
         surface = SurfaceFactory.create(dir_path)
-        schedule = ScheduleFactory.create(dir_path, surface)
+        scenario = ScenarioFactory.create(dir_path, surface)
 
-        return Airport(code, surface, schedule)
+        return Airport(code, surface, scenario)

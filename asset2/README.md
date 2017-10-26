@@ -21,4 +21,14 @@ airport code).
 
 ## Run
 
-    $ python3 run.py --airport sfo --schedule sep-11
+    $ python3 run.py --airport sfo # without graphical minotor
+    $ python3 run.py --airport sfo -u # with graphical minotor
+
+## Developer Guidelines
+
+### Logging
+
+Default logging level is set in `simulation.py`, and please initialize logging
+for each class in `__init__` like this way:
+
+    self.logger = logging.getLogger(__name__)

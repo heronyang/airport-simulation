@@ -1,4 +1,5 @@
 import sys
+import logging
 
 from utils import ll2px
 
@@ -114,13 +115,16 @@ class Monitor:
 
     def __init__(self, simulation):
 
+        # Setups the logger
+        self.logger = logging.getLogger(__name__)
+
         self.app = QApplication(sys.argv)
         self.simulation = simulation
         self.screen = Screen(self.simulation.airport)
 
     def start(self):
         self.app.exec_()
-        print("Start ends")
+        self.logger.debug("Start ends")
 
     def close(self):
         self.screen.close()

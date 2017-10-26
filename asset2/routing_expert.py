@@ -1,10 +1,14 @@
+import logging
+
 from link import Link
 from route import Route
-from IPython.core.debugger import Tracer
 
 class RoutingExpert:
 
     def __init__(self, links, nodes):
+
+        # Setups the logger
+        self.logger = logging.getLogger(__name__)
 
         self.routing_table = {}
 
@@ -22,21 +26,26 @@ class RoutingExpert:
 
     def build_routes(self):
 
+        self.logger.debug("Starts building routes, # nodes: %d # links: %d" %
+                          (len(self.nodes), len(self.links)))
         self.init_routing_table()
 
         # Step 1: Links two nodes with really short distance (using
         # is_close_to method)
+        self.logger.debug("Starts linking close nodes")
         self.link_close_nodes()
 
         # Step 2: Links the start and end node of the links
+        self.logger.debug("Starts linking existing links")
         self.link_existing_links()
 
         # Step 3: Applies Floyd–Warshall algorithm to get shortest routes for
         # all node pairs
+        self.logger.debug("Starts floyd-warshall for finding shortest routes")
         self.finds_shortest_route()
 
         # Prints result
-        self.print_route()
+        # self.print_route()
 
     def init_routing_table(self):
 
@@ -102,12 +111,12 @@ class RoutingExpert:
 
         for start in self.nodes:
             for end in self.nodes:
-                print("[%s - %s]" % (start, end))
+                logger.debug("[%s - %s]" % (start, end))
                 route = self.routing_table[start][end] 
                 if (route):
-                    print(route.description)
+                    logger.debug(route.description)
                 else:
-                    print("No Route")
+                    logger.debug("No Route")
 
     """
     Gets the shortest route by given start and end node.
