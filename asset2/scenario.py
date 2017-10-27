@@ -13,12 +13,22 @@ class Scenario:
     """
 
     def __init__(self, arrivals, departures):
+
         self.arrivals = arrivals
         self.departures = departures
+        self.build_lookup_table()
+
+    def build_lookup_table(self):
+        self.flight_table = {}
+        for flight in self.arrivals + self.departures:
+            self.flight_table[flight.aircraft] = flight
 
     def __repr__(self):
         n_flights = len(self.arrivals) + len(self.departures)
         return "<Scenario: " + str(n_flights) + " flights>"
+
+    def get_flight(self, aircraft):
+        return self.flight_table[aircraft]
 
 class ScenarioFactory:
 

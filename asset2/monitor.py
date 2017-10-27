@@ -132,7 +132,6 @@ class Monitor:
 
     def start(self):
         self.app.exec_()
-        self.logger.debug("Start ends")
 
     def tick(self):
         self.screen.tick()

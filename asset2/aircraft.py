@@ -1,5 +1,5 @@
-import logging
 import enum
+import logging
 
 class Aircraft:
     """
@@ -9,10 +9,9 @@ class Aircraft:
 
     class State(enum.Enum):
         unknown = 0
-        scheduled = 1
-        arriving = 2
-        parked = 3
-        departing = 4
+        scheduled = 1   # Haven't appeared in the simulation
+        moving = 2  # Moving on a route
+        stopped = 3  # Stopped on a node
 
     def __init__(self, callsign, model, state, location):
 
@@ -31,9 +30,12 @@ class Aircraft:
     def set_location(self, location):
         self.logger.debug("%s changed location to %s" % (self, location))
         self.location = location
+        self.state = self.State.stopped
 
     def add_itinerary(self, itinerary):
         self.itineraries.append(itinerary)
+        self.state = self.State.moving
+        self.logger.debug("New itinerary received")
 
     def tick(self):
         pass
@@ -73,6 +75,18 @@ class Aircraft:
         distance = self.v * delta_time + 0.5 * acc * delta_time * delta_time
         self.v += acc * delta_time
         return distance
+
+    def __hash__(self):
+        return hash(self.callsign)
+
+    def __eq__(self, other):
+        return self.callsign == other.callsign
+
+    def __ne__(self, other):
+        return not(self == other)
+
+    def __repr__(self):
+        return "<Aircraft: %s>" % self.callsign
 
 class Pilot:
 
