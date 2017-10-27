@@ -33,6 +33,13 @@ class Airport:
                 raise Exception("%s not found in the airport" % aircraft)
             aircraft.add_itinerary(itinerary)
 
+    def add_aircraft(self, aircraft):
+        self.aircrafts.append(aircraft)
+
+    def tick(self):
+        for aircraft in self.aircrafts:
+            aircraft.tick()
+
 class AirportFactory:
 
     DATA_ROOT_DIR_PATH = "./data/%s/build/"

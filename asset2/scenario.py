@@ -16,10 +16,6 @@ class Scenario:
         self.arrivals = arrivals
         self.departures = departures
 
-    def delay(self, flight, time_length):
-        # TODO: pull out the flight from the array and update its ETA/ETD
-        pass
-
     def __repr__(self):
         n_flights = len(self.arrivals) + len(self.departures)
         return "<Scenario: " + str(n_flights) + " flights>"
@@ -40,18 +36,28 @@ class ScenarioFactory:
         arrivals = []
         for af in scenario_raw["arrivals"]:
             arrivals.append(ArrivalFlight(
-                af["callsign"], af["model"], af["airport"],
-                surface.get_node(af["gate"]), surface.get_link(af["runway"]),
-                str2time(af["time"]), surface.get_node(af["spot"])
+                af["callsign"],
+                af["model"],
+                af["airport"],
+                surface.get_node(af["gate"]),
+                surface.get_node(af["spot"]),
+                surface.get_link(af["runway"]),
+                str2time(af["time"]),
+                str2time(af["appear_time"])
             ))
 
         # Parse departure flights into the array
         departures = []
         for df in scenario_raw["departures"]:
             departures.append(DepartureFlight(
-                df["callsign"], df["model"], df["airport"],
-                surface.get_node(df["spot"]), surface.get_link(df["runway"]),
-                str2time(df["time"])
+                df["callsign"],
+                df["model"],
+                df["airport"],
+                surface.get_node(af["gate"]),
+                surface.get_node(df["spot"]),
+                surface.get_link(df["runway"]),
+                str2time(df["time"]),
+                str2time(df["appear_time"])
             ))
 
         return Scenario(arrivals, departures)

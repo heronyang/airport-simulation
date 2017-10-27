@@ -15,15 +15,15 @@ airport code).
     $ brew install pyqt # install python qt for mac users
     $ sudo apt-get install python-qt5 # for Ubuntu users
 
-## Run Tests
-
-    $ python3 -m unittest discover tests
-
 ## Run
 
     $ python3 simulator.py --airport sfo # without graphical minotor
     $ python3 simulator.py --airport sfo -u # with graphical minotor
     $ python3 simulator.py --help
+
+## Run Tests
+
+    $ python3 -m unittest discover tests
 
 ## Developer Guidelines
 

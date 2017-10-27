@@ -24,10 +24,19 @@ class Aircraft:
         self.location = location
         self.pilot = Pilot()
 
+    def set_location(self, location):
+        self.location = location
+
     def add_itinerary(self, itinerary):
         self.itineraries.append(itinerary)
 
+    def tick(self):
+        pass
+
+    """
     def tick(self, delta_time, now):
+
+        return
 
         # If there's no ongoing itinerary, do nothing
         # FIXME: we assume that the pilot always makes the velocity = 0 before
@@ -49,6 +58,7 @@ class Aircraft:
         # Removes itinerary if we've arrived the end of the current itinerary
         if (itinerary.is_completed()):
             self.itineraries = self.itineraries[1:]
+            """
 
     def operate(self, expected_v, delta_time):
         # TODO

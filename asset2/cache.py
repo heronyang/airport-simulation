@@ -18,7 +18,6 @@ def get(key):
         with open(CACHE_DIR + key + ".pkl", 'rb') as f:
             return pickle.load(f)
     except Exception:
-        # Cache file does not exist
         logger.debug("No cache file found")
         return None
 

@@ -233,7 +233,8 @@ def generate_scenario():
                 "gate": "A2",
                 "spot": "S2",
                 "runway": "10R/28L",
-                "time": "0700"
+                "time": "0700",
+                "appear_time": "0645"
             },
             {
                 "callsign": "AAL122",
@@ -242,7 +243,8 @@ def generate_scenario():
                 "gate": "A1",
                 "spot": "S1",
                 "runway": "1R/19L",
-                "time": "1300"
+                "time": "1300",
+                "appear_time": "1245"
             },
             {
                 "callsign": "AAL123",
@@ -251,7 +253,8 @@ def generate_scenario():
                 "gate": "A4",
                 "spot": "S4",
                 "runway": "1R/19L",
-                "time": "2100"
+                "time": "2100",
+                "appear_time": "2045"
             }
         ],
         "departures": [
@@ -259,25 +262,31 @@ def generate_scenario():
                 "callsign": "AAL121",
                 "model": "A319",
                 "airport": "SJC",
-                "spot": "S2",
+                "gate": "66A",
+                "spot": "S3",
                 "runway": "10R/28L",
-                "time": "0730"
+                "time": "0730",
+                "appear_time": "0700"
             },
             {
                 "callsign": "AAL122",
                 "model": "A329",
                 "airport": "JFK",
-                "spot": "S1",
+                "gate": "65A",
+                "spot": "S3",
                 "runway": "1R/19L",
-                "time": "1330"
+                "time": "1330",
+                "appear_time": "1300"
             },
             {
                 "callsign": "AAL123",
                 "model": "A339",
                 "airport": "DFW",
+                "gate": "64A",
                 "spot": "S4",
                 "runway": "1R/19L",
-                "time": "2130"
+                "time": "2130",
+                "appear_time": "2100"
             }
         ]
     }
