@@ -15,12 +15,17 @@ class Scheduler:
 
         # simulation.airport : all airport states
         # simulation.routing_expert : gets routes from node A to node B
-        # time : time of a day
+        # time : current simulated time of a day
         self.logger.debug("Scheduling starts")
-        self.logger.debug("Found %d aircrafts", len(simulation.airport.aircrafts))
+        self.logger.debug("Found %d aircrafts",
+                          len(simulation.airport.aircrafts))
 
         # helper function:
         # conflicts = simulation.predict_state_after(schedule, time_from_now)
+
+        # put break point:
+        # from IPython.core.debugger import Tracer; Tracer()()
+
         ai = {}
         for aircraft in simulation.airport.aircrafts:
             if aircraft.state == Aircraft.State.stopped:
@@ -33,8 +38,6 @@ class Scheduler:
                     flight.from_gate, flight.spot)
                 ai[aircraft] = Itinerary(route, flight.departure_time)
                 self.logger.debug("Adds route %s on %s" % (route, aircraft))
-                from IPython.core.debugger import Tracer; Tracer()()
 
-        # Excepted return: schedule
         self.logger.debug("Scheduling done")
         return Schedule(ai)

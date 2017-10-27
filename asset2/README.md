@@ -33,3 +33,9 @@ Default logging level is set in `simulation.py`, and please initialize logging
 for each class in `__init__` like this way:
 
     self.logger = logging.getLogger(__name__)
+
+### Debug
+
+Put breakpoint in this way (make sure IPython is installed):
+
+    from IPython.core.debugger import Tracer; Tracer()()
