@@ -28,10 +28,10 @@ class Airport:
         self.scenario = scenario
 
     def apply_schedule(self, schedule):
-        for aircraft, itinerary in schedule.aircraft_itineraries.items():
-            if not aircraft in self.aircrafts:
-                raise Exception("%s not found in the airport" % aircraft)
-            aircraft.add_itinerary(itinerary)
+        for r in schedule.requests:
+            if not r.aircraft in self.aircrafts:
+                raise Exception("%s not found in the airport" % r.aircraft)
+            r.aircraft.add_itinerary(r.itinerary)
 
     def add_aircraft(self, aircraft):
         self.aircrafts.append(aircraft)

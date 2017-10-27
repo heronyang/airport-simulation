@@ -26,7 +26,7 @@ class Scheduler:
         # put break point:
         # from IPython.core.debugger import Tracer; Tracer()()
 
-        ai = {}
+        requests = []
         for aircraft in simulation.airport.aircrafts:
             if aircraft.state == Aircraft.State.stopped:
 
@@ -36,8 +36,10 @@ class Scheduler:
                 # Gets the route from the routing expert
                 route = simulation.routing_expert.get_shortest_route(
                     flight.from_gate, flight.spot)
-                ai[aircraft] = Itinerary(route, flight.departure_time)
+
+                itinerary = Itinerary(route, flight.departure_time)
+                requests.append(Schedule.Request(aircraft, itinerary))
                 self.logger.debug("Adds route %s on %s" % (route, aircraft))
 
         self.logger.debug("Scheduling done")
-        return Schedule(ai)
+        return Schedule(requests)

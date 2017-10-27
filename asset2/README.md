@@ -6,7 +6,7 @@
 
 ## Prepare airport data
 
-Place airport related data under `data` folder like `data/sfo` (use IATA
+Place airport related data under `data` folder like `data/sfo/build/` (use IATA
 airport code).
 
 ## Installation
@@ -18,7 +18,7 @@ airport code).
 ## Run
 
     $ python3 simulator.py --airport sfo # without graphical minotor
-    $ python3 simulator.py --airport sfo -u # with graphical minotor
+    $ python3 simulator.py --airport sfo -g # with graphical minotor
     $ python3 simulator.py --help
 
 ## Run Tests

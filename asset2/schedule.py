@@ -5,8 +5,10 @@ class Schedule:
     should *ONLY* contains the new itineraries that the aircrafts don't obtain.
     """
 
-    """
-    aircraft_itineraries = [ { aircraft : itinerary } ]
-    """
-    def __init__(self, aircraft_itineraries):
-        self.aircraft_itineraries = aircraft_itineraries
+    class Request:
+        def __init__(self, aircraft, itinerary):
+            self.aircraft = aircraft
+            self.itinerary = itinerary
+
+    def __init__(self, requests):
+        self.requests = requests
