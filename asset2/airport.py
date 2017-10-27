@@ -39,6 +39,21 @@ class Airport:
     def tick(self):
         for aircraft in self.aircrafts:
             aircraft.tick()
+    
+    def print_stats(self):
+
+        # Prints arrival flights
+        self.logger.debug("Scenario: arrival flights loaded")
+        for flight in self.scenario.arrivals:
+            self.logger.debug(flight)
+
+        # Prints departure flights
+        self.logger.debug("Scenario: departure flights loaded")
+        for flight in self.scenario.departures:
+            self.logger.debug(flight)
+
+        # Prints surface stats
+        self.surface.print_stats()
 
 class AirportFactory:
 

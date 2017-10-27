@@ -53,7 +53,7 @@ class ScenarioFactory:
                 df["callsign"],
                 df["model"],
                 df["airport"],
-                surface.get_node(af["gate"]),
+                surface.get_node(df["gate"]),
                 surface.get_node(df["spot"]),
                 surface.get_link(df["runway"]),
                 str2time(df["time"]),

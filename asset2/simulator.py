@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import os
 import sys
 import time
 import logging
@@ -63,20 +64,8 @@ def start(params):
     simulation = Simulation(params.airport,
                             params.tick_sim_time,
                             params.reschedule_sim_time)
+    run_simulation(simulation, params.tick_pause_time, None)
 
-    # Starts to tick periodically
-    try:
-        while not is_finished:
-            simulation.tick()
-            time.sleep(params.tick_pause_time)
-    except KeyboardInterrupt:
-        logger.debug("Caught keyboard interrupt, simulation exits")
-    except ClockException:
-        logger.debug("Simulation ends")
-        # TODO: Should ask the simulation for performance result here
-    except Exception as e:
-        logger.debug(traceback.format_exc())
-        logger.debug("Simulation exists on unexpected error")
 
 def start_with_monitor(params):
 
@@ -94,8 +83,8 @@ def start_with_monitor(params):
 
     # Runs simulation  (non-block)
     simulation_thread = threading.Thread(
-        target = run_simulation_in_background,
-        args = (simulation, monitor, params.tick_pause_time))
+        target = run_simulation,
+        args = (simulation, params.tick_pause_time, monitor))
     simulation_thread.start()
 
     # Runs monitor (block)
@@ -104,21 +93,26 @@ def start_with_monitor(params):
 
     is_finished = True
 
-def run_simulation_in_background(simulation, monitor, pause_time):
+def run_simulation(simulation, pause_time, monitor):
 
     global is_finished
 
+    # Starts to tick periodically
     try:
         while not is_finished:
             simulation.tick()
-            monitor.tick()
+            if monitor:
+                monitor.tick()
             time.sleep(pause_time)
     except KeyboardInterrupt:
-        logger.debug("Background simulation done")
-    except Exception:
-        logger.debug("Simulation exists")
-
-    logger.debug("Simulation ends")
+        logger.debug("Caught keyboard interrupt, simulation exits")
+    except ClockException:
+        logger.debug("Simulation ends")
+        # TODO: Should ask the simulation for performance metric here
+    except Exception as e:
+        logger.debug(traceback.format_exc())
+        logger.debug("Simulation exists on unexpected error")
+        os._exit(1)
 
 if __name__ == "__main__":
     main()

@@ -1,5 +1,6 @@
 import os
 import json
+import logging
 
 from node import Node
 from link import Link
@@ -11,6 +12,9 @@ class Surface:
     """
 
     def __init__(self, center, corners, image_filepath):
+
+        # Setups the logger
+        self.logger = logging.getLogger(__name__)
 
         self.gates = []
         self.spots = []
@@ -70,6 +74,13 @@ class Surface:
     @property
     def nodes(self):
         return self.gates + self.spots
+
+    def print_stats(self):
+
+        # Prints surface states
+        self.logger.debug("%d gates, %d spots, %d runways, %d taxiways" %
+                          (len(self.gates), len(self.spots), len(self.runways),
+                           len(self.taxiways)))
 
 class Gate(Node):
 
@@ -236,4 +247,3 @@ class SurfaceFactory:
                 raise Exception("Unknown link type")
 
         return links
-

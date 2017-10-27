@@ -1,3 +1,4 @@
+import logging
 import enum
 
 class Aircraft:
@@ -15,6 +16,9 @@ class Aircraft:
 
     def __init__(self, callsign, model, state, location):
 
+        # Setups the logger
+        self.logger = logging.getLogger(__name__)
+
         self.itineraries = []
         self.velocity = 0
 
@@ -25,6 +29,7 @@ class Aircraft:
         self.pilot = Pilot()
 
     def set_location(self, location):
+        self.logger.debug("%s changed location to %s" % (self, location))
         self.location = location
 
     def add_itinerary(self, itinerary):

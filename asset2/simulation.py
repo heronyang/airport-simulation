@@ -32,6 +32,8 @@ class Simulation:
         self.reschedule_time = reschedule_time
         self.last_schedule_time = None
 
+        self.print_stats()
+
     def tick(self):
 
         self.logger.debug("Current Time: %s" % self.now)
@@ -78,8 +80,10 @@ class Simulation:
     def now(self):
         return self.clock.now
 
-    def close(self):
-        self.logger("Closing the simulation")
+    def print_stats(self):
+
+        self.airport.print_stats()
+
 
 class SimulationDelegate:
     """

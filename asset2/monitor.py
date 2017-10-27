@@ -52,6 +52,7 @@ class Screen(QMainWindow):
         self.draw_runways()
         self.draw_taxiways()
         self.draw_pushback_ways()
+        self.draw_aircrafts()
 
     def draw_gates(self):
         for gate in self.airport.surface.gates:
@@ -60,6 +61,10 @@ class Screen(QMainWindow):
     def draw_spots(self):
         for spot in self.airport.surface.spots:
             self.draw_node(spot, Qt.red)
+
+    def draw_aircrafts(self):
+        for aircraft in self.airport.aircrafts:
+            self.draw_node(aircraft.location, Qt.black)
 
     def draw_node(self, node, color):
 
@@ -77,7 +82,7 @@ class Screen(QMainWindow):
 
     def draw_taxiways(self):
         for taxiway in self.airport.surface.taxiways:
-            self.draw_link(taxiway, Qt.black)
+            self.draw_link(taxiway, Qt.gray)
 
     def draw_pushback_ways(self):
         for taxiway in self.airport.surface.pushback_ways:
@@ -104,6 +109,9 @@ class Screen(QMainWindow):
         # Closes the painter
         painter.end()
 
+    def tick(self):
+        self.repaint()
+
 
 class Monitor:
     """
@@ -126,8 +134,5 @@ class Monitor:
         self.app.exec_()
         self.logger.debug("Start ends")
 
-    def close(self):
-        self.screen.close()
-
     def tick(self):
-        pass
+        self.screen.tick()
