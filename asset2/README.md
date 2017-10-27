@@ -39,3 +39,10 @@ for each class in `__init__` like this way:
 Put breakpoint in this way (make sure IPython is installed):
 
     from IPython.core.debugger import Tracer; Tracer()()
+
+### Units
+
+For consistency, following units are used everywhere in the code:
+
+    Time: second
+    Length: ft

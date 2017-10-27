@@ -10,10 +10,7 @@ import traceback
 from simulation import Simulation
 from monitor import Monitor
 from clock import ClockException
-
-DEFAULT_TICK_PAUSE_TIME = 1
-DEFAULT_TICK_SIM_TIME = 5 * 60
-DEFAULT_SCHEDULE_SIM_TIME = 15 * 60
+from config import Config
 
 is_finished = False
 
@@ -45,14 +42,15 @@ def get_params():
 
     parser.add_argument("-tp", "--tick-pause-time", type = int,
                         help = "Seconds paused between each tick in real world",
-                        default = DEFAULT_TICK_PAUSE_TIME)
+                        default = Config.DEFAULT_TICK_PAUSE_TIME)
     parser.add_argument("-ts", "--tick-sim-time", type = int,
                         help = "Seconds past between each tick in the " \
-                        "simluated world", default = DEFAULT_TICK_SIM_TIME)
+                        "simluated world",
+                        default = Config.DEFAULT_TICK_SIM_TIME)
     parser.add_argument("-tr", "--reschedule-sim-time", type = int,
                        help = "Seconds past between scheduling requests in" \
                         "simulated world (seconds)",
-                        default = DEFAULT_SCHEDULE_SIM_TIME)
+                        default = Config.DEFAULT_SCHEDULE_SIM_TIME)
 
     return parser.parse_args()
 

@@ -3,6 +3,7 @@ import logging
 
 from clock import Clock
 from airport import AirportFactory
+from scenario import ScenarioFactory
 from routing_expert import RoutingExpert
 from scheduler import Scheduler
 from utils import get_seconds_after
@@ -19,6 +20,10 @@ class Simulation:
 
         # Sets up the airport
         self.airport = AirportFactory.create(airport_code)
+
+        # Sets up the scenario
+        self.scenario = ScenarioFactory.create(airport_code,
+                                               self.airport.surface)
 
         # Sets up the routing expert monitoring the airport surface
         self.routing_expert = RoutingExpert(self.airport.surface.links,
@@ -65,7 +70,7 @@ class Simulation:
         next_tick_time = get_seconds_after(self.now, self.clock.sim_time)
 
         # For all departure flights
-        for flight in self.airport.scenario.departures:
+        for flight in self.scenario.departures:
             # If it the scheduled appear time is between now and next tick time
             if self.now <= flight.appear_time and \
                flight.appear_time < next_tick_time:
@@ -82,6 +87,7 @@ class Simulation:
 
     def print_stats(self):
 
+        self.scenario.print_stats()
         self.airport.print_stats()
 
 
@@ -98,6 +104,10 @@ class SimulationDelegate:
     def airport(self):
         # TODO: should make it immutable before returning the airport state
         return self.simulation.airport
+
+    @property
+    def scenario(self):
+        return self.simulation.scenario
 
     @property
     def routing_expert(self):

@@ -1,8 +1,10 @@
 import os
 import json
+import logging
 
 from utils import str2time
 from flight import ArrivalFlight, DepartureFlight
+from config import Config
 
 class Scenario:
     """
@@ -13,6 +15,9 @@ class Scenario:
     """
 
     def __init__(self, arrivals, departures):
+
+        # Setups the logger
+        self.logger = logging.getLogger(__name__)
 
         self.arrivals = arrivals
         self.departures = departures
@@ -29,13 +34,26 @@ class Scenario:
 
     def get_flight(self, aircraft):
         return self.flight_table[aircraft]
+    
+    def print_stats(self):
+
+        # Prints arrival flights
+        self.logger.debug("Scenario: arrival flights loaded")
+        for flight in self.arrivals:
+            self.logger.debug(flight)
+
+        # Prints departure flights
+        self.logger.debug("Scenario: departure flights loaded")
+        for flight in self.departures:
+            self.logger.debug(flight)
 
 class ScenarioFactory:
 
     @classmethod
-    def create(self, dir_path, surface):
+    def create(self, code, surface):
 
         # Loads file if it exists; otherwise, raises error
+        dir_path = Config.DATA_ROOT_DIR_PATH % code
         file_path = dir_path+ "scenario.json"
         if not os.path.exists(file_path):
             raise Exception("Scenario file not found")

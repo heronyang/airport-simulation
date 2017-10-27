@@ -31,7 +31,7 @@ class Scheduler:
             if aircraft.state == Aircraft.State.stopped:
 
                 # Pull outs the flight information
-                flight = simulation.airport.scenario.get_flight(aircraft)
+                flight = simulation.scenario.get_flight(aircraft)
 
                 # Gets the route from the routing expert
                 route = simulation.routing_expert.get_shortest_route(
