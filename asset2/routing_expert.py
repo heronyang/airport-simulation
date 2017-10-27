@@ -59,7 +59,7 @@ class RoutingExpert:
         self.finds_shortest_route()
 
         # Prints result
-        # self.print_route()
+        self.print_route()
 
     def init_routing_table(self):
 

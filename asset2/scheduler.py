@@ -12,8 +12,9 @@ class Scheduler:
         self.logger = logging.getLogger(__name__)
 
     def schedule(self, simulation, time):
+
         # simulation.airport : all airport states
-        # simulation.routing_expert : gets rounts from node A to node B
+        # simulation.routing_expert : gets routes from node A to node B
         # time : time of a day
         self.logger.debug("Scheduling starts")
         self.logger.debug("Found %d aircrafts", len(simulation.airport.aircrafts))
@@ -32,6 +33,7 @@ class Scheduler:
                     flight.from_gate, flight.spot)
                 ai[aircraft] = Itinerary(route, flight.departure_time)
                 self.logger.debug("Adds route %s on %s" % (route, aircraft))
+                from IPython.core.debugger import Tracer; Tracer()()
 
         # Excepted return: schedule
         self.logger.debug("Scheduling done")
