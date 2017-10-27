@@ -27,13 +27,11 @@ class Airport:
         # Setups the logger
         self.logger = logging.getLogger(__name__)
 
-    """
-    Callback function for handling the scenario response. Adds target for an
-    aircraft with its expected completion time.
-    """
-    def add_target(self, aircraft, target, expected_completion_time):
-        route = route_expert.get_shortest_route(aircraft.location, target)
-        aircraft.add_itinerary(Itinerary(route, expected_completion_time))
+    def apply_schedule(self, schedule):
+        for aircraft, itinerary in schedule.aircraft_itineraries.items():
+            if not aircraft in self.aircrafts:
+                raise Exception("%s not found in the airport" % aircraft)
+            aircraft.add_itinerary(itinerary)
 
 class AirportFactory:
 

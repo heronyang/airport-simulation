@@ -1,4 +1,5 @@
-from datetime import date, datetime, time, timedelta
+from utils import get_seconds_after
+from datetime import time
 
 """
 Each time tick is excuted representing that `sim_time` has passed in the
@@ -12,14 +13,11 @@ class Clock:
         self.time = time(0, 0)
 
         # Step
-        self.step = timedelta(seconds = sim_time)
+        self.sim_time = sim_time
 
     def tick(self):
 
-        # Since time calculation only works on datetime (not time), so we first
-        # combine self.time with today, then get the time() part
-        holder = datetime.combine(date.today(), self.time)
-        time_after_tick = (holder + self.step).time()
+        time_after_tick = get_seconds_after(self.time, self.sim_time)
 
         if time_after_tick < self.time:
             raise ClockException("Reached the end of the day")

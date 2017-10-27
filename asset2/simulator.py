@@ -45,10 +45,10 @@ def get_params():
     parser.add_argument("-tp", "--tick-pause-time", type = int,
                         help = "Seconds paused between each tick in real world",
                         default = DEFAULT_TICK_PAUSE_TIME)
-    parser.add_argument("-t", "--tick-sim-time", type = int,
+    parser.add_argument("-ts", "--tick-sim-time", type = int,
                         help = "Seconds past between each tick in the " \
                         "simluated world", default = DEFAULT_TICK_SIM_TIME)
-    parser.add_argument("-ts", "--schedule-sim-time", type = int,
+    parser.add_argument("-tr", "--reschedule-sim-time", type = int,
                        help = "Seconds past between scheduling requests in" \
                         "simulated world (seconds)",
                         default = DEFAULT_SCHEDULE_SIM_TIME)
@@ -62,7 +62,7 @@ def start(params):
     # Initializes the simulation
     simulation = Simulation(params.airport,
                             params.tick_sim_time,
-                            params.schedule_sim_time)
+                            params.reschedule_sim_time)
 
     # Starts to tick periodically
     try:
@@ -87,7 +87,7 @@ def start_with_monitor(params):
     # Initializes the simulation
     simulation = Simulation(params.airport,
                             params.tick_sim_time,
-                            params.schedule_sim_time)
+                            params.reschedule_sim_time)
 
     # Initializes the monitor
     monitor = Monitor(simulation)

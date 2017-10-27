@@ -23,6 +23,7 @@ airport code).
 
     $ python3 simulator.py --airport sfo # without graphical minotor
     $ python3 simulator.py --airport sfo -u # with graphical minotor
+    $ python3 simulator.py --help
 
 ## Developer Guidelines
 

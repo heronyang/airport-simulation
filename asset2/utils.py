@@ -31,3 +31,9 @@ def is_valid_geo_pos(geo_pos):
         return False
     return True
 
+def get_seconds_after(t, dt):
+    # Since time calculation only works on datetime (not time), so we first
+    # combine self.time with today, then get the time() part
+    from datetime import date, datetime, timedelta
+    holder = datetime.combine(date.today(), t)
+    return (holder + timedelta(seconds = dt)).time()
