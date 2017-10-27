@@ -129,5 +129,5 @@ class Monitor:
     def close(self):
         self.screen.close()
 
-    def update(self):
-        self.screen.update()
+    def tick(self):
+        pass

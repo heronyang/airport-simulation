@@ -111,12 +111,12 @@ class RoutingExpert:
 
         for start in self.nodes:
             for end in self.nodes:
-                logger.debug("[%s - %s]" % (start, end))
+                self.logger.debug("[%s - %s]" % (start, end))
                 route = self.routing_table[start][end] 
                 if (route):
-                    logger.debug(route.description)
+                    self.logger.debug(route.description)
                 else:
-                    logger.debug("No Route")
+                    self.logger.debug("No Route")
 
     """
     Gets the shortest route by given start and end node.
