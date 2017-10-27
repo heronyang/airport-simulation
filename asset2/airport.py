@@ -14,6 +14,9 @@ class Airport:
 
     def __init__(self, code, surface, scenario):
 
+        # Setups the logger
+        self.logger = logging.getLogger(__name__)
+
         # Runtime data
         self.aircrafts = []
 
@@ -23,9 +26,6 @@ class Airport:
 
         # Read only data
         self.scenario = scenario
-
-        # Setups the logger
-        self.logger = logging.getLogger(__name__)
 
     def apply_schedule(self, schedule):
         for aircraft, itinerary in schedule.aircraft_itineraries.items():

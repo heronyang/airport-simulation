@@ -1,4 +1,5 @@
 import logging
+import cache
 
 from link import Link
 from route import Route
@@ -21,8 +22,21 @@ class RoutingExpert:
         self.links = links
         self.nodes = nodes
 
-        # Builds the routes
-        self.build_routes()
+        # Builds or loads the routing table from cache
+        self.build_or_load_routes()
+
+    def build_or_load_routes(self):
+
+        hash_key = cache.hash(self.links, self.nodes)
+        cached = cache.get(hash_key)
+
+        if cached:
+            self.routing_table = cached
+            self.logger.debug("Cached routing table is loaded")
+        else:
+            # Builds the routes
+            self.build_routes()
+            cache.put(hash_key, self.routing_table)
 
     def build_routes(self):
 
