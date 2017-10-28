@@ -6,7 +6,7 @@ from route import Route
 
 class RoutingExpert:
 
-    def __init__(self, links, nodes):
+    def __init__(self, links, nodes, enable_cache):
 
         # Setups the logger
         self.logger = logging.getLogger(__name__)
@@ -23,7 +23,10 @@ class RoutingExpert:
         self.nodes = nodes
 
         # Builds or loads the routing table from cache
-        self.build_or_load_routes()
+        if enable_cache:
+            self.build_or_load_routes()
+        else:
+            self.build_routes()
 
     def build_or_load_routes(self):
 
@@ -59,7 +62,7 @@ class RoutingExpert:
         self.finds_shortest_route()
 
         # Prints result
-        self.print_route()
+        # self.print_route()
 
     def init_routing_table(self):
 
@@ -74,13 +77,20 @@ class RoutingExpert:
 
     def link_close_nodes(self):
 
+        counter = 0
+
         for start in self.nodes:
             for end in self.nodes:
                 if start != end and start.is_close_to(end):
                     link = Link(0, "CLOSE_NODE_LINK", [start, end])
-                    self.routing_table[start][end].add_link(link)
+                    self.routing_table[start][end].update_link(link)
+                    self.logger.debug("%s and %s are close node" %
+                                      (start, end))
+                    counter += 1
                     if not self.routing_table[start][end].is_completed():
                         raise Exception("Unable to link two close nodes")
+
+        self.logger.debug("Adds %d links for close nodes" % counter)
 
     def link_existing_links(self):
 
@@ -88,11 +98,16 @@ class RoutingExpert:
             start = link.start
             end = link.end
 
-            self.routing_table[start][end].add_link(link)
-            self.routing_table[end][start].add_link(link.reverse)
+            # If there's already a link exists, store the shortest one
+            route = self.routing_table[start][end]
+            route_rev = self.routing_table[end][start]
+            if route.distance > link.length:
+                route.update_link(link)
+                route_rev.update_link(link.reverse)
 
             if not (self.routing_table[start][end].is_completed() and 
                     self.routing_table[end][start].is_completed()):
+                from IPython.core.debugger import Tracer; Tracer()()
                 raise Exception("Unable to link two ends of a link from %s" +\
                                 " to %s" % (start, end))
 
@@ -120,6 +135,9 @@ class RoutingExpert:
                         r_ij.reset_links()
                         r_ij.add_links(r_ik.links)
                         r_ij.add_links(r_kj.links)
+
+                        self.logger.debug("%s -> %s -> %s is shorter than "
+                                          "%s -> %s" % (i, k, j, i, j))
 
     def print_route(self):
 

@@ -8,17 +8,19 @@ from clock import Clock
 
 class TestClock(unittest.TestCase):
 
+    SIM_TIME = 300
+
     def test_init(self):
-        clock = Clock()
-        self.assertEqual(clock.now().minute, 0)
+        clock = Clock(self.SIM_TIME)
+        self.assertEqual(clock.now.minute, 0)
 
     def test_tick(self):
-        clock = Clock()
+        clock = Clock(self.SIM_TIME)
         clock.tick()
-        self.assertEqual(clock.now().minute, 15)
+        self.assertEqual(clock.now.minute, self.SIM_TIME / 60)
         clock.tick()
         clock.tick()
-        self.assertEqual(clock.now().minute, 45)
+        self.assertEqual(clock.now.minute, (self.SIM_TIME * 3)/ 60)
 
 if __name__ == '__main__':
 	unittest.main()

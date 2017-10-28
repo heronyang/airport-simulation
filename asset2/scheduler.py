@@ -2,7 +2,8 @@ import logging
 
 from schedule import Schedule
 from aircraft import Aircraft
-from route import Itinerary, Route
+from route import Route
+from itinerary import Itinerary
 
 class Scheduler:
 

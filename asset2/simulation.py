@@ -27,7 +27,7 @@ class Simulation:
 
         # Sets up the routing expert monitoring the airport surface
         self.routing_expert = RoutingExpert(self.airport.surface.links,
-                                            self.airport.surface.nodes)
+                                            self.airport.surface.nodes, True)
         self.scheduler = Scheduler()
 
         # Sets up a delegate of this simulation

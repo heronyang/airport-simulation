@@ -87,24 +87,15 @@ class Gate(Node):
     def __init__(self, index, name, geo_pos):
         Node.__init__(self, index, name, geo_pos)
 
-    def __repr__(self):
-        return "<GATE: %s>" % self.name
-
 class Spot(Node):
 
     def __init__(self, index, name, geo_pos):
         Node.__init__(self, index, name, geo_pos)
 
-    def __repr__(self):
-        return "<SPOT: %s>" % self.name
-
 class RunwayNode(Node):
 
     def __init__(self, geo_pos):
         Node.__init__(self, -1, "", geo_pos)
-
-    def __repr__(self):
-        return "<RUNWAY_NODE>"
 
 class Runway(Link):
 

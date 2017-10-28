@@ -6,3 +6,6 @@ class Config:
     DEFAULT_TICK_SIM_TIME = 5 * 60
     DEFAULT_SCHEDULE_SIM_TIME = 15 * 60
 
+    CLOSE_NODE_THRESHOLD_FEET = 30
+
+    INFINITE_DISTANCE = 9999999999  # Longer than any distance on earth surface

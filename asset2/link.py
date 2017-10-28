@@ -6,6 +6,7 @@ class Link:
         self.index = index
         self.name = name
         self.nodes = nodes
+        self.hash = hash("%s#%s#%s" % (self.name, self.index, self.nodes))
 
     @property
     def length(self):
@@ -30,6 +31,16 @@ class Link:
         Reverses the node orders, which means the start and end are switched.
         """
         return Link(self.index, self.name, self.nodes[::-1])
+
+    def __hash__(self):
+        return self.hash
+
+    def __eq__(self, other):
+        return self.hash == other.hash
+
+    def __ne__(self, other):
+        return not(self == other)
+
 
     def __repr__(self):
         return "<Link: " + self.name + ">"

@@ -37,3 +37,7 @@ def get_seconds_after(t, dt):
     from datetime import date, datetime, timedelta
     holder = datetime.combine(date.today(), t)
     return (holder + timedelta(seconds = dt)).time()
+
+def new_hash():
+    import uuid
+    return uuid.uuid4().hex

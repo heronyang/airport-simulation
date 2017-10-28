@@ -1,3 +1,5 @@
+from config import Config
+
 class Route:
     """
     Route represents a long path composed with a start node, an end node, and
@@ -6,8 +8,6 @@ class Route:
     `is_completed` function to see if this route is connected from start to
     end.
     """
-
-    INFINITE_DISTANCE = 1000000
 
     def __init__(self, start, end, links):
 
@@ -18,15 +18,18 @@ class Route:
 
     def add_link(self, link):
 
-        last_node = self.get_last_attempted_node()
+        last_node = self.last_attempted_node
 
         # If the last_node is not the same as the start of the new link, raise
         # exception
         if not last_node.is_close_to(link.start):
-            Tracer()()
             raise Exception("New link start node doesn't match with the last " \
                             "node")
         self.links.append(link)
+
+    def update_link(self, link):
+        self.reset_links()
+        self.add_link(link)
 
     def add_links(self, links):
         for link in links:
@@ -36,7 +39,8 @@ class Route:
     Gets the last node that we can reach from the start node. Returns None if
     there's no link in this route.
     """
-    def get_last_attempted_node(self):
+    @property
+    def last_attempted_node(self):
         if len(self.links) == 0:
             return self.start
         return self.links[len(self.links) - 1].end
@@ -73,7 +77,7 @@ class Route:
     @property
     def distance(self):
         if not self.is_completed():
-            return self.INFINITE_DISTANCE
+            return Config.INFINITE_DISTANCE
         distance = 0
         for link in self.links:
             distance += link.length
@@ -95,24 +99,3 @@ class Route:
             s += "> link: %s to %s, distance: %f\n" % (link.start, link.end,
                                                        link.length)
         return s
-
-# TODO
-class Itinerary:
-
-    def __init__(self, route, expected_start_time):
-        self.route = route
-        self.expected_start_time = expected_start_time
-
-    @property
-    def distance_left(self):
-        return 0
-
-    def get_estimated_finish_time(self, v):
-        return 0
-
-    def move_distance_feet(self, distance):
-        # self.current_location += distance
-        return self.current_location
-
-    def is_completed(self):
-        return self.current_location.is_close_to(self.route.end)

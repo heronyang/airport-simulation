@@ -40,9 +40,17 @@ Put breakpoint in this way (make sure IPython is installed):
 
     from IPython.core.debugger import Tracer; Tracer()()
 
+Also, please refer to our [Google Map](https://drive.google.com/open?id=1votbJbKKRUF5gDumno4GXOxVLAE&usp=sharing) for debugging the details.
+
 ### Units
 
 For consistency, following units are used everywhere in the code:
 
     Time: second
     Length: ft
+
+### Cache
+
+Routing table calculated by the routing expert will be cached at `cache/` so
+please make sure all the objects in routing table can be dumped into binary
+file using `pickle`. Ex. logger can't be dumped.
