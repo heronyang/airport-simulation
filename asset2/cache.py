@@ -10,7 +10,6 @@ def put(key, obj):
     if not os.path.exists(CACHE_DIR):
         os.makedirs(CACHE_DIR)
     with open(CACHE_DIR + key + ".pkl", 'wb') as f:
-        from IPython.core.debugger import Tracer; Tracer()()
         pickle.dump(obj, f, pickle.HIGHEST_PROTOCOL)
 
 def get(key):

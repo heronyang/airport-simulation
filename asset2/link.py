@@ -1,3 +1,5 @@
+from utils import str2sha1
+
 class Link:
 
     def __init__(self, index, name, nodes):
@@ -6,7 +8,7 @@ class Link:
         self.index = index
         self.name = name
         self.nodes = nodes
-        self.hash = hash("%s#%s#%s" % (self.name, self.index, self.nodes))
+        self.hash = str2sha1("%s#%s#%s" % (self.name, self.index, self.nodes))
 
     @property
     def length(self):

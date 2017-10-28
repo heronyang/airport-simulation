@@ -1,4 +1,4 @@
-from utils import is_valid_geo_pos
+from utils import is_valid_geo_pos, str2sha1
 from geopy.distance import vincenty
 from config import Config
 
@@ -12,7 +12,7 @@ class Node:
         self.index = index
         self.name = name
         self.geo_pos = geo_pos
-        self.hash = hash("%s#%s#%s" % (index, name, geo_pos))
+        self.hash = str2sha1("%s#%s#%s" % (index, name, geo_pos))
 
     """
     Returns the distance from this node to another in feets

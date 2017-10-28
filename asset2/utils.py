@@ -38,6 +38,6 @@ def get_seconds_after(t, dt):
     holder = datetime.combine(date.today(), t)
     return (holder + timedelta(seconds = dt)).time()
 
-def new_hash():
-    import uuid
-    return uuid.uuid4().hex
+def str2sha1(s):
+    import hashlib
+    return int(hashlib.sha1(s.encode('utf-8')).hexdigest(), 16)
