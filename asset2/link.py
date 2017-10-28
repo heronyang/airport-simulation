@@ -1,4 +1,5 @@
-from utils import str2sha1
+from node import Node
+from utils import str2sha1, interpolate_geo
 
 class Link:
 
@@ -34,6 +35,16 @@ class Link:
         """
         return Link(self.index, self.name, self.nodes[::-1])
 
+    def get_node_from_start(self, distance):
+
+        if distance >= self.length:
+            self.logger.debug("Queried distance is longer than the link")
+            return self.end
+
+        ratio = distance / self.length
+        geo_pos = interpolate_geo(self.start, self.end, ratio)
+        return Node(0, "LINK-INTERMEDIATE-POINT", geo_pos)
+
     def __hash__(self):
         return self.hash
 
@@ -42,7 +53,6 @@ class Link:
 
     def __ne__(self, other):
         return not(self == other)
-
 
     def __repr__(self):
         return "<Link: " + self.name + ">"

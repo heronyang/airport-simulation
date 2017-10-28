@@ -10,4 +10,4 @@ class Config:
 
     INFINITE_DISTANCE = 9999999999  # Longer than any distance on earth surface
 
-    PILOT_EXPECTED_VELOCITY = 50    # ft/sec
+    PILOT_EXPECTED_VELOCITY = 5    # ft/sec, around 3.40909 mph

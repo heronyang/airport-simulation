@@ -46,12 +46,15 @@ class Aircraft:
         return self.pilot.is_aircraft_idle
 
     """
-    Moves forward based on the itinerary for `time` seconds.
+    Moves forward based on the itinerary for `time` seconds. Returns the
+    distance actually be moved.
     """
     def move(self, itinerary, velocity, time):
         distance = velocity * time
         self.location = itinerary.get_next_location(distance)
         self.state = State.moving
+        self.logger.debug("Sets location to %s" % self.location)
+        return distance
 
     """
     Stops the aircraft from moving.
@@ -129,17 +132,8 @@ class Pilot:
             return
 
         # Moves the aircraft then update the itinerary
-        self.logger.debug("Moving %s according to %s for %s" %
+        self.logger.debug("Moving %s according to %s for %s time units" %
                          (self.aircraft, iti, Clock.sim_time))
         distance = self.aircraft.move(iti, self.expected_velocity,
                                       Clock.sim_time)
         iti.update(distance)
-
-
-    """
-    Gets the decision from pilot for the expected velocity based on current
-    states including itinerary status, current aircraft velocity, and the time.
-    """
-    def get_decision(self, itinerary, v, now):
-        # TODO
-        return 40

@@ -87,7 +87,7 @@ class RoutingExpert:
                     self.logger.debug("%s and %s are close node" %
                                       (start, end))
                     counter += 1
-                    if not self.routing_table[start][end].is_completed():
+                    if not self.routing_table[start][end].is_completed:
                         raise Exception("Unable to link two close nodes")
 
         self.logger.debug("Adds %d links for close nodes" % counter)
@@ -105,8 +105,8 @@ class RoutingExpert:
                 route.update_link(link)
                 route_rev.update_link(link.reverse)
 
-            if not (self.routing_table[start][end].is_completed() and 
-                    self.routing_table[end][start].is_completed()):
+            if not (self.routing_table[start][end].is_completed and 
+                    self.routing_table[end][start].is_completed):
                 raise Exception("Unable to link two ends of a link from %s" +\
                                 " to %s" % (start, end))
 
@@ -126,7 +126,7 @@ class RoutingExpert:
                         continue
 
                     # Ignores the cases where i -> k or k -> j is not connected
-                    if not r_ik.is_completed() or not r_kj.is_completed():
+                    if not r_ik.is_completed or not r_kj.is_completed:
                         continue
 
                     # Updates the i -> j route if i -> k -> j is shorter

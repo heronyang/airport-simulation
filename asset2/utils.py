@@ -32,8 +32,10 @@ def is_valid_geo_pos(geo_pos):
     return True
 
 def get_seconds_after(t, dt):
-    # Since time calculation only works on datetime (not time), so we first
-    # combine self.time with today, then get the time() part
+    """
+    Since time calculation only works on datetime (not time), so we first
+    combine self.time with today, then get the time() part
+    """
     from datetime import date, datetime, timedelta
     holder = datetime.combine(date.today(), t)
     return (holder + timedelta(seconds = dt)).time()
@@ -41,3 +43,13 @@ def get_seconds_after(t, dt):
 def str2sha1(s):
     import hashlib
     return int(hashlib.sha1(s.encode('utf-8')).hexdigest(), 16)
+
+def interpolate_geo(start, end, ratio):
+    """
+    Interpolation method
+    """
+    s_geo = start.geo_pos
+    e_geo = end.geo_pos
+    lat = s_geo["lat"] + (e_geo["lat"] - s_geo["lat"]) * ratio
+    lng = s_geo["lng"] + (e_geo["lng"] - s_geo["lng"]) * ratio
+    return {"lat": lat, "lng": lng}

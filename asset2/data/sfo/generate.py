@@ -265,8 +265,8 @@ def generate_scenario():
                 "gate": "66A",
                 "spot": "S3",
                 "runway": "10R/28L",
-                "time": "0130",
-                "appear_time": "0100"
+                "time": "0030",
+                "appear_time": "0010"
             },
             {
                 "callsign": "AAL122",

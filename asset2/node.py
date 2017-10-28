@@ -9,7 +9,7 @@ class Node:
         if not is_valid_geo_pos(geo_pos):
             raise Exception("Invalid geo position")
 
-        self.index = index
+        self.index = index  # Only used for reference
         self.name = name
         self.geo_pos = geo_pos
         self.hash = str2sha1("%s#%s#%s" % (index, name, geo_pos))

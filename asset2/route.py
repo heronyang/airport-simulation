@@ -49,6 +49,7 @@ class Route:
     Returns true if the whole route is connected properly with different links
     from start to end.
     """
+    @property
     def is_completed(self):
 
         # If this route contains no link return false
@@ -76,7 +77,7 @@ class Route:
     """
     @property
     def distance(self):
-        if not self.is_completed():
+        if not self.is_completed:
             return Config.INFINITE_DISTANCE
         distance = 0
         for link in self.links:
