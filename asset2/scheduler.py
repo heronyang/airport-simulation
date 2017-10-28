@@ -29,7 +29,7 @@ class Scheduler:
 
         requests = []
         for aircraft in simulation.airport.aircrafts:
-            if aircraft.state == Aircraft.State.stopped:
+            if aircraft.is_idle:
 
                 # Pull outs the flight information
                 flight = simulation.scenario.get_flight(aircraft)

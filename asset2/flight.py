@@ -1,4 +1,4 @@
-from aircraft import Aircraft
+from aircraft import Aircraft, State
 
 class Flight:
 
@@ -10,8 +10,7 @@ class ArrivalFlight(Flight):
     def __init__(self, callsign, model, from_airport, to_gate, spot, runway, 
                  arrival_time, appear_time):
 
-        self.aircraft = Aircraft(callsign, model, Aircraft.State.scheduled,
-                                 None)
+        self.aircraft = Aircraft(callsign, model, State.scheduled, None)
         self.from_airport = from_airport
         self.to_gate = to_gate
         self.spot = spot
@@ -28,8 +27,7 @@ class DepartureFlight(Flight):
 
     def __init__(self, callsign, model, to_airport, from_gate, spot, runway,
                  departure_time, appear_time):
-        self.aircraft = Aircraft(callsign, model, Aircraft.State.scheduled,
-                                 None)
+        self.aircraft = Aircraft(callsign, model, State.scheduled, None)
         self.to_airport = to_airport
         self.from_gate = from_gate
         self.spot = spot

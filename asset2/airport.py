@@ -34,7 +34,7 @@ class Airport:
 
     def tick(self):
         for aircraft in self.aircrafts:
-            aircraft.tick()
+            aircraft.pilot.tick()
 
     def print_stats(self):
 

@@ -9,24 +9,21 @@ class Clock:
 
     # sim_time is a static variable that can be used anywhere
     sim_time = None
+    now = None
 
     def __init__(self):
 
         # Starts at 00:00
-        self.time = time(0, 0)
+        Clock.now = time(0, 0)
 
     def tick(self):
 
-        time_after_tick = get_seconds_after(self.time, self.sim_time)
+        time_after_tick = get_seconds_after(Clock.now, self.sim_time)
 
-        if time_after_tick < self.time:
+        if time_after_tick < Clock.now:
             raise ClockException("Reached the end of the day")
 
-        self.time = time_after_tick
-
-    @property
-    def now(self):
-        return self.time
+        Clock.now = time_after_tick
 
 class ClockException(Exception):
     pass

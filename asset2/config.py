@@ -9,3 +9,5 @@ class Config:
     CLOSE_NODE_THRESHOLD_FEET = 30
 
     INFINITE_DISTANCE = 9999999999  # Longer than any distance on earth surface
+
+    PILOT_EXPECTED_VELOCITY = 50    # ft/sec

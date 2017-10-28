@@ -101,7 +101,8 @@ def run_simulation(simulation, pause_time, monitor):
             simulation.tick()
             if monitor:
                 monitor.tick()
-            time.sleep(pause_time)
+            if pause_time != 0:
+                time.sleep(pause_time)
     except KeyboardInterrupt:
         logger.debug("Caught keyboard interrupt, simulation exits")
     except ClockException:

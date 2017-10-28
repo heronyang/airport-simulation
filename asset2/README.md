@@ -20,6 +20,7 @@ airport code).
     $ python3 simulator.py --airport sfo # without graphical minotor
     $ python3 simulator.py --airport sfo -g # with graphical minotor
     $ python3 simulator.py --help
+    $ python3 simulator.py -a sfo -tp 0 # without pause
 
 ## Run Tests
 
