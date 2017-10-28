@@ -107,7 +107,6 @@ class RoutingExpert:
 
             if not (self.routing_table[start][end].is_completed() and 
                     self.routing_table[end][start].is_completed()):
-                from IPython.core.debugger import Tracer; Tracer()()
                 raise Exception("Unable to link two ends of a link from %s" +\
                                 " to %s" % (start, end))
 

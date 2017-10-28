@@ -15,8 +15,10 @@ class Simulation:
         # Setups the logger
         self.logger = logging.getLogger(__name__)
 
-        # Sets up the clock used in the simulation
-        self.clock = Clock(sim_time)
+        # Sets up the sim_time for the simulation, it's a static variable of
+        # `Clock` class
+        Clock.sim_time = sim_time
+        self.clock = Clock()
 
         # Sets up the airport
         self.airport = AirportFactory.create(airport_code)

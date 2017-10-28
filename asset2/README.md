@@ -54,3 +54,12 @@ For consistency, following units are used everywhere in the code:
 Routing table calculated by the routing expert will be cached at `cache/` so
 please make sure all the objects in routing table can be dumped into binary
 file using `pickle`. Ex. logger can't be dumped.
+
+### Clock
+
+Simulation time (`sim_time`) indicates the time should be passed in each
+`tick()` and it can be accessed globally in any place by using following
+syntax:
+
+    from clock import Clock
+    self.logger.debug("sim time is %s", Clock.sim_time)

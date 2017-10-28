@@ -7,13 +7,13 @@ simulated world.
 """
 class Clock:
 
-    def __init__(self, sim_time):
+    # sim_time is a static variable that can be used anywhere
+    sim_time = None
+
+    def __init__(self):
 
         # Starts at 00:00
         self.time = time(0, 0)
-
-        # Step
-        self.sim_time = sim_time
 
     def tick(self):
 

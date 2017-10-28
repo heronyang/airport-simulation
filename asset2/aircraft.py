@@ -1,6 +1,8 @@
 import enum
 import logging
 
+from clock import Clock
+
 class Aircraft:
     """
     Aircraft contains information of a aircraft and states that the pilot
@@ -38,7 +40,7 @@ class Aircraft:
         self.logger.debug("New itinerary received")
 
     def tick(self):
-        pass
+        self.logger.debug("sim time is %s" % Clock.sim_time)
 
     """
     def tick(self, delta_time, now):
