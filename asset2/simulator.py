@@ -26,6 +26,10 @@ def main():
     params = get_params()
     logger.debug("Parameters: %s" % params)
 
+    if params.tick_pause_time == 0 and params.graphic:
+        logger.error("Pause time can't be 0 if graphic display is on")
+        os._exit(1)
+
     if params.graphic:
         start_with_monitor(params)
     else:

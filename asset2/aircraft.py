@@ -53,7 +53,7 @@ class Aircraft:
         distance = velocity * time
         self.location = itinerary.get_next_location(distance)
         self.state = State.moving
-        self.logger.debug("Sets location to %s" % self.location)
+        self.logger.debug("%s sets location to %s" % (self, self.location))
         return distance
 
     """
@@ -99,7 +99,7 @@ class Pilot:
 
     def add_itinerary(self, itinerary):
         self.itineraries.append(itinerary)
-        self.logger.debug("Roger, new itinerary received.")
+        self.logger.debug("%s: Roger, new itinerary received." % self)
 
     """
     is_aircraft_idle returns true if there's no pending or ongoing itinerary
@@ -114,26 +114,31 @@ class Pilot:
 
         # If the aircraft is idle, do nothing on tick
         if self.is_aircraft_idle:
-            self.logger.debug("No on-going itinerary request. Idle.")
+            self.logger.debug("%s: No on-going itinerary request. Idle." % self)
             return
 
         # If the next itinerary expected start time is later than now, do
         # nothing
         iti = self.itineraries[0]
         if Clock.now < iti.expected_start_time:
-            self.logger.debug("Itinerary request found but too early to start")
+            self.logger.debug("%s: Itinerary request found but too early to "
+                              "start" % self)
             return
 
         # Removes itinerary if we've arrived the end of the current itinerary
         if (iti.is_completed()):
-            self.logger.debug("Itinerary %s completed" % iti)
+            self.logger.debug("%s: Itinerary %s completed" % (self, iti))
             self.aircraft.stop()
             self.itineraries = self.itineraries[1:]
             return
 
         # Moves the aircraft then update the itinerary
-        self.logger.debug("Moving %s according to %s for %s time units" %
-                         (self.aircraft, iti, Clock.sim_time))
+        self.logger.debug("%s: Moving %s according to %s for %s time units" %
+                         (self, self.aircraft, iti, Clock.sim_time))
         distance = self.aircraft.move(iti, self.expected_velocity,
                                       Clock.sim_time)
         iti.update(distance)
+        self.logger.debug("%s: Moved %f" % (self, distance))
+
+    def __repr__(self):
+        return "<Pilot on %s>" % self.aircraft

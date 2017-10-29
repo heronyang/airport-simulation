@@ -1,11 +1,12 @@
 import sys
 import logging
 
-from clock import Clock
+from clock import Clock, ClockException
 from airport import AirportFactory
 from scenario import ScenarioFactory
 from routing_expert import RoutingExpert
 from scheduler import Scheduler
+from analyst import Analyst
 from utils import get_seconds_after
 
 class Simulation:
@@ -31,6 +32,7 @@ class Simulation:
         self.routing_expert = RoutingExpert(self.airport.surface.links,
                                             self.airport.surface.nodes, True)
         self.scheduler = Scheduler()
+        self.analyst = Analyst()
 
         # Sets up a delegate of this simulation
         self.delegate = SimulationDelegate(self)
@@ -47,9 +49,14 @@ class Simulation:
 
         self.add_aircraft_based_on_scenario()
         self.reschedule_if_needed()
+        self.analyst.observe_per_tick(self.delegate)
 
         self.airport.tick()
-        self.clock.tick()
+        try:
+            self.clock.tick()
+        except ClockException as e:
+            self.analyst.print_summary()
+            raise e
 
     def reschedule_if_needed(self):
 
