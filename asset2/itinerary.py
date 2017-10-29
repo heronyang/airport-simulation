@@ -62,7 +62,7 @@ class Itinerary:
         raise Exception("Failed to get next location of this itinerary")
 
     def update(self, distance):
-        self.current_location, self.current_link_index, 
+        self.current_location, self.current_link_index, \
         self.current_link_distance = self.get_next_state(distance)
 
     def is_completed(self):

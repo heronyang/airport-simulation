@@ -29,10 +29,12 @@ class Scheduler:
 
         requests = []
         for aircraft in simulation.airport.aircrafts:
-            if aircraft.is_idle:
 
-                # Pull outs the flight information
-                flight = simulation.scenario.get_flight(aircraft)
+            # Pull outs the flight information
+            flight = simulation.scenario.get_flight(aircraft)
+
+            if aircraft.is_idle and \
+               aircraft.location.is_close_to(flight.from_gate):
 
                 # Gets the route from the routing expert
                 route = simulation.routing_expert.get_shortest_route(
