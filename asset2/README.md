@@ -41,7 +41,7 @@ for each class in `__init__` like this way:
 
 ### Debug
 
-*[IMPORTANT]* Put breakpoint in this way (make sure IPython is installed):
+**[IMPORTANT]** Put breakpoint in this way (make sure IPython is installed):
 
     from IPython.core.debugger import Tracer; Tracer()()
 
