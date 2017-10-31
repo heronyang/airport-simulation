@@ -30,7 +30,7 @@ airport code).
 
 ### Style
 
-_[IMPORTANT] Please always follow [PEP 8 -- Style Guide for Python Code](https://www.python.org/dev/peps/pep-0008/) for readability and consistency._
+**[IMPORTANT] Please always follow [PEP 8 -- Style Guide for Python Code](https://www.python.org/dev/peps/pep-0008/) for readability and consistency.**
 
 ### Logging
 
@@ -41,7 +41,7 @@ for each class in `__init__` like this way:
 
 ### Debug
 
-_[IMPORTANT]_ Put breakpoint in this way (make sure IPython is installed):
+*[IMPORTANT]* Put breakpoint in this way (make sure IPython is installed):
 
     from IPython.core.debugger import Tracer; Tracer()()
 
