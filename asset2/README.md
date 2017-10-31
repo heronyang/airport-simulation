@@ -28,6 +28,10 @@ airport code).
 
 ## Developer Guidelines
 
+### Style
+
+_[IMPORTANT] Please always follow [PEP 8 -- Style Guide for Python Code](https://www.python.org/dev/peps/pep-0008/) for readability and consistency._
+
 ### Logging
 
 Default logging level is set in `simulation.py`, and please initialize logging
@@ -37,7 +41,7 @@ for each class in `__init__` like this way:
 
 ### Debug
 
-*[IMPORTANT]* Put breakpoint in this way (make sure IPython is installed):
+_[IMPORTANT]_ Put breakpoint in this way (make sure IPython is installed):
 
     from IPython.core.debugger import Tracer; Tracer()()
 
