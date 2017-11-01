@@ -58,10 +58,10 @@ def main():
         generate_pushback_way()
         logger.debug("Taxiway data generated")
 
-        # Generates schedule
-        logger.debug("Generating schedule")
-        generate_schedule()
-        logger.debug("Schedule generated")
+        # Generates scenario
+        logger.debug("Generating scenario")
+        generate_scenario()
+        logger.debug("Scenario generated")
 
 def create_output_folder():
     try:
@@ -220,11 +220,11 @@ def generate_link_data(items, type_name):
     output_filename = OUTPUT_FOLDER + type_name + "s.json"
     export_to_json(output_filename, links)
 
-def generate_schedule():
+def generate_scenario():
     """
-    Schedule is manually generated since we don't have any existing data.
+    Scenario is manually generated since we don't have any existing data.
     """
-    schedule = {
+    scenario = {
         "arrivals": [
             {
                 "callsign": "AAL121",
@@ -233,7 +233,8 @@ def generate_schedule():
                 "gate": "A2",
                 "spot": "S2",
                 "runway": "10R/28L",
-                "time": "0700"
+                "time": "0700",
+                "appear_time": "0645"
             },
             {
                 "callsign": "AAL122",
@@ -242,7 +243,8 @@ def generate_schedule():
                 "gate": "A1",
                 "spot": "S1",
                 "runway": "1R/19L",
-                "time": "1300"
+                "time": "1300",
+                "appear_time": "1245"
             },
             {
                 "callsign": "AAL123",
@@ -251,7 +253,8 @@ def generate_schedule():
                 "gate": "A4",
                 "spot": "S4",
                 "runway": "1R/19L",
-                "time": "2100"
+                "time": "2100",
+                "appear_time": "2045"
             }
         ],
         "departures": [
@@ -259,31 +262,37 @@ def generate_schedule():
                 "callsign": "AAL121",
                 "model": "A319",
                 "airport": "SJC",
-                "spot": "S2",
+                "gate": "66A",
+                "spot": "S3",
                 "runway": "10R/28L",
-                "time": "0730"
+                "time": "0030",
+                "appear_time": "0010"
             },
             {
                 "callsign": "AAL122",
                 "model": "A329",
                 "airport": "JFK",
-                "spot": "S1",
+                "gate": "66A",
+                "spot": "S3",
                 "runway": "1R/19L",
-                "time": "1330"
+                "time": "1330",
+                "appear_time": "1300"
             },
             {
                 "callsign": "AAL123",
                 "model": "A339",
                 "airport": "DFW",
-                "spot": "S4",
+                "gate": "66A",
+                "spot": "S3",
                 "runway": "1R/19L",
-                "time": "2130"
+                "time": "2130",
+                "appear_time": "2100"
             }
         ]
     }
 
-    output_filename = OUTPUT_FOLDER + "schedule.json"
-    export_to_json(output_filename, schedule)
+    output_filename = OUTPUT_FOLDER + "scenario.json"
+    export_to_json(output_filename, scenario)
 
 def export_to_json(filename, data):
     with open(filename, "w") as f:

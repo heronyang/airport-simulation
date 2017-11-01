@@ -1,152 +1,48 @@
-class FCFSScheduler:
+import logging
 
-    """ 
-    Implementation of a schedule that handles airline requests on a 
-    FCFS basis, depending on the earliest push-back times    
-    """
+from schedule import Schedule
+from aircraft import Aircraft
+from route import Route
+from itinerary import Itinerary
 
-    def __init__(self, requests, checker, method, debug):
+class Scheduler:
 
-        """
-            Requests: List of airline requests, each request in the form (airline_id, gate, earliest_pushback_time)
-            Checker: Decides which module is responsible for checking for conflicts, values in {'simulator', 'scheduler'} 
-            Method: Method of resolving conflicts. Possible values are:
-                    - delay_pushback: The pushback time of the later flight is delayed
-            Debug: Runs scheduler in debug mode, with print messages
-        """
+    def __init__(self):
 
-        self.requests = sorted(requests, key = lambda x: x[2])
-        self.checker = checker
-        self.method = method
-        self.debug = debug
+        # Setups the logger
+        self.logger = logging.getLogger(__name__)
 
-    def print(self, *args):
-        if self.debug:
-            print(args)
+    def schedule(self, simulation, time):
 
-    def generate_schedule(self):
+        # simulation.airport : all airport states
+        # simulation.routing_expert : gets routes from node A to node B
+        # time : current simulated time of a day
+        self.logger.debug("Scheduling starts")
+        self.logger.debug("Found %d aircrafts",
+                          len(simulation.airport.aircrafts))
 
-        """
-            Method responsible for generating the schedule based on the requests obtained
-            Return: 
-                -schedule: List of airline schedules, each element of the form (airline_id, [list of (node, time) tuples])
-        """
+        # helper function:
+        # conflicts = simulation.predict_state_after(schedule, time_from_now)
 
-        schedule = []
-        for airline, gate, pushback_time in self.requests:
-            route = self.getRoute(gate)
-            timedRoute = []
-            prev_node = None
+        # put break point:
+        # from IPython.core.debugger import Tracer; Tracer()()
 
-            for node in route:
-                if prev_node is None:
-                    time = pushback_time
-                else:
-                    time += self.getDelay(prev_node, node, airline)
+        requests = []
+        for aircraft in simulation.airport.aircrafts:
 
-                timedRoute.append((node, time))
-                prev_node = node
+            # Pulls outs the flight information
+            flight = simulation.scenario.get_flight(aircraft)
 
+            if aircraft.is_idle and \
+               aircraft.location.is_close_to(flight.from_gate):
 
-            schedule.append((airline, timedRoute))
+                # Gets the route from the routing expert
+                route = simulation.routing_expert.get_shortest_route(
+                    flight.from_gate, flight.spot)
 
+                itinerary = Itinerary(route, flight.departure_time)
+                requests.append(Schedule.Request(aircraft, itinerary))
+                self.logger.debug("Adds route %s on %s" % (route, aircraft))
 
-        conflictInfo = self.checkConflict(schedule)
-
-        # Repeatedly check for conflicts and resolve it until conflict-free schedule is obtained
-        count = 0
-        while conflictInfo is not None: 
-            schedule = self.resolveConflict(conflictInfo, schedule)
-            conflictInfo = self.checkConflict(schedule)
-            count+=1
-        
-        for sch in schedule:
-            self.print(sch)
-
-        return schedule            
-        
-
-    def get_delay(self, start_node, end_node, airline):
-        """
-         Return:
-            -time required for the airpline to move from start node to destination node
-        """
-
-        return 1
-
-    def get_route(self, gate):
-        """
-            Return:
-                -List of nodes on the route from the gate to the nearest runway
-        """
-
-        pass
-
-    def check_conflict(self, schedule):
-        """
-            Checks for conflicts in the given schedule
-            Return: 
-                - None if no conflict detected
-                - (time, node, airline1, airline2) involved in the conflict
-        """
-        
-        # If the checker paramter is self, the scheduler itself checks for conflicts in the route
-        if self.checker == 'self':
-        
-        # Maintain an 
-            occupany_map = {}
-
-            for airline, timedRoute in schedule:
-                for node, time in timedRoute:
-                    if time not in occupany_map:
-                        occupany_map[time] = {}
-
-                    occupied_nodes = occupany_map[time]
-                    if node in occupied_nodes:
-                        return (time, node, occupied_nodes[node], airline)
-
-                    occupied_nodes[node] = airline
-        return None
-
-    def resolve_conflict(self, conflictInfo, schedule):
-        """
-            Params:
-                - conflictInfo: (time, node, airline1, airline2) involved in the conflict
-                - schedule: the schedule in which the conflict occured
-
-            Return:
-                - a new schedule after resolving the conflict specfified in conflictInfo
-        """
-
-        self.print("CONFLICT------------------->",conflictInfo)
-        if self.method == 'delay_pushback':
-            """
-            Delay the pushback of the later flight by the time taken by the earlier flight to reach 
-            the next node in its path
-            """
-            
-            conf_time, conf_node, airline1, airline2 = conflictInfo
-
-            delay = 0
-            for idx in range(len(schedule)):
-                airline, timedRoute = schedule[idx]
-                if airline == airline1:
-                    for idx2 in range(len(timedRoute)):
-                        if timedRoute[idx2] == (conf_node, conf_time):
-                            delay = timedRoute[idx2+1][1] - conf_time
-
-                if airline == airline2:
-                    schedule[idx] = airline, [(node, time + delay) for node, time in timedRoute]
-
-            return schedule
-
-class SchedulerFactory:
-
-    @classmethod
-    def create(self, requests, scheduler_type='FCFS', checker = 'self', 
-        method = 'delay_pushback', debug = False):
-
-        if scheduler_type == 'FCFS':
-            return FCFSScheduler(requests, checker, method, debug)
-        else:
-            return None
+        self.logger.debug("Scheduling done")
+        return Schedule(requests)

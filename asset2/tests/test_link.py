@@ -18,9 +18,9 @@ class TestLink(unittest.TestCase):
         link = Link("123", "link-123", self.nodes)
         self.assertEqual(link.nodes, self.nodes)
 
-    def test_get_length(self):
+    def test_length(self):
         link = Link("123", "link-123", self.nodes)
-        self.assertAlmostEqual(link.get_length(), 7307.4965586731)
+        self.assertAlmostEqual(link.length, 7307.4965586731)
 
 if __name__ == '__main__':
 	unittest.main()

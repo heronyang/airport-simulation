@@ -1,5 +1,6 @@
 import os
 import json
+import logging
 
 from node import Node
 from link import Link
@@ -10,12 +11,16 @@ class Surface:
     an airport, including its gates, spot positions, runways, etc.
     """
 
-    gates = []
-    spots = []
-    runways = []
-    taxiways = []
-
     def __init__(self, center, corners, image_filepath):
+
+        # Setups the logger
+        self.logger = logging.getLogger(__name__)
+
+        self.gates = []
+        self.spots = []
+        self.runways = []
+        self.taxiways = []
+
         self.center = center
         self.corners = corners
         self.image_filepath = image_filepath
@@ -56,29 +61,41 @@ class Surface:
 
         raise Exception("Getting an unknown link")
 
+    """
+    Returns all links.
+    """
+    @property
+    def links(self):
+        return self.runways + self.taxiways
+
+    """
+    Returns all nodes.
+    """
+    @property
+    def nodes(self):
+        return self.gates + self.spots
+
+    def print_stats(self):
+
+        # Prints surface states
+        self.logger.debug("%d gates, %d spots, %d runways, %d taxiways" %
+                          (len(self.gates), len(self.spots), len(self.runways),
+                           len(self.taxiways)))
+
 class Gate(Node):
 
     def __init__(self, index, name, geo_pos):
         Node.__init__(self, index, name, geo_pos)
-
-    def __repr__(self):
-        return "<GATE: %s>" % self.name
 
 class Spot(Node):
 
     def __init__(self, index, name, geo_pos):
         Node.__init__(self, index, name, geo_pos)
 
-    def __repr__(self):
-        return "<SPOT: %s>" % self.name
-
 class RunwayNode(Node):
 
     def __init__(self, geo_pos):
         Node.__init__(self, -1, "", geo_pos)
-
-    def __repr__(self):
-        return "<RUNWAY_NODE>"
 
 class Runway(Link):
 
@@ -184,7 +201,6 @@ class SurfaceFactory:
     @classmethod
     def __load_runway(self, surface, dir_path):
         surface.runways = SurfaceFactory.__retrive_link("runways", dir_path)
-        print(surface.runways)
 
     @classmethod
     def __load_taxiway(self, surface, dir_path):
@@ -222,4 +238,3 @@ class SurfaceFactory:
                 raise Exception("Unknown link type")
 
         return links
-

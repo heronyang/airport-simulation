@@ -1,18 +1,18 @@
-from utils import is_valid_geo_pos
+from utils import is_valid_geo_pos, str2sha1
 from geopy.distance import vincenty
+from config import Config
 
 class Node:
-
-    SAME_NODE_THRESHOLD_FEET = 10
 
     def __init__(self, index, name, geo_pos):
 
         if not is_valid_geo_pos(geo_pos):
             raise Exception("Invalid geo position")
 
+        self.index = index  # Only used for reference
         self.name = name
-        self.index = index
         self.geo_pos = geo_pos
+        self.hash = str2sha1("%s#%s#%s" % (index, name, geo_pos))
 
     """
     Returns the distance from this node to another in feets
@@ -27,9 +27,27 @@ class Node:
         return distance.feet
 
     """
-    If the node is in SAME_NODE_THRESHOLD_FEET feets from the current node, we
+    If the node is in CLOSE_NODE_THRESHOLD_FEET feets from the current node, we
     take them as the same node
     """
-    def is_same(self, node):
+    def is_close_to(self, node):
         distance_feet = self.get_distance_to(node)
-        return distance_feet < self.SAME_NODE_THRESHOLD_FEET
+        return distance_feet < Config.CLOSE_NODE_THRESHOLD_FEET
+
+    """
+    Override functions used for hash and comparisons so that we will able to
+    match nodes after the objects had been reconstructed or copied.
+    """
+    def __hash__(self):
+        return self.hash
+
+    def __eq__(self, other):
+        return self.hash == other.hash
+
+    def __ne__(self, other):
+        return not(self == other)
+
+    def __repr__(self):
+        return "<Node: %s|%f,%f>" % ((self.name if self.name else "NULL"),
+                                      self.geo_pos["lat"],
+                                      self.geo_pos["lng"])

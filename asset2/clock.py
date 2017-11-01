@@ -1,33 +1,29 @@
-from datetime import date, datetime, time, timedelta
+from utils import get_seconds_after
+from datetime import time
 
 """
-In simulation, every SIM_SECOND seconds represents REAL_MINUTE minutes in
-real world. And, every SIM_SECOND seconds in simulation (or REAL_MINUTE
-minutes in real world) the simluation sends a request to schedule for a new
-schedule.
+Each time tick is excuted representing that `sim_time` has passed in the
+simulated world.
 """
-
-SIM_SECOND = 1
-REAL_MINUTE = 15
-
 class Clock:
+
+    # sim_time is a static variable that can be used anywhere
+    sim_time = None
+    now = None
 
     def __init__(self):
 
         # Starts at 00:00
-        self.time = time(0, 0)
-
-        # Step
-        self.step = timedelta(minutes = REAL_MINUTE)
+        Clock.now = time(0, 0)
 
     def tick(self):
 
-        # Since time calculation only works on datetime (not time), so we first
-        # combine with today, then get the time() part
-        self.time = (datetime.combine(date.today(), self.time) + self.step).time()
+        time_after_tick = get_seconds_after(Clock.now, self.sim_time)
 
-    def now(self):
-        return self.time
+        if time_after_tick < Clock.now:
+            raise ClockException("Reached the end of the day")
 
-    def get_sim_step_second():
-        return SIM_SECOND
+        Clock.now = time_after_tick
+
+class ClockException(Exception):
+    pass
