@@ -1,72 +1,63 @@
 import logging
-from utils import get_seconds_after
+
+from clock import Clock
 
 class Itinerary:
 
-    def __init__(self, route, expected_start_time):
+    """
+    Itinerary contains one start time, which the pilot should only operate the
+    aircraft after the start time, and a list of target nodes. Each target node
+    contains the expected arrival time and the expected departure time for
+    moving to the target node.
+    """
+
+    class TargetNode:
+        def __init__(self, node,
+                     expected_arrival_time, expected_departure_time):
+            self.node = node
+            self.expected_arrival_time = expected_arrival_time
+            self.expected_departure_time = expected_departure_time
+
+        def __repr__(self):
+            return "<TargetNode %s | exp arrive at %s | exp leave at %s>" \
+                    % (self.node, self.expected_arrival_time,
+                       self.expected_departure_time)
+
+    def __init__(self, target_nodes, start_time):
 
         # Setups the logger
         self.logger = logging.getLogger(__name__)
+        self.target_nodes = target_nodes
+        self.start_time = start_time
 
-        if not route.is_completed:
-            raise Exception("Incompleted route can't be used by an itinerary")
+    def pop_target_node(self):
 
-        self.route = route
-        self.expected_start_time = expected_start_time
-        self.current_location = route.start
+        # Gets the next node
+        next_node = self.peek_target_node()
 
-        self.current_link_index = 0 # which link that current location lacates
-        self.current_link_distance = 0 # how long had moved from the link start
+        # Sets the start time to the expected departure time of this node
+        self.start_time = next_node.expected_departure_time
+
+        # Remove the next node from the queue
+        self.target_nodes = self.target_nodes[1:]
+
+        return next_node
+
+    def peek_target_node(self):
+        if len(self.target_nodes) < 1:
+            raise Exception("Can't peek node while there's no target node")
+        return self.target_nodes[0]
 
     @property
-    def distance_left(self):
-        d = 0.0
-        d += self.route.links[self.current_link_index].length - \
-                self.current_link_distance
-        for i in range(self.current_link_index + 1, len(self.route.links)):
-            link = self.route.links[i]
-            d += link.length
-        return d
+    def is_started(self):
+        if self.is_completed:
+            return False;
+        return Clock.now > self.start_time
 
     @property
-    def estimated_finish_time(self, velocity):
-        time_needed = self.distance_left / velocity
-        return get_seconds_after(Clock.now(), time_needed)
-
-    def get_next_location(self, distance):
-        # Only returns the location of the next state
-        return self.get_next_state(distance)[0]
-
-    def get_next_state(self, distance):
-
-        if self.distance_left <= distance:
-            last_index = len(self.route.links) - 1
-            return (self.route.end, last_index, 
-                    self.route.links[last_index].length)
-
-        # Gets all links in route
-        links = self.route.links
-
-        # Gets current link index and distance left on that link
-        link_index = self.current_link_index
-        link_distance = self.current_link_distance
-
-        while True:
-            if link_distance >= distance:
-                return (links[link_index].get_node_from_start(distance),
-                        link_index, link_distance)
-            distance -= link_distance
-            link_index += 1
-            link_distance = links[link_index].length
-
-        raise Exception("Failed to get next location of this itinerary")
-
-    def update(self, distance):
-        self.current_location, self.current_link_index, \
-        self.current_link_distance = self.get_next_state(distance)
-
     def is_completed(self):
-        return self.current_location.is_close_to(self.route.end)
+        return len(self.target_nodes) == 0
 
     def __repr__(self):
-        return "<Itinerary %s to %s>" %  (self.route.start, self.route.end)
+        return "<Itinerary: %d target nodes, start time %s>" % \
+                (len(self.target_nodes), self.start_time)

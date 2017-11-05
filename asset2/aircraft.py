@@ -5,9 +5,12 @@ from clock import Clock
 from config import Config
 
 class State(enum.Enum):
-    scheduled = 1   # Haven't appeared in the simulation
-    moving = 2  # Moving on a route
-    stopped = 3  # Stopped on a node
+    init = 0        # the aircraft had never received any itinerary request yet
+    idle = 1        # all itineraries had been completed
+    scheduled = 2   # the itinerary is scheduled but it's not started
+    moving = 3      # the aircraft is moving to the next target node
+    arrived = 4     # the aircraft just arrived one target node (may not be the
+                    # final destination)
 
 class Aircraft:
     """
@@ -15,14 +18,13 @@ class Aircraft:
     knows. It won't obtain information other than its own state and operation.
     """
 
-    def __init__(self, callsign, model, state, location):
+    def __init__(self, callsign, model, location):
 
         # Setups the logger
         self.logger = logging.getLogger(__name__)
 
         self.callsign = callsign
         self.model = model
-        self.state = state
         self.location = location
         self.pilot = Pilot(self)
 
@@ -30,46 +32,20 @@ class Aircraft:
     Aircraft location be set by the simulation.
     """
     def set_location(self, location):
+
         self.logger.debug("%s changed location to %s" % (self, location))
         self.location = location
-        self.state = State.stopped
 
     """
     Aircraft radio received new itinerary, and it will be passed to the pilot
     right the way.
     """
-    def add_itinerary(self, itinerary):
-        self.pilot.add_itinerary(itinerary)
+    def set_itinerary(self, itinerary):
+        self.pilot.set_itinerary(itinerary)
 
     @property
     def is_idle(self):
         return self.pilot.is_aircraft_idle
-
-    """
-    Moves forward based on the itinerary for `time` seconds. Returns the
-    distance actually be moved.
-    """
-    def move(self, itinerary, velocity, time):
-        distance = velocity * time
-        self.location = itinerary.get_next_location(distance)
-        self.state = State.moving
-        self.logger.debug("%s sets location to %s" % (self, self.location))
-        return distance
-
-    """
-    Stops the aircraft from moving.
-    """
-    def stop(self):
-        self.state = State.stopped
-
-    def operate(self, expected_v, delta_time):
-        # TODO
-        MAX_ACC = 0
-        acc = max(MAX_ACC, (expected_v - self.v) / delta_time)
-        # d = v * t + 0.5 * a * t^2
-        distance = self.v * delta_time + 0.5 * acc * delta_time * delta_time
-        self.v += acc * delta_time
-        return distance
 
     def __hash__(self):
         return hash(self.callsign)
@@ -90,16 +66,14 @@ class Pilot:
         # Setups the logger
         self.logger = logging.getLogger(__name__)
 
-        # TODO: velocity should be more dynamic based on current environment,
-        # and acceleration
-        self.expected_velocity = Config.PILOT_EXPECTED_VELOCITY
-
         self.aircraft = aircraft
-        self.itineraries = []
+        self.itinerary = None
 
-    def add_itinerary(self, itinerary):
-        self.itineraries.append(itinerary)
-        self.logger.debug("%s: Roger, new itinerary received." % self)
+    def set_itinerary(self, itinerary):
+
+        self.itinerary = itinerary
+        self.logger.debug("%s: Roger, new itinerary %s received." %
+                          (self, itinerary))
 
     """
     is_aircraft_idle returns true if there's no pending or ongoing itinerary
@@ -107,38 +81,62 @@ class Pilot:
     """
     @property
     def is_aircraft_idle(self):
-        return len(self.itineraries) == 0 and \
-                self.aircraft.state == State.stopped
+        return self.itinerary is None or self.itinerary.is_completed
 
     def tick(self):
 
+        state = self.state
+
+        self.logger.debug("Aircraft (%s) location: %s, state: %s" %
+                         (self.aircraft, self.aircraft.location, self.state))
+
         # If the aircraft is idle, do nothing on tick
-        if self.is_aircraft_idle:
-            self.logger.debug("%s: No on-going itinerary request. Idle." % self)
+        if state == State.init or state == State.idle:
+            self.logger.debug("%s: No on-going itinerary request." % self)
             return
 
-        # If the next itinerary expected start time is later than now, do
-        # nothing
-        iti = self.itineraries[0]
-        if Clock.now < iti.expected_start_time:
-            self.logger.debug("%s: Itinerary request found but too early to "
-                              "start" % self)
+        # If the itinerary shouldn't be started yet, do nothing
+        if state == State.scheduled:
+            self.logger.debug("%s: It's too early to start %s." %
+                              (self, self.itinerary))
             return
 
-        # Removes itinerary if we've arrived the end of the current itinerary
-        if (iti.is_completed()):
-            self.logger.debug("%s: Itinerary %s completed" % (self, iti))
-            self.aircraft.stop()
-            self.itineraries = self.itineraries[1:]
+        # Pulls out the next target node
+        if state == State.moving:
+            next_target_node = self.itinerary.peek_target_node()
+            self.logger.debug("%s: I'm on my way to next node %s.",
+                              (self, next_target_node))
             return
 
-        # Moves the aircraft then update the itinerary
-        self.logger.debug("%s: Moving %s according to %s for %s time units" %
-                         (self, self.aircraft, iti, Clock.sim_time))
-        distance = self.aircraft.move(iti, self.expected_velocity,
-                                      Clock.sim_time)
-        iti.update(distance)
-        self.logger.debug("%s: Moved %f" % (self, distance))
+        self.move_aircraft_to_next_target_node()
+
+    def move_aircraft_to_next_target_node(self):
+
+        next_target_node = self.itinerary.peek_target_node()
+
+        # Arrives the aircraft on the target node
+        self.aircraft.set_location(next_target_node.node)
+        self.itinerary.pop_target_node()
+        self.logger.debug("%s: Arrived target node %s" %
+                          (self, next_target_node))
+
+    @property
+    def state(self):
+
+        if self.itinerary is None:
+            return State.init
+
+        if self.itinerary.is_completed:
+            return State.idle
+
+        if not self.itinerary.is_started:
+            return State.scheduled
+
+        next_target_node = self.itinerary.peek_target_node()
+        if Clock.now < next_target_node.expected_arrival_time:
+            return State.moving
+
+        return State.arrived
 
     def __repr__(self):
         return "<Pilot on %s>" % self.aircraft

@@ -35,6 +35,17 @@ class Route:
         for link in links:
             self.add_link(link)
 
+    @property
+    def nodes(self):
+        """
+        Returns all nodes among this route.
+        """
+        nodes = [self.start]
+        for link in self.links[1:]:
+            nodes.append(link.start)
+        nodes.append(self.end)
+        return nodes
+
     """
     Gets the last node that we can reach from the start node. Returns None if
     there's no link in this route.

@@ -12,9 +12,10 @@ class Analyst:
 
     def observe_per_tick(self, simulation):
 
-        # Accumulate the number of ticks happened while aircraft is moving
         for aircraft in simulation.airport.aircrafts:
-            if aircraft.state == State.moving:
+            # If an aircraft is not close to its gate, it's on its taxiway
+            flight = simulation.scenario.get_flight(aircraft)
+            if not aircraft.location.is_close_to(flight.from_gate):
                 self.aircraft_tick_while_moving_counter += 1
 
     def print_summary(self):

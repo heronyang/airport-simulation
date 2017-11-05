@@ -39,8 +39,15 @@ class Scheduler:
                 # Gets the route from the routing expert
                 route = simulation.routing_expert.get_shortest_route(
                     flight.from_gate, flight.spot)
+                self.logger.debug("Get route: %s" % route)
 
-                itinerary = Itinerary(route, flight.departure_time)
+                # Generates the itinerary for this aircraft
+                target_nodes = []
+                for node in route.nodes:
+                    target_nodes.append(
+                        Itinerary.TargetNode(node, time, time))
+
+                itinerary = Itinerary(target_nodes, time)
                 requests.append(Schedule.Request(aircraft, itinerary))
                 self.logger.debug("Adds route %s on %s" % (route, aircraft))
 
