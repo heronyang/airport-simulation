@@ -27,7 +27,7 @@ class Airport:
         for r in schedule.requests:
             if not r.aircraft in self.aircrafts:
                 raise Exception("%s not found in the airport" % r.aircraft)
-            r.aircraft.add_itinerary(r.itinerary)
+            r.aircraft.set_itinerary(r.itinerary)
 
     def add_aircraft(self, aircraft):
         self.aircrafts.append(aircraft)
@@ -35,6 +35,7 @@ class Airport:
     def tick(self):
         for aircraft in self.aircrafts:
             aircraft.pilot.tick()
+        # TODO: remove aircrafts which had arrived the runway
 
     def print_stats(self):
 
