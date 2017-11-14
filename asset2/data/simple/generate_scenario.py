@@ -13,8 +13,8 @@ from utils import export_to_json, create_output_folder
 
 OUTPUT_FOLDER = "./build/"
 
-TIDENESS_TIME_MEAN = 600 # seconds
-TIDENESS_TIME_DEVIATION = 120 # seconds
+TIGHTNESS_TIME_MEAN = 600 # seconds
+TIGHTNESS_TIME_DEVIATION = 120 # seconds
 APPEAR_BEFORE = 180 # seconds
 
 # Setups logger
