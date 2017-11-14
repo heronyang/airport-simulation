@@ -12,7 +12,7 @@ Manually created at [Google Map](https://drive.google.com/open?id=1mBnfA-NOBUFod
 
     $ python3 generate.py
 
-## GEnerate Scenario
+## Generate Scenario
 
     $ python3 generate_scenario.py
 
