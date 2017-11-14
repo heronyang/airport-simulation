@@ -15,7 +15,7 @@ class Screen(QMainWindow):
     Screen draws the airport states onto the screen using PyQt5.
     """
 
-    def __init__(self, airport):
+    def __init__(self, airport, clock):
 
         super().__init__()
 
@@ -31,6 +31,9 @@ class Screen(QMainWindow):
 
         # Saves the current airport state
         self.airport = airport
+
+        # Saves the clock in simulation
+        self.clock = clock
 
         # Shows
         self.show()
@@ -53,6 +56,8 @@ class Screen(QMainWindow):
         self.draw_taxiways()
         self.draw_pushback_ways()
         self.draw_aircrafts()
+
+        self.draw_time()
 
     def draw_gates(self):
         for gate in self.airport.surface.gates:
@@ -109,6 +114,9 @@ class Screen(QMainWindow):
         # Closes the painter
         painter.end()
 
+    def draw_time(self):
+        self.setWindowTitle(str(self.clock.now))
+
     def tick(self):
         self.repaint()
 
@@ -128,7 +136,7 @@ class Monitor:
 
         self.app = QApplication(sys.argv)
         self.simulation = simulation
-        self.screen = Screen(self.simulation.airport)
+        self.screen = Screen(self.simulation.airport, self.simulation.clock)
 
     def start(self):
         self.app.exec_()
