@@ -8,7 +8,7 @@ from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 
 REFRESH_RATE = 1 # fps
-SIZE = 960
+SIZE = 800
 
 class Screen(QMainWindow):
     """

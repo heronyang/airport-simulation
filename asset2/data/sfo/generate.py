@@ -5,7 +5,6 @@ import sys
 import logging
 from fastkml import kml
 from map_adapter import MapAdapter
-from IPython.core.debugger import Tracer
 
 OUTPUT_FOLDER = "./build/"
 
@@ -19,49 +18,49 @@ logger.setLevel(logging.DEBUG)
 
 def main():
 
+    # Creates the output folder
+    create_output_folder()
+
     with open("surface.json") as f:    
-
-        # Creates the output folder
-        create_output_folder()
-
         # Reads data from the input file
         surface_data = json.load(f)
-        items = surface_data["features"]
 
-        # Generates airport data
-        logger.debug("Generating airport metadata")
-        generate_airport_data(items)
-        logger.debug("Airport metadata generated")
+    items = surface_data["features"]
 
-        # Generates gate data
-        logger.debug("Generating gate data")
-        generate_gates_data(items)
-        logger.debug("Gate data generated")
+    # Generates airport data
+    logger.debug("Generating airport metadata")
+    generate_airport_data(items)
+    logger.debug("Airport metadata generated")
 
-        # Generates spot position
-        logger.debug("Generating spot position data")
-        generate_spot_position_data()
-        logger.debug("Spot position data generated")
+    # Generates gate data
+    logger.debug("Generating gate data")
+    generate_gates_data(items)
+    logger.debug("Gate data generated")
 
-        # Generates runway data
-        logger.debug("Genenrating runway data")
-        generate_link_data(items, "runway")
-        logger.debug("Runway data generated")
+    # Generates spot position
+    logger.debug("Generating spot position data")
+    generate_spot_position_data()
+    logger.debug("Spot position data generated")
 
-        # Generates taxiway data
-        logger.debug("Genenrating taxiway data")
-        generate_link_data(items, "taxiway")
-        logger.debug("Taxiway data generated")
+    # Generates runway data
+    logger.debug("Genenrating runway data")
+    generate_link_data(items, "runway")
+    logger.debug("Runway data generated")
 
-        # Generates pushback way data
-        logger.debug("Genenrating taxiway data")
-        generate_pushback_way()
-        logger.debug("Taxiway data generated")
+    # Generates taxiway data
+    logger.debug("Genenrating taxiway data")
+    generate_link_data(items, "taxiway")
+    logger.debug("Taxiway data generated")
 
-        # Generates scenario
-        logger.debug("Generating scenario")
-        generate_scenario()
-        logger.debug("Scenario generated")
+    # Generates pushback way data
+    logger.debug("Genenrating pushback way data")
+    generate_pushback_way()
+    logger.debug("Pushback way data generated")
+
+    # Generates scenario
+    logger.debug("Generating scenario")
+    generate_scenario()
+    logger.debug("Scenario generated")
 
 def create_output_folder():
     try:
