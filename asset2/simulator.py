@@ -55,6 +55,10 @@ def get_params():
                        help = "Seconds past between scheduling requests in" \
                         "simulated world (seconds)",
                         default = Config.DEFAULT_SCHEDULE_SIM_TIME)
+    parser.add_argument("-uc", "--uncertainty", type = int,
+                       help = "Percentage of uncertainty in moving from 1 node \
+                       to another and double this amount at terminal nodes",
+                        default = Config.UNCERTAINTY)
 
     return parser.parse_args()
 

@@ -11,7 +11,7 @@ from utils import get_seconds_after
 
 class Simulation:
 
-    def __init__(self, airport_code, sim_time, reschedule_time):
+    def __init__(self, airport_code, sim_time, reschedule_time, uncertainty):
 
         # Setups the logger
         self.logger = logging.getLogger(__name__)
@@ -40,6 +40,7 @@ class Simulation:
         # Initializes the previous schedule time
         self.reschedule_time = reschedule_time
         self.last_schedule_time = None
+        self.uncertainty = uncertainty
 
         self.print_stats()
 
