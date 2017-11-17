@@ -32,10 +32,12 @@ class Airport:
     def add_aircraft(self, aircraft):
         self.aircrafts.append(aircraft)
 
+    def remove_aircraft(self, aircraft):
+        self.aircrafts.remove(aircraft)
+
     def tick(self):
         for aircraft in self.aircrafts:
             aircraft.pilot.tick()
-        # TODO: remove aircrafts which had arrived the runway
 
     def print_stats(self):
 

@@ -48,6 +48,7 @@ class Simulation:
         self.logger.debug("Current Time: %s" % self.now)
 
         self.add_aircraft_based_on_scenario()
+        self.remove_aircraft_if_needed()
         self.reschedule_if_needed()
         self.analyst.observe_per_tick(self.delegate)
 
@@ -89,6 +90,16 @@ class Simulation:
                 # Adds the flight to the airport
                 flight.aircraft.set_location(flight.from_gate)
                 self.airport.add_aircraft(flight.aircraft)
+
+    def remove_aircraft_if_needed(self):
+        """
+        Removes departure aircrafts if they've moved to the runway.
+        """
+        # TODO: removal for arrival aircrafts
+        for aircraft in self.airport.aircrafts:
+            flight = self.scenario.get_flight(aircraft)
+            if aircraft.location.is_close_to(flight.runway.start):
+                self.airport.remove_aircraft(aircraft)
 
     @property
     def now(self):
