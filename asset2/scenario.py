@@ -47,6 +47,17 @@ class Scenario:
         for flight in self.departures:
             self.logger.debug(flight)
 
+    def __getstate__(self):
+        d = dict(self.__dict__)
+        del d["logger"]
+        return d
+
+    def __setstate__(self, d):
+        self.__dict__.update(d)
+
+    def set_quiet(self, logger):
+        self.logger = logger
+
 class ScenarioFactory:
 
     @classmethod

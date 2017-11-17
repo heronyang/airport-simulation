@@ -1,5 +1,6 @@
 import os
 import logging
+import itertools
 
 from surface import SurfaceFactory
 from scenario import ScenarioFactory
@@ -35,6 +36,14 @@ class Airport:
     def remove_aircraft(self, aircraft):
         self.aircrafts.remove(aircraft)
 
+    def get_conflicts(self):
+        conflicts = []
+        aircraft_pairs = list(itertools.combinations(self.aircrafts), 2)
+        for ap in aircraft_pairs:
+            if ap[0].is_close_to(ap[1]):
+                conflicts.append(ap)
+        return conflicts
+
     def tick(self):
         for aircraft in self.aircrafts:
             aircraft.pilot.tick()
@@ -43,6 +52,20 @@ class Airport:
 
         # Prints surface stats
         self.surface.print_stats()
+
+    def __getstate__(self):
+        d = dict(self.__dict__)
+        del d["logger"]
+        return d
+
+    def __setstate__(self, d):
+        self.__dict__.update(d)
+
+    def set_quiet(self, logger):
+        self.logger = logger
+        self.surface.set_quiet(logger)
+        for aircraft in self.aircrafts:
+            aircraft.set_quiet(logger)
 
 class AirportFactory:
 

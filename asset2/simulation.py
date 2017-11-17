@@ -1,6 +1,7 @@
 import sys
 import logging
 
+from copy import deepcopy
 from clock import Clock, ClockException
 from airport import AirportFactory
 from scenario import ScenarioFactory
@@ -59,6 +60,19 @@ class Simulation:
             self.analyst.print_summary()
             raise e
 
+    def quiet_tick(self):
+        """
+        Turn off the logger, reschedule, and analyst.
+        """
+        self.add_aircraft_based_on_scenario()
+        self.remove_aircraft_if_needed()
+
+        self.airport.tick()
+        try:
+            self.clock.tick()
+        except ClockException as e:
+            raise e
+
     def reschedule_if_needed(self):
 
         last_time = self.last_schedule_time
@@ -110,6 +124,19 @@ class Simulation:
         self.scenario.print_stats()
         self.airport.print_stats()
 
+    def __getstate__(self):
+        d = dict(self.__dict__)
+        del d["logger"]
+        return d
+
+    def __setstate__(self, d):
+        self.__dict__.update(d)
+
+    def set_quiet(self, logger):
+        self.logger = logger
+        self.airport.set_quiet(logger)
+        self.scenario.set_quiet(logger)
+        self.routing_expert.set_quiet(logger)
 
 class SimulationDelegate:
     """
@@ -134,10 +161,15 @@ class SimulationDelegate:
         return self.simulation.routing_expert
 
     def predict_state_after(self, scheule, time_from_now):
-        # TODO
-        # 1. copy the current airport state
-        # 2. tick() on the airport
-        # 3. return the copied airport state
-        airport = None
-        conflicts = []
-        return (airport, conflicts)
+        """
+        Returns the simulation state after `time_from_now` seconds. Conflicts
+        of the returned state can be retrieved at
+        `simulation.airport.get_conflicts()`
+        """
+        simulation_copy = deepcopy(self.simulation)
+        simulation.set_quiet(logger.getLogger("QUIET_MODE"))
+        freezed_time = Clock.now
+        for i in range(time_from_now / Clock.sim_time):
+            simulation_copy.quiet_tick()
+        Clock.now = freezed_time
+        return simulation_copy

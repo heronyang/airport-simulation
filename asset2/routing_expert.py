@@ -62,7 +62,7 @@ class RoutingExpert:
         self.finds_shortest_route()
 
         # Prints result
-        # self.print_route()
+        self.print_route()
 
     def init_routing_table(self):
 
@@ -156,3 +156,14 @@ class RoutingExpert:
         if (not start in self.routing_table) or (not end in self.routing_table[start]):
             return None
         return self.routing_table[start][end]
+
+    def __getstate__(self):
+        d = dict(self.__dict__)
+        del d["logger"]
+        return d
+
+    def __setstate__(self, d):
+        self.__dict__.update(d)
+
+    def set_quiet(self, logger):
+        self.logger = logger

@@ -38,7 +38,7 @@ class Link:
     def get_node_from_start(self, distance):
 
         if distance >= self.length:
-            self.logger.debug("Queried distance is longer than the link")
+            # Queried distance is longer than the link
             return self.end
 
         ratio = distance / self.length

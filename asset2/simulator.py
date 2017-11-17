@@ -111,7 +111,6 @@ def run_simulation(simulation, pause_time, monitor):
         logger.debug("Caught keyboard interrupt, simulation exits")
     except ClockException:
         logger.debug("Simulation ends")
-        # TODO: Should ask the simulation for performance metric here
     except Exception as e:
         logger.debug(traceback.format_exc())
         logger.debug("Simulation exists on unexpected error")
