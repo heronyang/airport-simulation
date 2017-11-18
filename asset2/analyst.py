@@ -21,3 +21,11 @@ class Analyst:
     def print_summary(self):
         taxi_time = self.aircraft_tick_while_moving_counter * Clock.sim_time
         self.logger.debug("Total taxi-time: %d seconds" % taxi_time)
+
+    def __getstate__(self):
+        d = dict(self.__dict__)
+        del d["logger"]
+        return d
+
+    def __setstate__(self, d):
+        self.__dict__.update(d)

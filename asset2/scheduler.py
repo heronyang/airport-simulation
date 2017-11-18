@@ -37,8 +37,10 @@ class Scheduler:
                aircraft.location.is_close_to(flight.from_gate):
 
                 # Gets the route from the routing expert
+                # NOTE: We use runway start node as the destination of a
+                # departure flight
                 route = simulation.routing_expert.get_shortest_route(
-                    flight.from_gate, flight.spot)
+                    flight.from_gate, flight.runway.start)
                 self.logger.debug("Get route: %s" % route)
 
                 # Generates the itinerary for this aircraft
@@ -53,3 +55,11 @@ class Scheduler:
 
         self.logger.debug("Scheduling done")
         return Schedule(requests)
+
+    def __getstate__(self):
+        d = dict(self.__dict__)
+        del d["logger"]
+        return d
+
+    def __setstate__(self, d):
+        self.__dict__.update(d)

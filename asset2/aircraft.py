@@ -59,6 +59,18 @@ class Aircraft:
     def __repr__(self):
         return "<Aircraft: %s>" % self.callsign
 
+    def __getstate__(self):
+        d = dict(self.__dict__)
+        del d["logger"]
+        return d
+
+    def __setstate__(self, d):
+        self.__dict__.update(d)
+
+    def set_quiet(self, logger):
+        self.logger = logger
+        self.pilot.set_quiet(logger)
+
 class Pilot:
 
     def __init__(self, aircraft):
@@ -140,3 +152,14 @@ class Pilot:
 
     def __repr__(self):
         return "<Pilot on %s>" % self.aircraft
+
+    def __getstate__(self):
+        d = dict(self.__dict__)
+        del d["logger"]
+        return d
+
+    def __setstate__(self, d):
+        self.__dict__.update(d)
+
+    def set_quiet(self, logger):
+        self.logger = logger
