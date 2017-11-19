@@ -10,6 +10,9 @@ from PyQt5.QtWidgets import *
 REFRESH_RATE = 1 # fps
 SIZE = 800
 
+PEN_WIDTH = 10
+CIRCLE_RADIUS = 20
+
 class Screen(QMainWindow):
     """
     Screen draws the airport states onto the screen using PyQt5.
@@ -25,6 +28,10 @@ class Screen(QMainWindow):
         # Sets the window size
         self.setGeometry(0, 0, SIZE, SIZE)
         self.setFixedSize(SIZE, SIZE)
+
+        # Sets the pen
+        self.pen = QPen()
+        self.pen.setWidth(PEN_WIDTH)
 
         # Draws the background image
         self.draw_background(airport.surface.image_filepath)
@@ -73,12 +80,14 @@ class Screen(QMainWindow):
 
     def draw_node(self, node, color):
 
+        self.pen.setColor(color)
+
         painter = QPainter()
         painter.begin(self)
-        painter.setPen(color)
+        painter.setPen(self.pen)
         px_pos = ll2px(node.geo_pos, self.airport.surface.corners, SIZE)
         point = QPoint(px_pos[0], px_pos[1])
-        painter.drawEllipse(point, 3, 3)
+        painter.drawEllipse(point, CIRCLE_RADIUS, CIRCLE_RADIUS)
         painter.end()
 
     def draw_runways(self):
@@ -95,10 +104,12 @@ class Screen(QMainWindow):
 
     def draw_link(self, link, color):
 
+        self.pen.setColor(color)
+
         # Setups painter
         painter = QPainter()
         painter.begin(self)
-        painter.setPen(color)
+        painter.setPen(self.pen)
 
         # Draws all nodes of the link
         corners = self.airport.surface.corners

@@ -82,6 +82,17 @@ class Surface:
                           (len(self.gates), len(self.spots), len(self.runways),
                            len(self.taxiways)))
 
+    def __getstate__(self):
+        d = dict(self.__dict__)
+        del d["logger"]
+        return d
+
+    def __setstate__(self, d):
+        self.__dict__.update(d)
+
+    def set_quiet(self, logger):
+        self.logger = logger
+
 class Gate(Node):
 
     def __init__(self, index, name, geo_pos):
