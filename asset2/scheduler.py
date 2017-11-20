@@ -54,31 +54,34 @@ class Scheduler:
                     if prev_node is None:
                         arr_time = flight.departure_time
                     else:
-                        arr_time += self.getDelay(prev_node, node)
+                        arr_time = get_seconds_after(arr_time, self.get_delay(prev_node, node))
 
                     dep_time = arr_time
 
+                    self.logger.debug("Route node is : %s, %s", node, get_seconds(arr_time))
                     target_nodes.append(
                         Itinerary.TargetNode(node, arr_time, dep_time))
+                    
+                    prev_node = node
 
                 itinerary = Itinerary(target_nodes, flight.departure_time)
                 requests.append(Schedule.Request(aircraft, itinerary))
                 self.logger.debug("Adds route %s on %s" % (route, aircraft))
 
 
-        conflictInfo = self.checkConflict(requests)
+        conflictInfo = self.check_conflict(requests)
 
         # Repeatedly check for conflicts and resolve it until conflict-free schedule is obtained
         count = 0
         while conflictInfo is not None: 
-            requests = self.resolveConflict(conflictInfo, requests)
-            conflictInfo = self.checkConflict(requests)
+            requests = self.resolve_conflict(conflictInfo, requests)
+            conflictInfo = self.check_conflict(requests)
             count+=1
         
         self.logger.debug("Scheduling done")
         return Schedule(requests)
 
-    def getDelay(self, start_node, end_node):
+    def get_delay(self, start_node, end_node):
         """
          Return:
             -time required for the airpline to move from start node to destination node
@@ -86,7 +89,7 @@ class Scheduler:
 
         return int(start_node.get_distance_to(end_node)/Config.PILOT_EXPECTED_VELOCITY)
     
-    def checkConflict(self, requests):
+    def check_conflict(self, requests):
         """
             Checks for conflicts in the given schedule
             Return: 
@@ -114,7 +117,7 @@ class Scheduler:
                     occupied_nodes[node] = target_node, aircraft
         return None
 
-    def resolveConflict(self, conflictInfo, requests):
+    def resolve_conflict(self, conflictInfo, requests):
         """
             Params:
                 - conflictInfo: (time, node, airline1, airline2) involved in the conflict
