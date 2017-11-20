@@ -5,6 +5,7 @@ import itertools
 from surface import SurfaceFactory
 from scenario import ScenarioFactory
 from config import Config
+from conflict_tracker import add_conflict, Conflict
 
 class Airport:
     """
@@ -36,20 +37,17 @@ class Airport:
     def remove_aircraft(self, aircraft):
         self.aircrafts.remove(aircraft)
 
-    def get_conflicts(self):
-        conflicts = []
+    def log_conflicts(self):
         aircraft_pairs = list(itertools.combinations(self.aircrafts), 2)
         for ap in aircraft_pairs:
             if ap[0].is_close_to(ap[1]):
-                conflicts.append(ap)
-        return conflicts
+                add_conflict(Conflict(ap, ap.location, Clock.now))
 
     def tick(self):
         for aircraft in self.aircrafts:
             aircraft.pilot.tick()
 
     def print_stats(self):
-
         # Prints surface stats
         self.surface.print_stats()
 
