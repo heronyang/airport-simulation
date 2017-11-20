@@ -7,6 +7,8 @@ sys.path.append('..')
 from node import Node
 from link import Link
 from routing_expert import RoutingExpert
+from airport import AirportFactory
+from scenario import ScenarioFactory
 
 class TestRoutingExpert(unittest.TestCase):
 
@@ -58,6 +60,22 @@ class TestRoutingExpert(unittest.TestCase):
 
         # Checks if the shortest distance is expected
         self.assertAlmostEqual(route.distance, 218489.353890, 6)
+
+    def test_simple_data(self):
+
+        airport_code = "simple"
+
+        # Sets up the airport
+        self.airport = AirportFactory.create(airport_code)
+
+        # Sets up the scenario
+        self.scenario = ScenarioFactory.create(airport_code,
+                                               self.airport.surface)
+
+        # Sets up the routing expert monitoring the airport surface
+        self.routing_expert = RoutingExpert(self.airport.surface.links,
+                                            self.airport.surface.nodes, True)
+        from IPython.core.debugger import Tracer; Tracer()()
 
 if __name__ == '__main__':
 	unittest.main()
