@@ -62,6 +62,7 @@ class Simulation:
         self.analyst.observe_per_tick(self.delegate)
 
         self.airport.tick(self.uncertainty, self.scenario)
+        self.logger.debug("No of conflicts found: %d", conflict_tracker.conflicts_size())
         try:
             self.clock.tick()
         except ClockException as e:
@@ -170,8 +171,7 @@ class SimulationDelegate:
         return self.simulation.routing_expert
 
     def set_uncertainty(self, uc):
-        unc = Uncertainty(uc)
-        self.uncertainty = unc
+        self.uncertainty = Uncertainty(uc)
 
     def predict_state_after(self, scheule, time_from_now):
         """

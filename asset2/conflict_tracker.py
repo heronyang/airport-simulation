@@ -33,3 +33,6 @@ def save_and_reset_conflicts():
 def restore_conflicts():
     conflicts = conflicts_snapshot
     conflicts_snapshot = []
+
+def conflicts_size():
+    return len(conflicts)

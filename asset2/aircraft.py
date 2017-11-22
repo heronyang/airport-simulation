@@ -123,9 +123,7 @@ class Pilot:
         if not uc:
             self.move_aircraft_to_next_target_node()
         else: # has uc
-            near_terminal=False
-            if self.aircraft.location.is_close_to(flight.from_gate):
-                near_terminal=True
+            near_terminal=self.aircraft.location.is_close_to(flight.from_gate)
             if uc.aircraft_can_move(near_terminal):
                 self.move_aircraft_to_next_target_node()
 

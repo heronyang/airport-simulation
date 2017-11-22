@@ -16,7 +16,6 @@ class Airport:
 
     def __init__(self, code, surface):
 
-        self.count = 0
         # Setups the logger
         self.logger = logging.getLogger(__name__)
 
@@ -43,8 +42,7 @@ class Airport:
         aircraft_pairs = list(itertools.combinations(self.aircrafts, 2))
         for ap in aircraft_pairs:
             if ap[0].location.is_close_to(ap[1].location):
-                self.count+=1
-                self.logger.debug("Conflict******************************* No. %d", self.count)
+                self.logger.debug("Conflict found********************************")
                 add_conflict(Conflict(ap, ap[0].location, Clock.now))
 
     def tick(self, uc, scenario):
