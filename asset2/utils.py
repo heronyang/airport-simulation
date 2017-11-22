@@ -53,3 +53,6 @@ def interpolate_geo(start, end, ratio):
     lat = s_geo["lat"] + (e_geo["lat"] - s_geo["lat"]) * ratio
     lng = s_geo["lng"] + (e_geo["lng"] - s_geo["lng"]) * ratio
     return {"lat": lat, "lng": lng}
+
+def get_seconds(t):
+    return (t.hour * 60 + t.minute) * 60 + t.second
