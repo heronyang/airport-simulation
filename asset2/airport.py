@@ -5,6 +5,7 @@ import itertools
 from surface import SurfaceFactory
 from scenario import ScenarioFactory
 from config import Config
+from clock import Clock
 from conflict_tracker import add_conflict, Conflict
 
 class Airport:
@@ -38,14 +39,16 @@ class Airport:
         self.aircrafts.remove(aircraft)
 
     def log_conflicts(self):
-        aircraft_pairs = list(itertools.combinations(self.aircrafts), 2)
+        aircraft_pairs = list(itertools.combinations(self.aircrafts, 2))
         for ap in aircraft_pairs:
-            if ap[0].is_close_to(ap[1]):
-                add_conflict(Conflict(ap, ap.location, Clock.now))
+            if ap[0].location.is_close_to(ap[1].location):
+                self.logger.debug("Conflict found********************************")
+                add_conflict(Conflict(ap, ap[0].location, Clock.now))
 
-    def tick(self):
+    def tick(self, uc, scenario):
         for aircraft in self.aircrafts:
-            aircraft.pilot.tick()
+            aircraft.pilot.tick(uc, scenario.get_flight(aircraft))
+        self.log_conflicts()
 
     def print_stats(self):
         # Prints surface stats

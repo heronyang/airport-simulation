@@ -2,16 +2,18 @@ import os
 
 import numpy as np
 import json
+from utils import str2time
 
 class Uncertainty:
     
     sigma = 0.1
+
     
     """
     A generic module to calculate uncertainty over multiple factors
     """
-    def __init__(self, factor_filepath):
-        self.factor_filepath = factor_filepath 
+    def __init__(self, uc_val):
+        self.uc_val = uc_val
         self.__initialize_distribution()
                 
     """
@@ -22,8 +24,15 @@ class Uncertainty:
     
     def __get_default_uncertainty(self, original_value):
         return np.random.normal(original_value, Uncertainty.sigma)
-    
+
     def __initialize_distribution(self):
+        self.update(self.uc_val)
+
+    def aircraft_can_move(self, is_terminal):
+        unc = self.uc_val*2 if is_terminal else self.uc_val
+        return np.random.random() > unc
+    
+    def __initialize_distribution_with_file(self):
         sigma = 0
         filepath = self.factor_filepath
         
@@ -40,7 +49,6 @@ class Uncertainty:
                 elif v == "INVERSE":
                     sigma = sigma + 1/float(factor.get("value"))
         self.update(sigma)
-        print "Using uncertainty ", sigma
         
     
     @classmethod

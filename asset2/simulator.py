@@ -55,6 +55,10 @@ def get_params():
                        help = "Seconds past between scheduling requests in" \
                         "simulated world (seconds)",
                         default = Config.DEFAULT_SCHEDULE_SIM_TIME)
+    parser.add_argument("-uc", "--uncertainty", type = float,
+                       help = "Percentage of uncertainty in moving from 1 node \
+                       to another and double this amount at terminal nodes",
+                        default = None)
 
     return parser.parse_args()
 
@@ -65,7 +69,8 @@ def start(params):
     # Initializes the simulation
     simulation = Simulation(params.airport,
                             params.tick_sim_time,
-                            params.reschedule_sim_time)
+                            params.reschedule_sim_time,
+                            params.uncertainty)
     run_simulation(simulation, params.tick_pause_time, None)
 
 
@@ -78,7 +83,8 @@ def start_with_monitor(params):
     # Initializes the simulation
     simulation = Simulation(params.airport,
                             params.tick_sim_time,
-                            params.reschedule_sim_time)
+                            params.reschedule_sim_time,
+                            params.uncertainty)
 
     # Initializes the monitor
     monitor = Monitor(simulation)
