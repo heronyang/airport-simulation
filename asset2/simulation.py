@@ -10,6 +10,7 @@ from routing_expert import RoutingExpert
 from scheduler import Scheduler
 from analyst import Analyst
 from utils import get_seconds_after
+from uncertainty import Uncertainty
 
 class Simulation:
 
@@ -22,6 +23,12 @@ class Simulation:
         # `Clock` class
         Clock.sim_time = sim_time
         self.clock = Clock()
+
+        # check for uncertainty
+        if uncertainty:
+            self.uncertainty = Uncertainty(uncertainty)
+        else:
+            self.uncertainty = None
 
         # Sets up the airport
         self.airport = AirportFactory.create(airport_code)
@@ -42,7 +49,6 @@ class Simulation:
         # Initializes the previous schedule time
         self.reschedule_time = reschedule_time
         self.last_schedule_time = None
-        self.uncertainty = uncertainty
 
         self.print_stats()
 
@@ -55,7 +61,7 @@ class Simulation:
         self.reschedule_if_needed()
         self.analyst.observe_per_tick(self.delegate)
 
-        self.airport.tick()
+        self.airport.tick(self.uncertainty, self.scenario)
         try:
             self.clock.tick()
         except ClockException as e:
@@ -69,7 +75,7 @@ class Simulation:
         self.add_aircraft_based_on_scenario()
         self.remove_aircraft_if_needed()
 
-        self.airport.tick()
+        self.airport.tick(self.uncertainty, self.scenario)
         try:
             self.clock.tick()
         except ClockException as e:
@@ -148,6 +154,7 @@ class SimulationDelegate:
 
     def __init__(self, simulation):
         self.simulation = simulation
+        self.uncertainty = None
 
     @property
     def airport(self):
@@ -162,14 +169,19 @@ class SimulationDelegate:
     def routing_expert(self):
         return self.simulation.routing_expert
 
+    def set_uncertainty(self, uc):
+        unc = Uncertainty(uc)
+        self.uncertainty = unc
+
     def predict_state_after(self, scheule, time_from_now):
         """
         Returns the simulation state and conflicts after `time_from_now`
         seconds.
         """
         simulation_copy = deepcopy(self.simulation)
+        simulation_copy.uncertainty = self.uncertainty
         simulation.set_quiet(logger.getLogger("QUIET_MODE"))
-        conflict_tracker.save_and_reset_conflicts()
+        conflicts = conflict_tracker.save_and_reset_conflicts()
         freezed_time = Clock.now
         for i in range(time_from_now / Clock.sim_time):
             simulation_copy.quiet_tick()

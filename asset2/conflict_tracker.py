@@ -1,3 +1,5 @@
+from utils import str2sha1
+
 conflicts = []
 conflicts_snapshot = None
 
@@ -26,6 +28,7 @@ def add_conflict(conflict):
 def save_and_reset_conflicts():
     conflicts_snapshot = conflicts
     conflicts = []
+    return conflicts_snapshot
 
 def restore_conflicts():
     conflicts = conflicts_snapshot
