@@ -1,6 +1,7 @@
 import sys
 import logging
 
+import conflict_tracker
 from copy import deepcopy
 from clock import Clock, ClockException
 from airport import AirportFactory
@@ -163,14 +164,15 @@ class SimulationDelegate:
 
     def predict_state_after(self, scheule, time_from_now):
         """
-        Returns the simulation state after `time_from_now` seconds. Conflicts
-        of the returned state can be retrieved at
-        `simulation.airport.get_conflicts()`
+        Returns the simulation state and conflicts after `time_from_now`
+        seconds.
         """
         simulation_copy = deepcopy(self.simulation)
         simulation.set_quiet(logger.getLogger("QUIET_MODE"))
+        conflict_tracker.save_and_reset_conflicts()
         freezed_time = Clock.now
         for i in range(time_from_now / Clock.sim_time):
             simulation_copy.quiet_tick()
+        conflict_tracker.restore_conflicts()
         Clock.now = freezed_time
-        return simulation_copy
+        return simulation_copy, conflicts

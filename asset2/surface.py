@@ -20,6 +20,7 @@ class Surface:
         self.spots = []
         self.runways = []
         self.taxiways = []
+        self.pushback_ways = []
 
         self.center = center
         self.corners = corners
@@ -59,6 +60,10 @@ class Surface:
             if taxiway.name == name:
                 return taxiway
 
+        for pushback_way in self.pushback_ways:
+            if pushback_way.name == name:
+                return pushback_way
+
         raise Exception("Getting an unknown link")
 
     """
@@ -66,7 +71,7 @@ class Surface:
     """
     @property
     def links(self):
-        return self.runways + self.taxiways
+        return self.runways + self.taxiways + self.pushback_ways
 
     """
     Returns all nodes.
