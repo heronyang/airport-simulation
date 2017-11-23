@@ -1,7 +1,7 @@
 import logging
 
 from schedule import Schedule
-from aircraft import Aircraft
+from aircraft import Aircraft, State
 from route import Route
 from itinerary import Itinerary
 from config import Config
@@ -40,15 +40,19 @@ class Scheduler:
             flight = simulation.scenario.get_flight(aircraft)
 
             if aircraft.is_idle and \
-               aircraft.location.is_close_to(flight.from_gate):
+               aircraft.location.is_close_to(flight.from_gate)  or aircraft.pilot.state == State.moving:
 
                 # Gets the route from the routing expert
                 # NOTE: We use runway start node as the destination of a
                 # departure flight
 
-                print(flight.from_gate, flight.runway.start) 
+               	if aircraft.pilot.state == State.moving:
+               		from_location = aircraft.location
+               	else:
+               		from_location = flight.from_gate 
+                
                 route = simulation.routing_expert.get_shortest_route(
-                    flight.from_gate, flight.runway.start)
+                    from_location, flight.runway.start)
                 self.logger.debug("Get route: %s" % route)
 
                 # Generates the itinerary for this aircraft
