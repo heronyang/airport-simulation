@@ -6,6 +6,7 @@ from route import Route
 from itinerary import Itinerary
 from config import Config
 from utils import get_seconds_after, get_seconds
+import math
 
 class Scheduler:
 
@@ -13,8 +14,9 @@ class Scheduler:
 
         # Setups the logger
         self.logger = logging.getLogger(__name__)
+        self.last_occupied_time = {}
 
-    def schedule(self, simulation, time):
+    def schedule(self, simulation, time, tightness):
 
         # simulation.airport : all airport states
         # simulation.routing_expert : gets routes from node A to node B
@@ -28,8 +30,10 @@ class Scheduler:
 
         # put break point:
         # from IPython.core.debugger import Tracer; Tracer()()
-
+        
         requests = []
+        nodes_tightness = {}
+                
         for aircraft in simulation.airport.aircrafts:
 
             # Pulls outs the flight information
@@ -51,12 +55,25 @@ class Scheduler:
                 target_nodes = []
                 prev_node = None
                 for node in route.nodes:
+                    prev_time = 0 if node not in self.last_occupied_time else get_seconds(self.last_occupied_time[node])
+
                     if prev_node is None:
                         arr_time = flight.departure_time
                     else:
-                        arr_time = get_seconds_after(arr_time, self.get_delay(prev_node, node))
+                        if node in self.last_occupied_time:
+                            arr_time = max(get_seconds_after(arr_time, self.get_delay(prev_node, node)), \
+                            	get_seconds_after(self.last_occupied_time[node], tightness))
+                        else: 	                 	
+                            arr_time = get_seconds_after(arr_time, self.get_delay(prev_node, node))
 
                     dep_time = arr_time
+
+                    self.last_occupied_time[node] = dep_time
+                    time_diff = get_seconds(arr_time) - prev_time
+
+                    if prev_time>0:
+	                    nodes_tightness[node] = time_diff if node not in nodes_tightness \
+    	                	else min(time_diff, nodes_tightness[node])
 
                     self.logger.debug("Route node is : %s, %s", node, get_seconds(arr_time))
                     target_nodes.append(
@@ -68,7 +85,11 @@ class Scheduler:
                 requests.append(Schedule.Request(aircraft, itinerary))
                 self.logger.debug("Adds route %s on %s" % (route, aircraft))
 
-
+        tightness_vals = nodes_tightness.values()
+        if len(tightness_vals)>0:
+	        actual_tightness = sum(tightness_vals)/float(len(tightness_vals))
+        else:
+            actual_tightness = tightness
         conflictInfo = self.check_conflict(requests)
 
         # Repeatedly check for conflicts and resolve it until conflict-free schedule is obtained
@@ -78,8 +99,8 @@ class Scheduler:
             conflictInfo = self.check_conflict(requests)
             count+=1
         
-        self.logger.debug("Scheduling done")
-        return Schedule(requests)
+        self.logger.debug("Scheduling done with tightness: %f", actual_tightness)
+        return Schedule(requests, actual_tightness)
 
     def get_delay(self, start_node, end_node):
         """
@@ -87,7 +108,7 @@ class Scheduler:
             -time required for the airpline to move from start node to destination node
         """
 
-        return int(start_node.get_distance_to(end_node)/Config.PILOT_EXPECTED_VELOCITY)
+        return int(math.ceil(start_node.get_distance_to(end_node)/Config.PILOT_EXPECTED_VELOCITY))
     
     def check_conflict(self, requests):
         """
