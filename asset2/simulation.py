@@ -14,7 +14,7 @@ from uncertainty import Uncertainty
 
 class Simulation:
 
-    def __init__(self, airport_code, sim_time, reschedule_time, uncertainty):
+    def __init__(self, airport_code, sim_time, reschedule_time, uncertainty, tightness):
 
         # Setups the logger
         self.logger = logging.getLogger(__name__)
@@ -49,6 +49,8 @@ class Simulation:
         # Initializes the previous schedule time
         self.reschedule_time = reschedule_time
         self.last_schedule_time = None
+
+        self.tightness = tightness
 
         self.print_stats()
 
@@ -89,7 +91,7 @@ class Simulation:
                 if last_time is not None else None
 
         if last_time is None or next_time <= self.now:
-            new_schedule = self.scheduler.schedule(self.delegate, self.now)
+            new_schedule = self.scheduler.schedule(self.delegate, self.now, self.tightness)
             self.apply_schedule(new_schedule)
             self.last_schedule_time = self.now
 

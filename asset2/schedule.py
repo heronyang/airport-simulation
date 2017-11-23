@@ -10,5 +10,6 @@ class Schedule:
             self.aircraft = aircraft
             self.itinerary = itinerary
 
-    def __init__(self, requests):
+    def __init__(self, requests, tightness):
         self.requests = requests
+        self.tightness = tightness
