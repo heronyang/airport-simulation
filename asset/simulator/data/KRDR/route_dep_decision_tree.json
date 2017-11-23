@@ -1,6 +1,0 @@
-{ 
- "17" :  { "default" : {"default" :[261, 302]},
-	       "group1" : {"default" :[261, 302]},
-	       "group2" : {"default" :[192, 302]}
-          }
-}
