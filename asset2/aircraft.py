@@ -117,7 +117,7 @@ class Pilot:
         if state == State.moving:
             next_target_node = self.itinerary.peek_target_node()
             self.logger.debug("%s: I'm on my way to next node %s.",
-                              (self, next_target_node))
+                              self, next_target_node)
             return
 
         if not uc:
