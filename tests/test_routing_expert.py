@@ -72,10 +72,16 @@ class TestRoutingExpert(unittest.TestCase):
         self.scenario = ScenarioFactory.create(airport_code,
                                                self.airport.surface)
 
+        links = self.airport.surface.links
+        nodes = self.airport.surface.nodes
+
         # Sets up the routing expert monitoring the airport surface
-        self.routing_expert = RoutingExpert(self.airport.surface.links,
-                                            self.airport.surface.nodes, True)
-        from IPython.core.debugger import Tracer; Tracer()()
+        self.routing_expert = RoutingExpert(links, nodes, True)
+
+        routeG1toR1 = self.routing_expert.get_shortest_route(nodes[1],
+                                                             links[0].start)
+        self.assertEquals(len(routeG1toR1.nodes), 5)
+        self.assertEquals(len(routeG1toR1.links), 4)
 
 if __name__ == '__main__':
 	unittest.main()
