@@ -46,11 +46,10 @@ class Scheduler:
                 # NOTE: We use runway start node as the destination of a
                 # departure flight
 
-                
                	if aircraft.pilot.state == State.moving:
                		from_location = aircraft.location
                	else:
-	               	from_location = flight.from_gate 
+               		from_location = flight.from_gate 
                 
                 route = simulation.routing_expert.get_shortest_route(
                     from_location, flight.runway.start)
