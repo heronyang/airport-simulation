@@ -13,3 +13,5 @@ class Config:
     PILOT_EXPECTED_VELOCITY = 5    # ft/sec, around 3.40909 mph
 	
     MIN_TIGHTNESS = 10 * 60
+
+    UNCERTAINTY_RANGE_THRESHOLD = 0.2

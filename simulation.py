@@ -11,6 +11,7 @@ from scheduler import Scheduler
 from analyst import Analyst
 from utils import get_seconds_after
 from uncertainty import Uncertainty
+from config import Config
 import numpy as np
 
 class Simulation:
@@ -28,11 +29,10 @@ class Simulation:
         # check for uncertainty
         if uncertainty:
             self.uncertainty = Uncertainty(uncertainty)
-            random1 = np.random.random()
-            uc_min = max(0, uncertainty-random1)
-            random2 = np.random.random()
-            uc_max = min(1, uncertainty+random2)
-            self.uc_range = (uncertainty-random1, uncertainty+random2)
+            ucrange = Config.UNCERTAINTY_RANGE_THRESHOLD * np.random.random_sample((2, ))
+            uc_min = max(0, uncertainty - ucrange[0])
+            uc_max = min(1, uncertainty + ucrange[1])
+            self.uc_range = (uc_min, uc_max)
         else:
             self.uncertainty = None
             self.uc_range = None
