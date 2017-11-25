@@ -11,6 +11,7 @@ from scheduler import Scheduler
 from analyst import Analyst
 from utils import get_seconds_after
 from uncertainty import Uncertainty
+import numpy as np
 
 class Simulation:
 
@@ -27,8 +28,11 @@ class Simulation:
         # check for uncertainty
         if uncertainty:
             self.uncertainty = Uncertainty(uncertainty)
+            random = np.random.random()
+            self.uc_range = (uncertainty-random, uncertainty+random)
         else:
             self.uncertainty = None
+            self.uc_range = None
 
         # Sets up the airport
         self.airport = AirportFactory.create(airport_code)
@@ -91,7 +95,7 @@ class Simulation:
                 if last_time is not None else None
 
         if last_time is None or next_time <= self.now:
-            new_schedule = self.scheduler.schedule(self.delegate, self.now, self.tightness)
+            new_schedule = self.scheduler.schedule(self.delegate, self.now, self.tightness, self.uc_range)
             self.apply_schedule(new_schedule)
             self.last_schedule_time = self.now
 
