@@ -28,8 +28,11 @@ class Simulation:
         # check for uncertainty
         if uncertainty:
             self.uncertainty = Uncertainty(uncertainty)
-            random = np.random.random()
-            self.uc_range = (uncertainty-random, uncertainty+random)
+            random1 = np.random.random()
+            uc_min = max(0, uncertainty-random1)
+            random2 = np.random.random()
+            uc_max = min(1, uncertainty+random2)
+            self.uc_range = (uncertainty-random1, uncertainty+random2)
         else:
             self.uncertainty = None
             self.uc_range = None
