@@ -16,7 +16,7 @@ class Scheduler:
         self.logger = logging.getLogger(__name__)
         self.last_occupied_time = {}
 
-    def schedule(self, simulation, time, tightness):
+    def schedule(self, simulation, time, tightness, uc_range):
 
         # simulation.airport : all airport states
         # simulation.routing_expert : gets routes from node A to node B
