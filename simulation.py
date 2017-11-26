@@ -190,10 +190,11 @@ class SimulationDelegate:
         simulation_copy = deepcopy(self.simulation)
         simulation_copy.uncertainty = self.uncertainty
         simulation.set_quiet(logger.getLogger("QUIET_MODE"))
-        conflicts = conflict_tracker.save_and_reset_conflicts()
+        conflict_tracker.save_and_reset_conflicts()
         freezed_time = Clock.now
         for i in range(time_from_now / Clock.sim_time):
             simulation_copy.quiet_tick()
+        conflicts = conflict_tracker.conflicts
         conflict_tracker.restore_conflicts()
         Clock.now = freezed_time
         return simulation_copy, conflicts
