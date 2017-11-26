@@ -1,8 +1,0 @@
-# Filename      Color        zOrder
-#-----------------------------------
-DFW_txwy_out.dxf        	 	#586e75      1
-DFW_polygon_object_out.dxf       	#073642      2
-DFW_txwy_segment_out.dxf     	 	#657b83      3
-DFW_rwy_out.dxf      			#93a1a1      4
-DFW_rwy_mrk_polygon_out.dxf   		#073642      5
-DFW_rwy_mrk_line_out.dxf		#073642	     6

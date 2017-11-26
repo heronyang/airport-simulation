@@ -1,4 +1,0 @@
-/Users/rmorrisk/Desktop/CMUpracticum/waqarmalik-assetplayer/build/CMakeFiles/assetplayer.dir
-/Users/rmorrisk/Desktop/CMUpracticum/waqarmalik-assetplayer/build/CMakeFiles/assetplayer_automoc.dir
-/Users/rmorrisk/Desktop/CMUpracticum/waqarmalik-assetplayer/build/CMakeFiles/debug.dir
-/Users/rmorrisk/Desktop/CMUpracticum/waqarmalik-assetplayer/build/CMakeFiles/release.dir
