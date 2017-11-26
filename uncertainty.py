@@ -29,7 +29,7 @@ class Uncertainty:
         self.update(self.uc_val)
 
     def aircraft_can_move(self, is_terminal):
-        unc = self.uc_val*2 if is_terminal else self.uc_val
+        unc = min(self.uc_val * 1.5, 0.9) if is_terminal else self.uc_val
         return np.random.random() > unc
     
     def __initialize_distribution_with_file(self):

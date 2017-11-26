@@ -124,12 +124,14 @@ class Pilot:
         # the next node is still too early to arrive.
         while True:
 
-            if not uc:
-                self.move_aircraft_to_next_target_node()
-            else: # has uc
-                near_terminal=self.aircraft.location.is_close_to(flight.from_gate)
-                if uc.aircraft_can_move(near_terminal):
-                    self.move_aircraft_to_next_target_node()
+            if uc:
+                near_terminal = self.aircraft.location.is_close_to(flight.from_gate)
+                if not uc.aircraft_can_move(near_terminal):
+                    self.logger.debug("%s: I'm stuck because of the uncertainty.",
+                                      self)
+                    break
+
+            self.move_aircraft_to_next_target_node()
 
             if self.state is not State.exceeding:
                 break
