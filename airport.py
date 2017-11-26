@@ -7,6 +7,7 @@ from scenario import ScenarioFactory
 from config import Config
 from clock import Clock
 from conflict_tracker import add_conflict, Conflict
+from aircraft import State
 
 class Airport:
     """
@@ -44,8 +45,8 @@ class Airport:
             if ap[0].location.is_close_to(ap[1].location):
                # If any of these aircraft is moving, it doesn't count as a
                 # conflict
-                if ap[0].aircraft.pilot.state == State.moving or \
-                   ap[1].aircraft.pilot.state == State.moving:
+                if ap[0].pilot.state == State.moving or \
+                   ap[1].pilot.state == State.moving:
                     continue
 
                 conflict = Conflict(ap, ap[0].location, Clock.now)
