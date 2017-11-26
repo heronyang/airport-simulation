@@ -52,7 +52,7 @@ class Itinerary:
     def is_started(self):
         if self.is_completed:
             return False;
-        return Clock.now > self.start_time
+        return Clock.now >= self.start_time
 
     @property
     def is_completed(self):
