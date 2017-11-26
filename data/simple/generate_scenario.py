@@ -15,7 +15,7 @@ OUTPUT_FOLDER = "./build/"
 
 TIGHTNESS_TIME_MEAN = 600 # seconds
 TIGHTNESS_TIME_DEVIATION = 120 # seconds
-APPEAR_BEFORE = 180 # seconds
+APPEAR_BEFORE = 600 # seconds
 
 # Setups logger
 logger = logging.getLogger(__name__)
@@ -102,8 +102,8 @@ def sec2time_str(time):
 
 def get_random_time_interval():
     while True:
-        interval = numpy.random.normal(TIDENESS_TIME_MEAN,
-                                       TIDENESS_TIME_DEVIATION)
+        interval = numpy.random.normal(TIGHTNESS_TIME_MEAN,
+                                       TIGHTNESS_TIME_DEVIATION)
         if interval > 0:
             return interval
 
