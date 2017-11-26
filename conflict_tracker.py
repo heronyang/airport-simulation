@@ -28,7 +28,6 @@ def add_conflict(conflict):
 def save_and_reset_conflicts():
     conflicts_snapshot = conflicts
     conflicts = []
-    return conflicts_snapshot
 
 def restore_conflicts():
     conflicts = conflicts_snapshot
