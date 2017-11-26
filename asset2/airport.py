@@ -42,8 +42,9 @@ class Airport:
         aircraft_pairs = list(itertools.combinations(self.aircrafts, 2))
         for ap in aircraft_pairs:
             if ap[0].location.is_close_to(ap[1].location):
-                self.logger.debug("Conflict found********************************")
-                add_conflict(Conflict(ap, ap[0].location, Clock.now))
+                conflict = Conflict(ap, ap[0].location, Clock.now)
+                self.logger.debug("Conflict found******************************** : %s at location %s at time %s ", ap, ap[0].location, Clock.now)
+                add_conflict(conflict)
 
     def tick(self, uc, scenario):
         for aircraft in self.aircrafts:

@@ -135,8 +135,8 @@ class Pilot:
         # Arrives the aircraft on the target node
         self.aircraft.set_location(next_target_node.node)
         self.itinerary.pop_target_node()
-        self.logger.debug("%s: Arrived target node %s" %
-                          (self, next_target_node))
+        self.logger.debug("%s: Arrived target node %s at time %s" %
+                          (self, next_target_node, Clock.now))
 
     @property
     def state(self):
