@@ -173,8 +173,11 @@ class Scheduler:
 
                 for idx2 in range(len(target_nodes)):
                     if target_nodes[idx2] == target_node1:
-                        delay = get_seconds(target_nodes[idx2+1].expected_arrival_time) - get_seconds(target_node1.expected_departure_time)
-
+                        if idx2+1 < len(target_nodes):
+                            delay = get_seconds(target_nodes[idx2+1].expected_arrival_time) - get_seconds(target_node1.expected_departure_time)
+                        else:
+                            delay = get_seconds(target_node1.expected_arrival_time) - get_seconds(target_nodes[idx2-1].expected_departure_time)
+                             
             if aircraft == aircraft2:
                 for target_node in itinerary.target_nodes:
                     target_node.expected_departure_time = get_seconds_after(target_node.expected_departure_time, delay)
