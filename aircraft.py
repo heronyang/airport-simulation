@@ -9,7 +9,7 @@ class State(enum.Enum):
     idle = 1        # all itineraries had been completed
     scheduled = 2   # the itinerary is scheduled but it's not started
     moving = 3      # the aircraft is moving to the next target node
-    arrived = 4     # the aircraft just arrived one target node (may not be the
+    pending = 4     # the aircraft just  one target node (may not be the
                     # final destination)
 
 class Aircraft:
@@ -120,13 +120,19 @@ class Pilot:
                               self, next_target_node)
             return
 
-        if not uc:
-            self.move_aircraft_to_next_target_node()
-        else: # has uc
-            near_terminal=self.aircraft.location.is_close_to(flight.from_gate)
-            if uc.aircraft_can_move(near_terminal):
+        # Moves one or more nodes until there's no pending node to arrive or
+        # the next node is still too early to arrive.
+        while True:
+            if not uc:
                 self.move_aircraft_to_next_target_node()
+            else: # has uc
+                near_terminal=self.aircraft.location.is_close_to(flight.from_gate)
+                if uc.aircraft_can_move(near_terminal):
+                    self.move_aircraft_to_next_target_node()
 
+            if self.state is State.moving or \
+               self.state is State.idle:
+                break
 
     def move_aircraft_to_next_target_node(self):
 
@@ -154,7 +160,7 @@ class Pilot:
         if Clock.now < next_target_node.expected_arrival_time:
             return State.moving
 
-        return State.arrived
+        return State.pending
 
     def __repr__(self):
         return "<Pilot on %s>" % self.aircraft
