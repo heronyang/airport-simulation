@@ -15,7 +15,7 @@ OUTPUT_FOLDER = "./build/"
 
 TIGHTNESS_TIME_MEAN = 600 # seconds
 TIGHTNESS_TIME_DEVIATION = 120 # seconds
-APPEAR_BEFORE = 600 # seconds
+APPEAR_BEFORE = 300 # seconds
 
 # Setups logger
 logger = logging.getLogger(__name__)
