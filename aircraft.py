@@ -9,8 +9,10 @@ class State(enum.Enum):
     idle = 1        # all itineraries had been completed
     scheduled = 2   # the itinerary is scheduled but it's not started
     moving = 3      # the aircraft is moving to the next target node
-    pending = 4     # the aircraft just  one target node (may not be the
-                    # final destination)
+    exceeding = 4   # the aircraft just one target node, it may have to move to
+                    # next node as soon as possible (this is only an
+                    # intermediate state, which shouldn't be observed by
+                    # others)
 
 class Aircraft:
     """
@@ -97,24 +99,22 @@ class Pilot:
 
     def tick(self, uc, flight):
 
-        state = self.state
-
         self.logger.debug("Aircraft (%s) location: %s, state: %s" %
                          (self.aircraft, self.aircraft.location, self.state))
 
         # If the aircraft is idle, do nothing on tick
-        if state == State.init or state == State.idle:
+        if self.state == State.init or self.state == State.idle:
             self.logger.debug("%s: No on-going itinerary request." % self)
             return
 
         # If the itinerary shouldn't be started yet, do nothing
-        if state == State.scheduled:
+        if self.state == State.scheduled:
             self.logger.debug("%s: It's too early to start %s." %
                               (self, self.itinerary))
             return
 
         # Pulls out the next target node
-        if state == State.moving:
+        if self.state == State.moving:
             next_target_node = self.itinerary.peek_target_node()
             self.logger.debug("%s: I'm on my way to next node %s.",
                               self, next_target_node)
@@ -123,6 +123,7 @@ class Pilot:
         # Moves one or more nodes until there's no pending node to arrive or
         # the next node is still too early to arrive.
         while True:
+
             if not uc:
                 self.move_aircraft_to_next_target_node()
             else: # has uc
@@ -130,8 +131,7 @@ class Pilot:
                 if uc.aircraft_can_move(near_terminal):
                     self.move_aircraft_to_next_target_node()
 
-            if self.state is State.moving or \
-               self.state is State.idle:
+            if self.state is not State.exceeding:
                 break
 
     def move_aircraft_to_next_target_node(self):
@@ -160,7 +160,7 @@ class Pilot:
         if Clock.now < next_target_node.expected_arrival_time:
             return State.moving
 
-        return State.pending
+        return State.exceeding
 
     def __repr__(self):
         return "<Pilot on %s>" % self.aircraft

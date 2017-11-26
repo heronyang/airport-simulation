@@ -78,10 +78,8 @@ class TestRoutingExpert(unittest.TestCase):
         # Sets up the routing expert monitoring the airport surface
         self.routing_expert = RoutingExpert(links, nodes, True)
 
-        routeG1toR1 = self.routing_expert.get_shortest_route(nodes[1],
+        routeG3toR1 = self.routing_expert.get_shortest_route(nodes[2],
                                                              links[0].start)
-        self.assertEquals(len(routeG1toR1.nodes), 5)
-        self.assertEquals(len(routeG1toR1.links), 4)
 
 if __name__ == '__main__':
 	unittest.main()
