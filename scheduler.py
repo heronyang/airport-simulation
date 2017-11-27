@@ -67,14 +67,18 @@ class Scheduler:
                         arr_time = flight.departure_time
                     else:
                         if node in self.last_occupied_time:
-                            arr_time = max(get_seconds_after(arr_time, self.get_delay(prev_node, node)), \
-                            	get_seconds_after(self.last_occupied_time[node], tightness))
+                            moving_time = get_seconds_after(arr_time, self.get_delay(prev_node, node))
+                            tightness_time = get_seconds_after(self.last_occupied_time[node], tightness) 
+                            arr_time = max(moving_time, tightness_time)
+                            self.logger.debug("Taking max of move time %s and tightness_time %s \
+                                (using last_occupied_time %s) which is %s", moving_time, tightness_time, self.last_occupied_time[node], arr_time)
                         else: 	                 	
                             arr_time = get_seconds_after(arr_time, self.get_delay(prev_node, node))
 
                     dep_time = arr_time
 
                     self.last_occupied_time[node] = dep_time
+                    self.logger.debug("Last occupied time for %s updated to %s", node, dep_time)
                     time_diff = get_seconds(arr_time) - prev_time
 
                     if prev_time>0:
@@ -177,8 +181,10 @@ class Scheduler:
                             delay = get_seconds(target_nodes[idx2+1].expected_arrival_time) - get_seconds(target_node1.expected_departure_time)
                         else:
                             delay = get_seconds(target_node1.expected_arrival_time) - get_seconds(target_nodes[idx2-1].expected_departure_time)
-                             
+
             if aircraft == aircraft2:
+
+                self.logger.debug("old itinerary %s for aircraft %s; adding delay %d ", requests[idx].itinerary, requests[idx].aircraft, delay)
                 for target_node in itinerary.target_nodes:
                     target_node.expected_departure_time = get_seconds_after(target_node.expected_departure_time, delay)
                     target_node.expected_arrival_time = get_seconds_after(target_node.expected_arrival_time, delay)
@@ -186,7 +192,9 @@ class Scheduler:
                 itinerary.start_time = get_seconds_after(itinerary.start_time, delay)
 
                 requests[idx].itinerary = itinerary
-            self.logger.debug("%s", requests[idx].itinerary)
+
+                self.logger.debug("new itinerary %s for aircraft %s ", requests[idx].itinerary, requests[idx].aircraft)
+        
         return requests
 
     def __getstate__(self):
