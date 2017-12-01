@@ -56,3 +56,8 @@ def interpolate_geo(start, end, ratio):
 
 def get_seconds(t):
     return (t.hour * 60 + t.minute) * 60 + t.second
+
+def get_time_delta(t1, t2):
+    m1 = t1.hour * 60 * 60 + t1.minute * 60 + t1.second
+    m2 = t2.hour * 60 * 60 + t2.minute * 60 + t2.second
+    return m1 - m2
