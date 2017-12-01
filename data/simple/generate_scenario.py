@@ -17,6 +17,9 @@ TIGHTNESS_TIME_MEAN = 600 # seconds
 TIGHTNESS_TIME_DEVIATION = 120 # seconds
 APPEAR_BEFORE = 300 # seconds
 
+# We stop adding flights before the day ends in order to measure maxspan
+END_TIME = 20 * 60 * 60 # seconds
+
 # Setups logger
 logger = logging.getLogger(__name__)
 logger_handler = logging.StreamHandler(sys.stdout)
@@ -58,13 +61,11 @@ def main():
 
     # Creates the output folder
     create_output_folder(OUTPUT_FOLDER)
-
     current_time = 0
-    end_time = 24 * 60 * 60 # second / day
 
     # In this scenario, we only have departure flights to simply the problem
     departures = []
-    while current_time < end_time:
+    while current_time < END_TIME:
         flight = generate_flight_at(current_time)
         departures.append(flight)
         interval = get_random_time_interval()
