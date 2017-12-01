@@ -18,9 +18,12 @@ class Analyst:
             if not aircraft.location.is_close_to(flight.from_gate):
                 self.aircraft_tick_while_moving_counter += 1
 
-    def print_summary(self):
+    def print_summary(self, simulation):
         taxi_time = self.aircraft_tick_while_moving_counter * Clock.sim_time
+        remaining_aircrafts = len(simulation.airport.aircrafts)
         self.logger.debug("Total taxi-time: %d seconds" % taxi_time)
+        self.logger.debug("Number of remainging aircrafts: %d" %
+                          remaining_aircrafts)
 
     def __getstate__(self):
         d = dict(self.__dict__)

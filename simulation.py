@@ -75,7 +75,7 @@ class Simulation:
         try:
             self.clock.tick()
         except ClockException as e:
-            self.analyst.print_summary()
+            self.analyst.print_summary(self)
             raise e
 
     def quiet_tick(self):
