@@ -18,7 +18,7 @@ TIGHTNESS_TIME_DEVIATION = 120 # seconds
 APPEAR_BEFORE = 300 # seconds
 
 # We stop adding flights before the day ends in order to measure maxspan
-END_TIME = 20 * 60 * 60 # seconds
+END_TIME = 15 * 60 * 60 # seconds
 
 # Setups logger
 logger = logging.getLogger(__name__)
