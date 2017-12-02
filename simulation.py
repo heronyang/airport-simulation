@@ -174,7 +174,10 @@ class SimulationDelegate:
     @property
     def scenario(self):
         return self.simulation.scenario
-
+    
+    @property
+    def reschedule_time(self):
+        return self.simulation.reschedule_time
     @property
     def routing_expert(self):
         return self.simulation.routing_expert
