@@ -113,12 +113,14 @@ class Simulation:
         for (aircraft, time) in schedule.delayed_aircrafts:
             for flight in self.scenario.departures:
                 if flight.aircraft == aircraft:
-                    flight.appear_time = get_seconds_before(time, APPEAR_BEFORE)
+                    flight.appear_time = \
+                            get_seconds_before(time, Config.APPEAR_BEFORE_TIME)
                     flight.departure_time = time
 
             for flight in self.scenario.arrivals:
                 if flight.aircraft == aircraft:
-                    flight.appear_time = get_seconds_before(time, APPEAR_BEFORE)
+                    flight.appear_time = \
+                            get_seconds_before(time, Config.APPEAR_BEFORE_TIME)
                     flight.arrival_time = time
 
     def add_aircraft_based_on_scenario(self):
