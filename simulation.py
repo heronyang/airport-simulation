@@ -9,7 +9,7 @@ from scenario import ScenarioFactory
 from routing_expert import RoutingExpert
 from scheduler import Scheduler
 from analyst import Analyst
-from utils import get_seconds_after
+from utils import get_seconds_after, get_seconds_before
 from uncertainty import Uncertainty
 from config import Config
 import numpy as np
@@ -67,14 +67,15 @@ class Simulation:
 
         self.logger.debug("Current Time: %s" % self.now)
 
-        self.add_aircraft_based_on_scenario()
-        self.remove_aircraft_if_needed()
-        self.reschedule_if_needed()
-        self.analyst.observe_per_tick(self.delegate)
-
-        self.airport.tick(self.uncertainty, self.scenario)
-        self.logger.debug("No of conflicts found: %d", conflict_tracker.conflicts_size())
         try:
+            self.add_aircraft_based_on_scenario()
+            self.remove_aircraft_if_needed()
+            self.reschedule_if_needed()
+            self.analyst.observe_per_tick(self.delegate)
+
+            self.airport.tick(self.uncertainty, self.scenario)
+            self.logger.debug("No of conflicts found: %d",
+                              conflict_tracker.conflicts_size())
             self.clock.tick()
         except ClockException as e:
             self.analyst.print_summary(self)
@@ -110,10 +111,15 @@ class Simulation:
 
         # Updates the delayed aircrafts into the scenario
         for (aircraft, time) in schedule.delayed_aircrafts:
+            for flight in self.scenario.departures:
+                if flight.aircraft == aircraft:
+                    flight.appear_time = get_seconds_before(time, APPEAR_BEFORE)
+                    flight.departure_time = time
+
             for flight in self.scenario.arrivals:
                 if flight.aircraft == aircraft:
-                    flight.appear_time = time
-                    flight.arrival_time = get_seconds_after(time, APPEAR_BEFORE)
+                    flight.appear_time = get_seconds_before(time, APPEAR_BEFORE)
+                    flight.arrival_time = time
 
     def add_aircraft_based_on_scenario(self):
 
