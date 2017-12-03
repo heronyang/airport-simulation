@@ -33,7 +33,9 @@ class Scheduler:
         
         requests = []
         nodes_tightness = {}
-                
+        schedule_limit = get_seconds_after(time, simulation.reschedule_time)
+        delayed_aircrafts = []
+        
         for aircraft in simulation.airport.aircrafts:
 
             # Pulls outs the flight information
@@ -60,11 +62,27 @@ class Scheduler:
                 # Generates the itinerary for this aircraft
                 target_nodes = []
                 prev_node = None
+                start_time = flight.departure_time
+                is_delayed = False
+
                 for node in route.nodes:
+
                     prev_time = 0 if node not in self.last_occupied_time else get_seconds(self.last_occupied_time[node])
 
                     if prev_node is None:
-                        arr_time = flight.departure_time
+                        if node in self.last_occupied_time:
+                            tightness_time = get_seconds_after(self.last_occupied_time[node], tightness)
+                            
+                            if tightness_time > schedule_limit:
+                               delayed_aircrafts.append((aircraft, tightness_time))
+                               is_delayed = True
+                               break
+
+                            arr_time = max(flight.departure_time, tightness_time)
+                            start_time = arr_time
+                        else:   
+                            arr_time = flight.departure_time
+    
                     else:
                         if node in self.last_occupied_time:
                             moving_time = get_seconds_after(arr_time, self.get_delay(prev_node, node))
@@ -90,8 +108,11 @@ class Scheduler:
                         Itinerary.TargetNode(node, arr_time, dep_time))
                     
                     prev_node = node
+                
+                if is_delayed:
+                    continue
 
-                itinerary = Itinerary(target_nodes, flight.departure_time)
+                itinerary = Itinerary(target_nodes, start_time)
                 self.logger.debug("Itinerary generated: %s for aircraft %s with departure_time %s", itinerary, aircraft, flight.departure_time)
                 requests.append(Schedule.Request(aircraft, itinerary))
                 self.logger.debug("Adds route %s on %s" % (route, aircraft))
@@ -112,7 +133,7 @@ class Scheduler:
             count+=1
         
         self.logger.debug("Scheduling done with tightness: %f", actual_tightness)
-        return Schedule(requests, actual_tightness)
+        return Schedule(requests, delayed_aircrafts, actual_tightness)
 
     def get_delay(self, start_node, end_node):
         """
