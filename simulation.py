@@ -40,9 +40,11 @@ class Simulation:
         # Sets up the airport
         self.airport = AirportFactory.create(airport_code)
 
-        # Sets up the scenario
+        # Sets up the scenario where scenario is mutable and base_scenario
+        # isn't
         self.scenario = ScenarioFactory.create(airport_code,
                                                self.airport.surface)
+        self.base_scenario = deepcopy(self.scenario)
 
         # Sets up the routing expert monitoring the airport surface
         self.routing_expert = RoutingExpert(self.airport.surface.links,
@@ -103,7 +105,15 @@ class Simulation:
             self.last_schedule_time = self.now
 
     def apply_schedule(self, schedule):
+
         self.airport.apply_schedule(schedule)
+
+        # Updates the delayed aircrafts into the scenario
+        for (aircraft, time) in schedule.delayed_aircrafts:
+            for flight in self.scenario.arrivals:
+                if flight.aircraft == aircraft:
+                    flight.appear_time = time
+                    flight.arrival_time = get_seconds_after(time, APPEAR_BEFORE)
 
     def add_aircraft_based_on_scenario(self):
 

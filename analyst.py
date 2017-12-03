@@ -32,9 +32,14 @@ class Analyst:
             self.last_aircraft_remove_time = Clock.now
 
     def print_summary(self, simulation):
+
+        # Taxitime
         taxi_time = self.aircraft_tick_while_moving_counter * Clock.sim_time
+
+        # Remaining aircrafts
         remaining_aircrafts = len(simulation.airport.aircrafts)
 
+        # Maxspan
         if self.first_aircraft_appear_time is not None and \
            self.last_aircraft_remove_time is not None:
             maxspan = get_time_delta(self.last_aircraft_remove_time,
@@ -42,6 +47,14 @@ class Analyst:
         else:
             maxspan = float('Inf')
 
+        # Delay
+        delay = 0
+        for flight_planned in simulation.base_scenario.arrivals:
+            for flight_simulated in simulation.scenario.arrivals:
+                delay += get_time_delta(flight_planned.arrival_time,
+                                        flight_simulated.arrival_time)
+
+        # Prints
         self.logger.debug("Total taxi-time: %d seconds" % taxi_time)
         self.logger.debug("Number of remainging aircrafts: %d" %
                           remaining_aircrafts)
@@ -49,6 +62,7 @@ class Analyst:
             self.logger.debug("Last flight departed at: %s" %
                               str(self.last_aircraft_remove_time))
         self.logger.debug("Maxspan: %f seconds" % maxspan)
+        self.logger.debug("Total delayed time: %d seconds", delay)
 
     def __getstate__(self):
         d = dict(self.__dict__)
