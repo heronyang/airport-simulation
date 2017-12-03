@@ -37,8 +37,21 @@ def get_seconds_after(t, dt):
     combine self.time with today, then get the time() part
     """
     from datetime import date, datetime, timedelta
+    from clock import ClockException
     holder = datetime.combine(date.today(), t)
-    return (holder + timedelta(seconds = dt)).time()
+    res = (holder + timedelta(seconds = dt)).time()
+    if res < t: # overflow
+        raise ClockException("Overflow in time")
+    return res
+
+def get_seconds_before(t, dt):
+    from datetime import date, datetime, timedelta
+    from clock import ClockException
+    holder = datetime.combine(date.today(), t)
+    res = (holder - timedelta(seconds = dt)).time()
+    if res > t: # overflow
+        raise ClockException("Overflow in time")
+    return res
 
 def str2sha1(s):
     import hashlib

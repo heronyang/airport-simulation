@@ -9,7 +9,7 @@ from scenario import ScenarioFactory
 from routing_expert import RoutingExpert
 from scheduler import Scheduler
 from analyst import Analyst
-from utils import get_seconds_after
+from utils import get_seconds_after, get_seconds_before
 from uncertainty import Uncertainty
 from config import Config
 import numpy as np
@@ -40,9 +40,11 @@ class Simulation:
         # Sets up the airport
         self.airport = AirportFactory.create(airport_code)
 
-        # Sets up the scenario
+        # Sets up the scenario where scenario is mutable and base_scenario
+        # isn't
         self.scenario = ScenarioFactory.create(airport_code,
                                                self.airport.surface)
+        self.base_scenario = deepcopy(self.scenario)
 
         # Sets up the routing expert monitoring the airport surface
         self.routing_expert = RoutingExpert(self.airport.surface.links,
@@ -65,14 +67,15 @@ class Simulation:
 
         self.logger.debug("Current Time: %s" % self.now)
 
-        self.add_aircraft_based_on_scenario()
-        self.remove_aircraft_if_needed()
-        self.reschedule_if_needed()
-        self.analyst.observe_per_tick(self.delegate)
-
-        self.airport.tick(self.uncertainty, self.scenario)
-        self.logger.debug("No of conflicts found: %d", conflict_tracker.conflicts_size())
         try:
+            self.add_aircraft_based_on_scenario()
+            self.remove_aircraft_if_needed()
+            self.reschedule_if_needed()
+            self.analyst.observe_per_tick(self.delegate)
+
+            self.airport.tick(self.uncertainty, self.scenario)
+            self.logger.debug("No of conflicts found: %d",
+                              conflict_tracker.conflicts_size())
             self.clock.tick()
         except ClockException as e:
             self.analyst.print_summary(self)
@@ -103,7 +106,22 @@ class Simulation:
             self.last_schedule_time = self.now
 
     def apply_schedule(self, schedule):
+
         self.airport.apply_schedule(schedule)
+
+        # Updates the delayed aircrafts into the scenario
+        for (aircraft, time) in schedule.delayed_aircrafts:
+            for flight in self.scenario.departures:
+                if flight.aircraft == aircraft:
+                    flight.appear_time = \
+                            get_seconds_before(time, Config.APPEAR_BEFORE_TIME)
+                    flight.departure_time = time
+
+            for flight in self.scenario.arrivals:
+                if flight.aircraft == aircraft:
+                    flight.appear_time = \
+                            get_seconds_before(time, Config.APPEAR_BEFORE_TIME)
+                    flight.arrival_time = time
 
     def add_aircraft_based_on_scenario(self):
 
