@@ -1,8 +1,12 @@
-# Airport Simulation
+# ASSET2 - Airport Surface Simulator and Evaluation Tool 2
 
-## Design Document
+## About
 
-[here](https://github.com/heronyang/airport-simulation/wiki/Airport-Simulation)
+ASSET2 is built for Carnegie Mellon University MSIT Practicum Project, "NASA: Optimization of Airport Surface Planning and Scheduling" in 2017 Fall semester. The team is formed by CMU students and sponsored by NASA Ames Research Center. Please check out following materials for more information.
+
+- [Video](https://www.youtube.com/watch?v=zpHWQc2RBQ0)
+- [Slides](doc/report/slides.pdf)
+- [One Pager](doc/report/one-pager.pdf), [Paper report](doc/report/report.pdf)
 
 ## Prepare airport data
 
