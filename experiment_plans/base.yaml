@@ -2,7 +2,7 @@ airport: simple
 
 simulator:
   # Real seconds passed between each tick
-  pause_time: 1
+  pause_time: 0
 
 simulation:
   # Seconds between each simulation epoch

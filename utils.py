@@ -34,14 +34,13 @@ def is_valid_geo_pos(geo_pos):
 def get_seconds_after(t, dt):
     """
     Since time calculation only works on datetime (not time), so we first
-    combine self.time with today, then get the time() part
+    combine self.time with today, then get the time() part. Note that if
+    overflow occurs, the output will be earlier
     """
     from datetime import date, datetime, timedelta
     from clock import ClockException
     holder = datetime.combine(date.today(), t)
     res = (holder + timedelta(seconds = dt)).time()
-    if res < t: # overflow
-        raise ClockException("Overflow in time")
     return res
 
 def get_seconds_before(t, dt):
@@ -49,8 +48,6 @@ def get_seconds_before(t, dt):
     from clock import ClockException
     holder = datetime.combine(date.today(), t)
     res = (holder - timedelta(seconds = dt)).time()
-    if res > t: # overflow
-        raise ClockException("Overflow in time")
     return res
 
 def str2sha1(s):

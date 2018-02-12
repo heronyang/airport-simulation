@@ -60,12 +60,14 @@ class Simulation:
         try:
 
             # Updates states
-            """
-            self.update_aircrafts()
+            # self.update_aircrafts()
             if self.is_time_to_reschedule():
-                self.reschedule()
-            self.airport.tick(self.uncertainty, self.scenario)
-            """
+                self.logger.info("Time to reschedule")
+                # self.reschedule()
+                self.last_schedule_time = self.now
+                self.logger.debug("Last schedule time is updated to %s" %
+                                  self.last_schedule_time)
+            # self.airport.tick(self.uncertainty, self.scenario)
             self.clock.tick()
 
             # Observe
@@ -106,7 +108,6 @@ class Simulation:
         schedule = self.scheduler.schedule(self.delegate, self.now,
                                            self.uncertainty.range)
         self.apply_schedule(schedule)
-        self.last_schedule_time = self.now
 
     def apply_schedule(self, schedule):
 

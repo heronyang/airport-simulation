@@ -19,7 +19,8 @@ class Clock:
         time_after_tick = get_seconds_after(self.now, self.sim_time)
 
         if time_after_tick < self.now:
-            raise ClockException("Reached the end of the day")
+            self.logger.info("Clock had reached the end of the day")
+            raise ClockException("End of the day")
 
         self.now = time_after_tick
 
