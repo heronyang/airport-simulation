@@ -1,2 +1,4 @@
 geopy==1.11.0
 ipython==6.2.1
+PyYAML==3.12
+numpy==1.13.3

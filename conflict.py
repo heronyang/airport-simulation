@@ -1,11 +1,9 @@
 from utils import str2sha1
 
-conflicts = []
-conflicts_snapshot = None
-
 class Conflict:
 
     def __init__(self, aircraft_pair, location, time):
+
         self.aircraft_pair = aircraft_pair
         self.location = location
         self.time = time
@@ -21,17 +19,15 @@ class Conflict:
     def __ne__(self, other):
         return not(self == other)
 
-def add_conflict(conflict):
-    if not conflict in conflicts:
-        conflicts.append(conflict)
+class ConflictTracker:
 
-def save_and_reset_conflicts():
-    conflicts_snapshot = conflicts
-    conflicts = []
+    def __init__(self):
+        self.conflicts = []
 
-def restore_conflicts():
-    conflicts = conflicts_snapshot
-    conflicts_snapshot = []
+    def add_conflict(self, conflict):
+        if not conflict in self.conflicts:
+            self.conflicts.append(conflict)
 
-def conflicts_size():
-    return len(conflicts)
+    @property
+    def size(self):
+        return len(self.conflicts)

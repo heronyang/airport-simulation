@@ -2,10 +2,11 @@ import logging
 from clock import Clock
 from aircraft import State
 from utils import get_time_delta
+from copy import deepcopy
 
 class Analyst:
 
-    def __init__(self):
+    def __init__(self, scenario):
 
         # Setups the logger
         self.logger = logging.getLogger(__name__)
@@ -13,6 +14,8 @@ class Analyst:
 
         self.first_aircraft_appear_time = None
         self.last_aircraft_remove_time = None
+
+        self.base_scenario = deepcopy(scenario)
 
     def observe_per_tick(self, simulation):
 
@@ -49,7 +52,7 @@ class Analyst:
 
         # Delay
         delay = 0
-        for flight_planned in simulation.base_scenario.arrivals:
+        for flight_planned in self.base_scenario.arrivals:
             for flight_simulated in simulation.scenario.arrivals:
                 delay += get_time_delta(flight_planned.arrival_time,
                                         flight_simulated.arrival_time)

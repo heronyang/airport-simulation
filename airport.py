@@ -6,7 +6,7 @@ from surface import SurfaceFactory
 from scenario import ScenarioFactory
 from config import Config
 from clock import Clock
-from conflict_tracker import add_conflict, Conflict
+from conflict import Conflict
 from aircraft import State
 
 class Airport:
@@ -15,13 +15,16 @@ class Airport:
     stopped in this airport.
     """
 
-    def __init__(self, code, surface):
+    def __init__(self, simulation, code, surface):
 
         # Setups the logger
         self.logger = logging.getLogger(__name__)
 
         # Runtime data
         self.aircrafts = []
+
+        # Pointer to the simulation
+        self.simulation = simulation
 
         # Static data
         self.code = code
@@ -53,9 +56,10 @@ class Airport:
                 self.logger.debug("Conflict found******************************** : %s at location %s at time %s ", ap, ap[0].location, Clock.now)
                 add_conflict(conflict)
                 
-    def tick(self, uc, scenario):
+    def tick(self, uncertainty, scenario):
+        uncertainty = self.simulation.uncertainty
         for aircraft in self.aircrafts:
-            aircraft.pilot.tick(uc, scenario.get_flight(aircraft))
+            aircraft.pilot.tick(scenario.get_flight(aircraft))
         self.log_conflicts()
 
     def print_stats(self):
@@ -79,13 +83,13 @@ class Airport:
 class AirportFactory:
 
     @classmethod
-    def create(self, code):
+    def create(self, simulation, code):
 
         dir_path = Config.DATA_ROOT_DIR_PATH % code
 
         # Checks if the folder exists
         if not os.path.exists(dir_path):
-            raise Exception("Surface data is not ready")
+            raise Exception("Surface data is missing")
 
         surface = SurfaceFactory.create(dir_path)
-        return Airport(code, surface)
+        return Airport(simulation, code, surface)

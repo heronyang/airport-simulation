@@ -1,0 +1,35 @@
+airport: simple
+
+simulator:
+  # Real seconds passed between each tick
+  pause_time: 1
+
+simulation:
+  # Seconds between each simulation epoch
+  time_unit: 300
+  # Seconds between each reschedule
+  reschedule_cycle: 900
+  # Seconds before an aircraft shown in the simulation before scheduled time
+  appear_before: 300
+  # Feets required between two nodes (otherwise, we seem two nodes as the same)
+  close_node_threshold: 30
+
+monitor:
+  # Enable or disable the real-time monitor
+  enabled: false
+
+uncertainty:
+  # Enable or disable the uncertain in simulation
+  enabled: true
+  #
+  seed: 0.2
+  #
+  range_threshold: 0.2
+
+scheduler:
+  # Minimum tightness at each node in schedule
+  tightness: 30
+
+logger:
+  # Options are: info, debug, warning, error
+  level: info

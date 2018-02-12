@@ -89,7 +89,7 @@ class Route:
     @property
     def distance(self):
         if not self.is_completed:
-            return Config.INFINITE_DISTANCE
+            return float("Inf")
         distance = 0
         for link in self.links:
             distance += link.length

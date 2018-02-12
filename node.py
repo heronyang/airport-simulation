@@ -32,7 +32,8 @@ class Node:
     """
     def is_close_to(self, node):
         distance_feet = self.get_distance_to(node)
-        return distance_feet < Config.CLOSE_NODE_THRESHOLD_FEET
+        return distance_feet < \
+                Config.params["simulation"]["close_node_threshold"]
 
     """
     Override functions used for hash and comparisons so that we will able to

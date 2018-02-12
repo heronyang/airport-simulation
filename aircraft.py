@@ -20,11 +20,12 @@ class Aircraft:
     knows. It won't obtain information other than its own state and operation.
     """
 
-    def __init__(self, callsign, model, location):
+    def __init__(self, simulation, callsign, model, location):
 
         # Setups the logger
         self.logger = logging.getLogger(__name__)
 
+        self.simulation = simulation
         self.callsign = callsign
         self.model = model
         self.location = location
@@ -97,10 +98,13 @@ class Pilot:
     def is_aircraft_idle(self):
         return self.itinerary is None or self.itinerary.is_completed
 
-    def tick(self, uc, flight):
+    def tick(self):
 
-        self.logger.debug("Aircraft (%s) location: %s, state: %s" %
+        self.logger.info("Aircraft (%s) location: %s, state: %s" %
                          (self.aircraft, self.aircraft.location, self.state))
+
+        if not self.simulation.uncertainty.aircraft_can_move(self):
+            return
 
         # If the aircraft is idle, do nothing on tick
         if self.state == State.init or self.state == State.idle:
@@ -123,16 +127,7 @@ class Pilot:
         # Moves one or more nodes until there's no pending node to arrive or
         # the next node is still too early to arrive.
         while True:
-
-            if uc:
-                near_terminal = self.aircraft.location.is_close_to(flight.from_gate)
-                if not uc.aircraft_can_move(near_terminal):
-                    self.logger.debug("%s: I'm stuck because of the uncertainty.",
-                                      self)
-                    break
-
             self.move_aircraft_to_next_target_node()
-
             if self.state is not State.exceeding:
                 break
 
