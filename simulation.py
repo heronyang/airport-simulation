@@ -101,7 +101,6 @@ class Simulation:
         last_time = self.last_schedule_time
         next_time = get_seconds_after(last_time, reschedule_cycle) \
                 if last_time is not None else None
-
         return last_time is None or next_time <= self.now
 
     def reschedule(self):

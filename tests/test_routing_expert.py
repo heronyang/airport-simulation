@@ -66,10 +66,10 @@ class TestRoutingExpert(unittest.TestCase):
         airport_code = "simple"
 
         # Sets up the airport
-        self.airport = AirportFactory.create(airport_code)
+        self.airport = AirportFactory.create(None, airport_code)
 
         # Sets up the scenario
-        self.scenario = ScenarioFactory.create(airport_code,
+        self.scenario = ScenarioFactory.create(None, airport_code,
                                                self.airport.surface)
 
         links = self.airport.surface.links
@@ -80,6 +80,9 @@ class TestRoutingExpert(unittest.TestCase):
 
         routeG3toR1 = self.routing_expert.get_shortest_route(nodes[2],
                                                              links[0].start)
+
+        self.assertEqual(len(routeG3toR1.nodes), 5)
+        self.assertAlmostEqual(routeG3toR1.distance, 1352.6500035604972)
 
 if __name__ == '__main__':
 	unittest.main()
