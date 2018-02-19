@@ -1,7 +1,5 @@
 import logging
 
-from clock import Clock
-
 class Itinerary:
 
     class TargetNode:
