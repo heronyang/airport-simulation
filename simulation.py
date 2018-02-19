@@ -60,7 +60,8 @@ class Simulation:
         try:
 
             # Updates states
-            # self.update_aircrafts()
+            # from IPython.core.debugger import Tracer; Tracer()()
+            self.update_aircrafts()
             if self.is_time_to_reschedule():
                 self.logger.info("Time to reschedule")
                 # self.reschedule()
@@ -79,9 +80,9 @@ class Simulation:
             self.analyst.print_summary(self)
             raise e
 
-    def update_aircrafts():
+    def update_aircrafts(self):
         self.add_aircrafts()
-        self.remove_aircrafts()
+        # self.remove_aircrafts()
 
     def quiet_tick(self):
         """
@@ -137,7 +138,7 @@ class Simulation:
             if self.now <= flight.appear_time and \
                flight.appear_time < next_tick_time:
 
-                self.logger.debug("Adds flight %s to the airport" % flight)
+                self.logger.info("Adds %s into the airport" % flight)
 
                 # Adds the flight to the airport
                 flight.aircraft.set_location(flight.from_gate)

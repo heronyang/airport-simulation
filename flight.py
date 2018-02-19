@@ -20,9 +20,8 @@ class ArrivalFlight(Flight):
         self.appear_time = appear_time
 
     def __repr__(self):
-        return "<Arrival:%s runway:%s spot:%s gate:%s time:%s appear:%s>"\
-                % (self.aircraft.callsign, self.runway, self.spot, self.to_gate,
-                   self.arrival_time, self.appear_time)
+        return "<Arrival:%s time:%s appear:%s>" \
+                % (self.aircraft.callsign, self.arrival_time, self.appear_time)
 
 class DepartureFlight(Flight):
 
@@ -37,6 +36,6 @@ class DepartureFlight(Flight):
         self.appear_time = appear_time
 
     def __repr__(self):
-        return "<Departure:%s gate:%s spot:%s runway:%s time:%s appear:%s>"\
-                % (self.aircraft.callsign, self.from_gate, self.spot,
-                   self.runway, self.departure_time, self.appear_time)
+        return "<Departure:%s time:%s appear:%s>" \
+                % (self.aircraft.callsign, self.departure_time, \
+                   self.appear_time)

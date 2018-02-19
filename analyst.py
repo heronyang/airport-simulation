@@ -27,17 +27,17 @@ class Analyst:
 
         if self.first_aircraft_appear_time is None and \
            len(simulation.airport.aircrafts) != 0:
-            self.first_aircraft_appear_time = Clock.now
+            self.first_aircraft_appear_time = simulation.clock.now
 
         if self.first_aircraft_appear_time is not None and \
            self.last_aircraft_remove_time is None and \
            len(simulation.airport.aircrafts) == 0:
-            self.last_aircraft_remove_time = Clock.now
+            self.last_aircraft_remove_time = simulation.clock.now
 
     def print_summary(self, simulation):
 
         # Taxitime
-        taxi_time = self.aircraft_tick_while_moving_counter * Clock.sim_time
+        taxi_time = self.aircraft_tick_while_moving_counter * simulation.clock.sim_time
 
         # Remaining aircrafts
         remaining_aircrafts = len(simulation.airport.aircrafts)
