@@ -35,12 +35,13 @@ class TestSimulation(unittest.TestCase):
             # At least n flight should be contained in the scenario
             raise Exception("Invalid scenario is used")
 
+        h = heapdict()
+        for departure in departures:
+            h[departure] = departure.appear_time
+
         for i in range(n):
 
-            h = heapdict()
-            for departure in departures:
-                h[departure] = departure.appear_time
-
+            # Gets the next flight
             next_flight, _ = h.popitem()
 
             # Tick til the time the flight appears
@@ -67,3 +68,33 @@ class TestSimulation(unittest.TestCase):
                 break
         self.assertEqual(len(simulation.airport.aircrafts),
                          len(simulation.scenario.departures))
+
+    def test_remove_aircrafts(self):
+
+        simulation = Simulation()
+
+        try:
+            flight = simulation.scenario.departures[0]
+        except Exception:
+            raise Exception("Invalid scenario is used")
+
+        departures = simulation.scenario.departures
+        if departures is None or len(departures) < 1:
+            # At least n flight should be contained in the scenario
+            raise Exception("Invalid scenario is used")
+
+        h = heapdict()
+        for departure in departures:
+            h[departure] = departure.appear_time
+
+        next_flight, _ = h.popitem()
+
+        # Tick til the time the flight appears
+        while simulation.now <= next_flight.appear_time:
+            simulation.tick()
+
+        n_flight = len(simulation.airport.aircrafts)
+
+        next_flight.aircraft.set_location(next_flight.runway.start)
+        simulation.remove_aircrafts()
+        self.assertEqual(len(simulation.airport.aircrafts), n_flight - 1)

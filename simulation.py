@@ -82,7 +82,7 @@ class Simulation:
 
     def update_aircrafts(self):
         self.add_aircrafts()
-        # self.remove_aircrafts()
+        self.remove_aircrafts()
 
     def quiet_tick(self):
         """
@@ -152,6 +152,7 @@ class Simulation:
         for aircraft in self.airport.aircrafts:
             flight = self.scenario.get_flight(aircraft)
             if aircraft.location.is_close_to(flight.runway.start):
+                self.logger.info("Removes %s from the airport" % flight)
                 self.airport.remove_aircraft(aircraft)
 
     @property
