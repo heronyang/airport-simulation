@@ -48,6 +48,11 @@ def get_seconds_before(t, dt):
     res = (holder - timedelta(seconds = dt)).time()
     return res
 
+def get_seconds_taken(src, dst, velocity):
+    import math
+    distance = src.get_distance_to(dst)
+    return int(math.ceil(distance / velocity))
+
 def str2sha1(s):
     import hashlib
     return int(hashlib.sha1(s.encode('utf-8')).hexdigest(), 16)

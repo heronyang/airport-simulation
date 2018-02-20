@@ -64,7 +64,7 @@ class Simulation:
             self.update_aircrafts()
             if self.is_time_to_reschedule():
                 self.logger.info("Time to reschedule")
-                # self.reschedule()
+                self.reschedule()
                 self.last_schedule_time = self.now
                 self.logger.debug("Last schedule time is updated to %s" %
                                   self.last_schedule_time)
@@ -108,9 +108,8 @@ class Simulation:
         return last_time is None or next_time <= self.now
 
     def reschedule(self):
-        schedule = self.scheduler.schedule(self.delegate, self.now,
-                                           self.uncertainty.range)
-        self.apply_schedule(schedule)
+        schedule = self.scheduler.schedule(self.delegate)
+        # self.apply_schedule(schedule)
 
     def apply_schedule(self, schedule):
 
@@ -188,6 +187,14 @@ class SimulationDelegate:
 
     def __init__(self, simulation):
         self.simulation = simulation
+
+    @property
+    def now(self):
+        return self.simulation.now
+
+    @property
+    def uncertainty_range(self):
+        return self.simulation.uncertainty.range
 
     @property
     def airport(self):
