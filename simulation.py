@@ -109,25 +109,8 @@ class Simulation:
 
     def reschedule(self):
         schedule = self.scheduler.schedule(self.delegate)
-        # self.apply_schedule(schedule)
-
-    def apply_schedule(self, schedule):
-
         self.airport.apply_schedule(schedule)
-
-        # Updates the delayed aircrafts into the scenario
-        appear_before = Config.params["simulation"]["appear_before"]
-        for (aircraft, time) in schedule.delayed_aircrafts:
-
-            for flight in self.scenario.departures:
-                if flight.aircraft == aircraft:
-                    flight.appear_time = get_seconds_before(time, appear_before)
-                    flight.departure_time = time
-
-            for flight in self.scenario.arrivals:
-                if flight.aircraft == aircraft:
-                    flight.appear_time = get_seconds_before(time, appear_before)
-                    flight.arrival_time = time
+        # from IPython.core.debugger import Tracer; Tracer()()
 
     def add_aircrafts(self):
 
