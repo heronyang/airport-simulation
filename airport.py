@@ -3,9 +3,7 @@ import logging
 import itertools
 
 from surface import SurfaceFactory
-from scenario import ScenarioFactory
 from config import Config
-from clock import Clock
 from conflict import Conflict
 from aircraft import State
 
@@ -42,28 +40,29 @@ class Airport:
     def remove_aircraft(self, aircraft):
         self.aircrafts.remove(aircraft)
 
-    def log_conflicts(self):
-        aircraft_pairs = list(itertools.combinations(self.aircrafts, 2))
-        for ap in aircraft_pairs:
-            if ap[0].location.is_close_to(ap[1].location):
-               # If any of these aircraft is moving, it doesn't count as a
-                # conflict
-                if ap[0].pilot.state == State.moving or \
-                   ap[1].pilot.state == State.moving:
-                    continue
+    @property
+    def conflicts(self):
 
-                conflict = Conflict(ap, ap[0].location, Clock.now)
-                self.logger.debug("Conflict found******************************** : %s at location %s at time %s ", ap, ap[0].location, Clock.now)
-                add_conflict(conflict)
-                
-    def tick(self, uncertainty, scenario):
-        uncertainty = self.simulation.uncertainty
+        occupied_by = {}
         for aircraft in self.aircrafts:
-            aircraft.pilot.tick(scenario.get_flight(aircraft))
-        self.log_conflicts()
+            if aircraft.state == State.moving:
+                continue
+            location = aircraft.location
+            entry = occupied_by.get(location, [])
+            entry.append(aircraft)
+            occupied_by[location] = entry
+
+        now = self.simulation.now
+        result = []
+        for location in occupied_by:
+            result.append(Conflict(location, occupied_by[location], now))
+        return result
+                
+    def tick(self):
+        for aircraft in self.aircrafts:
+            aircraft.pilot.tick()
 
     def print_stats(self):
-        # Prints surface stats
         self.surface.print_stats()
 
     def __getstate__(self):

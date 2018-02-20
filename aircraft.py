@@ -50,7 +50,6 @@ class Aircraft:
         self.logger.info("%s location: %s, state: %s" %
                          (self, self.location, self.state))
 
-
     @property
     def is_idle(self):
         return self.pilot.is_aircraft_idle

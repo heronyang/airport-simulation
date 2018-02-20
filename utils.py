@@ -38,14 +38,12 @@ def get_seconds_after(t, dt):
     overflow occurs, the output will be earlier
     """
     from datetime import date, datetime, timedelta
-    from clock import ClockException
     holder = datetime.combine(date.today(), t)
     res = (holder + timedelta(seconds = dt)).time()
     return res
 
 def get_seconds_before(t, dt):
     from datetime import date, datetime, timedelta
-    from clock import ClockException
     holder = datetime.combine(date.today(), t)
     res = (holder - timedelta(seconds = dt)).time()
     return res

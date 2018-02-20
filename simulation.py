@@ -1,5 +1,6 @@
 import sys
 import logging
+import traceback
 
 from copy import deepcopy
 from clock import Clock, ClockException
@@ -44,7 +45,7 @@ class Simulation:
 
         self.scheduler = Scheduler()
         self.analyst = Analyst(self.scenario)
-        self.conflict_tracker = ConflictTracker()
+        self.conflict_tracker = ConflictTracker(self)
 
         # Sets up a delegate of this simulation
         self.delegate = SimulationDelegate(self)
@@ -60,7 +61,6 @@ class Simulation:
         try:
 
             # Updates states
-            # from IPython.core.debugger import Tracer; Tracer()()
             self.update_aircrafts()
             if self.is_time_to_reschedule():
                 self.logger.info("Time to reschedule")
@@ -68,16 +68,19 @@ class Simulation:
                 self.last_schedule_time = self.now
                 self.logger.debug("Last schedule time is updated to %s" %
                                   self.last_schedule_time)
-            # self.airport.tick(self.uncertainty, self.scenario)
+            self.airport.tick()
+            self.conflict_tracker.tick()
             self.clock.tick()
 
             # Observe
             # self.analyst.observe_per_tick(self.delegate)
 
         except ClockException as e:
-
             # Finishes
             self.analyst.print_summary(self)
+            raise e
+        except Exception as e:
+            print(traceback.format_exc())
             raise e
 
     def update_aircrafts(self):
