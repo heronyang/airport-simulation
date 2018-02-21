@@ -27,28 +27,3 @@ class Conflict:
 
     def __repr__(self):
         return "<Conflict: %s %s>" % (self.location, self.aircrafts)
-
-
-class ConflictTracker:
-
-    def __init__(self, simulation):
-        self.simulation = simulation
-        self.conflicts = []
-
-    def add_conflict(self, conflict):
-        if conflict not in self.conflicts:
-            self.conflicts.append(conflict)
-
-    def add_conflicts(self, conflicts):
-        for conflict in conflicts:
-            self.add_conflict(conflict)
-
-    def count(self):
-        return len(self.conflicts)
-
-    def tick(self):
-        self.add_conflict(self.simulation.airport.conflicts)
-
-    @property
-    def size(self):
-        return len(self.conflicts)
