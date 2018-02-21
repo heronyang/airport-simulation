@@ -1,11 +1,12 @@
 #!/usr/bin/env python
 
+from clock import Clock
+from config import Config
+
 import sys
 import unittest
 sys.path.append('..')
 
-from clock import Clock
-from config import Config
 
 class TestClock(unittest.TestCase):
 
@@ -29,7 +30,8 @@ class TestClock(unittest.TestCase):
 
         clock.tick()
         clock.tick()
-        self.assertEqual(clock.now.minute, (self.SIM_TIME * 3)/ 60)
+        self.assertEqual(clock.now.minute, (self.SIM_TIME * 3) / 60)
+
 
 if __name__ == '__main__':
-	unittest.main()
+    unittest.main()

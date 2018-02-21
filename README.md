@@ -30,6 +30,11 @@ airport code).
 
     $ python3 -m unittest discover tests
 
+## Style Check
+
+    $ pycodestyle --show-pep8 --show-source .
+    $ find . -iname "*.py" | xargs pylint
+
 ## Developer Guidelines
 
 ### Style

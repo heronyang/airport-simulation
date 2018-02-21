@@ -14,6 +14,7 @@ from config import Config as cfg
 
 logger = logging.getLogger(__name__)
 
+
 def main():
 
     init_params()
@@ -24,16 +25,18 @@ def main():
     else:
         start()
 
+
 def init_params():
 
     # Parses argv
     parser = argparse.ArgumentParser()
     parser.add_argument("-f", "--experiment-plan-filepath",
-                        help = "Filepath of the experiment plan",
-                        required = True)
+                        help="Filepath of the experiment plan",
+                        required=True)
 
     # Loads experiment parameters into cfg
     cfg.load_experiment_plan(parser.parse_args().experiment_plan_filepath)
+
 
 def init_logger():
 
@@ -51,13 +54,17 @@ def init_logger():
         logger.error("Unknown logging level")
         os._exit(1)
 
-    logging.basicConfig(level = level, format = cfg.LOG_FORMAT)
+    logging.basicConfig(level=level, format=cfg.LOG_FORMAT)
+
 
 def start():
     logger.info("Starting the simulation")
     run(Simulation(), None)
 
+
 done = False
+
+
 def start_with_monitor():
 
     global done
@@ -75,9 +82,8 @@ def start_with_monitor():
     monitor = Monitor(simulation)
 
     # Runs simulation  (non-block)
-    simulation_thread = threading.Thread(
-        target = run,
-        args = (simulation, monitor))
+    simulation_thread = threading.Thread(target=run,
+                                         args=(simulation, monitor))
     simulation_thread.start()
 
     # Runs monitor (block)
@@ -85,6 +91,7 @@ def start_with_monitor():
     logger.debug("Monitor ends")
 
     done = True
+
 
 def run(simulation, monitor):
 
@@ -107,6 +114,7 @@ def run(simulation, monitor):
         logger.debug(traceback.format_exc())
         logger.debug("Simulation exists on unexpected error")
         os._exit(1)
+
 
 if __name__ == "__main__":
     main()

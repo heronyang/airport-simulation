@@ -5,14 +5,15 @@ import json
 from utils import str2time
 from config import Config
 
+
 class Uncertainty:
-    
+
     sigma = 0.1
 
     """
     A generic module to calculate uncertainty over multiple factors
     """
-    def __init__(self, seed = Config.params["uncertainty"]["seed"]):
+    def __init__(self, seed=Config.params["uncertainty"]["seed"]):
 
         self.seed = seed
         self.__initialize_distribution()
@@ -31,7 +32,7 @@ class Uncertainty:
     """
     def get_uncertain_value(self, original_value, on="SPEED"):
         return self.__get_default_uncertainty(original_value)
-    
+
     def __get_default_uncertainty(self, original_value):
         return np.random.normal(original_value, Uncertainty.sigma)
 
@@ -41,17 +42,17 @@ class Uncertainty:
     def aircraft_can_move(self, aircraft):
         unc = min(self.seed * 1.5, 0.9) if is_terminal else self.seed
         return np.random.random() > unc
-    
+
     def __initialize_distribution_with_file(self):
         sigma = 0
         filepath = self.factor_filepath
-        
+
         # Check for valid factor file path
         if not os.path.exists(filepath):
             raise Exception("Factor data file is not provided")
-            
+
         with open(filepath, "r") as f:
-            factor_val = json.load(f)                
+            factor_val = json.load(f)
             for factor in factor_val:
                 v = str(factor.get("relation"))
                 if v == "DIRECT":
@@ -59,7 +60,7 @@ class Uncertainty:
                 elif v == "INVERSE":
                     sigma = sigma + 1/float(factor.get("value"))
         self.update(sigma)
-    
+
     @classmethod
     def update(self, value):
         self.sigma = value

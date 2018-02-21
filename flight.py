@@ -1,9 +1,11 @@
 from aircraft import Aircraft, State
 
+
 class Flight:
 
     def __init__():
         self.aircraft = None
+
 
 class ArrivalFlight(Flight):
 
@@ -23,6 +25,7 @@ class ArrivalFlight(Flight):
         return "<Arrival:%s time:%s appear:%s>" \
                 % (self.aircraft.callsign, self.arrival_time, self.appear_time)
 
+
 class DepartureFlight(Flight):
 
     def __init__(self, simulation, callsign, model, to_airport, from_gate,
@@ -36,6 +39,5 @@ class DepartureFlight(Flight):
         self.appear_time = appear_time
 
     def __repr__(self):
-        return "<Departure:%s time:%s appear:%s>" \
-                % (self.aircraft.callsign, self.departure_time, \
-                   self.appear_time)
+        return "<Departure:%s time:%s appear:%s>" % \
+                (self.aircraft.callsign, self.departure_time, self.appear_time)

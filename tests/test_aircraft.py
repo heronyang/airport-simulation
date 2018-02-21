@@ -1,9 +1,5 @@
 #!/usr/bin/env python
 
-import sys
-import unittest
-sys.path.append('..')
-
 from node import Node
 from aircraft import Aircraft, State
 from itinerary import Itinerary
@@ -11,6 +7,11 @@ from datetime import time
 from copy import deepcopy
 from clock import Clock
 from config import Config
+
+import sys
+import unittest
+sys.path.append('..')
+
 
 class TestAircraft(unittest.TestCase):
 

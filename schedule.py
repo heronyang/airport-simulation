@@ -4,8 +4,9 @@ class Schedule:
     by the simulation for simulating the next airport state. The schedule
     should *ONLY* contains the new itineraries that the aircrafts don't obtain.
 
-    The scheduler can also pass a list of flights that have been delayed beyond 
-    the current scheduling window in the form of (aircraft, delayed_time) tuples
+    The scheduler can also pass a list of flights that have been delayed beyond
+    the current scheduling window in the form of (aircraft, delayed_time)
+    tuples.
     """
 
     class Request:

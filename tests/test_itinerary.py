@@ -1,15 +1,16 @@
 #!/usr/bin/env python
 
-import sys
-import unittest
-sys.path.append('..')
-
 from copy import deepcopy
 from clock import Clock
 from datetime import time
 from node import Node
 from itinerary import Itinerary
 from utils import get_seconds_after
+
+import sys
+import unittest
+sys.path.append('..')
+
 
 class TestItinerary(unittest.TestCase):
 
@@ -36,7 +37,7 @@ class TestItinerary(unittest.TestCase):
         clock = Clock()
         self.assertFalse(itinerary.is_completed)
         self.assertEqual(itinerary.next_node.node, self.n1)
-        
+
     def test_is_completed(self):
 
         # Gets a copy of the itinerary

@@ -1,6 +1,7 @@
 from node import Node
 from utils import str2sha1, interpolate_geo
 
+
 class Link:
 
     def __init__(self, index, name, nodes):

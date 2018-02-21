@@ -7,6 +7,7 @@ from config import Config
 from conflict import Conflict
 from aircraft import State
 
+
 class Airport:
     """
     Airport contains the surface and all the aircrafts currently moving or
@@ -30,7 +31,7 @@ class Airport:
 
     def apply_schedule(self, schedule):
         for r in schedule.requests:
-            if not r.aircraft in self.aircrafts:
+            if r.aircraft not in self.aircrafts:
                 raise Exception("%s not found in the airport" % r.aircraft)
             r.aircraft.set_itinerary(r.itinerary)
 
@@ -57,7 +58,7 @@ class Airport:
         for location in occupied_by:
             result.append(Conflict(location, occupied_by[location], now))
         return result
-                
+
     def tick(self):
         for aircraft in self.aircrafts:
             aircraft.pilot.tick()
@@ -78,6 +79,7 @@ class Airport:
         self.surface.set_quiet(logger)
         for aircraft in self.aircrafts:
             aircraft.set_quiet(logger)
+
 
 class AirportFactory:
 

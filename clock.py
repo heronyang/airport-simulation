@@ -2,10 +2,7 @@ from utils import get_seconds_after
 from datetime import time
 from config import Config
 
-"""
-Each time tick is excuted representing that `sim_time` has passed in the
-simulated world.
-"""
+
 class Clock:
 
     def __init__(self):
@@ -22,6 +19,7 @@ class Clock:
             raise ClockException("End of the day")
 
         self.now = time_after_tick
+
 
 class ClockException(Exception):
     pass

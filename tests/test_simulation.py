@@ -1,19 +1,26 @@
 #!/usr/bin/env python
 
-import sys
-import unittest
-sys.path.append('..')
-
 from datetime import time
 from config import Config
 from simulation import Simulation
 from clock import ClockException
 from heapdict import heapdict
+from schedule import Schedule
+
+import sys
+import unittest
+sys.path.append('..')
+
 
 class TestSimulation(unittest.TestCase):
 
     Config.params["airport"] = "simple"
     Config.params["uncertainty"]["enabled"] = False
+
+    class SchedulerMock():
+
+        def schedule(self, _):
+            return Schedule([], [], 0.0)
 
     def test_init(self):
 
@@ -25,9 +32,10 @@ class TestSimulation(unittest.TestCase):
     def test_add_aircrafts(self):
 
         simulation = Simulation()
+        simulation.scheduler = self.SchedulerMock()
 
         # TODO: Arrivals haven't be considered
-        
+
         # Finds the first n flights
         n = 3
         departures = simulation.scenario.departures
@@ -49,14 +57,15 @@ class TestSimulation(unittest.TestCase):
                 simulation.tick()
 
             # Test if the flight appeared correctly
-            self.assertTrue(next_flight.aircraft in \
+            self.assertTrue(next_flight.aircraft in
                             simulation.airport.aircrafts)
-            self.assertTrue(next_flight.aircraft.location == \
+            self.assertTrue(next_flight.aircraft.location ==
                             next_flight.from_gate)
 
     def test_add_aircrafts_all(self):
 
         simulation = Simulation()
+        simulation.scheduler = self.SchedulerMock()
 
         # TODO: Currently we assume that all aircrafts will be added even the
         # gate is occupied

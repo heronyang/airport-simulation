@@ -7,11 +7,12 @@ from PyQt5.QtCore import Qt, QPoint
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 
-REFRESH_RATE = 1 # fps
+REFRESH_RATE = 1
 SIZE = 800
 
 PEN_WIDTH = 10
 CIRCLE_RADIUS = 20
+
 
 class Screen(QMainWindow):
     """
@@ -136,7 +137,7 @@ class Monitor:
     """
     Monitor works as an observer which pull states from the simulation and
     draw them on the screen. Two types of states are used. Static states
-    contain states that won't change during the whole simulation process; 
+    contain states that won't change during the whole simulation process;
     runtime states indicates the states the changes within simulation.
     """
 

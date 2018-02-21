@@ -6,6 +6,7 @@ from utils import str2time
 from flight import ArrivalFlight, DepartureFlight
 from config import Config
 
+
 class Scenario:
     """
     Scenario contains a list of arrival flights and a list of depature flights.
@@ -34,7 +35,7 @@ class Scenario:
 
     def get_flight(self, aircraft):
         return self.flight_table[aircraft]
-    
+
     def print_stats(self):
 
         # Prints arrival flights
@@ -58,6 +59,7 @@ class Scenario:
     def set_quiet(self, logger):
         self.logger = logger
 
+
 class ScenarioFactory:
 
     @classmethod
@@ -65,7 +67,7 @@ class ScenarioFactory:
 
         # Loads file if it exists; otherwise, raises error
         dir_path = Config.DATA_ROOT_DIR_PATH % code
-        file_path = dir_path+ "scenario.json"
+        file_path = dir_path + "scenario.json"
         if not os.path.exists(file_path):
             raise Exception("Scenario file not found")
         with open(dir_path + "scenario.json") as f:

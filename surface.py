@@ -5,6 +5,7 @@ import logging
 from node import Node
 from link import Link
 
+
 class Surface:
     """
     Surface contains data structures for storing properties and objects within
@@ -98,20 +99,24 @@ class Surface:
     def set_quiet(self, logger):
         self.logger = logger
 
+
 class Gate(Node):
 
     def __init__(self, index, name, geo_pos):
         Node.__init__(self, index, name, geo_pos)
+
 
 class Spot(Node):
 
     def __init__(self, index, name, geo_pos):
         Node.__init__(self, index, name, geo_pos)
 
+
 class RunwayNode(Node):
 
     def __init__(self, geo_pos):
         Node.__init__(self, -1, "", geo_pos)
+
 
 class Runway(Link):
 
@@ -121,6 +126,7 @@ class Runway(Link):
     def __repr__(self):
         return "<RUNWAY: %s>" % self.name
 
+
 class Taxiway(Link):
 
     def __init__(self, index, name, nodes):
@@ -129,6 +135,7 @@ class Taxiway(Link):
     def __repr__(self):
         return "<TAXIWAY: %s>" % self.name
 
+
 class PushbackWay(Link):
 
     def __init__(self, index, name, nodes):
@@ -136,6 +143,7 @@ class PushbackWay(Link):
 
     def __repr__(self):
         return "<PUSHBACKWAY: %s>" % self.name
+
 
 class SurfaceFactory:
     """

@@ -15,6 +15,7 @@ from conflict import Conflict, ConflictTracker
 from config import Config
 import numpy as np
 
+
 class Simulation:
 
     def __init__(self):
@@ -40,8 +41,8 @@ class Simulation:
                                             self.airport.surface.nodes, False)
 
         # check for uncertainty
-        self.uncertainty = Uncertainty() \
-                if p["uncertainty"]["enabled"] else None
+        self.uncertainty = (Uncertainty() if p["uncertainty"]["enabled"]
+                            else (None))
 
         self.scheduler = Scheduler()
         self.analyst = Analyst(self.scenario)
@@ -103,8 +104,8 @@ class Simulation:
     def is_time_to_reschedule(self):
         reschedule_cycle = Config.params["simulation"]["reschedule_cycle"]
         last_time = self.last_schedule_time
-        next_time = get_seconds_after(last_time, reschedule_cycle) \
-                if last_time is not None else None
+        next_time = (get_seconds_after(last_time, reschedule_cycle)
+                     if last_time is not None else None)
         return last_time is None or next_time <= self.now
 
     def reschedule(self):
@@ -161,6 +162,7 @@ class Simulation:
         self.airport.set_quiet(logger)
         self.scenario.set_quiet(logger)
         self.routing_expert.set_quiet(logger)
+
 
 class SimulationDelegate:
     """

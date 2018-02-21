@@ -13,12 +13,12 @@ from utils import export_to_json, create_output_folder
 
 OUTPUT_FOLDER = "./build/"
 
-TIGHTNESS_TIME_MEAN = 600 # seconds
-TIGHTNESS_TIME_DEVIATION = 120 # seconds
-APPEAR_BEFORE = 300 # seconds
+TIGHTNESS_TIME_MEAN = 600  # seconds
+TIGHTNESS_TIME_DEVIATION = 120  # seconds
+APPEAR_BEFORE = 300  # seconds
 
 # We stop adding flights before the day ends in order to measure maxspan
-END_TIME = 15 * 60 * 60 # seconds
+END_TIME = 15 * 60 * 60  # seconds
 
 # Setups logger
 logger = logging.getLogger(__name__)
@@ -52,6 +52,7 @@ flight_template = [
     }
 ]
 
+
 def main():
     """
     Scenario is generated based on random flight arrangements. Flights are
@@ -71,7 +72,7 @@ def main():
         interval = get_random_time_interval()
         current_time += interval
 
-    scenario = { "arrivals": [], "departures": departures }
+    scenario = {"arrivals": [], "departures": departures}
 
     # Saves to file
     output_filename = OUTPUT_FOLDER + "scenario.json"
@@ -81,6 +82,8 @@ def main():
 
 
 index = 1
+
+
 def generate_flight_at(time):
     global index
     flight = flight_template[index % len(flight_template)].copy()
@@ -92,6 +95,7 @@ def generate_flight_at(time):
     index += 1
     return flight
 
+
 def sec2time_str(time):
     if time < 0:
         return "0000"
@@ -101,12 +105,14 @@ def sec2time_str(time):
     hour = (time / 60) / 60
     return "%02d%02d" % (hour, minute)
 
+
 def get_random_time_interval():
     while True:
         interval = numpy.random.normal(TIGHTNESS_TIME_MEAN,
                                        TIGHTNESS_TIME_DEVIATION)
         if interval > 0:
             return interval
+
 
 if __name__ == "__main__":
     main()

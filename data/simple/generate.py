@@ -19,6 +19,7 @@ logger_handler.setLevel(logging.DEBUG)
 logger.addHandler(logger_handler)
 logger.setLevel(logging.DEBUG)
 
+
 class LayerType(Enum):
     gate = 0
     spot = 1
@@ -26,6 +27,7 @@ class LayerType(Enum):
     taxiway = 3
     pushback_way = 4
     airport = 5
+
 
 def main():
 
@@ -68,6 +70,7 @@ def main():
     # Warning: Generates scenario
     logger.debug("Please generate scenario using generate_scenario.py")
 
+
 def get_kml_document():
 
     k = kml.KML()
@@ -75,14 +78,17 @@ def get_kml_document():
         k.from_string(f.read())
     return list(k.features())[0]
 
+
 def get_layer(kml_doc, layer_type):
     folders = list(kml_doc.features())
     return folders[layer_type.value]
+
 
 def generate_airport_data(kml_doc):
 
     generate_airport_metadata(kml_doc)
     generate_airport_background_image()
+
 
 def generate_airport_metadata(kml_doc):
 
@@ -118,6 +124,7 @@ def generate_airport_metadata(kml_doc):
     filename = OUTPUT_FOLDER + "airport-metadata.json"
     export_to_json(filename, airport)
 
+
 def generate_airport_background_image():
 
     # Generates the background image (plain white)
@@ -127,6 +134,7 @@ def generate_airport_background_image():
     img = Image.new('RGB', (BACKGROUND_IMAGE_SIZE, BACKGROUND_IMAGE_SIZE),
                     (255, 255, 255))
     img.save(filename, "JPEG")
+
 
 def generate_node_data(kml_doc, layer_type, output_filename):
 
@@ -147,6 +155,7 @@ def generate_node_data(kml_doc, layer_type, output_filename):
 
     export_to_json(OUTPUT_FOLDER + output_filename, nodes)
 
+
 def generate_link_data(kml_doc, layer_type, output_filename):
 
     links = []
@@ -166,6 +175,7 @@ def generate_link_data(kml_doc, layer_type, output_filename):
         })
 
     export_to_json(OUTPUT_FOLDER + output_filename, links)
+
 
 if __name__ == "__main__":
     main()

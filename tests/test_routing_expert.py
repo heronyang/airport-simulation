@@ -1,14 +1,15 @@
 #!/usr/bin/env python
 
-import sys
-import unittest
-sys.path.append('..')
-
 from node import Node
 from link import Link
 from routing_expert import RoutingExpert
 from airport import AirportFactory
 from scenario import ScenarioFactory
+
+import sys
+import unittest
+sys.path.append('..')
+
 
 class TestRoutingExpert(unittest.TestCase):
 
@@ -84,5 +85,6 @@ class TestRoutingExpert(unittest.TestCase):
         self.assertEqual(len(routeG3toR1.nodes), 5)
         self.assertAlmostEqual(routeG3toR1.distance, 1352.6500035604972)
 
+
 if __name__ == '__main__':
-	unittest.main()
+    unittest.main()

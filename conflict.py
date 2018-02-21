@@ -1,5 +1,6 @@
 from utils import str2sha1
 
+
 class Conflict:
 
     def __init__(self, location, aircrafts, time):
@@ -27,6 +28,7 @@ class Conflict:
     def __repr__(self):
         return "<Conflict: %s %s>" % (self.location, self.aircrafts)
 
+
 class ConflictTracker:
 
     def __init__(self, simulation):
@@ -34,7 +36,7 @@ class ConflictTracker:
         self.conflicts = []
 
     def add_conflict(self, conflict):
-        if not conflict in self.conflicts:
+        if conflict not in self.conflicts:
             self.conflicts.append(conflict)
 
     def add_conflicts(self, conflicts):

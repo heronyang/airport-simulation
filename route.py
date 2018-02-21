@@ -1,5 +1,6 @@
 from config import Config
 
+
 class Route:
     """
     Route represents a long path composed with a start node, an end node, and
@@ -23,8 +24,8 @@ class Route:
         # If the last_node is not the same as the start of the new link, raise
         # exception
         if not last_node.is_close_to(link.start):
-            raise Exception("New link start node doesn't match with the last " \
-                            "node")
+            raise Exception("New link start node doesn't match with the "
+                            "last node")
         self.links.append(link)
 
     def update_link(self, link):
@@ -108,6 +109,6 @@ class Route:
     def description(self):
         s = "distance: %f\n" % self.distance
         for link in self.links:
-            s += "> link: %s to %s, distance: %f\n" % (link.start, link.end,
-                                                       link.length)
+            s += "> link: %s to %s, distance: %f\n" % \
+                    (link.start, link.end, link.length)
         return s

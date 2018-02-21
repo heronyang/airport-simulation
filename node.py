@@ -2,6 +2,7 @@ from utils import is_valid_geo_pos, str2sha1
 from geopy.distance import vincenty
 from config import Config
 
+
 class Node:
 
     def __init__(self, index, name, geo_pos):
@@ -32,8 +33,8 @@ class Node:
     """
     def is_close_to(self, node):
         distance_feet = self.get_distance_to(node)
-        return distance_feet < \
-                Config.params["simulation"]["close_node_threshold"]
+        threshold = Config.params["simulation"]["close_node_threshold"]
+        return distance_feet < threshold
 
     """
     Override functions used for hash and comparisons so that we will able to
@@ -50,5 +51,5 @@ class Node:
 
     def __repr__(self):
         return "<Node: %s|%f,%f>" % ((self.name if self.name else "NULL"),
-                                      self.geo_pos["lat"],
-                                      self.geo_pos["lng"])
+                                     self.geo_pos["lat"],
+                                     self.geo_pos["lng"])

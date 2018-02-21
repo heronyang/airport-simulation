@@ -1,14 +1,15 @@
 #!/usr/bin/env python
 
-import sys
-import unittest
-sys.path.append('..')
-
 import datetime
 from clock import Clock
 from node import Node
 from airport import AirportFactory
 from aircraft import Aircraft, State
+
+import sys
+import unittest
+sys.path.append('..')
+
 
 class TestAirport(unittest.TestCase):
 

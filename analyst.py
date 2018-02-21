@@ -4,6 +4,7 @@ from aircraft import State
 from utils import get_time_delta
 from copy import deepcopy
 
+
 class Analyst:
 
     def __init__(self, scenario):
@@ -37,7 +38,8 @@ class Analyst:
     def print_summary(self, simulation):
 
         # Taxitime
-        taxi_time = self.aircraft_tick_while_moving_counter * simulation.clock.sim_time
+        taxi_time = self.aircraft_tick_while_moving_counter * \
+                simulation.clock.sim_time
 
         # Remaining aircrafts
         remaining_aircrafts = len(simulation.airport.aircrafts)

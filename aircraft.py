@@ -4,6 +4,7 @@ import logging
 from clock import Clock
 from config import Config
 
+
 class State(enum.Enum):
 
     unknown = 0
@@ -11,6 +12,7 @@ class State(enum.Enum):
     moving = 2
     hold = 3
     flying = 4  # default for arrival flights
+
 
 class Aircraft:
 
@@ -78,6 +80,7 @@ class Aircraft:
         self.logger = logger
         self.pilot.set_quiet(logger)
 
+
 class Pilot:
 
     def __init__(self, simulation, aircraft):
@@ -93,7 +96,7 @@ class Pilot:
 
         if not itinerary.is_valid(self.simulation.clock.now):
             self.logger.debug("%s: The itinerary is impossible to make it." %
-                             self)
+                              self)
             return
 
         self.itinerary = itinerary
@@ -111,11 +114,11 @@ class Pilot:
         if not self.itinerary:
             self.logger.debug("%s: No itinerary request." % self)
             return
-        
+
         now = self.simulation.clock.now
         while not self.itinerary.is_completed:
             next_node = self.itinerary.next_node
-            
+
             # Pop one target node when 1) the top node is not the last one and
             # it's finished, or 2) the top node is the last one and we've
             # arrived the node

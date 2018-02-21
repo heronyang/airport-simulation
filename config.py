@@ -1,10 +1,5 @@
 import yaml
 
-"""
-Configuration parameters are lazy-loaded, and a baseline file is provided which
-enables users to only provide configuration parameters that are different from
-the baseline.
-"""
 
 class MetaConfig(type):
 
@@ -23,7 +18,8 @@ class MetaConfig(type):
         with open(config_filepath) as f:
             cls._params = {**baseline_params, **yaml.load(f)}
 
-class Config(metaclass = MetaConfig):
+
+class Config(metaclass=MetaConfig):
 
     LOG_FORMAT = "%(levelname)s [%(name)s.%(funcName)s:%(lineno)d] %(message)s"
     DATA_ROOT_DIR_PATH = "./data/%s/build/"

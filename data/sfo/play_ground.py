@@ -3,7 +3,7 @@
 import json
 from IPython.core.debugger import Tracer
 
-with open("surface.json") as f:    
+with open("surface.json") as f:
     surface_data = json.load(f)
     features = surface_data["features"]
 

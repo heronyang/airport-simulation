@@ -8,6 +8,7 @@ from config import Config
 from utils import get_seconds_after, get_seconds, get_seconds_taken
 from heapdict import heapdict
 
+
 class Scheduler:
 
     def __init__(self):
@@ -22,8 +23,9 @@ class Scheduler:
         h = heapdict()
         for aircraft in simulation.airport.aircrafts:
 
-            # Ignores the aircrafts contain itinerary requests
-            if aircraft.pilot.itinerary is not None:
+            # TODO: moving aircrafts should retrieve a new itinerary at the
+            # next node
+            if aircraft.state is not State.stop:
                 continue
 
             # TODO: adds for arrivals
@@ -33,8 +35,8 @@ class Scheduler:
         requests = []
         while len(h) is not 0:
             aircraft, _ = h.popitem()
-            itinerary = self.schedule_aircraft(aircraft,
-                                               simulation, last_occupied_time)
+            itinerary = self.schedule_aircraft(aircraft, simulation,
+                                               last_occupied_time)
             requests.append(Schedule.Request(aircraft, itinerary))
 
         self.logger.info("Scheduling end")
@@ -61,16 +63,15 @@ class Scheduler:
 
         target_nodes = []
 
-        prev_node = None
-        prev_time = now
+        prev_node, prev_time = None, now
         for node in route.nodes:
 
             # Gets the earliest available time of the node
             earliest_available_time = last_occupied_time.get(node, prev_time)
 
             # Gets the earliest arrival time that the aircraft can make
-            moving_time = get_seconds_taken(prev_node, node, velocity) \
-                    if prev_node else 0
+            moving_time = (get_seconds_taken(prev_node, node, velocity)
+                           if prev_node else 0)
             earliest_arr_time = get_seconds_after(prev_time, moving_time)
 
             # Sets the arrival time of the node in itinerary
@@ -79,8 +80,7 @@ class Scheduler:
             target_nodes.append(Itinerary.TargetNode(node, arr_time, dep_time))
 
             # Marks
-            prev_node = node
-            prev_time = dep_time
+            prev_node, prev_time = node, dep_time
             last_occupied_time[node] = dep_time
 
         return target_nodes
@@ -92,6 +92,3 @@ class Scheduler:
 
     def __setstate__(self, d):
         self.__dict__.update(d)
-
-class DelayedException(Exception):
-    pass
