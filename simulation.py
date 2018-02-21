@@ -11,7 +11,6 @@ from scheduler import Scheduler
 from analyst import Analyst
 from utils import get_seconds_after, get_seconds_before
 from uncertainty import Uncertainty
-from conflict import Conflict, ConflictTracker
 from config import Config
 import numpy as np
 
@@ -41,12 +40,11 @@ class Simulation:
                                             self.airport.surface.nodes, False)
 
         # check for uncertainty
-        self.uncertainty = \
-                (Uncertainty() if p["uncertainty"]["enabled"] else (None))
+        self.uncertainty = (Uncertainty() if p["uncertainty"]["enabled"]
+                            else (None))
 
         self.scheduler = Scheduler()
         self.analyst = Analyst(self.clock.sim_time)
-        self.conflict_tracker = ConflictTracker(self)
 
         # Sets up a delegate of this simulation
         self.delegate = SimulationDelegate(self)
@@ -70,7 +68,6 @@ class Simulation:
                 self.logger.debug("Last schedule time is updated to %s" %
                                   self.last_schedule_time)
             self.airport.tick()
-            self.conflict_tracker.tick()
             self.clock.tick()
 
             # Observe
@@ -204,9 +201,6 @@ class SimulationDelegate:
 
         # Replace the uncertainty module by the given one
         simulation_copy.uncertainty = uncertainty
-
-        # Replace the conflict tracker with a new one
-        simulation_copy.conflict_tracker = ConflictTracker()
 
         # Sets the simulation to quiet mode
         simulation_copy.set_quiet(logger.getLogger("QUIET_MODE"))

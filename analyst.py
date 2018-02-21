@@ -5,6 +5,7 @@ from clock import Clock
 from aircraft import State
 from utils import get_time_delta
 
+
 class TaxitimeMetric():
 
     def __init__(self, sim_time):
@@ -23,10 +24,10 @@ class TaxitimeMetric():
     @property
     def taxi_time(self):
         return self.moving_aircraft_count_on_tick * self.sim_time
-    
+
     @property
     def summary(self):
-        return "Taxitime: %d seconds\n" % self.taxi_time
+        return "Taxitime: %d seconds" % self.taxi_time
 
 
 class MakespanMetric():
@@ -41,7 +42,7 @@ class MakespanMetric():
         if len(aircrafts) == 0:
             return
 
-        if self.aircraft_first_time is not None:
+        if self.aircraft_first_time is None:
             self.aircraft_first_time = now
         self.aircraft_last_time = now
 
@@ -61,7 +62,7 @@ class MakespanMetric():
         if not self.is_ready:
             return "Makespan: insufficient data"
 
-        return "Makespan: %d seconds\n" %  self.makespan
+        return "Makespan: %d seconds" % self.makespan
 
 
 class AircraftCountMetric():
@@ -82,8 +83,47 @@ class AircraftCountMetric():
             return "Aircraft count: insufficient data"
 
         cr = self.counter.set_index("time")
-        return "Aircraft count: top %d low %d mean %d remaining %d" % \
-                (cr.max(), cr.min(), cr.mean(), cr.iloc[-1])
+        return ("Aircraft count: top %d low %d mean %d remaining %d" %
+                (cr.max(), cr.min(), cr.mean(), cr.iloc[-1]))
+
+
+class ConflictMetric():
+
+    def __init__(self):
+
+        self.conflict_nodes = pd.DataFrame(columns=["time", "count"])
+        self.conflict_aircrafts = pd.DataFrame(columns=["time", "count"])
+
+    def update_on_tick(self, conflicts, now):
+
+        self.conflict_nodes = self.conflict_nodes.append(
+            {"time": now, "count": len(conflicts)}, ignore_index=True
+        )
+
+        n_aircrafts = 0
+        for c in conflicts:
+            n_aircrafts += len(c.aircrafts)
+
+        self.conflict_aircrafts = self.conflict_aircrafts.append(
+            {"time": now, "count": n_aircrafts}, ignore_index=True
+        )
+
+    @property
+    def summary(self):
+
+        if len(self.conflict_nodes) == 0 or len(self.conflict_aircrafts) == 0:
+            return "Conflict: insufficient data"
+
+        cn = self.conflict_nodes.set_index("time")
+        ca = self.conflict_aircrafts.set_index("time")
+        return (
+            "Conflict nodes: top %d low %d mean %d, "
+            "aircrafts: top %d low %d mean %d" %
+            (
+                cn.max(), cn.min(), cn.mean(),
+                ca.max(), ca.min(), ca.mean()
+            )
+        )
 
 
 class Analyst:
@@ -95,22 +135,26 @@ class Analyst:
         self.taxitime_metric = TaxitimeMetric(sim_time)
         self.makespan_metric = MakespanMetric()
         self.aircraft_count_metric = AircraftCountMetric()
+        self.conflict_metric = ConflictMetric()
 
     def observe_on_tick(self, simulation):
 
+        now = simulation.now
         aircrafts = simulation.airport.aircrafts
         scenario = simulation.scenario
-        now = simulation.now
+        conflicts = simulation.airport.conflicts
 
         self.taxitime_metric.update_on_tick(aircrafts, scenario)
         self.makespan_metric.update_on_tick(aircrafts, now)
         self.aircraft_count_metric.update_on_tick(aircrafts, now)
+        self.conflict_metric.update_on_tick(conflicts, now)
 
     def print_summary(self, simulation):
 
         self.logger.debug(self.taxitime_metric.summary)
         self.logger.debug(self.makespan_metric.summary)
         self.logger.debug(self.aircraft_count_metric.summary)
+        self.logger.debug(self.conflict_metric.summary)
 
     def __getstate__(self):
         d = dict(self.__dict__)
