@@ -57,17 +57,21 @@ class TestScheduler(unittest.TestCase):
 
         def get_flight(self, aircraft):
             if aircraft.callsign == "A1":
-                return DepartureFlight(None, "A1", None, None, self.g1, self.s1,
-                                       self.runway, time(2, 37), time(2, 30))
+                return DepartureFlight(
+                    None, "A1", None, None, self.g1, self.s1,
+                    self.runway, time(2, 37), time(2, 30)
+                )
             elif aircraft.callsign == "A2":
-                return DepartureFlight(None, "A2", None, None, self.g2, self.s1,
-                                       self.runway, time(2, 36), time(2, 30))
+                return DepartureFlight(
+                    None, "A2", None, None, self.g2, self.s1,
+                    self.runway, time(2, 36), time(2, 30)
+                )
 
     class RouteMock():
 
         def __init__(self, nodes):
             self.nodes = nodes
-        
+
     class RoutingExpertMock():
 
         def __init__(self, g1, g2, s1, runway_start):

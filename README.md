@@ -15,16 +15,13 @@ airport code).
 
 ## Installation
 
-    $ pip3 install --user -r requirements.txt
+    $ pip3 install -r requirements.txt
     $ brew install pyqt # install python qt for mac users
     $ sudo apt-get install python-qt5 # for Ubuntu users
 
 ## Run
 
-    $ python3 simulator.py --airport sfo # without graphical minotor
-    $ python3 simulator.py --airport sfo -g # with graphical minotor
-    $ python3 simulator.py --help
-    $ python3 simulator.py -a sfo -tp 0 # without pause
+    $ python3 simulator.py -f plans/base.yaml
 
 ## Run Tests
 
@@ -34,7 +31,7 @@ airport code).
 ## Style Check
 
     $ pycodestyle --show-pep8 --show-source .
-    $ find . -iname "*.py" | xargs pylint
+    $ find . -iname "*.py" | xargs pylint    # haven't implemented
 
 ## Developer Guidelines
 
