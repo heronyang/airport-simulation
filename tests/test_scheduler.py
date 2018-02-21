@@ -1,9 +1,12 @@
+#!/usr/bin/env python3
 from datetime import time
 from aircraft import Aircraft, State
 from flight import DepartureFlight
 from scheduler import Scheduler
 from node import Node
 from surface import RunwayNode, Spot
+from config import Config
+from utils import get_seconds_after
 
 import sys
 import unittest
@@ -55,7 +58,7 @@ class TestScheduler(unittest.TestCase):
         def get_flight(self, aircraft):
             if aircraft.callsign == "A1":
                 return DepartureFlight(None, "A1", None, None, self.g1, self.s1,
-                                       self.runway, time(2, 35), time(2, 30))
+                                       self.runway, time(2, 37), time(2, 30))
             elif aircraft.callsign == "A2":
                 return DepartureFlight(None, "A2", None, None, self.g2, self.s1,
                                        self.runway, time(2, 36), time(2, 30))
@@ -99,13 +102,42 @@ class TestScheduler(unittest.TestCase):
 
     def test_basic(self):
 
+        # Overrides the tightness and velocity
+        tightness = 120
+        velocity = 5
+        Config.params["scheduler"]["tightness"] = tightness
+        Config.params["scheduler"]["velocity"] = velocity
+
+        # Create mock objects, then schedule it
         simulation = self.SimulationMock(self.a1, self.a2, self.g1, self.g2,
                                          self.s1, self.runway_start)
         scheduler = Scheduler()
         schedule = scheduler.schedule(simulation)
 
         self.assertEqual(len(schedule.requests), 2)
-        for request in schedule.requests:
-            self.assertEqual(len(request.itinerary.target_nodes), 3)
-            for node in request.itinerary.target_nodes:
-                pass
+
+        # a2 has an early departure time, so it goes first
+        self.assertEqual(schedule.requests[0].aircraft, self.a2)
+        self.assertEqual(schedule.requests[1].aircraft, self.a1)
+
+        # Gets itineraries
+        iti1 = schedule.requests[1].itinerary.target_nodes
+        iti2 = schedule.requests[0].itinerary.target_nodes
+
+        self.assertEqual(iti2[0].eat, time(2, 30, 0))
+        self.assertEqual(iti2[0].edt, time(2, 30, 0))
+        self.assertEqual(iti2[1].eat, time(2, 42, 10))
+        self.assertEqual(iti2[1].edt, time(2, 42, 10))
+        self.assertEqual(iti2[2].eat, time(2, 50, 22))
+        self.assertEqual(iti2[2].edt, time(2, 50, 22))
+
+        self.assertEqual(iti1[0].eat, time(2, 30, 0))
+        self.assertEqual(iti1[0].edt, time(2, 30, 0))
+        self.assertEqual(iti1[1].eat,
+                         get_seconds_after(iti2[1].eat, tightness))
+        self.assertEqual(iti1[1].edt,
+                         get_seconds_after(iti2[1].edt, tightness))
+        self.assertEqual(iti1[2].eat,
+                         get_seconds_after(iti2[2].eat, tightness))
+        self.assertEqual(iti1[2].edt,
+                         get_seconds_after(iti2[2].edt, tightness))

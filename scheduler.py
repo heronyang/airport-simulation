@@ -67,7 +67,10 @@ class Scheduler:
         for node in route.nodes:
 
             # Gets the earliest available time of the node
-            earliest_available_time = last_occupied_time.get(node, prev_time)
+            earliest_available_time = (
+                get_seconds_after(last_occupied_time[node], tightness)
+                if node in last_occupied_time else prev_time
+            )
 
             # Gets the earliest arrival time that the aircraft can make
             moving_time = (get_seconds_taken(prev_node, node, velocity)
@@ -82,6 +85,7 @@ class Scheduler:
             # Marks
             prev_node, prev_time = node, dep_time
             last_occupied_time[node] = dep_time
+            # from IPython.core.debugger import Tracer; Tracer()()
 
         return target_nodes
 

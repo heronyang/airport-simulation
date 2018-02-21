@@ -28,7 +28,8 @@ airport code).
 
 ## Run Tests
 
-    $ python3 -m unittest discover tests
+    $ python3 -m unittest discover tests    # all tests
+    $ python3 -m unittest tests/test_scheduler.py   # single test
 
 ## Style Check
 

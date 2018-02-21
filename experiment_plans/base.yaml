@@ -28,7 +28,7 @@ uncertainty:
 
 scheduler:
   # Minimum tightness at each node in schedule
-  tightness: 30
+  tightness: 60
   # Velocity of an moving aircraft used for distance calculation (ft/sec)
   aircraft_velocity: 5
 
