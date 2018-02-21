@@ -28,9 +28,13 @@ uncertainty:
 
 scheduler:
   # Minimum tightness at each node in schedule
-  tightness: 60
+  tightness: 180
   # Velocity of an moving aircraft used for distance calculation (ft/sec)
   aircraft_velocity: 5
+
+analyst:
+  # Enable or disble showing the details
+  details: true
 
 logger:
   # Options are: critical, error, warning, info, debug, notset

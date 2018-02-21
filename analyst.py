@@ -4,6 +4,7 @@ import pandas as pd
 from clock import Clock
 from aircraft import State
 from utils import get_time_delta
+from config import Config
 
 
 class TaxitimeMetric():
@@ -82,9 +83,9 @@ class AircraftCountMetric():
         if len(self.counter) == 0:
             return "Aircraft count: insufficient data"
 
-        cr = self.counter.set_index("time")
+        c = self.counter.set_index("time")
         return ("Aircraft count: top %d low %d mean %d remaining %d" %
-                (cr.max(), cr.min(), cr.mean(), cr.iloc[-1]))
+                (c.max(), c.min(), c.mean(), c.iloc[-1]))
 
 
 class ConflictMetric():
@@ -159,6 +160,23 @@ class Analyst:
         self.logger.debug(self.makespan_metric.summary)
         self.logger.debug(self.aircraft_count_metric.summary)
         self.logger.debug(self.conflict_metric.summary)
+
+        if Config.params["analyst"]["details"]:
+
+            c = self.aircraft_count_metric.counter.set_index("time")
+            cr = self.conflict_metric.conflict_nodes.set_index("time")
+            ca = self.conflict_metric.conflict_aircrafts.set_index("time")
+
+            stats = c.join(
+                cr, lsuffix='_aircraft',
+                rsuffix="_conflict_nodes"
+            ).join(
+                ca,
+                rsuffix="_conflict_aircrafts"
+            )
+
+            with pd.option_context("display.max_rows", None):
+                self.logger.debug("\n" + str(stats))
 
     def __getstate__(self):
         d = dict(self.__dict__)
