@@ -41,11 +41,11 @@ class Simulation:
                                             self.airport.surface.nodes, False)
 
         # check for uncertainty
-        self.uncertainty = (Uncertainty() if p["uncertainty"]["enabled"]
-                            else (None))
+        self.uncertainty = \
+                (Uncertainty() if p["uncertainty"]["enabled"] else (None))
 
         self.scheduler = Scheduler()
-        self.analyst = Analyst(self.scenario)
+        self.analyst = Analyst(self.clock.sim_time)
         self.conflict_tracker = ConflictTracker(self)
 
         # Sets up a delegate of this simulation
@@ -74,7 +74,7 @@ class Simulation:
             self.clock.tick()
 
             # Observe
-            # self.analyst.observe_per_tick(self.delegate)
+            self.analyst.observe_on_tick(self.delegate)
 
         except ClockException as e:
             # Finishes

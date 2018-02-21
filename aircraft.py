@@ -49,7 +49,7 @@ class Aircraft:
         self.pilot.set_itinerary(itinerary)
 
     def tick(self):
-        self.logger.info("%s location: %s, state: %s" %
+        self.logger.info("%s at %s %s" %
                          (self, self.location, self.state))
 
     @property

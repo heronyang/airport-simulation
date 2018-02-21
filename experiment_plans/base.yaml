@@ -33,5 +33,5 @@ scheduler:
   aircraft_velocity: 5
 
 logger:
-  # Options are: info, debug, warning, error
-  level: info
+  # Options are: critical, error, warning, info, debug, notset
+  level: debug
