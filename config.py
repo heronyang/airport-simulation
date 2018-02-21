@@ -3,7 +3,7 @@ import yaml
 
 class MetaConfig(type):
 
-    BASE_LINE_EXPERIMENT_PLAN_FILEPATH = "./experiment_plans/base.yaml"
+    BASE_LINE_EXPERIMENT_PLAN_FILEPATH = "./plans/base.yaml"
 
     @property
     def params(cls):
@@ -12,7 +12,7 @@ class MetaConfig(type):
                 cls._params = yaml.load(f)
         return cls._params
 
-    def load_experiment_plan(cls, config_filepath):
+    def load_plan(cls, config_filepath):
         with open(MetaConfig.BASE_LINE_EXPERIMENT_PLAN_FILEPATH) as f:
             baseline_params = yaml.load(f)
         with open(config_filepath) as f:
@@ -21,5 +21,5 @@ class MetaConfig(type):
 
 class Config(metaclass=MetaConfig):
 
-    LOG_FORMAT = "%(levelname)s [%(name)s.%(funcName)s:%(lineno)d] %(message)s"
+    LOG_FORMAT = "[%(name)s.%(funcName)s:%(lineno)d] %(message)s"
     DATA_ROOT_DIR_PATH = "./data/%s/build/"

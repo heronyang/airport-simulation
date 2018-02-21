@@ -5,3 +5,4 @@ numpy==1.13.3
 heapdict==1.0.0
 pycodestyle==2.3.1
 pandas==0.20.3
+coloredlogs==9.0

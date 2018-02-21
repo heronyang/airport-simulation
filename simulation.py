@@ -55,19 +55,19 @@ class Simulation:
 
     def tick(self):
 
-        self.logger.info("Current Time: %s" % self.now)
+        self.logger.debug("\nCurrent Time: %s" % self.now)
 
         try:
 
-            # Updates states
-            self.update_aircrafts()
+            self.add_aircrafts()
             if self.is_time_to_reschedule():
                 self.logger.info("Time to reschedule")
                 self.reschedule()
                 self.last_schedule_time = self.now
-                self.logger.debug("Last schedule time is updated to %s" %
-                                  self.last_schedule_time)
+                self.logger.info("Last schedule time is updated to %s" %
+                                 self.last_schedule_time)
             self.airport.tick()
+            self.remove_aircrafts()
             self.clock.tick()
 
             # Observe
@@ -78,12 +78,8 @@ class Simulation:
             self.analyst.print_summary(self)
             raise e
         except Exception as e:
-            print(traceback.format_exc())
+            self.logger.error(traceback.format_exc())
             raise e
-
-    def update_aircrafts(self):
-        self.add_aircrafts()
-        self.remove_aircrafts()
 
     def quiet_tick(self):
         """
@@ -132,11 +128,18 @@ class Simulation:
         Removes departure aircrafts if they've moved to the runway.
         """
         # TODO: removal for arrival aircrafts
+
+        to_remove_aircrafts = []
+
         for aircraft in self.airport.aircrafts:
             flight = self.scenario.get_flight(aircraft)
+            # Deletion shouldn't be done in the fly
             if aircraft.location.is_close_to(flight.runway.start):
-                self.logger.info("Removes %s from the airport" % flight)
-                self.airport.remove_aircraft(aircraft)
+                to_remove_aircrafts.append(aircraft)
+
+        for aircraft in to_remove_aircrafts:
+            self.logger.info("Removes %s from the airport" % aircraft)
+            self.airport.remove_aircraft(aircraft)
 
     @property
     def now(self):

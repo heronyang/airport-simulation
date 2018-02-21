@@ -56,7 +56,10 @@ class Airport:
         now = self.simulation.now
         result = []
         for location in occupied_by:
-            result.append(Conflict(location, occupied_by[location], now))
+            aircrafts = occupied_by[location]
+            if len(aircrafts) <= 1:
+                continue
+            result.append(Conflict(location, aircrafts, now))
         return result
 
     def tick(self):

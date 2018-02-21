@@ -85,7 +85,6 @@ class Scheduler:
             # Marks
             prev_node, prev_time = node, dep_time
             last_occupied_time[node] = dep_time
-            # from IPython.core.debugger import Tracer; Tracer()()
 
         return target_nodes
 

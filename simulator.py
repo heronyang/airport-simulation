@@ -3,6 +3,7 @@ import os
 import sys
 import time
 import logging
+import coloredlogs
 import argparse
 import threading
 import traceback
@@ -30,12 +31,12 @@ def init_params():
 
     # Parses argv
     parser = argparse.ArgumentParser()
-    parser.add_argument("-f", "--experiment-plan-filepath",
+    parser.add_argument("-f", "--plan-filepath",
                         help="Filepath of the experiment plan",
                         required=True)
 
     # Loads experiment parameters into cfg
-    cfg.load_experiment_plan(parser.parse_args().experiment_plan_filepath)
+    cfg.load_plan(parser.parse_args().plan_filepath)
 
 
 def init_logger():
@@ -54,7 +55,7 @@ def init_logger():
         logger.error("Unknown logging level")
         os._exit(1)
 
-    logging.basicConfig(level=level, format=cfg.LOG_FORMAT)
+    coloredlogs.install(level=level, fmt=cfg.LOG_FORMAT)
 
 
 def start():
@@ -111,9 +112,9 @@ def run(simulation, monitor):
     except ClockException:
         logger.debug("Simulation ends")
     except Exception as e:
-        logger.debug(traceback.format_exc())
-        logger.debug("Simulation exists on unexpected error")
-        os._exit(1)
+        logger.error(traceback.format_exc())
+        logger.error("Simulation exists on unexpected error")
+        os._exit(-1)
 
 
 if __name__ == "__main__":

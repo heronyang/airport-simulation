@@ -124,7 +124,13 @@ class Pilot:
             # arrived the node
             if (next_node.edt is not None and next_node.edt <= now) or \
                (next_node.edt is None and next_node.eat <= now):
-                self.itinerary.pop_node()
+                past_node = self.itinerary.pop_node()
+
+                # Move to the past node if it hasn't
+                if not self.aircraft.location.is_close_to(past_node.node):
+                    self.aircraft.set_location(past_node.node)
+                    self.logger.debug("%s: Moved to %s." % (self, past_node))
+
                 self.logger.debug("%s: %s finished." % (self, next_node))
                 continue
 
@@ -135,8 +141,8 @@ class Pilot:
             break
 
         if self.itinerary.is_completed:
-            self.itinerary = None
             self.logger.debug("%s: %s completed." % (self, self.itinerary))
+            self.itinerary = None
 
     def update_state(self):
 
