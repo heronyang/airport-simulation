@@ -28,13 +28,13 @@ def hash(links, nodes):
 
     import hashlib
 
-    f = 0.0
+    h = 0.0
     for link in links:
-        f += link.start.geo_pos["lat"]
-        f += link.start.geo_pos["lng"]
+        h += link.__hash__()
+        h += link.__hash__()
 
     for node in nodes:
-        f += node.geo_pos["lat"]
-        f += node.geo_pos["lng"]
+        h += node.__hash__()
+        h += node.__hash__()
 
-    return hashlib.md5(('%.10f' % f).encode('utf-8')).hexdigest()
+    return hashlib.md5(('%d' % h).encode('utf-8')).hexdigest()

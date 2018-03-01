@@ -15,10 +15,8 @@ simulation:
   close_node_threshold: 30
   # Feets required when calculating whether a node is belong a link
   close_node_link_threshold: 10
-  # String length of the random string for object names
-  random_name_length: 8
   # Enable or disable cache for shortest routes
-  cache: false
+  cache: true
 
 monitor:
   # Enable or disable the real-time monitor

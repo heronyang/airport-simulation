@@ -2,6 +2,7 @@ from config import Config
 from node import Node
 from utils import random_string
 from utils import str2sha1, interpolate_geo
+from id_generator import get_new_link_id
 
 
 class Link:
@@ -12,8 +13,7 @@ class Link:
             raise Exception("Less than two nodes were given")
 
         if name is None or len(name) == 0:
-            length = Config.params["simulation"]["random_name_length"]
-            name = "n-" + random_string(length)
+            name = "l-id-" + str(get_new_link_id())
 
         self.name = name
         self.nodes = nodes

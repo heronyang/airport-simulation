@@ -2,6 +2,7 @@ from utils import is_valid_geo_pos, str2sha1
 from geopy.distance import vincenty
 from utils import random_string
 from config import Config
+from id_generator import get_new_node_id
 
 
 class Node:
@@ -12,8 +13,7 @@ class Node:
             raise Exception("Invalid geo position")
 
         if name is None or len(name) == 0:
-            length = Config.params["simulation"]["random_name_length"]
-            name = "n-" + random_string(length)
+            name = "n-id-" + str(get_new_node_id())
 
         self.name = name
         self.geo_pos = geo_pos
