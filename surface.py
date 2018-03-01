@@ -4,7 +4,6 @@ import logging
 
 from node import Node
 from link import Link
-from utils import random_string
 from config import Config
 
 
@@ -16,7 +15,6 @@ class Surface:
 
     def __init__(self, center, corners, image_filepath):
 
-        # Setups the logger
         self.logger = logging.getLogger(__name__)
 
         self.gates = []
@@ -36,52 +34,49 @@ class Surface:
     """
     def break_links(self):
 
+        self.logger.info("Starts to break links")
+
         # Retrieve all nodes and links
         all_nodes = self.nodes
 
-        for link in all_links:
+        for link in self.links:
             all_nodes.append(link.start)
             all_nodes.append(link.end)
 
-        # Cut at the middle of the link if a node is contained
-        new_runways, new_taxiways, new_pushback_ways = [], [], []
-        to_rm_runways, to_rm_taxiways, to_rm_pushback_ways = [], [], []
+        while self.break_next_link(all_nodes):
+            pass
+
+        self.logger.info("Done breaking links")
+
+    def break_next_link(self, all_nodes):
 
         for node in all_nodes:
 
             # Runways
             for runway in self.runways:
-                if not runway.contains_node(node):
-                    continue
-                new_runways += self.break_at(runway, node)
-                to_rm_runways.append(runway)
+                if runway.contains_node(node):
+                    self.runways.remove(runway)
+                    self.runways += runway.break_at(node)
+                    return True
 
             # Taxiway
             for taxiway in self.taxiways:
-                if not taxiway.contains_node(node):
-                    continue
-                new_taxiways += self.break_at(taxiway, node)
-                to_rm_taxiways.append(taxiway)
+                if taxiway.contains_node(node):
+                    self.taxiways.remove(taxiway)
+                    self.taxiways += taxiway.break_at(node)
+                    return True
 
             # Pushback ways
             for pushback_way in self.pushback_ways:
-                if not pushback_way.contains_node(node):
-                    continue
-                new_pushback_ways += self.break_at(pushback_way, node)
-                to_rm_pushback_ways.append(pushback_way)
+                if pushback_way.contains_node(node):
+                    self.pushback_ways.remove(pushback_way)
+                    self.pushback_ways += pushback_way.break_at(node)
+                    return True
 
-        # Remove
-        self.runways = remove_list_from_list(self.runways, to_rm_runways)
-        self.taxiways = remove_list_from_list(self.taxiways, to_rm_taxiways)
-        self.pushback_ways = remove_list_from_list(self.pushback_ways,
-                                                   to_rm_pushback_ways)
+        return False
 
-        # Add
-        self.runways += new_runways
-        self.taxiways += new_taxiways
-        self.pushback_ways += new_pushback_ways
 
-    def remove_list_from_list(original_list, to_rm_list):
+    def remove_list_from_list(self, original_list, to_rm_list):
         return [i for i in original_list if i not in to_rm_list]
 
     def __repr__(self):
@@ -232,6 +227,8 @@ class SurfaceFactory:
         SurfaceFactory.__load_runway(surface, dir_path)
         SurfaceFactory.__load_taxiway(surface, dir_path)
         SurfaceFactory.__load_pushback_way(surface, dir_path)
+        self.logger = logging.getLogger(__name__)
+        surface.break_links()
         return surface
 
     @classmethod
@@ -264,9 +261,6 @@ class SurfaceFactory:
         for node_raw in nodes_raw:
 
             name = node_raw["name"]
-            if name is None or len(name) == 0:
-                name = "n-" + random_string(
-                            Config.params["simulation"]["random_name_length"])
 
             if type_name == "spots":
                 nodes.append(Spot(name,
@@ -305,9 +299,6 @@ class SurfaceFactory:
         for link_raw in links_raw:
 
             name = link_raw["name"]
-            if name is None or len(name) == 0:
-                name = "l-" + random_string(
-                            Config.params["simulation"]["random_name_length"])
 
             nodes = []
             for node in link_raw["nodes"]:

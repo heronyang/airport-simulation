@@ -77,7 +77,7 @@ class TestRoutingExpert(unittest.TestCase):
         nodes = self.airport.surface.nodes
 
         # Sets up the routing expert monitoring the airport surface
-        self.routing_expert = RoutingExpert(links, nodes, True)
+        self.routing_expert = RoutingExpert(links, nodes, False)
 
         routeG3toR1 = self.routing_expert.get_shortest_route(nodes[2],
                                                              links[0].start)

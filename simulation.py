@@ -37,7 +37,8 @@ class Simulation:
 
         # Sets up the routing expert monitoring the airport surface
         self.routing_expert = RoutingExpert(self.airport.surface.links,
-                                            self.airport.surface.nodes, False)
+                                            self.airport.surface.nodes,
+                                            p["simulation"]["cache"])
 
         # check for uncertainty
         self.uncertainty = (Uncertainty() if p["uncertainty"]["enabled"]

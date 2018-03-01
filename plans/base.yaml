@@ -17,6 +17,8 @@ simulation:
   close_node_link_threshold: 10
   # String length of the random string for object names
   random_name_length: 8
+  # Enable or disable cache for shortest routes
+  cache: false
 
 monitor:
   # Enable or disable the real-time monitor

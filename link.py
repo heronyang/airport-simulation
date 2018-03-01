@@ -1,13 +1,20 @@
 from config import Config
 from node import Node
+from utils import random_string
 from utils import str2sha1, interpolate_geo
 
 
 class Link:
 
     def __init__(self, name, nodes):
+
         if len(nodes) < 2:
             raise Exception("Less than two nodes were given")
+
+        if name is None or len(name) == 0:
+            length = Config.params["simulation"]["random_name_length"]
+            name = "n-" + random_string(length)
+
         self.name = name
         self.nodes = nodes
         self.hash = str2sha1("%s#%s" % (self.name, self.nodes))
@@ -47,6 +54,8 @@ class Link:
         return Node(0, "LINK-INTERMEDIATE-POINT", geo_pos)
 
     def contains_node(self, node):
+        if self.start.is_close_to(node) or self.end.is_close_to(node):
+            return False
         return self.contains_node_at(node) is not None
 
     def contains_node_at(self, node):
