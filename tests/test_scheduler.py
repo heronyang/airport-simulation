@@ -25,9 +25,9 @@ class TestScheduler(unittest.TestCase):
     #      |
     #     (G2)
 
-    g1 = Node(0, "G1", {"lat": 47.812000, "lng": -122.079057})
-    g2 = Node(0, "G2", {"lat": 47.832000, "lng": -122.079057})
-    s1 = Spot(0, "S1", {"lat": 47.822000, "lng": -122.079057})
+    g1 = Node("G1", {"lat": 47.812000, "lng": -122.079057})
+    g2 = Node("G2", {"lat": 47.832000, "lng": -122.079057})
+    s1 = Spot("S1", {"lat": 47.822000, "lng": -122.079057})
     runway_start = RunwayNode({"lat": 47.822000, "lng": -122.069057})
 
     a1 = Aircraft(None, "A1", None, g1, State.stop)

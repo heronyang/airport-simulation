@@ -4,6 +4,8 @@ import logging
 
 from node import Node
 from link import Link
+from utils import random_string
+from config import Config
 
 
 class Surface:
@@ -26,6 +28,61 @@ class Surface:
         self.center = center
         self.corners = corners
         self.image_filepath = image_filepath
+
+    """
+    One node that connects to a link in the middle is not connected; therefore,
+    break_links is used for cutting at the middle point and building new links
+    that connects nodes to links.
+    """
+    def break_links(self):
+
+        # Retrieve all nodes and links
+        all_nodes = self.nodes
+
+        for link in all_links:
+            all_nodes.append(link.start)
+            all_nodes.append(link.end)
+
+        # Cut at the middle of the link if a node is contained
+        new_runways, new_taxiways, new_pushback_ways = [], [], []
+        to_rm_runways, to_rm_taxiways, to_rm_pushback_ways = [], [], []
+
+        for node in all_nodes:
+
+            # Runways
+            for runway in self.runways:
+                if not runway.contains_node(node):
+                    continue
+                new_runways += self.break_at(runway, node)
+                to_rm_runways.append(runway)
+
+            # Taxiway
+            for taxiway in self.taxiways:
+                if not taxiway.contains_node(node):
+                    continue
+                new_taxiways += self.break_at(taxiway, node)
+                to_rm_taxiways.append(taxiway)
+
+            # Pushback ways
+            for pushback_way in self.pushback_ways:
+                if not pushback_way.contains_node(node):
+                    continue
+                new_pushback_ways += self.break_at(pushback_way, node)
+                to_rm_pushback_ways.append(pushback_way)
+
+        # Remove
+        self.runways = remove_list_from_list(self.runways, to_rm_runways)
+        self.taxiways = remove_list_from_list(self.taxiways, to_rm_taxiways)
+        self.pushback_ways = remove_list_from_list(self.pushback_ways,
+                                                   to_rm_pushback_ways)
+
+        # Add
+        self.runways += new_runways
+        self.taxiways += new_taxiways
+        self.pushback_ways += new_pushback_ways
+
+    def remove_list_from_list(original_list, to_rm_list):
+        return [i for i in original_list if i not in to_rm_list]
 
     def __repr__(self):
         return "<Surface>"
@@ -102,26 +159,26 @@ class Surface:
 
 class Gate(Node):
 
-    def __init__(self, index, name, geo_pos):
-        Node.__init__(self, index, name, geo_pos)
+    def __init__(self, name, geo_pos):
+        Node.__init__(self, name, geo_pos)
 
 
 class Spot(Node):
 
-    def __init__(self, index, name, geo_pos):
-        Node.__init__(self, index, name, geo_pos)
+    def __init__(self, name, geo_pos):
+        Node.__init__(self, name, geo_pos)
 
 
 class RunwayNode(Node):
 
     def __init__(self, geo_pos):
-        Node.__init__(self, -1, "", geo_pos)
+        Node.__init__(self, "", geo_pos)
 
 
 class Runway(Link):
 
-    def __init__(self, index, name, nodes):
-        Link.__init__(self, index, name, nodes)
+    def __init__(self, name, nodes):
+        Link.__init__(self, name, nodes)
 
     def __repr__(self):
         return "<RUNWAY: %s>" % self.name
@@ -129,8 +186,8 @@ class Runway(Link):
 
 class Taxiway(Link):
 
-    def __init__(self, index, name, nodes):
-        Link.__init__(self, index, name, nodes)
+    def __init__(self, name, nodes):
+        Link.__init__(self, name, nodes)
 
     def __repr__(self):
         return "<TAXIWAY: %s>" % self.name
@@ -138,8 +195,8 @@ class Taxiway(Link):
 
 class PushbackWay(Link):
 
-    def __init__(self, index, name, nodes):
-        Link.__init__(self, index, name, nodes)
+    def __init__(self, name, nodes):
+        Link.__init__(self, name, nodes)
 
     def __repr__(self):
         return "<PUSHBACKWAY: %s>" % self.name
@@ -205,16 +262,18 @@ class SurfaceFactory:
             nodes_raw = json.load(f)
 
         for node_raw in nodes_raw:
+
+            name = node_raw["name"]
+            if name is None or len(name) == 0:
+                name = "n-" + random_string(
+                            Config.params["simulation"]["random_name_length"])
+
             if type_name == "spots":
-                nodes.append(Spot(
-                    node_raw["index"],
-                    node_raw["name"],
+                nodes.append(Spot(name,
                     {"lat": node_raw["lat"], "lng": node_raw["lng"]}
                 ))
             elif type_name == "gates":
-                nodes.append(Gate(
-                    node_raw["index"],
-                    node_raw["name"],
+                nodes.append(Gate(name,
                     {"lat": node_raw["lat"], "lng": node_raw["lng"]}
                 ))
             else:
@@ -245,19 +304,21 @@ class SurfaceFactory:
 
         for link_raw in links_raw:
 
-            index = link_raw["index"]
             name = link_raw["name"]
+            if name is None or len(name) == 0:
+                name = "l-" + random_string(
+                            Config.params["simulation"]["random_name_length"])
 
             nodes = []
             for node in link_raw["nodes"]:
                 nodes.append(RunwayNode({"lat": node[1], "lng": node[0]}))
 
             if type_name == "runways":
-                links.append(Runway(index, name, nodes))
+                links.append(Runway(name, nodes))
             elif type_name == "taxiways":
-                links.append(Taxiway(index, name, nodes))
+                links.append(Taxiway(name, nodes))
             elif type_name == "pushback_ways":
-                links.append(PushbackWay(index, name, nodes))
+                links.append(PushbackWay(name, nodes))
             else:
                 raise Exception("Unknown link type")
 

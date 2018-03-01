@@ -5,15 +5,15 @@ from config import Config
 
 class Node:
 
-    def __init__(self, index, name, geo_pos):
+    def __init__(self, name, geo_pos):
 
         if not is_valid_geo_pos(geo_pos):
             raise Exception("Invalid geo position")
 
-        self.index = index  # Only used for reference
         self.name = name
         self.geo_pos = geo_pos
-        self.hash = str2sha1("%s#%s#%s" % (index, name, geo_pos))
+        self.hash = str2sha1("%s#%.5f#%.5f" %
+                             (name, geo_pos["lat"], geo_pos["lng"]))
 
     """
     Returns the distance from this node to another in feets

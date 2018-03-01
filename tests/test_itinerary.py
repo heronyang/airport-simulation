@@ -14,9 +14,9 @@ sys.path.append('..')
 
 class TestItinerary(unittest.TestCase):
 
-    n1 = Node(0, "N1", {"lat": 47.722000, "lng": -122.079057})
-    n2 = Node(0, "N2", {"lat": 47.822000, "lng": -122.079057})
-    n3 = Node(0, "N3", {"lat": 47.922000, "lng": -122.079057})
+    n1 = Node("N1", {"lat": 47.722000, "lng": -122.079057})
+    n2 = Node("N2", {"lat": 47.822000, "lng": -122.079057})
+    n3 = Node("N3", {"lat": 47.922000, "lng": -122.079057})
 
     target_nodes = [
         Itinerary.TargetNode(n1, time(0, 2), time(0, 3)),

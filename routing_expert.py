@@ -84,7 +84,7 @@ class RoutingExpert:
         for start in self.nodes:
             for end in self.nodes:
                 if start != end and start.is_close_to(end):
-                    link = Link(0, "CLOSE_NODE_LINK", [start, end])
+                    link = Link("CLOSE_NODE_LINK", [start, end])
                     self.routing_table[start][end].update_link(link)
                     self.logger.debug("%s and %s are close node" %
                                       (start, end))

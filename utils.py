@@ -84,3 +84,8 @@ def get_time_delta(t1, t2):
     m1 = t1.hour * 60 * 60 + t1.minute * 60 + t1.second
     m2 = t2.hour * 60 * 60 + t2.minute * 60 + t2.second
     return m1 - m2
+
+def random_string(length):
+    import string
+    import random
+    return ''.join(random.choice(string.ascii_letters) for m in range(length))

@@ -13,6 +13,10 @@ simulation:
   appear_before: 300
   # Feets required between two nodes (otherwise, we seem two nodes as the same)
   close_node_threshold: 30
+  # Feets required when calculating whether a node is belong a link
+  close_node_link_threshold: 10
+  # String length of the random string for object names
+  random_name_length: 8
 
 monitor:
   # Enable or disable the real-time monitor

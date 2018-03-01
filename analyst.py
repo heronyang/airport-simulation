@@ -109,10 +109,6 @@ class ConflictMetric():
             {"time": now, "count": n_aircrafts}, ignore_index=True
         )
 
-        if len(conflicts) is not 0:
-            print(conflicts)
-            # from IPython.core.debugger import Tracer; Tracer()()
-
     @property
     def summary(self):
 

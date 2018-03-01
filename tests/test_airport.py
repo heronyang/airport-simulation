@@ -13,8 +13,8 @@ sys.path.append('..')
 
 class TestAirport(unittest.TestCase):
 
-    n1 = Node(0, "N1", {"lat": 47.722000, "lng": -122.079057})
-    n2 = Node(0, "N2", {"lat": 47.822000, "lng": -122.079057})
+    n1 = Node("N1", {"lat": 47.722000, "lng": -122.079057})
+    n2 = Node("N2", {"lat": 47.822000, "lng": -122.079057})
 
     class SimulationMock():
         @property
