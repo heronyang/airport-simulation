@@ -16,6 +16,8 @@ class Route:
         self.start = start
         self.end = end
         self.links.extend(links)
+        self.__distance = None  # distance is calculated lazily
+        self.__is_completed = None  # is_completed is calculated lazily
 
     def add_link(self, link):
 
@@ -27,6 +29,8 @@ class Route:
             raise Exception("New link start node doesn't match with the "
                             "last node")
         self.links.append(link)
+        self.__distance = None
+        self.__is_completed = None
 
     def update_link(self, link):
         self.reset_links()
@@ -64,6 +68,14 @@ class Route:
     @property
     def is_completed(self):
 
+        if self.__is_completed:
+            return self.__is_completed
+
+        self.__is_completed = self.__get_is_completed()
+        return self.__is_completed
+
+    def __get_is_completed(self):
+
         # If this route contains no link return false
         if len(self.links) < 1:
             return False
@@ -89,6 +101,12 @@ class Route:
     """
     @property
     def distance(self):
+        if self.__distance:
+            return self.__distance
+        self.__distance = self.__get_distance()
+        return self.__distance
+
+    def __get_distance(self):
         if not self.is_completed:
             return float("Inf")
         distance = 0
@@ -96,11 +114,14 @@ class Route:
             distance += link.length
         return distance
 
+
     """
     Removes all the stored links.
     """
     def reset_links(self):
         self.links = []
+        self.__distance = None
+        self.__is_completed = None
 
     def __repr__(self):
         return "<Route: %s - %s>" % (self.start, self.end)

@@ -67,6 +67,8 @@ Routing table calculated by the routing expert will be cached at `cache/` so
 please make sure all the objects in routing table can be dumped into binary
 file using `pickle`. Ex. logger can't be dumped.
 
+Note that cache may cause errors or bugs in many cases because stale data is used.
+
 ### Clock
 
 Simulation time (`sim_time`) indicates the time should be passed in each

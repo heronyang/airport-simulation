@@ -1,4 +1,4 @@
-airport: simple
+airport: sfo-terminal-2
 
 simulator:
   # Real seconds passed between each tick

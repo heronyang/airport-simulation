@@ -33,10 +33,10 @@ class TestLink(unittest.TestCase):
     def test_contains_node(self):
         link = Link("link-123", self.nodes)
         Config.params["simulation"]["close_node_link_threshold"] = 10
-        self.assertTrue(link.contains_node(self.n1))
         self.assertTrue(link.contains_node(self.link_node1))
         self.assertTrue(link.contains_node(self.link_node2))
         self.assertFalse(link.contains_node(self.link_node3))
+        self.assertFalse(link.contains_node(self.n1))
 
     def test_break_at_normal(self):
 
