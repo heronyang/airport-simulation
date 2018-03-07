@@ -1,0 +1,45 @@
+airport: sfo-terminal-2
+
+simulator:
+  # Real seconds passed between each tick
+  pause_time: 0
+
+simulation:
+  # Seconds between each simulation epoch
+  time_unit: 300
+  # Seconds between each reschedule
+  reschedule_cycle: 900
+  # Seconds before an aircraft shown in the simulation before scheduled time
+  appear_before: 300
+  # Feets required between two nodes (otherwise, we seem two nodes as the same)
+  close_node_threshold: 30
+  # Feets required when calculating whether a node is belong a link
+  close_node_link_threshold: 10
+  # Enable or disable cache for shortest routes
+  cache: true
+
+monitor:
+  # Enable or disable the real-time monitor
+  enabled: false
+
+uncertainty:
+  # Enable or disable the uncertain in simulation
+  enabled: true
+  #
+  seed: 0.2
+  #
+  range_threshold: 0.2
+
+scheduler:
+  # Minimum tightness at each node in schedule
+  tightness: 180
+  # Velocity of an moving aircraft used for distance calculation (ft/sec)
+  aircraft_velocity: 5
+
+analyst:
+  # Enable or disble showing the details
+  details: true
+
+logger:
+  # Options are: critical, error, warning, info, debug, notset
+  level: debug

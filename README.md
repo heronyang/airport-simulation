@@ -15,20 +15,23 @@ airport code).
 
 ## Installation
 
-    $ pip3 install --user -r requirements.txt
+    $ pip3 install -r requirements.txt
     $ brew install pyqt # install python qt for mac users
     $ sudo apt-get install python-qt5 # for Ubuntu users
 
 ## Run
 
-    $ python3 simulator.py --airport sfo # without graphical minotor
-    $ python3 simulator.py --airport sfo -g # with graphical minotor
-    $ python3 simulator.py --help
-    $ python3 simulator.py -a sfo -tp 0 # without pause
+    $ python3 simulator.py -f plans/base.yaml
 
 ## Run Tests
 
-    $ python3 -m unittest discover tests
+    $ python3 -m unittest discover tests    # all tests
+    $ python3 -m unittest tests/test_scheduler.py   # single test
+
+## Style Check
+
+    $ pycodestyle --show-pep8 --show-source .
+    $ find . -iname "*.py" | xargs pylint    # haven't implemented
 
 ## Developer Guidelines
 
@@ -63,6 +66,8 @@ For consistency, following units are used everywhere in the code:
 Routing table calculated by the routing expert will be cached at `cache/` so
 please make sure all the objects in routing table can be dumped into binary
 file using `pickle`. Ex. logger can't be dumped.
+
+Note that cache may cause errors or bugs in many cases because stale data is used.
 
 ### Clock
 

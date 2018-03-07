@@ -1,9 +1,5 @@
 #!/usr/bin/env python
 
-import sys
-import unittest
-sys.path.append('..')
-
 from copy import deepcopy
 from clock import Clock
 from datetime import time
@@ -11,19 +7,23 @@ from node import Node
 from itinerary import Itinerary
 from utils import get_seconds_after
 
+import sys
+import unittest
+sys.path.append('..')
+
+
 class TestItinerary(unittest.TestCase):
 
-    n1 = Node(0, "N1", {"lat": 47.722000, "lng": -122.079057})
-    n2 = Node(0, "N2", {"lat": 47.822000, "lng": -122.079057})
-    n3 = Node(0, "N3", {"lat": 47.922000, "lng": -122.079057})
+    n1 = Node("N1", {"lat": 47.722000, "lng": -122.079057})
+    n2 = Node("N2", {"lat": 47.822000, "lng": -122.079057})
+    n3 = Node("N3", {"lat": 47.922000, "lng": -122.079057})
 
-    start_time = time(0, 1)
     target_nodes = [
-        Itinerary.TargetNode(n1, start_time, time(0, 2)),
-        Itinerary.TargetNode(n2, time(0, 3), time(0, 4)),
-        Itinerary.TargetNode(n3, time(0, 5), time(0, 6)),
+        Itinerary.TargetNode(n1, time(0, 2), time(0, 3)),
+        Itinerary.TargetNode(n2, time(0, 5), time(0, 7)),
+        Itinerary.TargetNode(n3, time(0, 9), None),
     ]
-    itinerary_template = Itinerary(target_nodes, start_time)
+    itinerary_template = Itinerary(target_nodes)
 
     def test_init(self):
 
@@ -34,18 +34,9 @@ class TestItinerary(unittest.TestCase):
         # Gets a copy of the itinerary
         itinerary = deepcopy(self.itinerary_template)
 
-        Clock.now = time(0, 0)
-        self.assertFalse(itinerary.is_started)
+        clock = Clock()
         self.assertFalse(itinerary.is_completed)
-        self.assertEqual(itinerary.peek_target_node().node, self.n1)
-        
-    def test_is_start(self):
-
-        # Gets a copy of the itinerary
-        itinerary = deepcopy(self.itinerary_template)
-
-        Clock.now = time(0, 1)
-        self.assertTrue(itinerary.is_started)
+        self.assertEqual(itinerary.next_node.node, self.n1)
 
     def test_is_completed(self):
 
@@ -53,26 +44,34 @@ class TestItinerary(unittest.TestCase):
         itinerary = deepcopy(self.itinerary_template)
 
         for i in range(3):
-            itinerary.pop_target_node()
+            itinerary.pop_node()
 
         self.assertTrue(itinerary.is_completed)
 
-    def test_pop_target_node(self):
+    def test_pop_node(self):
 
         # Gets a copy of the itinerary
         itinerary = deepcopy(self.itinerary_template)
 
-        self.assertEqual(itinerary.pop_target_node().node, self.n1)
-        self.assertEqual(itinerary.pop_target_node().node, self.n2)
-        self.assertEqual(itinerary.pop_target_node().node, self.n3)
-        self.assertRaises(Exception, itinerary.pop_target_node)
+        self.assertEqual(itinerary.pop_node().node, self.n1)
+        self.assertEqual(itinerary.pop_node().node, self.n2)
+        self.assertEqual(itinerary.pop_node().node, self.n3)
+        self.assertRaises(Exception, itinerary.pop_node)
 
-    def test_peek_target_node(self):
+    def test_next_node(self):
 
         # Gets a copy of the itinerary
         itinerary = deepcopy(self.itinerary_template)
 
-        self.assertEqual(itinerary.peek_target_node().node, self.n1)
-        for i in range(3):
-            itinerary.pop_target_node()
-        self.assertRaises(Exception, itinerary.peek_target_node)
+        self.assertEqual(itinerary.next_node.node, self.n1)
+        itinerary.pop_node()
+        self.assertEqual(itinerary.next_node.node, self.n2)
+        itinerary.pop_node()
+        self.assertEqual(itinerary.next_node.node, self.n3)
+        itinerary.pop_node()
+
+        try:
+            itinerary.next_node
+            raise Exception("next_node failed to raise exception on error")
+        except Exception:
+            pass

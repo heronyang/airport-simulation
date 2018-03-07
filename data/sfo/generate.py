@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-import os, errno
+import os
+import errno
 import json
 import sys
 import logging
@@ -16,12 +17,13 @@ logger_handler.setLevel(logging.DEBUG)
 logger.addHandler(logger_handler)
 logger.setLevel(logging.DEBUG)
 
+
 def main():
 
     # Creates the output folder
     create_output_folder()
 
-    with open("surface.json") as f:    
+    with open("surface.json") as f:
         # Reads data from the input file
         surface_data = json.load(f)
 
@@ -62,11 +64,13 @@ def main():
     generate_scenario()
     logger.debug("Scenario generated")
 
+
 def create_output_folder():
     try:
         os.makedirs(OUTPUT_FOLDER)
     except OSError as e:
         pass
+
 
 def generate_airport_data(items):
 
@@ -96,6 +100,7 @@ def generate_airport_data(items):
     filename = OUTPUT_FOLDER + "airport.jpg"
     map_adapter.download(filename, center)
 
+
 def get_center(coordinates):
 
     # NOTE: this won't work if the area across lat = 0 line
@@ -120,6 +125,7 @@ def get_center(coordinates):
         "lng": (most_west + most_east) / 2
     }
 
+
 def generate_gates_data(items):
 
     nodes = []
@@ -133,10 +139,11 @@ def generate_gates_data(items):
         name = item["properties"]["ref"]
         lat = item["geometry"]["coordinates"][1]
         lng = item["geometry"]["coordinates"][0]
-        nodes.append({ "index": index, "name": name, "lat": lat, "lng": lng })
+        nodes.append({"index": index, "name": name, "lat": lat, "lng": lng})
 
     output_filename = OUTPUT_FOLDER + "gates.json"
     export_to_json(output_filename, nodes)
+
 
 def generate_spot_position_data():
 
@@ -161,6 +168,7 @@ def generate_spot_position_data():
 
     output_filename = OUTPUT_FOLDER + "spots.json"
     export_to_json(output_filename, nodes)
+
 
 def generate_pushback_way():
 
@@ -218,6 +226,7 @@ def generate_link_data(items, type_name):
     # Add s for plural as the output filename
     output_filename = OUTPUT_FOLDER + type_name + "s.json"
     export_to_json(output_filename, links)
+
 
 def generate_scenario():
     """
@@ -293,9 +302,11 @@ def generate_scenario():
     output_filename = OUTPUT_FOLDER + "scenario.json"
     export_to_json(output_filename, scenario)
 
+
 def export_to_json(filename, data):
     with open(filename, "w") as f:
-        json.dump(data, f, indent = 2)
+        json.dump(data, f, indent=2)
+
 
 if __name__ == "__main__":
     main()

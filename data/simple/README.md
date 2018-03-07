@@ -32,4 +32,5 @@ Click on right-top menu button of the left panel in Edit mode, then click "Expor
 
 ## Note
 
-As long as you use the same format of our Google Map to export .jml file, the file will be valid for the simulation. But, please do so by copying from the original map so we can keep the map as time goes by.
+- As long as you use the same format of our Google Map to export .jml file, the file will be valid for the simulation. But, please do so by copying from the original map so we can keep the map as time goes by.
+- It took less than 5 mins for the longest route if the speed if 5 ft/s.

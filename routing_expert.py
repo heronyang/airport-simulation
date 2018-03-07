@@ -5,6 +5,7 @@ import cache
 from link import Link
 from route import Route
 
+
 class RoutingExpert:
 
     def __init__(self, links, nodes, enable_cache):
@@ -22,6 +23,8 @@ class RoutingExpert:
         # Saves all the links and nodes
         self.links = links
         self.nodes = nodes
+        self.logger.info("%d links and %d nodes are loaded" %
+                        (len(self.links), len(self.nodes)))
 
         # Builds or loads the routing table from cache
         if enable_cache:
@@ -83,7 +86,7 @@ class RoutingExpert:
         for start in self.nodes:
             for end in self.nodes:
                 if start != end and start.is_close_to(end):
-                    link = Link(0, "CLOSE_NODE_LINK", [start, end])
+                    link = Link("CLOSE_NODE_LINK", [start, end])
                     self.routing_table[start][end].update_link(link)
                     self.logger.debug("%s and %s are close node" %
                                       (start, end))
@@ -106,9 +109,9 @@ class RoutingExpert:
                 route.update_link(link)
                 route_rev.update_link(link.reverse)
 
-            if not (self.routing_table[start][end].is_completed and 
+            if not (self.routing_table[start][end].is_completed and
                     self.routing_table[end][start].is_completed):
-                raise Exception("Unable to link two ends of a link from %s" +\
+                raise Exception("Unable to link two ends of a link from %s"
                                 " to %s" % (start, end))
 
     def finds_shortest_route(self):
@@ -144,7 +147,7 @@ class RoutingExpert:
         for start in self.nodes:
             for end in self.nodes:
                 self.logger.debug("[%s - %s]" % (start, end))
-                route = self.routing_table[start][end] 
+                route = self.routing_table[start][end]
                 if (route):
                     self.logger.debug(route.description)
                 else:
@@ -154,7 +157,8 @@ class RoutingExpert:
     Gets the shortest route by given start and end node.
     """
     def get_shortest_route(self, start, end):
-        if (not start in self.routing_table) or (not end in self.routing_table[start]):
+        if (start not in self.routing_table) or \
+           (end not in self.routing_table[start]):
             return None
         return self.routing_table[start][end]
 

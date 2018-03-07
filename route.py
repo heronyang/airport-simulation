@@ -1,5 +1,6 @@
 from config import Config
 
+
 class Route:
     """
     Route represents a long path composed with a start node, an end node, and
@@ -15,6 +16,8 @@ class Route:
         self.start = start
         self.end = end
         self.links.extend(links)
+        self.__distance = None  # distance is calculated lazily
+        self.__is_completed = None  # is_completed is calculated lazily
 
     def add_link(self, link):
 
@@ -23,9 +26,11 @@ class Route:
         # If the last_node is not the same as the start of the new link, raise
         # exception
         if not last_node.is_close_to(link.start):
-            raise Exception("New link start node doesn't match with the last " \
-                            "node")
+            raise Exception("New link start node doesn't match with the "
+                            "last node")
         self.links.append(link)
+        self.__distance = None
+        self.__is_completed = None
 
     def update_link(self, link):
         self.reset_links()
@@ -63,6 +68,14 @@ class Route:
     @property
     def is_completed(self):
 
+        if self.__is_completed:
+            return self.__is_completed
+
+        self.__is_completed = self.__get_is_completed()
+        return self.__is_completed
+
+    def __get_is_completed(self):
+
         # If this route contains no link return false
         if len(self.links) < 1:
             return False
@@ -88,18 +101,27 @@ class Route:
     """
     @property
     def distance(self):
+        if self.__distance:
+            return self.__distance
+        self.__distance = self.__get_distance()
+        return self.__distance
+
+    def __get_distance(self):
         if not self.is_completed:
-            return Config.INFINITE_DISTANCE
+            return float("Inf")
         distance = 0
         for link in self.links:
             distance += link.length
         return distance
+
 
     """
     Removes all the stored links.
     """
     def reset_links(self):
         self.links = []
+        self.__distance = None
+        self.__is_completed = None
 
     def __repr__(self):
         return "<Route: %s - %s>" % (self.start, self.end)
@@ -108,6 +130,6 @@ class Route:
     def description(self):
         s = "distance: %f\n" % self.distance
         for link in self.links:
-            s += "> link: %s to %s, distance: %f\n" % (link.start, link.end,
-                                                       link.length)
+            s += "> link: %s to %s, distance: %f\n" % \
+                    (link.start, link.end, link.length)
         return s

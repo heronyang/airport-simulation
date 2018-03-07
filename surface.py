@@ -4,6 +4,8 @@ import logging
 
 from node import Node
 from link import Link
+from config import Config
+
 
 class Surface:
     """
@@ -13,7 +15,6 @@ class Surface:
 
     def __init__(self, center, corners, image_filepath):
 
-        # Setups the logger
         self.logger = logging.getLogger(__name__)
 
         self.gates = []
@@ -25,6 +26,64 @@ class Surface:
         self.center = center
         self.corners = corners
         self.image_filepath = image_filepath
+
+    """
+    One node that connects to a link in the middle is not connected; therefore,
+    break_links is used for cutting at the middle point and building new links
+    that connects nodes to links.
+    """
+    def break_links(self):
+
+        self.logger.info("Starts to break links")
+
+        # Retrieve all nodes and links
+        all_nodes = self.nodes
+
+        for link in self.links:
+            all_nodes.append(link.start)
+            all_nodes.append(link.end)
+
+        while self.break_next_link(all_nodes):
+            pass
+
+        self.logger.info("Done breaking links")
+
+    def break_next_link(self, all_nodes):
+
+        for node in all_nodes:
+
+            # Runways
+            for runway in self.runways:
+                if runway.contains_node(node):
+                    self.logger.info("Break found at %s on %s" %
+                                     (node, runway))
+                    self.runways.remove(runway)
+                    self.runways += runway.break_at(node)
+                    return True
+
+            # Taxiway
+            for taxiway in self.taxiways:
+                if taxiway.contains_node(node):
+                    self.logger.info("Break found at %s on %s" %
+                                     (node, taxiway))
+                    self.taxiways.remove(taxiway)
+                    self.taxiways += taxiway.break_at(node)
+                    return True
+
+            # Pushback ways
+            for pushback_way in self.pushback_ways:
+                if pushback_way.contains_node(node):
+                    self.pushback_ways.remove(pushback_way)
+                    self.pushback_ways += pushback_way.break_at(node)
+                    self.logger.info("Break found at %s on %s" %
+                                     (node, pushback_way))
+                    return True
+
+        return False
+
+
+    def remove_list_from_list(self, original_list, to_rm_list):
+        return [i for i in original_list if i not in to_rm_list]
 
     def __repr__(self):
         return "<Surface>"
@@ -98,44 +157,51 @@ class Surface:
     def set_quiet(self, logger):
         self.logger = logger
 
+
 class Gate(Node):
 
-    def __init__(self, index, name, geo_pos):
-        Node.__init__(self, index, name, geo_pos)
+    def __init__(self, name, geo_pos):
+        Node.__init__(self, name, geo_pos)
+
 
 class Spot(Node):
 
-    def __init__(self, index, name, geo_pos):
-        Node.__init__(self, index, name, geo_pos)
+    def __init__(self, name, geo_pos):
+        Node.__init__(self, name, geo_pos)
+
 
 class RunwayNode(Node):
 
     def __init__(self, geo_pos):
-        Node.__init__(self, -1, "", geo_pos)
+        Node.__init__(self, "", geo_pos)
+
 
 class Runway(Link):
 
-    def __init__(self, index, name, nodes):
-        Link.__init__(self, index, name, nodes)
+    def __init__(self, name, nodes):
+        Link.__init__(self, name, nodes)
 
     def __repr__(self):
         return "<RUNWAY: %s>" % self.name
 
+
 class Taxiway(Link):
 
-    def __init__(self, index, name, nodes):
-        Link.__init__(self, index, name, nodes)
+    def __init__(self, name, nodes):
+        Link.__init__(self, name, nodes)
 
     def __repr__(self):
         return "<TAXIWAY: %s>" % self.name
 
+
 class PushbackWay(Link):
 
-    def __init__(self, index, name, nodes):
-        Link.__init__(self, index, name, nodes)
+    def __init__(self, name, nodes):
+        Link.__init__(self, name, nodes)
 
     def __repr__(self):
         return "<PUSHBACKWAY: %s>" % self.name
+
 
 class SurfaceFactory:
     """
@@ -160,6 +226,7 @@ class SurfaceFactory:
             raise Exception("Surface data is not ready")
         with open(dir_path + "airport-metadata.json") as f:
             airport_raw = json.load(f)
+        self.logger = logging.getLogger(__name__)
         surface = Surface(airport_raw["center"], airport_raw["corners"],
                           dir_path + "airport.jpg")
         SurfaceFactory.__load_gates(surface, dir_path)
@@ -167,6 +234,7 @@ class SurfaceFactory:
         SurfaceFactory.__load_runway(surface, dir_path)
         SurfaceFactory.__load_taxiway(surface, dir_path)
         SurfaceFactory.__load_pushback_way(surface, dir_path)
+        surface.break_links()
         return surface
 
     @classmethod
@@ -183,10 +251,12 @@ class SurfaceFactory:
     @classmethod
     def __load_gates(self, surface, dir_path):
         surface.gates = SurfaceFactory.__retrieve_node("gates", dir_path)
+        self.logger.info("%s gates loaded" % len(surface.gates))
 
     @classmethod
     def __load_spots(self, surface, dir_path):
         surface.spots = SurfaceFactory.__retrieve_node("spots", dir_path)
+        self.logger.info("%s spots loaded" % len(surface.spots))
 
     @classmethod
     def __retrieve_node(self, type_name, dir_path):
@@ -197,16 +267,15 @@ class SurfaceFactory:
             nodes_raw = json.load(f)
 
         for node_raw in nodes_raw:
+
+            name = node_raw["name"]
+
             if type_name == "spots":
-                nodes.append(Spot(
-                    node_raw["index"],
-                    node_raw["name"],
+                nodes.append(Spot(name,
                     {"lat": node_raw["lat"], "lng": node_raw["lng"]}
                 ))
             elif type_name == "gates":
-                nodes.append(Gate(
-                    node_raw["index"],
-                    node_raw["name"],
+                nodes.append(Gate(name,
                     {"lat": node_raw["lat"], "lng": node_raw["lng"]}
                 ))
             else:
@@ -217,15 +286,19 @@ class SurfaceFactory:
     @classmethod
     def __load_runway(self, surface, dir_path):
         surface.runways = SurfaceFactory.__retrive_link("runways", dir_path)
+        self.logger.info("%s runways loaded" % len(surface.runways))
 
     @classmethod
     def __load_taxiway(self, surface, dir_path):
         surface.taxiways = SurfaceFactory.__retrive_link("taxiways", dir_path)
+        self.logger.info("%s taxiways loaded" % len(surface.taxiways))
 
     @classmethod
     def __load_pushback_way(self, surface, dir_path):
         surface.pushback_ways = SurfaceFactory.__retrive_link("pushback_ways",
                                                               dir_path)
+        self.logger.info("%s pushback ways loaded" %
+                         len(surface.pushback_ways))
 
     @classmethod
     def __retrive_link(self, type_name, dir_path):
@@ -237,7 +310,6 @@ class SurfaceFactory:
 
         for link_raw in links_raw:
 
-            index = link_raw["index"]
             name = link_raw["name"]
 
             nodes = []
@@ -245,11 +317,11 @@ class SurfaceFactory:
                 nodes.append(RunwayNode({"lat": node[1], "lng": node[0]}))
 
             if type_name == "runways":
-                links.append(Runway(index, name, nodes))
+                links.append(Runway(name, nodes))
             elif type_name == "taxiways":
-                links.append(Taxiway(index, name, nodes))
+                links.append(Taxiway(name, nodes))
             elif type_name == "pushback_ways":
-                links.append(PushbackWay(index, name, nodes))
+                links.append(PushbackWay(name, nodes))
             else:
                 raise Exception("Unknown link type")
 

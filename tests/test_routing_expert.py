@@ -1,14 +1,15 @@
 #!/usr/bin/env python
 
-import sys
-import unittest
-sys.path.append('..')
-
 from node import Node
 from link import Link
 from routing_expert import RoutingExpert
 from airport import AirportFactory
 from scenario import ScenarioFactory
+
+import sys
+import unittest
+sys.path.append('..')
+
 
 class TestRoutingExpert(unittest.TestCase):
 
@@ -20,17 +21,17 @@ class TestRoutingExpert(unittest.TestCase):
     GEO_MIDDLE_NORTH = {"lat": 37.122000, "lng": -122.079057}
     GEO_MIDDLE_SOUTH = {"lat": 47.722000, "lng": -122.079057}
 
-    G1 = Node(0, "G1", GEO_WEST)
-    S1 = Node(0, "S1", GEO_EAST)
-    L1 = Link(0, "L1", [
-        Node(0, "start", GEO_WEST),
-        Node(0, "L1_middle", GEO_MIDDLE_NORTH),
-        Node(0, "end", GEO_EAST)
+    G1 = Node("G1", GEO_WEST)
+    S1 = Node("S1", GEO_EAST)
+    L1 = Link("L1", [
+        Node("L1_start", GEO_WEST),
+        Node("L1_middle", GEO_MIDDLE_NORTH),
+        Node("L1_end", GEO_EAST)
     ])
-    L2 = Link(0, "L2", [
-        Node(0, "start", GEO_WEST),
-        Node(0, "L2_middle", GEO_MIDDLE_SOUTH),
-        Node(0, "end", GEO_EAST)
+    L2 = Link("L2", [
+        Node("L2_start", GEO_WEST),
+        Node("L2_middle", GEO_MIDDLE_SOUTH),
+        Node("L2_end", GEO_EAST)
     ])
 
     links = [L1, L2]
@@ -66,20 +67,24 @@ class TestRoutingExpert(unittest.TestCase):
         airport_code = "simple"
 
         # Sets up the airport
-        self.airport = AirportFactory.create(airport_code)
+        self.airport = AirportFactory.create(None, airport_code)
 
         # Sets up the scenario
-        self.scenario = ScenarioFactory.create(airport_code,
+        self.scenario = ScenarioFactory.create(None, airport_code,
                                                self.airport.surface)
 
         links = self.airport.surface.links
         nodes = self.airport.surface.nodes
 
         # Sets up the routing expert monitoring the airport surface
-        self.routing_expert = RoutingExpert(links, nodes, True)
+        self.routing_expert = RoutingExpert(links, nodes, False)
 
         routeG3toR1 = self.routing_expert.get_shortest_route(nodes[2],
                                                              links[0].start)
 
+        self.assertEqual(len(routeG3toR1.nodes), 8)
+        self.assertAlmostEqual(routeG3toR1.distance, 1352.6500035604972)
+
+
 if __name__ == '__main__':
-	unittest.main()
+    unittest.main()

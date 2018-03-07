@@ -1,18 +1,24 @@
 from utils import is_valid_geo_pos, str2sha1
 from geopy.distance import vincenty
+from utils import random_string
 from config import Config
+from id_generator import get_new_node_id
+
 
 class Node:
 
-    def __init__(self, index, name, geo_pos):
+    def __init__(self, name, geo_pos):
 
         if not is_valid_geo_pos(geo_pos):
             raise Exception("Invalid geo position")
 
-        self.index = index  # Only used for reference
+        if name is None or len(name) == 0:
+            name = "n-id-" + str(get_new_node_id())
+
         self.name = name
         self.geo_pos = geo_pos
-        self.hash = str2sha1("%s#%s#%s" % (index, name, geo_pos))
+        self.hash = str2sha1("%s#%.5f#%.5f" %
+                             (name, geo_pos["lat"], geo_pos["lng"]))
 
     """
     Returns the distance from this node to another in feets
@@ -32,7 +38,8 @@ class Node:
     """
     def is_close_to(self, node):
         distance_feet = self.get_distance_to(node)
-        return distance_feet < Config.CLOSE_NODE_THRESHOLD_FEET
+        threshold = Config.params["simulation"]["close_node_threshold"]
+        return distance_feet < threshold
 
     """
     Override functions used for hash and comparisons so that we will able to
@@ -49,5 +56,5 @@ class Node:
 
     def __repr__(self):
         return "<Node: %s|%f,%f>" % ((self.name if self.name else "NULL"),
-                                      self.geo_pos["lat"],
-                                      self.geo_pos["lng"])
+                                     self.geo_pos["lat"],
+                                     self.geo_pos["lng"])
