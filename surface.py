@@ -81,7 +81,6 @@ class Surface:
 
         return False
 
-
     def remove_list_from_list(self, original_list, to_rm_list):
         return [i for i in original_list if i not in to_rm_list]
 
