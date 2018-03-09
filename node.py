@@ -61,7 +61,7 @@ class Node:
 
 def get_middle_node(n1, n2, ratio=None):
 
-    if not ratio:
+    if ratio is None:
 
         return Node(
             "MIDDLE_NODE", {

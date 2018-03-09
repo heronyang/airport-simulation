@@ -45,6 +45,8 @@ class Surface:
 
         while self.break_next_link(all_nodes):
             pass
+        import sys
+        sys.exit(1)
 
         self.logger.info("Done breaking links")
 
