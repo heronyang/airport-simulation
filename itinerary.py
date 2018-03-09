@@ -27,7 +27,7 @@ class Itinerary:
         self.targets = targets
         self.past_target = None
 
-    def pop_node(self):
+    def pop_target(self):
 
         # Gets the next node
         next_target = self.next_target
@@ -58,6 +58,8 @@ class Itinerary:
 
     def add_delay(self, delay):
         for target in self.targets:
+            if target.edt is None:
+                break
             target.edt = get_seconds_after(target.edt, delay)
         self.logger.info("%s added delay %d seconds" % (self, delay))
 

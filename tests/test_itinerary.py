@@ -44,7 +44,7 @@ class TestItinerary(unittest.TestCase):
         itinerary = deepcopy(self.itinerary_template)
 
         for i in range(3):
-            itinerary.pop_node()
+            itinerary.pop_target()
 
         self.assertTrue(itinerary.is_completed)
 
@@ -53,10 +53,10 @@ class TestItinerary(unittest.TestCase):
         # Gets a copy of the itinerary
         itinerary = deepcopy(self.itinerary_template)
 
-        self.assertEqual(itinerary.pop_node().node, self.n1)
-        self.assertEqual(itinerary.pop_node().node, self.n2)
-        self.assertEqual(itinerary.pop_node().node, self.n3)
-        self.assertRaises(Exception, itinerary.pop_node)
+        self.assertEqual(itinerary.pop_target().node, self.n1)
+        self.assertEqual(itinerary.pop_target().node, self.n2)
+        self.assertEqual(itinerary.pop_target().node, self.n3)
+        self.assertRaises(Exception, itinerary.pop_target)
 
     def test_next_target(self):
 
@@ -64,14 +64,35 @@ class TestItinerary(unittest.TestCase):
         itinerary = deepcopy(self.itinerary_template)
 
         self.assertEqual(itinerary.next_target.node, self.n1)
-        itinerary.pop_node()
+        itinerary.pop_target()
         self.assertEqual(itinerary.next_target.node, self.n2)
-        itinerary.pop_node()
+        itinerary.pop_target()
         self.assertEqual(itinerary.next_target.node, self.n3)
-        itinerary.pop_node()
+        itinerary.pop_target()
 
         try:
             itinerary.next_target
             raise Exception("next_target failed to raise exception on error")
         except Exception:
             pass
+
+    def test_add_delay(self):
+
+        # Gets a copy of the itinerary
+        itinerary = deepcopy(self.itinerary_template)
+
+        self.assertEqual(itinerary.next_target.node, self.n1)
+        itinerary.add_delay(10)
+        target = itinerary.pop_target()
+        self.assertEqual(target.edt, time(0, 3, 10))
+
+        self.assertEqual(itinerary.next_target.node, self.n2)
+        itinerary.add_delay(20)
+        target = itinerary.pop_target()
+        self.assertEqual(target.edt, time(0, 7, 30))
+
+        self.assertEqual(itinerary.next_target.node, self.n3)
+        itinerary.pop_target()
+
+        # If the itinerary is empty, it should not raise error
+        itinerary.add_delay(10)
