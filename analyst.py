@@ -92,37 +92,48 @@ class ConflictMetric():
 
     def __init__(self):
 
-        self.conflict_nodes = pd.DataFrame(columns=["time", "count"])
-        self.conflict_aircrafts = pd.DataFrame(columns=["time", "count"])
+        self.conflict_node = pd.DataFrame(columns=["time", "count"])
+        self.conflict_node_aircraft = \
+                pd.DataFrame(columns=["time", "count"])
+        self.conflict = pd.DataFrame(columns=["time", "count"])
 
-    def update_on_tick(self, conflicts, now):
+    def update_on_tick(self, conflicts_at_node, conflicts, now):
 
-        self.conflict_nodes = self.conflict_nodes.append(
-            {"time": now, "count": len(conflicts)}, ignore_index=True
+        self.conflict_node = self.conflict_node.append(
+            {"time": now, "count": len(conflicts_at_node)}, ignore_index=True
         )
 
         n_aircrafts = 0
-        for c in conflicts:
+        for c in conflicts_at_node:
             n_aircrafts += len(c.aircrafts)
 
-        self.conflict_aircrafts = self.conflict_aircrafts.append(
-            {"time": now, "count": n_aircrafts}, ignore_index=True
+        self.conflict_node_aircraft = \
+                self.conflict_node_aircraft.append(
+                    {"time": now, "count": n_aircrafts}, ignore_index=True
+                )
+
+        self.conflict = self.conflict.append(
+            {"time": now, "count": len(conflicts)}, ignore_index=True
         )
 
     @property
     def summary(self):
 
-        if len(self.conflict_nodes) == 0 or len(self.conflict_aircrafts) == 0:
+        if len(self.conflict_node) == 0 or \
+           len(self.conflict_node_aircraft) == 0:
             return "Conflict: insufficient data"
 
-        cn = self.conflict_nodes.set_index("time")
-        ca = self.conflict_aircrafts.set_index("time")
+        cn = self.conflict_node.set_index("time")
+        ca = self.conflict_node_aircraft.set_index("time")
+        cf = self.conflict.set_index("time")
         return (
             "Conflict nodes: top %d low %d mean %d, "
-            "aircrafts: top %d low %d mean %d" %
+            "aircrafts: top %d low %d mean %d" 
+            "all: top %d low %d mean %d" %
             (
                 cn.max(), cn.min(), cn.mean(),
-                ca.max(), ca.min(), ca.mean()
+                ca.max(), ca.min(), ca.mean(),
+                cf.max(), cf.min(), cf.mean()
             )
         )
 
@@ -143,12 +154,13 @@ class Analyst:
         now = simulation.now
         aircrafts = simulation.airport.aircrafts
         scenario = simulation.scenario
+        conflicts_at_node = simulation.airport.conflicts_at_node
         conflicts = simulation.airport.conflicts
 
         self.taxitime_metric.update_on_tick(aircrafts, scenario)
         self.makespan_metric.update_on_tick(aircrafts, now)
         self.aircraft_count_metric.update_on_tick(aircrafts, now)
-        self.conflict_metric.update_on_tick(conflicts, now)
+        self.conflict_metric.update_on_tick(conflicts_at_node, conflicts, now)
 
     def print_summary(self, simulation):
 
@@ -160,8 +172,9 @@ class Analyst:
         if Config.params["analyst"]["details"]:
 
             c = self.aircraft_count_metric.counter.set_index("time")
-            cr = self.conflict_metric.conflict_nodes.set_index("time")
-            ca = self.conflict_metric.conflict_aircrafts.set_index("time")
+            cr = self.conflict_metric.conflict_node.set_index("time")
+            ca = self.conflict_metric.conflict_node_aircraft.set_index("time")
+            cf = self.conflict_metric.conflict.set_index("time")
 
             stats = c.join(
                 cr, lsuffix='_aircraft',
@@ -169,6 +182,9 @@ class Analyst:
             ).join(
                 ca,
                 rsuffix="_conflict_aircrafts"
+            ).join(
+                cf,
+                rsuffix="_conflict"
             )
 
             with pd.option_context("display.max_rows", None):

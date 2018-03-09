@@ -6,6 +6,7 @@ from surface import SurfaceFactory
 from config import Config
 from conflict import Conflict
 from aircraft import State
+from node import get_middle_node
 
 
 class Airport:
@@ -42,7 +43,7 @@ class Airport:
         self.aircrafts.remove(aircraft)
 
     @property
-    def conflicts(self):
+    def conflicts_at_node(self):
 
         occupied_by = {}
         for aircraft in self.aircrafts:
@@ -61,6 +62,23 @@ class Airport:
                 continue
             result.append(Conflict(location, aircrafts, now))
         return result
+
+    @property
+    def conflicts(self):
+
+        separation = Config.params["simulation"]["separation"]
+
+        cs = []
+
+        aircraft_pairs = list(itertools.combinations(self.aircrafts, 2))
+        for ap in aircraft_pairs:
+            d = ap[0].location.get_distance_to(ap[1].location)
+            if d > separation:
+                continue
+            middle_node = get_middle_node(ap[0].location, ap[1].location)
+            cs.append(Conflict(middle_node, ap, self.simulation.now))
+
+        return cs
 
     def tick(self):
         for aircraft in self.aircrafts:

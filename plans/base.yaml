@@ -6,7 +6,7 @@ simulator:
 
 simulation:
   # Seconds between each simulation epoch
-  time_unit: 300
+  time_unit: 30
   # Seconds between each reschedule
   reschedule_cycle: 900
   # Seconds before an aircraft shown in the simulation before scheduled time
@@ -17,6 +17,8 @@ simulation:
   close_node_link_threshold: 10
   # Enable or disable cache for shortest routes
   cache: true
+  # Separation requirement in feets between two aircrafts
+  separation: 250
 
 monitor:
   # Enable or disable the real-time monitor

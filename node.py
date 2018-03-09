@@ -58,3 +58,11 @@ class Node:
         return "<Node: %s|%f,%f>" % ((self.name if self.name else "NULL"),
                                      self.geo_pos["lat"],
                                      self.geo_pos["lng"])
+
+def get_middle_node(n1, n2):
+    return Node(
+        "MIDDLE_LOCATION", {
+            "lat": (n1.geo_pos["lat"] + n2.geo_pos["lat"]) / 2,
+            "lng": (n1.geo_pos["lng"] + n2.geo_pos["lng"]) / 2
+        }
+    )
