@@ -1,66 +1,38 @@
 import os
-
-import numpy as np
-import json
-from utils import str2time
+import random
 from config import Config
 
 
 class Uncertainty:
 
-    sigma = 0.1
+    def __init__(
+        self,
+        prob_hold=Config.params["uncertainty"]["prob_hold"],
+        hold_time_mean=Config.params["uncertainty"]["hold_time_mean"],
+        hold_time_deviation=Config.params["uncertainty"]["hold_time_deviation"]
+    ):
+        self.prob_hold = prob_hold
+        self.hold_time_mean = hold_time_mean
+        self.hold_time_deviation = hold_time_deviation
 
-    """
-    A generic module to calculate uncertainty over multiple factors
-    """
-    def __init__(self, seed=Config.params["uncertainty"]["seed"]):
+    def inject(self, simulation):
 
-        self.seed = seed
-        self.__initialize_distribution()
+        for aircraft in simulation.airport.aircrafts:
+            # For each aircraft, there's a possibility it holds at the node for
+            # some random amount of time.
+            if not self.happens_with_prob(self.prob_hold):
+                continue
 
-    @property
-    def range(self):
-        if self.__range is None:
-            r = p_uc["range_threshold"] * np.random.random_sample((2, ))
-            uc_min = max(0, seed - r[0])
-            uc_max = min(1, seed + r[1])
-            self.range = (uc_min, uc_max)
-        return self.__range
+            delay = self.get_sample(self.hold_time_mean,
+                                    self.hold_time_deviation)
+            if delay <= 0:
+                continue
 
-    """
-    Gets the uncertain value based on a normal distribution by default
-    """
-    def get_uncertain_value(self, original_value, on="SPEED"):
-        return self.__get_default_uncertainty(original_value)
+            if aircraft.pilot.itinerary is not None:
+                aircraft.pilot.itinerary.add_delay(delay)
 
-    def __get_default_uncertainty(self, original_value):
-        return np.random.normal(original_value, Uncertainty.sigma)
+    def happens_with_prob(self, prob):
+        return random.random() < prob
 
-    def __initialize_distribution(self):
-        self.update(self.seed)
-
-    def aircraft_can_move(self, aircraft):
-        unc = min(self.seed * 1.5, 0.9) if is_terminal else self.seed
-        return np.random.random() > unc
-
-    def __initialize_distribution_with_file(self):
-        sigma = 0
-        filepath = self.factor_filepath
-
-        # Check for valid factor file path
-        if not os.path.exists(filepath):
-            raise Exception("Factor data file is not provided")
-
-        with open(filepath, "r") as f:
-            factor_val = json.load(f)
-            for factor in factor_val:
-                v = str(factor.get("relation"))
-                if v == "DIRECT":
-                    sigma = sigma + float(factor.get("value"))
-                elif v == "INVERSE":
-                    sigma = sigma + 1/float(factor.get("value"))
-        self.update(sigma)
-
-    @classmethod
-    def update(self, value):
-        self.sigma = value
+    def get_sample(self, mean, deviation):
+        return random.normalvariate(mean, deviation)

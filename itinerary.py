@@ -1,5 +1,5 @@
 import logging
-from utils import get_time_delta
+from utils import get_time_delta, get_seconds_after
 from node import get_middle_node
 
 
@@ -55,6 +55,11 @@ class Itinerary:
         ratio = past_time / total_time
         return get_middle_node(self.past_target.node,
                                self.next_target.node, ratio)
+
+    def add_delay(self, delay):
+        for target in self.targets:
+            target.edt = get_seconds_after(target.edt, delay)
+        self.logger.info("%s added delay %d seconds" % (self, delay))
 
     @property
     def next_target(self):
