@@ -136,7 +136,7 @@ class Pilot:
             # arrived the node
             if (next_target.edt is not None and next_target.edt <= now) or \
                (next_target.edt is None and next_target.eat <= now):
-                past_target = self.itinerary.pop_node()
+                past_target = self.itinerary.pop_target()
 
                 # Move to the past node if it hasn't
                 if not self.aircraft.location.is_close_to(past_target.node):

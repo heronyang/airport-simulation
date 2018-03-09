@@ -67,6 +67,10 @@ class Simulation:
                 self.last_schedule_time = self.now
                 self.logger.info("Last schedule time is updated to %s" %
                                  self.last_schedule_time)
+            # Injects uncertainties
+            self.uncertainty.inject(self)
+
+            # Tick
             self.airport.tick()
             self.remove_aircrafts()
             self.clock.tick()
@@ -177,10 +181,6 @@ class SimulationDelegate:
     @property
     def now(self):
         return self.simulation.now
-
-    @property
-    def uncertainty_range(self):
-        return self.simulation.uncertainty.range
 
     @property
     def airport(self):

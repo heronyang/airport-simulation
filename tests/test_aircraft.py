@@ -23,6 +23,8 @@ class TestAircraft(unittest.TestCase):
     m1 = Node("M1", {"lat": 47.772000, "lng": -122.079057})
     m2 = Node("M2", {"lat": 47.872000, "lng": -122.079057})
 
+    m = Node("M", {"lat": 47.755333, "lng": -122.079057})
+
     targets = [
         Itinerary.Target(n1, time(0, 2), time(0, 3)),
         Itinerary.Target(n2, time(0, 5), time(0, 7)),
@@ -150,3 +152,55 @@ class TestAircraft(unittest.TestCase):
         self.assertEqual(aircraft.location, self.n3)
         self.assertEqual(aircraft.state, State.stop)
         self.assertEqual(aircraft.pilot.itinerary, None)
+
+    def test_tick_with_delay(self):
+
+        # -----[start]-------[n1]------------[n2]-
+        # 00------01------A02----D03------A05-----
+        # -------stop------|-hold-|-moving-|-hold-
+
+        # Adds delay 30s
+        # -----[start]-------[n1]---[m]------[n2]-
+        # 00------01------A02----D0330------A05---
+        # -------stop------|-hold-|-moving-|-hold-
+
+
+        # Overrides the time unit to 60 seconds
+        Config.params["simulation"]["time_unit"] = 60
+        itinerary = deepcopy(self.itinerary_template)
+        simulation = self.SimulationMock(Clock())
+
+        # [00:00] Setups the aircraft in init state
+        self.assertEqual(simulation.clock.now, time(0, 0))
+        aircraft = Aircraft(simulation, "F1", "M1", self.n1, State.stop)
+        aircraft.set_location(self.n1)
+
+        # [00:01] Assigns an itinerary for this aircraft
+        simulation.tick()
+        aircraft.pilot.tick()
+        aircraft.set_itinerary(itinerary)
+
+        # [00:02] Itinerary starts and state changed to hold
+        simulation.tick()
+        aircraft.pilot.tick()
+
+        # Adds delay
+        aircraft.pilot.itinerary.add_delay(30)
+
+        # [00:03] Still hold at n1
+        simulation.tick()
+        aircraft.pilot.tick()
+
+        self.assertEqual(aircraft.location, self.n1)
+        self.assertTrue(aircraft.true_location.is_close_to(self.n1))
+        self.assertEqual(aircraft.state, State.hold)
+        self.assertEqual(len(aircraft.pilot.itinerary.targets), 3)
+
+        # [00:04] Leave n1
+        simulation.tick()
+        aircraft.pilot.tick()
+
+        self.assertEqual(aircraft.location, self.n2)
+        self.assertTrue(aircraft.true_location.is_close_to(self.m))
+        self.assertEqual(aircraft.state, State.moving)
+        self.assertEqual(len(aircraft.pilot.itinerary.targets), 2)
