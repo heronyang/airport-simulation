@@ -190,6 +190,10 @@ class Analyst:
             with pd.option_context("display.max_rows", None):
                 self.logger.debug("\n" + str(stats))
 
+            # Saves to file
+            filename = Config.OUTPUT_DIR + Config.params["name"] + ".csv"
+            stats.to_csv(filename)
+
     def __getstate__(self):
         d = dict(self.__dict__)
         del d["logger"]
