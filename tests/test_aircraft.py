@@ -38,6 +38,10 @@ class TestAircraft(unittest.TestCase):
         def tick(self):
             self.clock.tick()
 
+        @property
+        def now(self):
+            return self.clock.now
+
     def test_init(self):
 
         aircraft = Aircraft(None, "F1", "M1", self.n1, State.unknown)

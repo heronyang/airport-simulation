@@ -66,16 +66,15 @@ class Airport:
     @property
     def conflicts(self):
 
-        separation = Config.params["simulation"]["separation"]
-
         cs = []
 
+        separation = Config.params["simulation"]["separation"]
         aircraft_pairs = list(itertools.combinations(self.aircrafts, 2))
         for ap in aircraft_pairs:
-            d = ap[0].location.get_distance_to(ap[1].location)
-            if d > separation:
+            l0, l1 = ap[0].true_location, ap[1].true_location
+            if l0.get_distance_to(l1) > separation:
                 continue
-            middle_node = get_middle_node(ap[0].location, ap[1].location)
+            middle_node = get_middle_node(l0, l1)
             cs.append(Conflict(middle_node, ap, self.simulation.now))
 
         return cs

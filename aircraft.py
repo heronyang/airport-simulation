@@ -34,12 +34,24 @@ class Aircraft:
         self.state = state
 
     """
-    Aircraft location be set by the simulation.
+    Aircraft's location be set by the simulation.
     """
     def set_location(self, location):
 
         self.logger.debug("%s changed location to %s" % (self, location))
         self.location = location
+
+    """
+    Aircraft's true location while moving.
+    """
+    @property
+    def true_location(self):
+
+        if self.state is not State.moving:
+            return self.location
+
+        return self.pilot.itinerary.get_true_location(self.simulation.now)
+
 
     """
     Aircraft radio received new itinerary, and it will be passed to the pilot
@@ -115,7 +127,7 @@ class Pilot:
             self.logger.debug("%s: No itinerary request." % self)
             return
 
-        now = self.simulation.clock.now
+        now = self.simulation.now
         while not self.itinerary.is_completed:
             next_node = self.itinerary.next_node
 
@@ -129,7 +141,8 @@ class Pilot:
                 # Move to the past node if it hasn't
                 if not self.aircraft.location.is_close_to(past_node.node):
                     self.aircraft.set_location(past_node.node)
-                    self.logger.debug("%s: Moved to %s." % (self, past_node))
+                    self.logger.debug("%s: Moved to %s." %
+                                      (self, past_node))
 
                 self.logger.debug("%s: %s finished." % (self, next_node))
                 continue
@@ -150,7 +163,7 @@ class Pilot:
             self.aircraft.state = State.stop
             return
 
-        now = self.simulation.clock.now
+        now = self.simulation.now
         next_node = self.itinerary.next_node
 
         if now < next_node.eat:

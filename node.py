@@ -59,10 +59,23 @@ class Node:
                                      self.geo_pos["lat"],
                                      self.geo_pos["lng"])
 
-def get_middle_node(n1, n2):
+def get_middle_node(n1, n2, ratio=None):
+
+    if not ratio:
+
+        return Node(
+            "MIDDLE_NODE", {
+                "lat": (n1.geo_pos["lat"] + n2.geo_pos["lat"]) / 2,
+                "lng": (n1.geo_pos["lng"] + n2.geo_pos["lng"]) / 2
+            }
+        )
+
+    lat1, lat2 = n1.geo_pos["lat"], n2.geo_pos["lat"]
+    lng1, lng2 = n1.geo_pos["lng"], n2.geo_pos["lng"]
+
     return Node(
-        "MIDDLE_LOCATION", {
-            "lat": (n1.geo_pos["lat"] + n2.geo_pos["lat"]) / 2,
-            "lng": (n1.geo_pos["lng"] + n2.geo_pos["lng"]) / 2
+        "RATIO_MIDDLE_NODE", {
+            "lat": lat1 + (lat2 - lat1) * ratio,
+            "lng": lng1 + (lng2 - lng1) * ratio
         }
     )
