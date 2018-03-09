@@ -34,12 +34,24 @@ class Aircraft:
         self.state = state
 
     """
-    Aircraft location be set by the simulation.
+    Aircraft's location be set by the simulation.
     """
     def set_location(self, location):
 
         self.logger.debug("%s changed location to %s" % (self, location))
         self.location = location
+
+    """
+    Aircraft's true location while moving.
+    """
+    @property
+    def true_location(self):
+
+        if self.state is not State.moving:
+            return self.location
+
+        return self.pilot.itinerary.get_true_location(self.simulation.now)
+
 
     """
     Aircraft radio received new itinerary, and it will be passed to the pilot
@@ -115,28 +127,29 @@ class Pilot:
             self.logger.debug("%s: No itinerary request." % self)
             return
 
-        now = self.simulation.clock.now
+        now = self.simulation.now
         while not self.itinerary.is_completed:
-            next_node = self.itinerary.next_node
+            next_target = self.itinerary.next_target
 
             # Pop one target node when 1) the top node is not the last one and
             # it's finished, or 2) the top node is the last one and we've
             # arrived the node
-            if (next_node.edt is not None and next_node.edt <= now) or \
-               (next_node.edt is None and next_node.eat <= now):
-                past_node = self.itinerary.pop_node()
+            if (next_target.edt is not None and next_target.edt <= now) or \
+               (next_target.edt is None and next_target.eat <= now):
+                past_target = self.itinerary.pop_node()
 
                 # Move to the past node if it hasn't
-                if not self.aircraft.location.is_close_to(past_node.node):
-                    self.aircraft.set_location(past_node.node)
-                    self.logger.debug("%s: Moved to %s." % (self, past_node))
+                if not self.aircraft.location.is_close_to(past_target.node):
+                    self.aircraft.set_location(past_target.node)
+                    self.logger.debug("%s: Moved to %s." %
+                                      (self, past_target))
 
-                self.logger.debug("%s: %s finished." % (self, next_node))
+                self.logger.debug("%s: %s finished." % (self, next_target))
                 continue
 
-            if not self.aircraft.location.is_close_to(next_node.node):
-                self.aircraft.set_location(next_node.node)
-                self.logger.debug("%s: Moved to %s." % (self, next_node))
+            if not self.aircraft.location.is_close_to(next_target.node):
+                self.aircraft.set_location(next_target.node)
+                self.logger.debug("%s: Moved to %s." % (self, next_target))
 
             break
 
@@ -150,14 +163,14 @@ class Pilot:
             self.aircraft.state = State.stop
             return
 
-        now = self.simulation.clock.now
-        next_node = self.itinerary.next_node
+        now = self.simulation.now
+        next_target = self.itinerary.next_target
 
-        if now < next_node.eat:
+        if now < next_target.eat:
             self.aircraft.state = State.moving
             return
 
-        if now >= next_node.eat and now < next_node.edt:
+        if now >= next_target.eat and now < next_target.edt:
             self.aircraft.state = State.hold
             return
 

@@ -125,8 +125,8 @@ class TestScheduler(unittest.TestCase):
         self.assertEqual(schedule.requests[1].aircraft, self.a1)
 
         # Gets itineraries
-        iti1 = schedule.requests[1].itinerary.target_nodes
-        iti2 = schedule.requests[0].itinerary.target_nodes
+        iti1 = schedule.requests[1].itinerary.targets
+        iti2 = schedule.requests[0].itinerary.targets
 
         self.assertEqual(iti2[0].eat, time(2, 30, 0))
         self.assertEqual(iti2[0].edt, time(2, 30, 0))

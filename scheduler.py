@@ -50,18 +50,17 @@ class Scheduler:
         dst = flight.runway.start
         route = simulation.routing_expert.get_shortest_route(src, dst)
 
-        target_nodes = self.build_target_nodes(route, simulation.now,
-                                               last_occupied_time)
-        return Itinerary(target_nodes)
+        targets = self.build_targets(route, simulation.now, last_occupied_time)
+        return Itinerary(targets)
 
-    def build_target_nodes(self, route, now, last_occupied_time):
+    def build_targets(self, route, now, last_occupied_time):
 
         # Retrieves expected tightness value from the config file
         ps = Config.params["scheduler"]
         tightness = ps["tightness"]
         velocity = ps["aircraft_velocity"]
 
-        target_nodes = []
+        targets = []
 
         prev_node, prev_time = None, now
         for node in route.nodes:
@@ -80,13 +79,13 @@ class Scheduler:
             # Sets the arrival time of the node in itinerary
             arr_time = max(earliest_available_time, earliest_arr_time)
             dep_time = arr_time
-            target_nodes.append(Itinerary.TargetNode(node, arr_time, dep_time))
+            targets.append(Itinerary.Target(node, arr_time, dep_time))
 
             # Marks
             prev_node, prev_time = node, dep_time
             last_occupied_time[node] = dep_time
 
-        return target_nodes
+        return targets
 
     def __getstate__(self):
         d = dict(self.__dict__)

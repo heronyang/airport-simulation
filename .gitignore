@@ -109,3 +109,5 @@ hardcopy.*
 cache/
 
 .DS_Store
+
+*.lprof

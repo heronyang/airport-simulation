@@ -18,12 +18,12 @@ class TestItinerary(unittest.TestCase):
     n2 = Node("N2", {"lat": 47.822000, "lng": -122.079057})
     n3 = Node("N3", {"lat": 47.922000, "lng": -122.079057})
 
-    target_nodes = [
-        Itinerary.TargetNode(n1, time(0, 2), time(0, 3)),
-        Itinerary.TargetNode(n2, time(0, 5), time(0, 7)),
-        Itinerary.TargetNode(n3, time(0, 9), None),
+    targets = [
+        Itinerary.Target(n1, time(0, 2), time(0, 3)),
+        Itinerary.Target(n2, time(0, 5), time(0, 7)),
+        Itinerary.Target(n3, time(0, 9), None),
     ]
-    itinerary_template = Itinerary(target_nodes)
+    itinerary_template = Itinerary(targets)
 
     def test_init(self):
 
@@ -36,7 +36,7 @@ class TestItinerary(unittest.TestCase):
 
         clock = Clock()
         self.assertFalse(itinerary.is_completed)
-        self.assertEqual(itinerary.next_node.node, self.n1)
+        self.assertEqual(itinerary.next_target.node, self.n1)
 
     def test_is_completed(self):
 
@@ -58,20 +58,20 @@ class TestItinerary(unittest.TestCase):
         self.assertEqual(itinerary.pop_node().node, self.n3)
         self.assertRaises(Exception, itinerary.pop_node)
 
-    def test_next_node(self):
+    def test_next_target(self):
 
         # Gets a copy of the itinerary
         itinerary = deepcopy(self.itinerary_template)
 
-        self.assertEqual(itinerary.next_node.node, self.n1)
+        self.assertEqual(itinerary.next_target.node, self.n1)
         itinerary.pop_node()
-        self.assertEqual(itinerary.next_node.node, self.n2)
+        self.assertEqual(itinerary.next_target.node, self.n2)
         itinerary.pop_node()
-        self.assertEqual(itinerary.next_node.node, self.n3)
+        self.assertEqual(itinerary.next_target.node, self.n3)
         itinerary.pop_node()
 
         try:
-            itinerary.next_node
-            raise Exception("next_node failed to raise exception on error")
+            itinerary.next_target
+            raise Exception("next_target failed to raise exception on error")
         except Exception:
             pass

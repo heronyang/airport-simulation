@@ -23,3 +23,4 @@ class Config(metaclass=MetaConfig):
 
     LOG_FORMAT = "[%(name)s.%(funcName)s:%(lineno)d] %(message)s"
     DATA_ROOT_DIR_PATH = "./data/%s/build/"
+    OUTPUT_DIR = "./output/"

@@ -20,14 +20,18 @@ class TestAircraft(unittest.TestCase):
     n2 = Node("N2", {"lat": 47.822000, "lng": -122.079057})
     n3 = Node("N3", {"lat": 47.922000, "lng": -122.079057})
 
-    target_nodes = [
-        Itinerary.TargetNode(n1, time(0, 2), time(0, 3)),
-        Itinerary.TargetNode(n2, time(0, 5), time(0, 7)),
-        Itinerary.TargetNode(n3, time(0, 9), None),
+    m1 = Node("M1", {"lat": 47.772000, "lng": -122.079057})
+    m2 = Node("M2", {"lat": 47.872000, "lng": -122.079057})
+
+    targets = [
+        Itinerary.Target(n1, time(0, 2), time(0, 3)),
+        Itinerary.Target(n2, time(0, 5), time(0, 7)),
+        Itinerary.Target(n3, time(0, 9), None),
     ]
-    itinerary_template = Itinerary(target_nodes)
+    itinerary_template = Itinerary(targets)
 
     # -----[start]-------[n1]------------[n2]---------[n3]----
+    # -----[start]---------------[m1]------------[m2]---------
     # 00------01------A02----D03------A05----D07------A09-----
     # -------stop------|-hold-|-moving-|-hold-|-moving-|-stop-
 
@@ -37,6 +41,10 @@ class TestAircraft(unittest.TestCase):
 
         def tick(self):
             self.clock.tick()
+
+        @property
+        def now(self):
+            return self.clock.now
 
     def test_init(self):
 
@@ -73,7 +81,7 @@ class TestAircraft(unittest.TestCase):
 
         self.assertEqual(aircraft.location, self.n1)
         self.assertEqual(aircraft.state, State.hold)
-        self.assertEqual(len(aircraft.pilot.itinerary.target_nodes), 3)
+        self.assertEqual(len(aircraft.pilot.itinerary.targets), 3)
 
         # [00:03] Finishes n1
         simulation.tick()
@@ -81,8 +89,9 @@ class TestAircraft(unittest.TestCase):
         self.assertEqual(simulation.clock.now, time(0, 3))
 
         self.assertEqual(aircraft.location, self.n2)
+        self.assertTrue(aircraft.true_location.is_close_to(self.n1))
         self.assertEqual(aircraft.state, State.moving)
-        self.assertEqual(len(aircraft.pilot.itinerary.target_nodes), 2)
+        self.assertEqual(len(aircraft.pilot.itinerary.targets), 2)
 
         # [00:04] Moving toward n2
         simulation.tick()
@@ -90,8 +99,9 @@ class TestAircraft(unittest.TestCase):
         self.assertEqual(simulation.clock.now, time(0, 4))
 
         self.assertEqual(aircraft.location, self.n2)
+        self.assertTrue(aircraft.true_location.is_close_to(self.m1))
         self.assertEqual(aircraft.state, State.moving)
-        self.assertEqual(len(aircraft.pilot.itinerary.target_nodes), 2)
+        self.assertEqual(len(aircraft.pilot.itinerary.targets), 2)
 
         # [00:05] Arrived n2
         simulation.tick()
@@ -100,7 +110,7 @@ class TestAircraft(unittest.TestCase):
 
         self.assertEqual(aircraft.location, self.n2)
         self.assertEqual(aircraft.state, State.hold)
-        self.assertEqual(len(aircraft.pilot.itinerary.target_nodes), 2)
+        self.assertEqual(len(aircraft.pilot.itinerary.targets), 2)
 
         # [00:06] Arrived n2
         simulation.tick()
@@ -109,7 +119,7 @@ class TestAircraft(unittest.TestCase):
 
         self.assertEqual(aircraft.location, self.n2)
         self.assertEqual(aircraft.state, State.hold)
-        self.assertEqual(len(aircraft.pilot.itinerary.target_nodes), 2)
+        self.assertEqual(len(aircraft.pilot.itinerary.targets), 2)
 
         # [00:07] Leaving n2
         simulation.tick()
@@ -117,8 +127,9 @@ class TestAircraft(unittest.TestCase):
         self.assertEqual(simulation.clock.now, time(0, 7))
 
         self.assertEqual(aircraft.location, self.n3)
+        self.assertTrue(aircraft.true_location.is_close_to(self.n2))
         self.assertEqual(aircraft.state, State.moving)
-        self.assertEqual(len(aircraft.pilot.itinerary.target_nodes), 1)
+        self.assertEqual(len(aircraft.pilot.itinerary.targets), 1)
 
         # [00:08] Moving toward n3
         simulation.tick()
@@ -126,8 +137,9 @@ class TestAircraft(unittest.TestCase):
         self.assertEqual(simulation.clock.now, time(0, 8))
 
         self.assertEqual(aircraft.location, self.n3)
+        self.assertTrue(aircraft.true_location.is_close_to(self.m2))
         self.assertEqual(aircraft.state, State.moving)
-        self.assertEqual(len(aircraft.pilot.itinerary.target_nodes), 1)
+        self.assertEqual(len(aircraft.pilot.itinerary.targets), 1)
 
         # [00:09] Arrived n3
         self.assertFalse(aircraft.pilot.itinerary.is_completed)
