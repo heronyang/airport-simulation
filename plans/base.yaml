@@ -36,6 +36,8 @@ uncertainty:
   hold_time_deviation: 60
 
 scheduler:
+  # Name of the scheduler file under the `scheduler` folder
+  name: deterministic_scheduler
   # Minimum tightness at each node in schedule
   tightness: 180
   # Velocity of an moving aircraft used for distance calculation (ft/sec)

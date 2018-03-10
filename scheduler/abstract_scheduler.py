@@ -9,7 +9,7 @@ from utils import get_seconds_after, get_seconds, get_seconds_taken
 from heapdict import heapdict
 
 
-class DeterministicScheduler:
+class AbstractScheduler:
 
     def __init__(self):
         self.logger = logging.getLogger(__name__)
