@@ -2,7 +2,7 @@
 from datetime import time
 from aircraft import Aircraft, State
 from flight import DepartureFlight
-from scheduler import Scheduler
+from scheduler.deterministic_scheduler import Scheduler
 from node import Node
 from surface import RunwayNode, Spot
 from config import Config

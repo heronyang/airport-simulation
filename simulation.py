@@ -7,11 +7,11 @@ from clock import Clock, ClockException
 from airport import AirportFactory
 from scenario import ScenarioFactory
 from routing_expert import RoutingExpert
-from scheduler import Scheduler
 from analyst import Analyst
 from utils import get_seconds_after, get_seconds_before
 from uncertainty import Uncertainty
 from config import Config
+import importlib
 import numpy as np
 
 
@@ -40,11 +40,17 @@ class Simulation:
                                             self.airport.surface.nodes,
                                             p["simulation"]["cache"])
 
-        # check for uncertainty
+        # Sets up the uncertainty module
         self.uncertainty = (Uncertainty() if p["uncertainty"]["enabled"]
                             else (None))
 
-        self.scheduler = Scheduler()
+        # Loads the requested scheduler
+        scheduler_name = p["scheduler"]["name"]
+        scheduler_module = \
+                importlib.import_module("scheduler." + scheduler_name)
+        self.scheduler = scheduler_module.Scheduler()
+
+        # Sets up the analyst
         self.analyst = Analyst(self.clock.sim_time)
 
         # Sets up a delegate of this simulation
@@ -67,8 +73,10 @@ class Simulation:
                 self.last_schedule_time = self.now
                 self.logger.info("Last schedule time is updated to %s" %
                                  self.last_schedule_time)
+
             # Injects uncertainties
-            self.uncertainty.inject(self)
+            if self.uncertainty:
+                self.uncertainty.inject(self)
 
             # Tick
             self.airport.tick()
