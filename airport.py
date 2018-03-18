@@ -26,6 +26,12 @@ class Airport:
         # Pointer to the simulation
         self.simulation = simulation
 
+        # Queues for departure flights at gates
+        self.gate_queue = {}
+
+        # Inverse lookup from node to aircraft
+        self.node2aircraft = {}
+
         # Static data
         self.code = code
         self.surface = surface
@@ -35,6 +41,22 @@ class Airport:
             if aircraft not in self.aircrafts:
                 raise Exception("%s not found in the airport" % r.aircraft)
             aircraft.set_itinerary(itinerary)
+
+    def update_aircraft_location(self, aircraft, original_location, location):
+        self.logger.info("Update %s location from %s to %s" % 
+                        (aircraft, original_location, location))
+
+        # Removes previous one if found
+        if original_location in self.node2aircraft:
+            self.node2aircraft[original_location].remove(aircraft)
+
+        # Appends the new one
+        s = self.node2aircraft.get( location, set())
+        s.add(aircraft)
+        self.node2aircraft[location] = s
+
+    def is_occupied_at(self, node):
+        return node in self.node2aircraft and len(self.node2aircraft[node]) > 0
 
     def add_aircraft(self, aircraft):
         self.aircrafts.append(aircraft)

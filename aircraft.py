@@ -38,8 +38,11 @@ class Aircraft:
     """
     def set_location(self, location):
 
-        self.logger.debug("%s changed location to %s" % (self, location))
+        original_location = self.location
         self.location = location
+        self.simulation.airport.update_aircraft_location(
+            self, original_location, location)
+        self.logger.debug("%s changed location to %s" % (self, location))
 
     """
     Aircraft's true location while moving.

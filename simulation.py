@@ -11,6 +11,7 @@ from analyst import Analyst
 from utils import get_seconds_after, get_seconds_before
 from uncertainty import Uncertainty
 from config import Config
+from collections import deque
 import importlib
 import numpy as np
 
@@ -122,21 +123,48 @@ class Simulation:
         # from IPython.core.debugger import Tracer; Tracer()()
 
     def add_aircrafts(self):
+        self.add_aircrafts_from_queue()
+        self.add_aircrafts_from_scenario()
+
+    def add_aircrafts_from_queue(self):
+
+        for gate, queue in self.airport.gate_queue.items():
+
+            if self.airport.is_occupied_at(gate) or len(queue) == 0:
+                continue
+
+            # Put the first aircraft in queue into the airport
+            aircraft = queue.popleft()
+            aircraft.set_location(gate)
+            self.airport.add_aircraft(aircraft)
+
+    def add_aircrafts_from_scenario(self):
 
         # NOTE: we will only focus on departures now
         next_tick_time = get_seconds_after(self.now, self.clock.sim_time)
 
         # For all departure flights
         for flight in self.scenario.departures:
-            # If it the scheduled appear time is between now and next tick time
-            if self.now <= flight.appear_time and \
-               flight.appear_time < next_tick_time:
 
-                self.logger.info("Adds %s into the airport" % flight)
+            # Only if the scheduled appear time is between now and next tick
+            if not (self.now <= flight.appear_time and \
+                    flight.appear_time < next_tick_time):
+                continue
 
+            gate, aircraft = flight.from_gate, flight.aircraft
+
+            if self.airport.is_occupied_at(gate):
+                # Adds the flight to queue
+                queue = self.airport.gate_queue.get(gate, deque())
+                queue.append(aircraft)
+                self.airport.gate_queue[gate] = queue
+                self.logger.info("Adds %s into gate queue" % flight)
+
+            else:
                 # Adds the flight to the airport
-                flight.aircraft.set_location(flight.from_gate)
-                self.airport.add_aircraft(flight.aircraft)
+                aircraft.set_location(gate)
+                self.airport.add_aircraft(aircraft)
+                self.logger.info("Adds %s into the airport" % flight)
 
     def remove_aircrafts(self):
         """
