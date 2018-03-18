@@ -191,6 +191,7 @@ class Simulation:
     def __getstate__(self):
         d = dict(self.__dict__)
         del d["logger"]
+        d["uncertainty"] = None
         return d
 
     def __setstate__(self, d):

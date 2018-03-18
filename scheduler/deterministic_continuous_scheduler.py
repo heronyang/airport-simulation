@@ -55,6 +55,11 @@ class Scheduler(AbstractScheduler):
                 # Solves the first conflicts, then reruns everything again
                 aircraft = conflicts[0].get_less_priority_aircraft(
                     simulation.scenario)
-                itineraries[aircraft].add_delay(delay_time)
+
+                if aircraft in itineraries:
+                    # New aircrafts that only appear in prediction are ignored
+                    itineraries[aircraft].add_delay(delay_time)
+                    self.logger.info("Added %d delay on %s" %
+                                     (delay_time, aircraft))
 
                 break

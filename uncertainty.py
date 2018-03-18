@@ -1,5 +1,6 @@
 import os
 import random
+import logging
 from config import Config
 
 
@@ -11,6 +12,7 @@ class Uncertainty:
         hold_time_mean=Config.params["uncertainty"]["hold_time_mean"],
         hold_time_deviation=Config.params["uncertainty"]["hold_time_deviation"]
     ):
+        self.logger = logging.getLogger(__name__)
         self.prob_hold = prob_hold
         self.hold_time_mean = hold_time_mean
         self.hold_time_deviation = hold_time_deviation

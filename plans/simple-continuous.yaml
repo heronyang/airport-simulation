@@ -1,6 +1,16 @@
 name: simple-continuous
 airport: simple
 
+uncertainty:
+  # Enable or disable the uncertain in simulation
+  enabled: true
+  # Probability of an aircraft holds at node unexpectedly (depends on time_unit)
+  prob_hold: 0.2
+  # Seconds of the mean of an unexpected hold at node
+  hold_time_mean: 120
+  # Seconds of the standard deviation of an unexpected hold at node
+  hold_time_deviation: 60
+
 scheduler:
   # Name of the scheduler file under the `scheduler` folder
   name: deterministic_continuous_scheduler
