@@ -26,27 +26,36 @@ class Scheduler(AbstractScheduler):
 
     def resolve_conflicts(self, itineraries, simulation):
 
-        sim_time = Config.params["simulation"]["time_unit"]
         rc_time = Config.params["scheduler"]["resolve_conflicts_time"]
+        sim_time = Config.params["simulation"]["time_unit"]
         delay_time = Config.params["scheduler"]["delay_time"]
+
+        successful_tick_times = int(rc_time / sim_time)
 
         while True:
 
-            for time_from_now in range(sim_time, rc_time, sim_time):
+            predict_simulation = simulation.copy
+            predict_simulation.airport.apply_schedule(Schedule(itineraries))
 
-                schedule = Schedule(itineraries)
-                predict_state = simulation.predict_state_after(
-                    schedule, time_from_now)
+            # Finishes currenct tick
+            predict_simulation.remove_aircrafts()
+            predict_simulation.clock.tick()
 
-                conflicts = predict_state.airport.conflicts
+            for i in range(successful_tick_times):
+
+                predict_simulation.quiet_tick()
+                conflicts = predict_simulation.airport.conflicts
 
                 if len(conflicts) == 0:
-                    break
+                    # If it's the last check, return
+                    print(i)
+                    if i == successful_tick_times - 1:
+                        return
+                    continue
 
-                # Solves the first conflicts, then rerun everything again
-                conflict = conflicts[0]
-
-                # TODO
-                aircraft = conflict.get_less_priority_aircraft(
+                # Solves the first conflicts, then reruns everything again
+                aircraft = conflicts[0].get_less_priority_aircraft(
                     simulation.scenario)
                 itineraries[aircraft].add_delay(delay_time)
+
+                break

@@ -102,9 +102,8 @@ class Simulation:
         Turn off the logger, reschedule, and analyst.
         """
         self.add_aircrafts()
-        self.remove_aircrafts()
-
         self.airport.tick()
+        self.remove_aircrafts()
         try:
             self.clock.tick()
         except ClockException as e:
@@ -206,10 +205,8 @@ class SimulationDelegate:
     def routing_expert(self):
         return self.simulation.routing_expert
 
-    def predict_state_after(self, scheule, time_from_now, uncertainty=None):
-        """
-        Returns the simulation state after `time_from_now` seconds.
-        """
+    @property
+    def copy(self, uncertainty=None):
 
         # Gets a snapshot of current simulation state
         simulation_copy = deepcopy(self.simulation)
@@ -219,12 +216,5 @@ class SimulationDelegate:
 
         # Sets the simulation to quiet mode
         simulation_copy.set_quiet(logging.getLogger("QUIET_MODE"))
-
-        # Applies the schedule
-        simulation_copy.airport.apply_schedule(scheule)
-
-        # Starts to simulate the future state
-        for i in range(int(time_from_now / simulation_copy.clock.sim_time)):
-            simulation_copy.quiet_tick()
 
         return simulation_copy

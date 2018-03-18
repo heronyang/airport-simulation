@@ -19,7 +19,7 @@ simulation:
   # Enable or disable cache for shortest routes
   cache: true
   # Separation requirement in feets between two aircrafts
-  separation: 250
+  separation: 150
 
 monitor:
   # Enable or disable the real-time monitor
@@ -27,7 +27,7 @@ monitor:
 
 uncertainty:
   # Enable or disable the uncertain in simulation
-  enabled: true
+  enabled: false
   # Probability of an aircraft holds at node unexpectedly (depends on time_unit)
   prob_hold: 0.2
   # Seconds of the mean of an unexpected hold at node

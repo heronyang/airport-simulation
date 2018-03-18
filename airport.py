@@ -97,8 +97,6 @@ class Airport:
     def set_quiet(self, logger):
         self.logger = logger
         self.surface.set_quiet(logger)
-        for aircraft in self.aircrafts:
-            aircraft.set_quiet(logger)
 
 
 class AirportFactory:

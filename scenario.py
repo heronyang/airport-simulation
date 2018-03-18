@@ -58,6 +58,8 @@ class Scenario:
 
     def set_quiet(self, logger):
         self.logger = logger
+        for flight in self.departures:
+            flight.aircraft.set_quiet(logger)
 
 
 class ScenarioFactory:
