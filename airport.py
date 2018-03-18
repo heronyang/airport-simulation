@@ -38,10 +38,19 @@ class Airport:
         self.surface = surface
 
     def apply_schedule(self, schedule):
+        # NOTE: the aircraft in schedule may be different from the one in
+        # the airport, they should be retrieved by comparing the callsign
+        # (hash)
         for aircraft, itinerary in schedule.itineraries.items():
-            if aircraft not in self.aircrafts:
+            is_applied = False
+            for airport_aircraft in self.aircrafts:
+                if airport_aircraft == aircraft:
+                    airport_aircraft.set_itinerary(deepcopy(itinerary))
+                    is_applied = True
+                    break
+            if not is_applied:
                 raise Exception("%s not found in the airport" % r.aircraft)
-            aircraft.set_itinerary(deepcopy(itinerary))
+
 
     def update_aircraft_location(self, aircraft, original_location, location):
         self.logger.info("Update %s location from %s to %s" % 

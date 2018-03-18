@@ -57,6 +57,10 @@ def init_logger():
 
     if cfg.params["logger"]["file"]:
         log_filename = cfg.OUTPUT_DIR + cfg.params["name"] + ".log"
+        try:
+            os.remove(log_filename)
+        except OSError:
+            pass
         logging.basicConfig(
             format=cfg.LOG_FORMAT,
             filename=log_filename,

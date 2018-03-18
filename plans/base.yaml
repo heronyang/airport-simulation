@@ -54,5 +54,5 @@ analyst:
 logger:
   # Options are: critical, error, warning, info, debug, notset
   level: debug
-  # Enable loggin into a file instead of stdout/stderr
+  # Enable logging into a file instead of stdout/stderr
   file: false
