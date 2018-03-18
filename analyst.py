@@ -137,22 +137,55 @@ class ConflictMetric():
             )
         )
 
+class GateQueueMetric():
+
+    def __init__(self, surface):
+        self.gate_queue_size = pd.DataFrame(columns=["time", "size"])
+        self.n_gates = len(surface.gates)
+
+    def update_on_tick(self, airport, now):
+
+        s = 0
+        for _, queue in airport.gate_queue.items():
+            s += len(queue)
+
+        avg_queue_size = s / self.n_gates
+        self.gate_queue_size = self.gate_queue_size.append(
+            {"time": now, "size": avg_queue_size}, ignore_index=True
+        )
+
+    @property
+    def summary(self):
+
+        if len(self.gate_queue_size) == 0:
+            return "Gate Queue: insufficient data"
+
+        qs = self.gate_queue_size.set_index("time")
+
+        return "Gate Queue: top %d low %d mean %d" % (
+            qs.max(), qs.min(), qs.mean()
+        )
+        
 
 class Analyst:
 
-    def __init__(self, sim_time):
+    def __init__(self, simulation):
 
         self.logger = logging.getLogger(__name__)
+
+        sim_time = simulation.clock.sim_time
 
         self.taxitime_metric = TaxitimeMetric(sim_time)
         self.makespan_metric = MakespanMetric()
         self.aircraft_count_metric = AircraftCountMetric()
         self.conflict_metric = ConflictMetric()
+        self.gate_queue_metric = GateQueueMetric(simulation.airport.surface)
 
     def observe_on_tick(self, simulation):
 
         now = simulation.now
-        aircrafts = simulation.airport.aircrafts
+        airport=  simulation.airport
+        aircrafts = airport.aircrafts
         scenario = simulation.scenario
         conflicts_at_node = simulation.airport.conflicts_at_node
         conflicts = simulation.airport.conflicts
@@ -161,13 +194,9 @@ class Analyst:
         self.makespan_metric.update_on_tick(aircrafts, now)
         self.aircraft_count_metric.update_on_tick(aircrafts, now)
         self.conflict_metric.update_on_tick(conflicts_at_node, conflicts, now)
+        self.gate_queue_metric.update_on_tick(airport, now)
 
     def print_summary(self, simulation):
-
-        self.logger.debug(self.taxitime_metric.summary)
-        self.logger.debug(self.makespan_metric.summary)
-        self.logger.debug(self.aircraft_count_metric.summary)
-        self.logger.debug(self.conflict_metric.summary)
 
         if Config.params["analyst"]["details"]:
 
@@ -175,6 +204,7 @@ class Analyst:
             cr = self.conflict_metric.conflict_node.set_index("time")
             ca = self.conflict_metric.conflict_node_aircraft.set_index("time")
             cf = self.conflict_metric.conflict.set_index("time")
+            qs = self.gate_queue_metric.gate_queue_size.set_index("time")
 
             stats = c.join(
                 cr, lsuffix='_aircraft',
@@ -185,6 +215,9 @@ class Analyst:
             ).join(
                 cf,
                 rsuffix="_conflict"
+            ).join(
+                qs,
+                rsuffix="_queue_size"
             )
 
             with pd.option_context("display.max_rows", None):
@@ -193,6 +226,12 @@ class Analyst:
             # Saves to file
             filename = Config.OUTPUT_DIR + Config.params["name"] + ".csv"
             stats.to_csv(filename)
+
+        self.logger.debug(self.taxitime_metric.summary)
+        self.logger.debug(self.makespan_metric.summary)
+        self.logger.debug(self.aircraft_count_metric.summary)
+        self.logger.debug(self.conflict_metric.summary)
+        self.logger.debug(self.gate_queue_metric.summary)
 
     def __getstate__(self):
         d = dict(self.__dict__)

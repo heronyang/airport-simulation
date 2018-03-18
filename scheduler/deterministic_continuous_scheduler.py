@@ -48,7 +48,6 @@ class Scheduler(AbstractScheduler):
 
                 if len(conflicts) == 0:
                     # If it's the last check, return
-                    print(i)
                     if i == successful_tick_times - 1:
                         return
                     continue

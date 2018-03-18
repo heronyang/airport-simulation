@@ -53,7 +53,7 @@ class Simulation:
 
         # Sets up the analyst
         if p["analyst"]["enabled"]:
-            self.analyst = Analyst(self.clock.sim_time)
+            self.analyst = Analyst(self)
 
         # Sets up a delegate of this simulation
         self.delegate = SimulationDelegate(self)
