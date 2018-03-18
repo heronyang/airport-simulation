@@ -32,7 +32,7 @@ class Conflict:
         f0, f1 = scenario.get_flight(self.aircrafts[0]), \
                 scenario.get_flight(self.aircrafts[1])
         return (
-            self.aircrafts[0]
+            self.aircrafts[1]
             if f0.departure_time < f1.departure_time
-            else self.aircrafts[1]
+            else self.aircrafts[0]
         )

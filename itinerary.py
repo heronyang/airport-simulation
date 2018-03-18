@@ -32,8 +32,6 @@ class Itinerary:
 
     def __init__(self, targets):
 
-        # Setups the logger
-        self.logger = logging.getLogger(__name__)
         self.targets = targets
         self.past_target = None
 
@@ -101,14 +99,3 @@ class Itinerary:
 
     def __ne__(self, other):
         return not(self == other)
-
-    def __getstate__(self):
-        d = dict(self.__dict__)
-        del d["logger"]
-        return d
-
-    def __setstate__(self, d):
-        self.__dict__.update(d)
-
-    def set_quiet(self, logger):
-        self.logger = logger

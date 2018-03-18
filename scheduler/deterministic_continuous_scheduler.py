@@ -19,7 +19,7 @@ class Scheduler(AbstractScheduler):
             itineraries[aircraft] = itinerary
 
         # Resolve conflicts
-        self.resolve_conflicts(itineraries, simulation)
+        itineraries = self.resolve_conflicts(itineraries, simulation)
 
         self.logger.info("Scheduling end")
         return Schedule(itineraries)
@@ -49,7 +49,7 @@ class Scheduler(AbstractScheduler):
                 if len(conflicts) == 0:
                     # If it's the last check, return
                     if i == successful_tick_times - 1:
-                        return
+                        return itineraries
                     continue
 
                 # Solves the first conflicts, then reruns everything again

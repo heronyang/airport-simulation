@@ -21,11 +21,6 @@ class Scheduler(AbstractScheduler):
         h = heapdict()
         for aircraft in simulation.airport.aircrafts:
 
-            # TODO: moving aircrafts should retrieve a new itinerary at the
-            # next node
-            if aircraft.state is not State.stop:
-                continue
-
             # TODO: adds for arrivals
             flight = simulation.scenario.get_flight(aircraft)
             h[aircraft] = flight.departure_time

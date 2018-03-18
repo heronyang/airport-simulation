@@ -128,7 +128,7 @@ class ConflictMetric():
         cf = self.conflict.set_index("time")
         return (
             "Conflict nodes: top %d low %d mean %d, "
-            "aircrafts: top %d low %d mean %d" 
+            "aircrafts: top %d low %d mean %d, " 
             "all: top %d low %d mean %d" %
             (
                 cn.max(), cn.min(), cn.mean(),

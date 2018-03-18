@@ -88,3 +88,4 @@ class TestAirport(unittest.TestCase):
 
         # Test if the third aircraft shown in conflict correctly
         self.assertEqual(len(airport.conflicts), 1)
+

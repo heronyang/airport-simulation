@@ -7,6 +7,7 @@ from config import Config
 from conflict import Conflict
 from aircraft import State
 from node import get_middle_node
+from copy import deepcopy
 
 
 class Airport:
@@ -40,7 +41,7 @@ class Airport:
         for aircraft, itinerary in schedule.itineraries.items():
             if aircraft not in self.aircrafts:
                 raise Exception("%s not found in the airport" % r.aircraft)
-            aircraft.set_itinerary(itinerary)
+            aircraft.set_itinerary(deepcopy(itinerary))
 
     def update_aircraft_location(self, aircraft, original_location, location):
         self.logger.info("Update %s location from %s to %s" % 

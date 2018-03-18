@@ -38,9 +38,17 @@ class TestAircraft(unittest.TestCase):
     # 00------01------A02----D03------A05----D07------A09-----
     # -------stop------|-hold-|-moving-|-hold-|-moving-|-stop-
 
+
     class SimulationMock():
+
+        class AirportMock():
+
+            def update_aircraft_location(a, b, c, d):
+                pass
+
         def __init__(self, clock):
             self.clock = clock
+            self.airport = self.AirportMock()
 
         def tick(self):
             self.clock.tick()
@@ -51,7 +59,8 @@ class TestAircraft(unittest.TestCase):
 
     def test_init(self):
 
-        aircraft = Aircraft(None, "F1", "M1", self.n1, State.unknown)
+        simulation = self.SimulationMock(Clock())
+        aircraft = Aircraft(simulation, "F1", "M1", self.n1, State.unknown)
         aircraft.set_location(self.n1)
         self.assertEqual(aircraft.location, self.n1)
 

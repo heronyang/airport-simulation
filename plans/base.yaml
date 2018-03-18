@@ -10,8 +10,6 @@ simulation:
   time_unit: 30
   # Seconds between each reschedule
   reschedule_cycle: 900
-  # Seconds before an aircraft shown in the simulation before scheduled time
-  appear_before: 300
   # Feets required between two nodes (otherwise, we seem two nodes as the same)
   close_node_threshold: 30
   # Feets required when calculating whether a node is belong a link

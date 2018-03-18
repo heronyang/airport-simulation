@@ -46,10 +46,7 @@ class Simulation:
                             else (None))
 
         # Loads the requested scheduler
-        scheduler_name = p["scheduler"]["name"]
-        scheduler_module = \
-                importlib.import_module("scheduler." + scheduler_name)
-        self.scheduler = scheduler_module.Scheduler()
+        self.scheduler = get_scheduler()
 
         # Sets up the analyst
         if p["analyst"]["enabled"]:
@@ -120,7 +117,6 @@ class Simulation:
     def reschedule(self):
         schedule = self.scheduler.schedule(self.delegate)
         self.airport.apply_schedule(schedule)
-        # from IPython.core.debugger import Tracer; Tracer()()
 
     def add_aircrafts(self):
         self.add_aircrafts_from_queue()
@@ -246,3 +242,8 @@ class SimulationDelegate:
         simulation_copy.set_quiet(logging.getLogger("QUIET_MODE"))
 
         return simulation_copy
+
+def get_scheduler():
+    # Loads the requested scheduler
+    scheduler_name = Config.params["scheduler"]["name"]
+    return importlib.import_module("scheduler." + scheduler_name).Scheduler()
