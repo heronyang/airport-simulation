@@ -83,8 +83,9 @@ def start_with_monitor():
     monitor = Monitor(simulation)
 
     # Runs simulation  (non-block)
-    simulation_thread = threading.Thread(target=run,
-                                         args=(simulation, monitor))
+    simulation_thread = threading.Thread(
+        target=run, args=(simulation, monitor)
+    )
     simulation_thread.start()
 
     # Runs monitor (block)

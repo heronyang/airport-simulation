@@ -34,7 +34,6 @@ class TestItinerary(unittest.TestCase):
 
         # Gets a copy of the itinerary
         itinerary = deepcopy(self.itinerary_template)
-        itinerary.set_quiet(logging.getLogger("QUIET_MODE"))
 
         clock = Clock()
         self.assertFalse(itinerary.is_completed)
@@ -44,7 +43,6 @@ class TestItinerary(unittest.TestCase):
 
         # Gets a copy of the itinerary
         itinerary = deepcopy(self.itinerary_template)
-        itinerary.set_quiet(logging.getLogger("QUIET_MODE"))
 
         for i in range(3):
             itinerary.pop_target()
@@ -55,7 +53,6 @@ class TestItinerary(unittest.TestCase):
 
         # Gets a copy of the itinerary
         itinerary = deepcopy(self.itinerary_template)
-        itinerary.set_quiet(logging.getLogger("QUIET_MODE"))
 
         self.assertEqual(itinerary.pop_target().node, self.n1)
         self.assertEqual(itinerary.pop_target().node, self.n2)
@@ -66,7 +63,6 @@ class TestItinerary(unittest.TestCase):
 
         # Gets a copy of the itinerary
         itinerary = deepcopy(self.itinerary_template)
-        itinerary.set_quiet(logging.getLogger("QUIET_MODE"))
 
         self.assertEqual(itinerary.next_target.node, self.n1)
         itinerary.pop_target()
@@ -85,7 +81,6 @@ class TestItinerary(unittest.TestCase):
 
         # Gets a copy of the itinerary
         itinerary = deepcopy(self.itinerary_template)
-        itinerary.set_quiet(logging.getLogger("QUIET_MODE"))
 
         self.assertEqual(itinerary.next_target.node, self.n1)
         itinerary.add_delay(10)
