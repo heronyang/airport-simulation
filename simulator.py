@@ -55,7 +55,16 @@ def init_logger():
         logger.error("Unknown logging level")
         os._exit(1)
 
-    coloredlogs.install(level=level, fmt=cfg.LOG_FORMAT)
+    if cfg.params["logger"]["file"]:
+        log_filename = cfg.OUTPUT_DIR + cfg.params["name"] + ".log"
+        logging.basicConfig(
+            format=cfg.LOG_FORMAT,
+            filename=log_filename,
+            level=level
+        )
+
+    else:
+        coloredlogs.install(level=level, fmt=cfg.LOG_FORMAT)
 
 
 def start():
