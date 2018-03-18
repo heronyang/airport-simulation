@@ -1,0 +1,6 @@
+name: simple-continuous
+airport: simple
+
+scheduler:
+  # Name of the scheduler file under the `scheduler` folder
+  name: deterministic_continuous_scheduler

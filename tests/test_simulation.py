@@ -16,11 +16,13 @@ class TestSimulation(unittest.TestCase):
 
     Config.params["airport"] = "simple"
     Config.params["uncertainty"]["enabled"] = False
+    Config.params["scheduler"]["name"] = "deterministic_scheduler"
+    Config.params["analyst"]["enabled"] = False
 
     class SchedulerMock():
 
         def schedule(self, _):
-            return Schedule([], [], 0.0)
+            return Schedule({})
 
     def test_init(self):
 
@@ -81,6 +83,7 @@ class TestSimulation(unittest.TestCase):
     def test_remove_aircrafts(self):
 
         simulation = Simulation()
+        simulation.scheduler = self.SchedulerMock()
 
         try:
             flight = simulation.scenario.departures[0]

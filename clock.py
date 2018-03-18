@@ -20,6 +20,9 @@ class Clock:
 
         self.now = time_after_tick
 
+    def __repr__(self):
+        return "<Clock: %s>" % self.now
+
 
 class ClockException(Exception):
     pass

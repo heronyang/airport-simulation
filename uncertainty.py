@@ -30,6 +30,8 @@ class Uncertainty:
 
             if aircraft.pilot.itinerary is not None:
                 aircraft.pilot.itinerary.add_delay(delay)
+                self.logger.info("%s added delay %d seconds" %
+                                 (aircraft, delay))
 
     def happens_with_prob(self, prob):
         return random.random() < prob

@@ -51,7 +51,8 @@ class Simulation:
         self.scheduler = scheduler_module.Scheduler()
 
         # Sets up the analyst
-        self.analyst = Analyst(self.clock.sim_time)
+        if p["analyst"]["enabled"]:
+            self.analyst = Analyst(self.clock.sim_time)
 
         # Sets up a delegate of this simulation
         self.delegate = SimulationDelegate(self)
@@ -84,11 +85,13 @@ class Simulation:
             self.clock.tick()
 
             # Observe
-            self.analyst.observe_on_tick(self.delegate)
+            if Config.params["analyst"]["enabled"]:
+                self.analyst.observe_on_tick(self.delegate)
 
         except ClockException as e:
             # Finishes
-            self.analyst.print_summary(self)
+            if Config.params["analyst"]["enabled"]:
+                self.analyst.print_summary(self)
             raise e
         except Exception as e:
             self.logger.error(traceback.format_exc())
@@ -203,7 +206,7 @@ class SimulationDelegate:
     def routing_expert(self):
         return self.simulation.routing_expert
 
-    def predict_state_after(self, scheule, time_from_now, uncertainty):
+    def predict_state_after(self, scheule, time_from_now, uncertainty=None):
         """
         Returns the simulation state after `time_from_now` seconds.
         """
@@ -215,13 +218,13 @@ class SimulationDelegate:
         simulation_copy.uncertainty = uncertainty
 
         # Sets the simulation to quiet mode
-        simulation_copy.set_quiet(logger.getLogger("QUIET_MODE"))
+        simulation_copy.set_quiet(logging.getLogger("QUIET_MODE"))
 
         # Applies the schedule
-        simulation_copy.apply_schedule(scheule)
+        simulation_copy.airport.apply_schedule(scheule)
 
         # Starts to simulate the future state
-        for i in range(time_from_now / simultion_copy.clock.sim_time):
+        for i in range(int(time_from_now / simulation_copy.clock.sim_time)):
             simulation_copy.quiet_tick()
 
         return simulation_copy

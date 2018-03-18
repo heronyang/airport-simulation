@@ -31,10 +31,10 @@ class Airport:
         self.surface = surface
 
     def apply_schedule(self, schedule):
-        for r in schedule.requests:
-            if r.aircraft not in self.aircrafts:
+        for aircraft, itinerary in schedule.itineraries.items():
+            if aircraft not in self.aircrafts:
                 raise Exception("%s not found in the airport" % r.aircraft)
-            r.aircraft.set_itinerary(r.itinerary)
+            aircraft.set_itinerary(itinerary)
 
     def add_aircraft(self, aircraft):
         self.aircrafts.append(aircraft)

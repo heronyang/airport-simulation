@@ -42,8 +42,14 @@ scheduler:
   tightness: 180
   # Velocity of an moving aircraft used for distance calculation (ft/sec)
   aircraft_velocity: 5
+  # Future time period that the scheduler solves the conflicts (sec)
+  resolve_conflicts_time: 600
+  # Delay time added on the aircraft with less priority when a conflict is found
+  delay_time: 300
 
 analyst:
+  # Enable or disable analyst
+  enabled: true
   # Enable or disble showing the details
   details: true
 

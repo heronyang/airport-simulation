@@ -89,3 +89,10 @@ def random_string(length):
     import string
     import random
     return ''.join(random.choice(string.ascii_letters) for m in range(length))
+
+def update_dict(ori_dict, new_dict):
+    import collections
+    for key, value in new_dict.items():
+        ori_dict[key] = update_dict(ori_dict.get(key, {}), value) \
+                if isinstance(value, collections.Mapping) else value
+    return ori_dict

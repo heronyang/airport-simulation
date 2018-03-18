@@ -10,6 +10,7 @@ from config import Config
 
 import sys
 import unittest
+import logging
 sys.path.append('..')
 
 
@@ -59,6 +60,7 @@ class TestAircraft(unittest.TestCase):
         # Overrides the time unit to 60 seconds
         Config.params["simulation"]["time_unit"] = 60
         itinerary = deepcopy(self.itinerary_template)
+        itinerary.set_quiet(logging.getLogger("QUIET_MODE"))
         simulation = self.SimulationMock(Clock())
 
         # [00:00] Setups the aircraft in init state
@@ -168,6 +170,7 @@ class TestAircraft(unittest.TestCase):
         # Overrides the time unit to 60 seconds
         Config.params["simulation"]["time_unit"] = 60
         itinerary = deepcopy(self.itinerary_template)
+        itinerary.set_quiet(logging.getLogger("QUIET_MODE"))
         simulation = self.SimulationMock(Clock())
 
         # [00:00] Setups the aircraft in init state

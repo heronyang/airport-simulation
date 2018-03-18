@@ -1,4 +1,5 @@
 import yaml
+from utils import update_dict
 
 
 class MetaConfig(type):
@@ -6,17 +7,17 @@ class MetaConfig(type):
     BASE_LINE_EXPERIMENT_PLAN_FILEPATH = "./plans/base.yaml"
 
     @property
-    def params(cls):
-        if getattr(cls, "_params", None) is None:
+    def params(self):
+        # Lazy initialization with base-line configurations
+        if getattr(self, "_params", None) is None:
             with open(MetaConfig.BASE_LINE_EXPERIMENT_PLAN_FILEPATH) as f:
-                cls._params = yaml.load(f)
-        return cls._params
+                    self._params = yaml.load(f)
+        return self._params
 
-    def load_plan(cls, config_filepath):
-        with open(MetaConfig.BASE_LINE_EXPERIMENT_PLAN_FILEPATH) as f:
-            baseline_params = yaml.load(f)
+    def load_plan(self, config_filepath):
         with open(config_filepath) as f:
-            cls._params = {**baseline_params, **yaml.load(f)}
+            new_params = yaml.load(f)
+            update_dict(self.params, new_params)
 
 
 class Config(metaclass=MetaConfig):

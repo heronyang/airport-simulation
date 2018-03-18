@@ -106,10 +106,13 @@ class TestScheduler(unittest.TestCase):
 
     def test_basic(self):
 
+        Config.params["scheduler"]["name"] = "deterministic_scheduler"
+
         # Overrides the tightness and velocity
         tightness = 120
         velocity = 5
         Config.params["scheduler"]["tightness"] = tightness
+        Config.params["scheduler"]["velocity"] = velocity
         Config.params["scheduler"]["velocity"] = velocity
 
         # Create mock objects, then schedule it
@@ -118,15 +121,15 @@ class TestScheduler(unittest.TestCase):
         scheduler = Scheduler()
         schedule = scheduler.schedule(simulation)
 
-        self.assertEqual(len(schedule.requests), 2)
+        self.assertEqual(len(schedule.itinerary), 2)
 
         # a2 has an early departure time, so it goes first
-        self.assertEqual(schedule.requests[0].aircraft, self.a2)
-        self.assertEqual(schedule.requests[1].aircraft, self.a1)
+        self.assertEqualTrue(self.a2 in schedule.itineraries)
+        self.assertEqualTrue(self.a1 in schedule.itineraries)
 
         # Gets itineraries
-        iti1 = schedule.requests[1].itinerary.targets
-        iti2 = schedule.requests[0].itinerary.targets
+        iti1 = schedule.itineraries[self.a1]
+        iti2 = schedule.itineraries[self.a2]
 
         self.assertEqual(iti2[0].eat, time(2, 30, 0))
         self.assertEqual(iti2[0].edt, time(2, 30, 0))
@@ -145,3 +148,8 @@ class TestScheduler(unittest.TestCase):
                          get_seconds_after(iti2[2].eat, tightness))
         self.assertEqual(iti1[2].edt,
                          get_seconds_after(iti2[2].edt, tightness))
+
+    def test_basic(self):
+
+        Config.params["scheduler"]["name"] = \
+                "deterministic_continuous_scheduler"
