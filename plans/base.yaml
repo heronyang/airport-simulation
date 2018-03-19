@@ -10,8 +10,6 @@ simulation:
   time_unit: 30
   # Seconds between each reschedule
   reschedule_cycle: 900
-  # Seconds before an aircraft shown in the simulation before scheduled time
-  appear_before: 300
   # Feets required between two nodes (otherwise, we seem two nodes as the same)
   close_node_threshold: 30
   # Feets required when calculating whether a node is belong a link
@@ -19,7 +17,7 @@ simulation:
   # Enable or disable cache for shortest routes
   cache: true
   # Separation requirement in feets between two aircrafts
-  separation: 250
+  separation: 150
 
 monitor:
   # Enable or disable the real-time monitor
@@ -27,7 +25,7 @@ monitor:
 
 uncertainty:
   # Enable or disable the uncertain in simulation
-  enabled: true
+  enabled: false
   # Probability of an aircraft holds at node unexpectedly (depends on time_unit)
   prob_hold: 0.2
   # Seconds of the mean of an unexpected hold at node
@@ -42,11 +40,19 @@ scheduler:
   tightness: 180
   # Velocity of an moving aircraft used for distance calculation (ft/sec)
   aircraft_velocity: 5
+  # Future time period that the scheduler solves the conflicts (sec)
+  resolve_conflicts_time: 600
+  # Delay time added on the aircraft with less priority when a conflict is found
+  delay_time: 30
 
 analyst:
+  # Enable or disable analyst
+  enabled: true
   # Enable or disble showing the details
   details: true
 
 logger:
   # Options are: critical, error, warning, info, debug, notset
   level: debug
+  # Enable logging into a file instead of stdout/stderr
+  file: false

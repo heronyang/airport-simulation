@@ -7,6 +7,7 @@ from config import Config
 from conflict import Conflict
 from aircraft import State
 from node import get_middle_node
+from copy import deepcopy
 
 
 class Airport:
@@ -26,15 +27,46 @@ class Airport:
         # Pointer to the simulation
         self.simulation = simulation
 
+        # Queues for departure flights at gates
+        self.gate_queue = {}
+
+        # Inverse lookup from node to aircraft
+        self.node2aircraft = {}
+
         # Static data
         self.code = code
         self.surface = surface
 
     def apply_schedule(self, schedule):
-        for r in schedule.requests:
-            if r.aircraft not in self.aircrafts:
+        # NOTE: the aircraft in schedule may be different from the one in
+        # the airport, they should be retrieved by comparing the callsign
+        # (hash)
+        for aircraft, itinerary in schedule.itineraries.items():
+            is_applied = False
+            for airport_aircraft in self.aircrafts:
+                if airport_aircraft == aircraft:
+                    airport_aircraft.set_itinerary(deepcopy(itinerary))
+                    is_applied = True
+                    break
+            if not is_applied:
                 raise Exception("%s not found in the airport" % r.aircraft)
-            r.aircraft.set_itinerary(r.itinerary)
+
+
+    def update_aircraft_location(self, aircraft, original_location, location):
+        self.logger.info("Update %s location from %s to %s" % 
+                        (aircraft, original_location, location))
+
+        # Removes previous one if found
+        if original_location in self.node2aircraft:
+            self.node2aircraft[original_location].remove(aircraft)
+
+        # Appends the new one
+        s = self.node2aircraft.get( location, set())
+        s.add(aircraft)
+        self.node2aircraft[location] = s
+
+    def is_occupied_at(self, node):
+        return node in self.node2aircraft and len(self.node2aircraft[node]) > 0
 
     def add_aircraft(self, aircraft):
         self.aircrafts.append(aircraft)
@@ -97,8 +129,6 @@ class Airport:
     def set_quiet(self, logger):
         self.logger = logger
         self.surface.set_quiet(logger)
-        for aircraft in self.aircrafts:
-            aircraft.set_quiet(logger)
 
 
 class AirportFactory:

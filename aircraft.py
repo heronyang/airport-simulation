@@ -38,8 +38,11 @@ class Aircraft:
     """
     def set_location(self, location):
 
-        self.logger.debug("%s changed location to %s" % (self, location))
+        original_location = self.location
         self.location = location
+        self.simulation.airport.update_aircraft_location(
+            self, original_location, location)
+        self.logger.info("%s changed location to %s" % (self, location))
 
     """
     Aircraft's true location while moving.
@@ -107,7 +110,7 @@ class Pilot:
     def set_itinerary(self, itinerary):
 
         if not itinerary.is_valid(self.simulation.clock.now):
-            self.logger.debug("%s: The itinerary is impossible to make it." %
+            self.logger.error("%s: The itinerary is impossible to make it." %
                               self)
             return
 

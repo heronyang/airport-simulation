@@ -16,11 +16,12 @@ class TestSimulation(unittest.TestCase):
 
     Config.params["airport"] = "simple"
     Config.params["uncertainty"]["enabled"] = False
+    Config.params["analyst"]["enabled"] = False
 
     class SchedulerMock():
 
         def schedule(self, _):
-            return Schedule([], [], 0.0)
+            return Schedule({}, 0)
 
     def test_init(self):
 
@@ -75,17 +76,19 @@ class TestSimulation(unittest.TestCase):
                 simulation.tick()
             except ClockException:
                 break
-        self.assertEqual(len(simulation.airport.aircrafts),
-                         len(simulation.scenario.departures))
+
+        n_aircrafts_in_queue = 0
+        for gate, queue in simulation.airport.gate_queue.items():
+            n_aircrafts_in_queue += len(queue)
+        self.assertEqual(
+            len(simulation.scenario.departures),
+            len(simulation.airport.aircrafts) + n_aircrafts_in_queue
+        )
 
     def test_remove_aircrafts(self):
 
         simulation = Simulation()
-
-        try:
-            flight = simulation.scenario.departures[0]
-        except Exception:
-            raise Exception("Invalid scenario is used")
+        simulation.scheduler = self.SchedulerMock()
 
         departures = simulation.scenario.departures
         if departures is None or len(departures) < 1:
@@ -107,3 +110,39 @@ class TestSimulation(unittest.TestCase):
         next_flight.aircraft.set_location(next_flight.runway.start)
         simulation.remove_aircrafts()
         self.assertEqual(len(simulation.airport.aircrafts), n_flight - 1)
+
+    def test_gate_queue(self):
+
+        simulation = Simulation()
+        simulation.scheduler = self.SchedulerMock()
+
+        departures = simulation.scenario.departures
+        if departures is None or len(departures) < 1:
+            # At least n flight should be contained in the scenario
+            raise Exception("Invalid scenario is used")
+
+        h = heapdict()
+        for departure in departures:
+            h[departure] = departure.departure_time
+
+        # Gets the first two flights
+        f1, _ = h.popitem()
+        f2, _ = h.popitem()
+
+        f1.from_gate = f2.from_gate
+
+        # Tick til the time the first flight appears
+        while simulation.now <= f1.appear_time:
+            simulation.tick()
+
+        self.assertEqual(len(simulation.airport.aircrafts), 1)
+
+        # Tick til the time the second flight appears
+        while simulation.now <= f2.appear_time:
+            simulation.tick()
+
+        # f1 should be in the airport, f2 is in the gate queue
+        self.assertEqual(len(simulation.airport.aircrafts), 1)
+        self.assertEqual(len(simulation.airport.gate_queue[f1.from_gate]), 1)
+        self.assertTrue(f2.aircraft in 
+                        simulation.airport.gate_queue[f1.from_gate])

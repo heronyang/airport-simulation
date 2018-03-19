@@ -1,5 +1,5 @@
 import logging
-from utils import get_time_delta, get_seconds_after
+from utils import get_time_delta, get_seconds_after, str2sha1
 from node import get_middle_node
 
 
@@ -15,17 +15,27 @@ class Itinerary:
             self.node = node
             self.eat = eat
             self.edt = edt
+            self.hash = str2sha1("%s#%s#%s" % (self.node, self.eat, self.edt))
 
         def __repr__(self):
             return "<Target %s | eat %s | edt %s>" \
                     % (self.node, self.eat, self.edt)
 
+        def __hash__(self):
+            return self.hash
+
+        def __eq__(self, other):
+            return self.hash == other.hash
+
+        def __ne__(self, other):
+            return not(self == other)
+
     def __init__(self, targets):
 
-        # Setups the logger
-        self.logger = logging.getLogger(__name__)
         self.targets = targets
         self.past_target = None
+
+        self.hash = str2sha1("#".join(str(self.targets)))
 
     def pop_target(self):
 
@@ -61,7 +71,6 @@ class Itinerary:
             if target.edt is None:
                 break
             target.edt = get_seconds_after(target.edt, delay)
-        self.logger.info("%s added delay %d seconds" % (self, delay))
 
     @property
     def next_target(self):
@@ -81,3 +90,12 @@ class Itinerary:
 
     def __repr__(self):
         return "<Itinerary: %d target>" % len(self.targets)
+
+    def __hash__(self):
+        return self.hash
+
+    def __eq__(self, other):
+        return self.hash == other.hash
+
+    def __ne__(self, other):
+        return not(self == other)

@@ -12,6 +12,7 @@ from simulation import Simulation
 from monitor import Monitor
 from clock import ClockException
 from config import Config as cfg
+from utils import get_output_dir_name
 
 logger = logging.getLogger(__name__)
 
@@ -55,7 +56,20 @@ def init_logger():
         logger.error("Unknown logging level")
         os._exit(1)
 
-    coloredlogs.install(level=level, fmt=cfg.LOG_FORMAT)
+    if cfg.params["logger"]["file"]:
+        log_filename = get_output_dir_name() + "log"
+        try:
+            os.remove(log_filename)
+        except OSError:
+            pass
+        logging.basicConfig(
+            format=cfg.LOG_FORMAT,
+            filename=log_filename,
+            level=level
+        )
+
+    else:
+        coloredlogs.install(level=level, fmt=cfg.LOG_FORMAT)
 
 
 def start():
@@ -83,8 +97,9 @@ def start_with_monitor():
     monitor = Monitor(simulation)
 
     # Runs simulation  (non-block)
-    simulation_thread = threading.Thread(target=run,
-                                         args=(simulation, monitor))
+    simulation_thread = threading.Thread(
+        target=run, args=(simulation, monitor)
+    )
     simulation_thread.start()
 
     # Runs monitor (block)

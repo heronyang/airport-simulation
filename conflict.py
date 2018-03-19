@@ -27,3 +27,12 @@ class Conflict:
 
     def __repr__(self):
         return "<Conflict: %s %s>" % (self.location, self.aircrafts)
+
+    def get_less_priority_aircraft(self, scenario):
+        f0, f1 = scenario.get_flight(self.aircrafts[0]), \
+                scenario.get_flight(self.aircrafts[1])
+        return (
+            self.aircrafts[1]
+            if f0.departure_time < f1.departure_time
+            else self.aircrafts[0]
+        )

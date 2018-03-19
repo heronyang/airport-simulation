@@ -11,6 +11,7 @@ from analyst import Analyst
 from utils import get_seconds_after, get_seconds_before
 from uncertainty import Uncertainty
 from config import Config
+from collections import deque
 import importlib
 import numpy as np
 
@@ -45,13 +46,11 @@ class Simulation:
                             else (None))
 
         # Loads the requested scheduler
-        scheduler_name = p["scheduler"]["name"]
-        scheduler_module = \
-                importlib.import_module("scheduler." + scheduler_name)
-        self.scheduler = scheduler_module.Scheduler()
+        self.scheduler = get_scheduler()
 
         # Sets up the analyst
-        self.analyst = Analyst(self.clock.sim_time)
+        if p["analyst"]["enabled"]:
+            self.analyst = Analyst(self)
 
         # Sets up a delegate of this simulation
         self.delegate = SimulationDelegate(self)
@@ -84,11 +83,13 @@ class Simulation:
             self.clock.tick()
 
             # Observe
-            self.analyst.observe_on_tick(self.delegate)
+            if Config.params["analyst"]["enabled"]:
+                self.analyst.observe_on_tick(self.delegate)
 
         except ClockException as e:
             # Finishes
-            self.analyst.print_summary(self)
+            if Config.params["analyst"]["enabled"]:
+                self.analyst.print_summary(self)
             raise e
         except Exception as e:
             self.logger.error(traceback.format_exc())
@@ -99,9 +100,8 @@ class Simulation:
         Turn off the logger, reschedule, and analyst.
         """
         self.add_aircrafts()
-        self.remove_aircrafts()
-
         self.airport.tick()
+        self.remove_aircrafts()
         try:
             self.clock.tick()
         except ClockException as e:
@@ -117,24 +117,51 @@ class Simulation:
     def reschedule(self):
         schedule = self.scheduler.schedule(self.delegate)
         self.airport.apply_schedule(schedule)
-        # from IPython.core.debugger import Tracer; Tracer()()
+        self.analyst.observe_on_reschedule(schedule, self.delegate)
 
     def add_aircrafts(self):
+        self.add_aircrafts_from_queue()
+        self.add_aircrafts_from_scenario()
+
+    def add_aircrafts_from_queue(self):
+
+        for gate, queue in self.airport.gate_queue.items():
+
+            if self.airport.is_occupied_at(gate) or len(queue) == 0:
+                continue
+
+            # Put the first aircraft in queue into the airport
+            aircraft = queue.popleft()
+            aircraft.set_location(gate)
+            self.airport.add_aircraft(aircraft)
+
+    def add_aircrafts_from_scenario(self):
 
         # NOTE: we will only focus on departures now
         next_tick_time = get_seconds_after(self.now, self.clock.sim_time)
 
         # For all departure flights
         for flight in self.scenario.departures:
-            # If it the scheduled appear time is between now and next tick time
-            if self.now <= flight.appear_time and \
-               flight.appear_time < next_tick_time:
 
-                self.logger.info("Adds %s into the airport" % flight)
+            # Only if the scheduled appear time is between now and next tick
+            if not (self.now <= flight.appear_time and \
+                    flight.appear_time < next_tick_time):
+                continue
 
+            gate, aircraft = flight.from_gate, flight.aircraft
+
+            if self.airport.is_occupied_at(gate):
+                # Adds the flight to queue
+                queue = self.airport.gate_queue.get(gate, deque())
+                queue.append(aircraft)
+                self.airport.gate_queue[gate] = queue
+                self.logger.info("Adds %s into gate queue" % flight)
+
+            else:
                 # Adds the flight to the airport
-                flight.aircraft.set_location(flight.from_gate)
-                self.airport.add_aircraft(flight.aircraft)
+                aircraft.set_location(gate)
+                self.airport.add_aircraft(aircraft)
+                self.logger.info("Adds %s into the airport" % flight)
 
     def remove_aircrafts(self):
         """
@@ -165,6 +192,7 @@ class Simulation:
     def __getstate__(self):
         d = dict(self.__dict__)
         del d["logger"]
+        d["uncertainty"] = None
         return d
 
     def __setstate__(self, d):
@@ -203,10 +231,8 @@ class SimulationDelegate:
     def routing_expert(self):
         return self.simulation.routing_expert
 
-    def predict_state_after(self, scheule, time_from_now, uncertainty):
-        """
-        Returns the simulation state after `time_from_now` seconds.
-        """
+    @property
+    def copy(self, uncertainty=None):
 
         # Gets a snapshot of current simulation state
         simulation_copy = deepcopy(self.simulation)
@@ -215,13 +241,11 @@ class SimulationDelegate:
         simulation_copy.uncertainty = uncertainty
 
         # Sets the simulation to quiet mode
-        simulation_copy.set_quiet(logger.getLogger("QUIET_MODE"))
-
-        # Applies the schedule
-        simulation_copy.apply_schedule(scheule)
-
-        # Starts to simulate the future state
-        for i in range(time_from_now / simultion_copy.clock.sim_time):
-            simulation_copy.quiet_tick()
+        simulation_copy.set_quiet(logging.getLogger("QUIET_MODE"))
 
         return simulation_copy
+
+def get_scheduler():
+    # Loads the requested scheduler
+    scheduler_name = Config.params["scheduler"]["name"]
+    return importlib.import_module("scheduler." + scheduler_name).Scheduler()
