@@ -1,9 +1,10 @@
 import logging
 import pandas as pd
+import os
 
 from clock import Clock
 from aircraft import State
-from utils import get_time_delta
+from utils import get_time_delta, get_output_dir_name
 from config import Config
 
 
@@ -165,7 +166,31 @@ class GateQueueMetric():
         return "Gate Queue: top %d low %d mean %d" % (
             qs.max(), qs.min(), qs.mean()
         )
-        
+
+class ScheduleMetric():
+
+    def __init__(self):
+
+        self.delay_added = pd.DataFrame(columns=["time", "n_delay_added"])
+
+    def update_on_reschedule(self, schedule, now):
+
+        self.delay_added = self.delay_added.append(
+            {"time": now, "n_delay_added": schedule.n_delay_added},
+            ignore_index= True
+        )
+
+    @property
+    def summary(self):
+
+        if len(self.delay_added) == 0:
+            return "Schedule: insufficient data"
+
+        nd = self.delay_added.set_index("time")
+
+        return "Schedule # delayed added: top %d low %d mean %d" % (
+            nd.max(), nd.min(), nd.mean()
+        )
 
 class Analyst:
 
@@ -180,11 +205,12 @@ class Analyst:
         self.aircraft_count_metric = AircraftCountMetric()
         self.conflict_metric = ConflictMetric()
         self.gate_queue_metric = GateQueueMetric(simulation.airport.surface)
+        self.schedule_metric = ScheduleMetric()
 
     def observe_on_tick(self, simulation):
 
         now = simulation.now
-        airport=  simulation.airport
+        airport = simulation.airport
         aircrafts = airport.aircrafts
         scenario = simulation.scenario
         conflicts_at_node = simulation.airport.conflicts_at_node
@@ -196,42 +222,72 @@ class Analyst:
         self.conflict_metric.update_on_tick(conflicts_at_node, conflicts, now)
         self.gate_queue_metric.update_on_tick(airport, now)
 
+    def observe_on_reschedule(self, schedule, simulation):
+        now = simulation.now
+        self.schedule_metric.update_on_reschedule(schedule, now)
+
     def print_summary(self, simulation):
 
         if Config.params["analyst"]["details"]:
-
-            c = self.aircraft_count_metric.counter.set_index("time")
-            cr = self.conflict_metric.conflict_node.set_index("time")
-            ca = self.conflict_metric.conflict_node_aircraft.set_index("time")
-            cf = self.conflict_metric.conflict.set_index("time")
-            qs = self.gate_queue_metric.gate_queue_size.set_index("time")
-
-            stats = c.join(
-                cr, lsuffix='_aircraft',
-                rsuffix="_conflict_nodes"
-            ).join(
-                ca,
-                rsuffix="_conflict_aircrafts"
-            ).join(
-                cf,
-                rsuffix="_conflict"
-            ).join(
-                qs,
-                rsuffix="_queue_size"
-            )
-
-            with pd.option_context("display.max_rows", None):
-                self.logger.debug("\n" + str(stats))
-
-            # Saves to file
-            filename = Config.OUTPUT_DIR + Config.params["name"] + ".csv"
-            stats.to_csv(filename)
+            self.print_detail_summary()
 
         self.logger.debug(self.taxitime_metric.summary)
         self.logger.debug(self.makespan_metric.summary)
         self.logger.debug(self.aircraft_count_metric.summary)
         self.logger.debug(self.conflict_metric.summary)
         self.logger.debug(self.gate_queue_metric.summary)
+        self.logger.debug(self.schedule_metric.summary)
+
+    def print_detail_summary(self):
+        self.print_tick_detail_summary()
+        self.print_schedule_detail_summary()
+
+    def print_tick_detail_summary(self):
+
+        c = self.aircraft_count_metric.counter.set_index("time")
+        cr = self.conflict_metric.conflict_node.set_index("time")
+        ca = self.conflict_metric.conflict_node_aircraft.set_index("time")
+        cf = self.conflict_metric.conflict.set_index("time")
+        qs = self.gate_queue_metric.gate_queue_size.set_index("time")
+
+        stats = c.join(
+            cr, lsuffix='_aircraft',
+            rsuffix="_conflict_nodes"
+        ).join(
+            ca,
+            rsuffix="_conflict_aircrafts"
+        ).join(
+            cf,
+            rsuffix="_conflict"
+        ).join(
+            qs,
+            rsuffix="_queue_size"
+        )
+
+        with pd.option_context("display.max_rows", None):
+            self.logger.debug("\n" + str(stats))
+
+        self.save_csv("tick", stats)
+        self.save_fig("conflicts", cf)
+        self.save_fig("gate-queue-size", qs)
+
+    def print_schedule_detail_summary(self):
+
+        # Schedule metrics
+        dn = self.schedule_metric.delay_added.set_index("time")
+        with pd.option_context("display.max_rows", None):
+            self.logger.debug("\n" + str(dn))
+
+        self.save_csv("schedule", dn)
+        self.save_fig("delay_added", dn)
+
+    def save_csv(self, type_name, df):
+        filename = "%s%s.csv" % (get_output_dir_name(), type_name)
+        df.to_csv(filename)
+
+    def save_fig(self, fig_name, df):
+        filename = "%s%s.png" % (get_output_dir_name(), fig_name)
+        df.plot(kind="line").get_figure().savefig(filename)
 
     def __getstate__(self):
         d = dict(self.__dict__)

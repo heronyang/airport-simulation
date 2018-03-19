@@ -33,4 +33,4 @@ class Scheduler(AbstractScheduler):
             itineraries[aircraft] = itinerary
 
         self.logger.info("Scheduling end")
-        return Schedule(itineraries)
+        return Schedule(itineraries, 0)

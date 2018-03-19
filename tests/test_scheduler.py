@@ -51,7 +51,7 @@ class TestScheduler(unittest.TestCase):
             self.aircraft2 = aircraft2
 
         def apply_schedule(self, schedule):
-            return Schedule({})
+            return Schedule({}, 0)
 
         @property
         def conflicts(self):

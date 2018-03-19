@@ -12,6 +12,7 @@ from simulation import Simulation
 from monitor import Monitor
 from clock import ClockException
 from config import Config as cfg
+from utils import get_output_dir_name
 
 logger = logging.getLogger(__name__)
 
@@ -56,7 +57,7 @@ def init_logger():
         os._exit(1)
 
     if cfg.params["logger"]["file"]:
-        log_filename = cfg.OUTPUT_DIR + cfg.params["name"] + ".log"
+        log_filename = get_output_dir_name() + "log"
         try:
             os.remove(log_filename)
         except OSError:

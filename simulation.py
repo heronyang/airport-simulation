@@ -117,6 +117,7 @@ class Simulation:
     def reschedule(self):
         schedule = self.scheduler.schedule(self.delegate)
         self.airport.apply_schedule(schedule)
+        self.analyst.observe_on_reschedule(schedule, self.delegate)
 
     def add_aircrafts(self):
         self.add_aircrafts_from_queue()

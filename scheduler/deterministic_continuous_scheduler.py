@@ -19,10 +19,10 @@ class Scheduler(AbstractScheduler):
             itineraries[aircraft] = itinerary
 
         # Resolve conflicts
-        itineraries = self.resolve_conflicts(itineraries, simulation)
+        schedule = self.resolve_conflicts(itineraries, simulation)
 
         self.logger.info("Scheduling end")
-        return Schedule(itineraries)
+        return schedule
 
     def resolve_conflicts(self, itineraries, simulation):
 
@@ -32,10 +32,12 @@ class Scheduler(AbstractScheduler):
 
         successful_tick_times = int(rc_time / sim_time)
 
+        n_delay_added = 0
+
         while True:
 
             predict_simulation = simulation.copy
-            predict_simulation.airport.apply_schedule(Schedule(itineraries))
+            predict_simulation.airport.apply_schedule(Schedule(itineraries, 0))
 
             # Finishes currenct tick
             predict_simulation.remove_aircrafts()
@@ -49,7 +51,7 @@ class Scheduler(AbstractScheduler):
                 if len(conflicts) == 0:
                     # If it's the last check, return
                     if i == successful_tick_times - 1:
-                        return itineraries
+                        return Schedule(itineraries, n_delay_added)
                     continue
 
                 # Solves the first conflicts, then reruns everything again
@@ -59,6 +61,7 @@ class Scheduler(AbstractScheduler):
                 if aircraft in itineraries:
                     # New aircrafts that only appear in prediction are ignored
                     itineraries[aircraft].add_delay(delay_time)
+                    n_delay_added += 1
                     self.logger.info("Added %d delay on %s" %
                                      (delay_time, aircraft))
 

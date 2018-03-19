@@ -43,7 +43,7 @@ scheduler:
   # Future time period that the scheduler solves the conflicts (sec)
   resolve_conflicts_time: 600
   # Delay time added on the aircraft with less priority when a conflict is found
-  delay_time: 10
+  delay_time: 30
 
 analyst:
   # Enable or disable analyst

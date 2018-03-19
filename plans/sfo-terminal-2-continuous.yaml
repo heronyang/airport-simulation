@@ -4,3 +4,7 @@ airport: sfo-terminal-2
 scheduler:
   # Name of the scheduler file under the `scheduler` folder
   name: deterministic_continuous_scheduler
+
+logger:
+  # Enable logging into a file instead of stdout/stderr
+  file: true
