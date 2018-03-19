@@ -1,0 +1,14 @@
+name: simple-continuous-uc-0
+airport: simple
+
+uncertainty:
+  # Enable or disable the uncertain in simulation
+  enabled: false
+
+scheduler:
+  # Name of the scheduler file under the `scheduler` folder
+  name: deterministic_continuous_scheduler
+
+logger:
+  # Enable logging into a file instead of stdout/stderr
+  file: true
