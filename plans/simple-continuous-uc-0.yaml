@@ -11,4 +11,4 @@ scheduler:
 
 logger:
   # Enable logging into a file instead of stdout/stderr
-  file: true
+  file: false

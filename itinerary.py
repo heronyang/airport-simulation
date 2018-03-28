@@ -88,6 +88,20 @@ class Itinerary:
             return False
         return self.targets[0].edt >= now
 
+    def is_heading_same(self, itinerary):
+
+        if self.next_target is None or self.past_target is None:
+            return False
+
+        if itinerary.next_target is None or itinerary.past_target is None:
+            return False
+
+        if self.next_target == itinerary.next_target and \
+           self.past_target == itinerary.past_target:
+            return True
+
+        return False
+
     def __repr__(self):
         return "<Itinerary: %d target>" % len(self.targets)
 

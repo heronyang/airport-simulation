@@ -64,8 +64,11 @@ class Aircraft:
         self.pilot.set_itinerary(itinerary)
 
     def tick(self):
-        self.logger.info("%s at %s %s" %
-                         (self, self.location, self.state))
+        if self.state == State.moving:
+            self.logger.info("%s at %s %s to %s" % (self, self.true_location,
+                                                    self.state, self.location))
+        else:
+            self.logger.info("%s at %s %s" % (self, self.state, self.location))
 
     @property
     def is_idle(self):
@@ -178,6 +181,11 @@ class Pilot:
             return
 
         self.aircraft.state = State.uknown
+
+    def is_heading_same(self, aircraft):
+        if self.itinerary is None or aircraft.pilot.itinerary is None:
+            return False
+        return self.itinerary.is_heading_same(aircraft.pilot.itinerary)
 
     def __repr__(self):
         return "<Pilot on %s>" % self.aircraft

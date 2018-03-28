@@ -1,0 +1,12 @@
+[__main__.start:76] Starting the simulation
+[surface.__load_gates:253] 14 gates loaded
+[surface.__load_spots:258] 2 spots loaded
+[surface.__load_runway:288] 2 runways loaded
+[surface.__load_taxiway:293] 25 taxiways loaded
+[surface.__load_pushback_way:300] 14 pushback ways loaded
+[surface.break_links:37] Starts to break links
+[surface.break_next_link:68] Break found at <Node: S2|37.615583,-122.380851> on <TAXIWAY: T7>
+[surface.break_next_link:68] Break found at <Node: S3|37.619400,-122.382414> on <TAXIWAY: T19>
+[surface.break_next_link:68] Break found at <Node: n-id-19|37.620668,-122.383426> on <TAXIWAY: T13>
+[surface.break_next_link:68] Break found at <Node: n-id-27|37.620186,-122.383263> on <TAXIWAY: A>
+[surface.break_next_link:68] Break found at <Node: n-id-28|37.624081,-122.390800> on <TAXIWAY: B>

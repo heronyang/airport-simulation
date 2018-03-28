@@ -17,7 +17,7 @@ simulation:
   # Enable or disable cache for shortest routes
   cache: true
   # Separation requirement in feets between two aircrafts
-  separation: 150
+  separation: 50
 
 monitor:
   # Enable or disable the real-time monitor

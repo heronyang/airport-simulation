@@ -31,7 +31,6 @@ class Scheduler(AbstractScheduler):
         delay_time = Config.params["scheduler"]["delay_time"]
 
         successful_tick_times = int(rc_time / sim_time)
-
         n_delay_added = 0
 
         while True:
@@ -54,15 +53,28 @@ class Scheduler(AbstractScheduler):
                         return Schedule(itineraries, n_delay_added)
                     continue
 
-                # Solves the first conflicts, then reruns everything again
-                aircraft = conflicts[0].get_less_priority_aircraft(
-                    simulation.scenario)
-
+                self.logger.info("Found %s" % conflicts[0])
+                
+                # Solves the first conflicts, then reruns everything again.
+                aircraft = self.get_aircraft_to_delay(conflicts, simulation)
                 if aircraft in itineraries:
                     # New aircrafts that only appear in prediction are ignored
                     itineraries[aircraft].add_delay(delay_time)
                     n_delay_added += 1
                     self.logger.info("Added %d delay on %s" %
                                      (delay_time, aircraft))
-
                 break
+
+    def get_aircraft_to_delay(self, conflicts, simulation):
+        # Solves the first conflicts, then reruns everything again. They way we
+        # solve a conflict is to add delay on the aircraft the is closer to the
+        # target node if they are currently standing on the same line;
+        # otherwise, we pick the one with less priority to delay.
+        conflict = conflicts[0]
+        a0, a1 = conflict.aircrafts
+        if a0.pilot.is_heading_same(a1):
+            next_target = a0.pilot.itinerary.next_target
+            d0 = a0.true_location.get_distance_to(next_target.node)
+            d1 = a1.true_location.get_distance_to(next_target.node)
+            return a0 if d0 < d1 else a1
+        return conflict.get_less_priority_aircraft(simulation.scenario)
