@@ -1,3 +1,4 @@
+from link import Link
 from config import Config
 
 
@@ -18,8 +19,17 @@ class Route:
         self.links.extend(links)
         self.__distance = None  # distance is calculated lazily
         self.__is_completed = None  # is_completed is calculated lazily
+        self.__nodes = []   # nodes are calculated lazily
 
-    def add_link(self, link):
+    def update_link(self, link):
+        self.reset_links()
+        self.__add_link(link)
+
+    def add_links(self, links):
+        for link in links:
+            self.__add_link(link)
+
+    def __add_link(self, link):
 
         last_node = self.last_attempted_node
 
@@ -29,27 +39,31 @@ class Route:
             raise Exception("New link start node doesn't match with the "
                             "last node")
         self.links.append(link)
-        self.__distance = None
-        self.__is_completed = None
+        self.reset_cache()
 
-    def update_link(self, link):
-        self.reset_links()
-        self.add_link(link)
-
-    def add_links(self, links):
-        for link in links:
-            self.add_link(link)
+    def prepend(self, node):
+        if node == self.start:
+            return
+        link = Link("PREPEND_LINK", [node, self.start])
+        self.links.insert(0, link)
+        self.start = node
+        self.reset_cache()
 
     @property
     def nodes(self):
         """
         Returns all nodes among this route.
         """
+        if len(self.__nodes) > 0:
+            return self.__nodes
+
         nodes = [self.start]
         for link in self.links[1:]:
             nodes.append(link.start)
         nodes.append(self.end)
-        return nodes
+
+        self.__nodes = nodes
+        return self.__nodes
 
     """
     Gets the last node that we can reach from the start node. Returns None if
@@ -120,8 +134,12 @@ class Route:
     """
     def reset_links(self):
         self.links = []
+        self.reset_cache()
+
+    def reset_cache(self):
         self.__distance = None
         self.__is_completed = None
+        self.__nodes = []
 
     def __repr__(self):
         return "<Route: %s - %s>" % (self.start, self.end)

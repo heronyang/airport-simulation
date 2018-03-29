@@ -51,7 +51,6 @@ class Airport:
             if not is_applied:
                 raise Exception("%s not found in the airport" % r.aircraft)
 
-
     def update_aircraft_location(self, aircraft, original_location, location):
         self.logger.info("Update %s location from %s to %s" % 
                         (aircraft, original_location, location))

@@ -67,10 +67,15 @@ class Itinerary:
                                self.next_target.node, ratio)
 
     def add_delay(self, delay):
+        is_first = True
         for target in self.targets:
             if target.edt is None:
                 break
             target.edt = get_seconds_after(target.edt, delay)
+            if not is_first:
+                # the expected arrival time of the next node is fixed
+                target.eat = get_seconds_after(target.eat, delay)
+            is_first = False
 
     @property
     def next_target(self):
@@ -87,20 +92,6 @@ class Itinerary:
         if not self.targets or len(self.targets) <= 1:
             return False
         return self.targets[0].edt >= now
-
-    def is_heading_same(self, itinerary):
-
-        if self.next_target is None or self.past_target is None:
-            return False
-
-        if itinerary.next_target is None or itinerary.past_target is None:
-            return False
-
-        if self.next_target == itinerary.next_target and \
-           self.past_target == itinerary.past_target:
-            return True
-
-        return False
 
     def __repr__(self):
         return "<Itinerary: %d target>" % len(self.targets)

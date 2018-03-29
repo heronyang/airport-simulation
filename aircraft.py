@@ -3,6 +3,7 @@ import logging
 
 from clock import Clock
 from config import Config
+from utils import is_collinear
 
 
 class State(enum.Enum):
@@ -111,7 +112,6 @@ class Pilot:
         self.itinerary = None
 
     def set_itinerary(self, itinerary):
-
         if not itinerary.is_valid(self.simulation.clock.now):
             self.logger.error("%s: The itinerary is impossible to make it." %
                               self)
@@ -120,6 +120,9 @@ class Pilot:
         self.itinerary = itinerary
         self.logger.debug("%s: Roger, new itinerary %s received." %
                           (self, itinerary))
+
+        for target in itinerary.targets:
+            self.logger.debug(target)
 
     def tick(self):
 
@@ -185,7 +188,12 @@ class Pilot:
     def is_heading_same(self, aircraft):
         if self.itinerary is None or aircraft.pilot.itinerary is None:
             return False
-        return self.itinerary.is_heading_same(aircraft.pilot.itinerary)
+        if self.itinerary.next_target is None or\
+           aircraft.pilot.itinerary.next_target is None:
+            return False
+        next_target = self.itinerary.next_target
+        return is_collinear(next_target.node, self.aircraft.true_location,
+                            aircraft.true_location)
 
     def __repr__(self):
         return "<Pilot on %s>" % self.aircraft

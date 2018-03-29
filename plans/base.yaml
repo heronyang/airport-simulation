@@ -13,11 +13,14 @@ simulation:
   # Feets required between two nodes (otherwise, we seem two nodes as the same)
   close_node_threshold: 30
   # Feets required when calculating whether a node is belong a link
-  close_node_link_threshold: 10
+  close_node_link_threshold: 20
   # Enable or disable cache for shortest routes
   cache: true
   # Separation requirement in feets between two aircrafts
   separation: 50
+  # Maximum number of delay added per reschedule; otherwise, it's defined as a
+  # deadlock
+  max_conflict_resolve_count: 10
 
 monitor:
   # Enable or disable the real-time monitor

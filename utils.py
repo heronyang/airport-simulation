@@ -104,3 +104,11 @@ def get_output_dir_name():
     if not os.path.exists(dir_name):
         os.makedirs(dir_name)
     return dir_name
+
+def is_collinear(n1, n2, n3):
+    # If the area size is near 0, then the points are on the same line
+    x1, y1 = n1.geo_pos["lat"], n1.geo_pos["lng"]
+    x2, y2 = n2.geo_pos["lat"], n2.geo_pos["lng"]
+    x3, y3 = n3.geo_pos["lat"], n3.geo_pos["lng"]
+    area = x1 * (y2 - y3) + x2 * (y3 - y1) + x3 * (y1 - y2)
+    return area <= 1e-12

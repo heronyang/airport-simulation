@@ -26,15 +26,23 @@ class AbstractScheduler:
         departure_time = flight.departure_time
         now = simulation.now
         route = simulation.routing_expert.get_shortest_route(src, dst)
+        true_location = aircraft.true_location
+
+        # Prepend its current location to targets if the location isn't true
+        if aircraft.state is not State.moving:
+            true_location = None
 
         # Start time is the later time between departure time and now
         start_time = departure_time if departure_time > now else now
 
-        targets = self.build_targets(route, start_time, last_occupied_time)
+        targets = self.build_targets(route, start_time,
+                                     last_occupied_time=last_occupied_time,
+                                     true_location=true_location)
         return Itinerary(targets)
 
     # If last_occupied_time is not given, we ignore tightness enforcement.
-    def build_targets(self, route, start_time, last_occupied_time=None):
+    def build_targets(self, route, start_time, last_occupied_time=None,
+                      true_location=True):
 
         ps = Config.params["scheduler"]
         velocity = ps["aircraft_velocity"]
@@ -46,7 +54,9 @@ class AbstractScheduler:
         targets = []
 
         prev_node, prev_time = None, start_time
-        for node in route.nodes:
+
+        nodes = [true_location] + route.nodes if true_location else route.nodes
+        for node in nodes:
 
             # Gets the earliest available time of the node
             if last_occupied_time is not None:

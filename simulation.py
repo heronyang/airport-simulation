@@ -99,6 +99,7 @@ class Simulation:
         """
         Turn off the logger, reschedule, and analyst.
         """
+        self.logger.debug("\nPredicted Time: %s" % self.now)
         self.add_aircrafts()
         self.airport.tick()
         self.remove_aircrafts()

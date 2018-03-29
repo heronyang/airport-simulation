@@ -1,0 +1,20 @@
+name: sfo-terminal-2-continuous
+airport: sfo-terminal-2
+
+scheduler:
+  # Name of the scheduler file under the `scheduler` folder
+  name: deterministic_continuous_scheduler
+
+uncertainty:
+  # Enable or disable the uncertain in simulation
+  enabled: true
+  # Probability of an aircraft holds at node unexpectedly (depends on time_unit)
+  prob_hold: 0.05
+  # Seconds of the mean of an unexpected hold at node
+  hold_time_mean: 120
+  # Seconds of the standard deviation of an unexpected hold at node
+  hold_time_deviation: 60
+
+logger:
+  # Enable logging into a file instead of stdout/stderr
+  file: false

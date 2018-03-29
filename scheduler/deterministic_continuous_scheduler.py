@@ -2,6 +2,7 @@ import logging
 
 from schedule import Schedule
 from config import Config
+from aircraft import State
 from scheduler.abstract_scheduler import AbstractScheduler
 
 
@@ -29,8 +30,10 @@ class Scheduler(AbstractScheduler):
         rc_time = Config.params["scheduler"]["resolve_conflicts_time"]
         sim_time = Config.params["simulation"]["time_unit"]
         delay_time = Config.params["scheduler"]["delay_time"]
-
         successful_tick_times = int(rc_time / sim_time)
+
+        max_n_delay_added = \
+                Config.params["simulation"]["max_conflict_resolve_count"]
         n_delay_added = 0
 
         while True:
@@ -63,18 +66,17 @@ class Scheduler(AbstractScheduler):
                     n_delay_added += 1
                     self.logger.info("Added %d delay on %s" %
                                      (delay_time, aircraft))
+                    if n_delay_added > max_n_delay_added:
+                        import pdb; pdb.set_trace()
                 break
 
     def get_aircraft_to_delay(self, conflicts, simulation):
-        # Solves the first conflicts, then reruns everything again. They way we
-        # solve a conflict is to add delay on the aircraft the is closer to the
-        # target node if they are currently standing on the same line;
-        # otherwise, we pick the one with less priority to delay.
         conflict = conflicts[0]
         a0, a1 = conflict.aircrafts
-        if a0.pilot.is_heading_same(a1):
-            next_target = a0.pilot.itinerary.next_target
-            d0 = a0.true_location.get_distance_to(next_target.node)
-            d1 = a1.true_location.get_distance_to(next_target.node)
-            return a0 if d0 < d1 else a1
+        if a0.state == State.moving and a1.state == State.hold:
+            return a0
+        if a0.state == State.hold and a1.state == State.moving:
+            return a1
+        if a0.state == State.hold and a1.state == State.hold:
+            import pdb; pdb.set_trace()
         return conflict.get_less_priority_aircraft(simulation.scenario)
