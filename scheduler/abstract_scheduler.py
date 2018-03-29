@@ -28,6 +28,9 @@ class AbstractScheduler:
         route = simulation.routing_expert.get_shortest_route(src, dst)
         true_location = aircraft.true_location
 
+        if route is None:
+            import pdb; pdb.set_trace()
+
         # Prepend its current location to targets if the location isn't true
         if aircraft.state is not State.moving:
             true_location = None
