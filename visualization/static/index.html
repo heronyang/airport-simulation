@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Airport Simulation Experiment Output Visualization</title>
+        <meta name="viewport" content="initial-scale=1.0">
+        <meta charset="utf-8">
+		<link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
+        <link rel="stylesheet" href="/css/style.css">
+    </head>
+    <body>
+        <div id="map"></div>
+		<nav id="controller" class="navbar fixed-bottom navbar-expand-sm navbar-dark bg-dark">
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarCollapse">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item">
+						<a class="nav-link disabled" href="#">Airport</a>
+					</li>
+					<li class="nav-item dropup">
+						<a class="nav-link dropdown-toggle" href="#" id="dropdown-airport-label" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Airports</a>
+						<div id="dropdown-airport" class="dropdown-menu" aria-labelledby="dropdown-airport-label">
+							<a class="dropdown-item" href="#">Loading...</a>
+						</div>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link disabled" href="#">Plans</a>
+					</li>
+					<li class="nav-item dropup">
+						<a class="nav-link dropdown-toggle" href="#" id="dropdown-plan-label" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Plans</a>
+						<div id="dropdown-plan" class="dropdown-menu" aria-labelledby="dropdown-plan-label">
+							<a class="dropdown-item" href="#">Loading...</a>
+						</div>
+					</li>
+					<li class="nav-item">
+						<button id="submit" type="button" class="btn btn-light">Submit</button>
+					</li>
+				</ul>
+				<form class="form-inline my-2 my-lg-0">
+					<a id="current-time" class="nav-link disabled" href="#">00:00</a>
+                    <button id="auto" type="button" class="btn btn-secondary">Autorun</button>
+					<button id="prev" type="button" class="btn btn-light">&lt;</button>
+					<button id="next" type="button" class="btn btn-light">&gt;</button>
+				</form>
+			</div>
+		</nav>
+
+        <!-- JQuery -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+        <!-- Bootstrap + Material Design Theme -->
+		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+		<script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous"></script>
+		<script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>
+		<script>$(document).ready(function() { $('body').bootstrapMaterialDesign(); });</script>
+
+        <!-- Main.js -->
+        <script src="/js/main.js"></script>
+
+        <!-- Map -->
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCwoYJYXC6j5pDgLBMowtN3oVQ0U4E3fdA&callback=initMap" async defer></script>
+    </body>
+</html>

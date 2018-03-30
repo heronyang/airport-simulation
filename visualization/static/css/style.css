@@ -1,0 +1,17 @@
+#map {
+	height: calc(100% - 56px);
+	height: -o-calc(100% - 56px); /* opera */
+	height: -webkit-calc(100% - 56px); /* google, safari */
+	height: -moz-calc(100% - 56px); /* firefox */
+}
+
+#controller {
+    height: 56px;
+	padding-bottom: 0px;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
