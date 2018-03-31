@@ -13,11 +13,9 @@ ASSET2 is built for Carnegie Mellon University MSIT Practicum Project, "NASA: Op
 Place airport related data under `data` folder like `data/sfo/build/` (use IATA
 airport code).
 
-## Installation
+## Install
 
     $ pip3 install -r requirements.txt
-    $ brew install pyqt # install python qt for mac users
-    $ sudo apt-get install python-qt5 # for Ubuntu users
 
 ## Run
 
@@ -28,10 +26,14 @@ airport code).
     $ python3 -m unittest discover tests    # all tests
     $ python3 -m unittest tests/test_scheduler.py   # single test
 
-## Style Check
+## Check Style
 
     $ pycodestyle --show-pep8 --show-source .
     $ find . -iname "*.py" | xargs pylint    # haven't implemented
+
+## Visiualization
+
+    $ ./visualization/server.py
 
 ## Developer Guidelines
 

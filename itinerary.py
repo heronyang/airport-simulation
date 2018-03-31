@@ -1,5 +1,5 @@
 import logging
-from utils import get_time_delta, get_seconds_after, str2sha1
+from utils import get_time_delta, get_seconds_after, get_seconds_before, str2sha1
 from node import get_middle_node
 
 
@@ -75,6 +75,17 @@ class Itinerary:
             if not is_first:
                 # the expected arrival time of the next node is fixed
                 target.eat = get_seconds_after(target.eat, delay)
+            is_first = False
+
+    def remove_delay(self, delay):
+        is_first = True
+        for target in self.targets:
+            if target.edt is None:
+                break
+            target.edt = get_seconds_before(target.edt, delay)
+            if not is_first:
+                # the expected arrival time of the next node is fixed
+                target.eat = get_seconds_before(target.eat, delay)
             is_first = False
 
     @property

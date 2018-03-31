@@ -13,6 +13,7 @@ class AbstractScheduler:
 
     def __init__(self):
         self.logger = logging.getLogger(__name__)
+        self.delay_time = Config.params["scheduler"]["delay_time"]
 
     def schedule(self, simulation):
         raise NotImplementedError("Schedule function should be overrided.")
@@ -29,7 +30,14 @@ class AbstractScheduler:
         true_location = aircraft.true_location
 
         if route is None:
-            import pdb; pdb.set_trace()
+            # Route won't be found if the aircraft.location is in the middle of
+            # a link which isn't known by the routing expert. This can happen
+            # if the aircraft had been given an itinerary starting from its
+            # true_location last time we reschedule and it was be delayed at
+            # that starting location until this run of reschedule. We solve
+            # this by retriving its original "src" node that we known.
+            src = aircraft.pilot.itinerary.targets[1].node
+            route = simulation.routing_expert.get_shortest_route(src, dst)
 
         # Prepend its current location to targets if the location isn't true
         if aircraft.state is not State.moving:

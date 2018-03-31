@@ -27,16 +27,19 @@ class Scheduler(AbstractScheduler):
 
     def resolve_conflicts(self, itineraries, simulation):
 
-        rc_time = Config.params["scheduler"]["resolve_conflicts_time"]
-        sim_time = Config.params["simulation"]["time_unit"]
-        delay_time = Config.params["scheduler"]["delay_time"]
-        successful_tick_times = int(rc_time / sim_time)
+        # Gets configuration parameters
+        (tick_times, max_resolve_conflict_attempt) = self.get_params()
 
-        max_n_delay_added = \
-                Config.params["simulation"]["max_conflict_resolve_count"]
-        n_delay_added = 0
-
+        # Setups variables
+        attempts = {}   # attemps[conflict] = count
+        unsolvable_conflicts = set()
+        count = 0
         while True:
+
+            count += 1
+            if count > 10:
+                # import pdb; pdb.set_trace()
+                pass
 
             predict_simulation = simulation.copy
             predict_simulation.airport.apply_schedule(Schedule(itineraries, 0))
@@ -45,44 +48,98 @@ class Scheduler(AbstractScheduler):
             predict_simulation.remove_aircrafts()
             predict_simulation.clock.tick()
 
-            for i in range(successful_tick_times):
+            for i in range(tick_times):
 
+                # Ticks and gets the conflict
                 predict_simulation.quiet_tick()
                 conflicts = predict_simulation.airport.conflicts
+                conflict = self.get_conflict_to_solve(conflicts,
+                                                      unsolvable_conflicts)
 
-                if len(conflicts) == 0:
-                    # If it's the last check, return
-                    if i == successful_tick_times - 1:
-                        return Schedule(itineraries, n_delay_added)
-                    continue
+                # If conflict is found, try to resolve it
+                if conflict is not None:
+                    try:
+                        self.resolve_conflict(
+                            simulation, itineraries, conflict, attempts,
+                            unsolvable_conflicts, max_resolve_conflict_attempt)
+                        # It works well, re-run again
+                        break
+                    except ConflictException:
+                        # The conflict isn't able to be solved, skip it
+                        unsolvable_conflicts.add(conflict)
+                        self.logger.debug("Gave up solving %s" % conflict)
+                        continue
 
-                self.logger.info("Found %s" % conflicts[0])
-                
-                # Solves the first conflicts, then reruns everything again.
-                aircraft = self.get_aircraft_to_delay(conflicts, simulation)
-                if airport is None:
-                    # Ignore this conflict because it's unsolvable
-                    continue
+                # If no conflict is found, and it's the last tick, return
+                elif i == (tick_times - 1):
+                    # If it's last tick, we're done
+                    return Schedule(itineraries,
+                                    self.get_n_delay_added(attempts))
 
-                if aircraft in itineraries:
-                    # New aircrafts that only appear in prediction are ignored
-                    itineraries[aircraft].add_delay(delay_time)
-                    n_delay_added += 1
-                    self.logger.info("Added %d delay on %s" %
-                                     (delay_time, aircraft))
-                    if n_delay_added > max_n_delay_added:
-                        import pdb; pdb.set_trace()
-                break
+    def resolve_conflict(self, simulation, itineraries, conflict, attempts,
+                         unsolvable_conflicts, max_resolve_conflict_attempt):
 
-    def get_aircraft_to_delay(self, conflicts, simulation):
-        conflict = conflicts[0]
+        self.logger.info("Try to solve %s" % conflict)
+        
+        # Solves the first conflicts, then reruns everything again.
+        aircraft = self.get_aircraft_to_delay(conflict, simulation)
+        if aircraft in itineraries:
+
+            # NOTE: New aircrafts that only appear in prediction are ignored
+            itineraries[aircraft].add_delay(self.delay_time)
+
+            # Marks
+            attempts[conflict] = attempts.get(conflict, 0) + 1
+            if attempts[conflict] >= max_resolve_conflict_attempt:
+
+                # Adds this as an unsolvable conflict
+                unsolvable_conflicts.add(conflict)
+
+                # Reverse the delay we added
+                itineraries[aircraft].remove_delay(
+                    self.delay_time * max_resolve_conflict_attempt)
+
+                # Forget the attempts
+                del attempts[conflict]
+
+            self.logger.info("Added %d delay on %s" %
+                             (self.delay_time, aircraft))
+
+    def get_params(self):
+
+        rc_time = Config.params["scheduler"]["resolve_conflicts_time"]
+        sim_time = Config.params["simulation"]["time_unit"]
+        tick_times = int(rc_time / sim_time)
+        max_resolve_conflict_attempt = \
+                Config.params["scheduler"]["max_resolve_conflict_attempt"]
+
+        return (tick_times, max_resolve_conflict_attempt)
+
+    def get_conflict_to_solve(self, conflicts, unsolvable_conflicts):
+        while True:
+            if len(conflicts) == 0:
+                return None
+            if conflicts[0] in unsolvable_conflicts:
+                conflicts = conflicts[1:]
+            else:
+                return conflicts[0]
+
+    def get_aircraft_to_delay(self, conflict, simulation):
         a0, a1 = conflict.aircrafts
         if a0.state == State.moving and a1.state == State.hold:
             return a0
         if a0.state == State.hold and a1.state == State.moving:
             return a1
         if a0.state == State.hold and a1.state == State.hold:
-            # This is the case generated by uncertainty in simulation, it it's
-            # not, that will be a bug to fix.
-            return None
+            # This is the case generated by uncertainty in simulation and it's
+            # unsolvable. However, if it's not generated by the uncertainty,
+            # then this will be a bug to fix.
+            self.logger.debug("Found conflict with two hold aircrafts")
+            raise ConflictException("Unsolvable conflict found")
         return conflict.get_less_priority_aircraft(simulation.scenario)
+
+    def get_n_delay_added(self, attempts):
+        return sum(attempts.values())
+
+class ConflictException(Exception):
+    pass

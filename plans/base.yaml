@@ -18,9 +18,6 @@ simulation:
   cache: true
   # Separation requirement in feets between two aircrafts
   separation: 50
-  # Maximum number of delay added per reschedule; otherwise, it's defined as a
-  # deadlock
-  max_conflict_resolve_count: 10
 
 monitor:
   # Enable or disable the real-time monitor
@@ -45,6 +42,8 @@ scheduler:
   aircraft_velocity: 5
   # Future time period that the scheduler solves the conflicts (sec)
   resolve_conflicts_time: 600
+  # Maximum number of attempts on trying to resolve a conflict
+  max_resolve_conflict_attempt: 10
   # Delay time added on the aircraft with less priority when a conflict is found
   delay_time: 30
 
