@@ -1,5 +1,6 @@
 name: base
 airport: simple
+batch: null
 
 simulator:
   # Real seconds passed between each tick

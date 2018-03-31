@@ -1,0 +1,1 @@
+To execute the simulation in batch mode, specify the parameter you want to test on (only one is allowed) in the "batch" field of the yaml file. Use period to indicate the layer. Use a range representation (start:end:step) in the field you specified.

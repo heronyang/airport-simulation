@@ -2,6 +2,7 @@
 import os
 import sys
 import time
+import numpy
 import logging
 import coloredlogs
 import argparse
@@ -21,8 +22,12 @@ def main():
     init_params()
     init_logger()
 
-    logger.info("Starting the simulation")
-    run(Simulation(), None)
+    if cfg.params["batch"]:
+        logger.info("Starting the simulation in batch mode")
+        run_batch()
+    else:
+        logger.info("Starting the simulation")
+        run()
 
 
 def init_params():
@@ -70,7 +75,52 @@ def init_logger():
 
 
 done = False
-def run(simulation, monitor):
+
+def run_batch():
+    global done
+    name = cfg.params["name"]
+    expr_var_name = cfg.params["batch"]
+    expr_var_range = get_expr_var_range(expr_var_name)
+    for expr_var in expr_var_range:
+        done = False
+        set_expr_var(expr_var_name, expr_var)
+        set_plan_name(name, expr_var)
+        run()
+    save_batch_result(name, expr_var_range)
+
+def get_expr_var_range(expr_var_name):
+
+    # Finds the string value of the experimental field
+    c = cfg.params
+    expr_var_name_layer = expr_var_name.split(".")
+    while len(expr_var_name_layer) > 0:
+        c = c[expr_var_name_layer[0]]
+        expr_var_name_layer = expr_var_name_layer[1:]
+
+    # Parses the string representation in range
+    range_raw = c
+    (start, end, step) = range_raw.split(":")
+    return numpy.arange(float(start), float(end), float(step))
+
+def set_expr_var(expr_var_name, expr_var):
+
+    # Setup the experimental variable
+    c = cfg.params
+    expr_var_name_layer = expr_var_name.split(".")
+    while len(expr_var_name_layer) > 1:
+        c = c[expr_var_name_layer[0]]
+        expr_var_name_layer = expr_var_name_layer[1:]
+    c[expr_var_name_layer[0]] = expr_var
+
+def set_plan_name(name, expr_var):
+    cfg.params["name"] += "-batch-" + str(expr_var)
+
+def save_batch_result(expr_var_name, expr_var_range):
+    pass
+
+def run():
+
+    simulation = Simulation()
 
     global done
 
