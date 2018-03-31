@@ -1,4 +1,5 @@
 import sys
+import time
 import logging
 import traceback
 
@@ -57,6 +58,10 @@ class Simulation:
 
         # Initializes the previous schedule time
         self.last_schedule_time = None
+
+        # Initializes the last execution time for rescheduling to None
+        self.last_schedule_exec_time = None
+
         self.print_stats()
 
     def tick(self):
@@ -68,7 +73,9 @@ class Simulation:
             self.add_aircrafts()
             if self.is_time_to_reschedule():
                 self.logger.info("Time to reschedule")
+                start = time.time()
                 self.reschedule()
+                self.last_schedule_exec_time = time.time() - start # seconds
                 self.last_schedule_time = self.now
                 self.logger.info("Last schedule time is updated to %s" %
                                  self.last_schedule_time)
@@ -89,7 +96,7 @@ class Simulation:
         except ClockException as e:
             # Finishes
             if Config.params["analyst"]["enabled"]:
-                self.analyst.print_summary(self)
+                self.analyst.save()
             raise e
         except Exception as e:
             self.logger.error(traceback.format_exc())
@@ -231,6 +238,10 @@ class SimulationDelegate:
     @property
     def routing_expert(self):
         return self.simulation.routing_expert
+
+    @property
+    def last_schedule_exec_time(self):
+        return self.simulation.last_schedule_exec_time
 
     @property
     def copy(self, uncertainty=None):

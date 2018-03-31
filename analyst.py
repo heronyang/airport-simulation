@@ -1,5 +1,6 @@
 import logging
 import pandas as pd
+import json
 import os
 
 from clock import Clock
@@ -118,6 +119,10 @@ class ConflictMetric():
         )
 
     @property
+    def total_conflicts(self):
+        return self.conflict["count"].sum()
+
+    @property
     def summary(self):
 
         if len(self.conflict_node) == 0 or \
@@ -156,6 +161,10 @@ class GateQueueMetric():
         )
 
     @property
+    def avg_queue_size(self):
+        return self.gate_queue_size["size"].mean()
+
+    @property
     def summary(self):
 
         if len(self.gate_queue_size) == 0:
@@ -181,6 +190,11 @@ class ScheduleMetric():
         )
 
     @property
+    def total_delay_time_added(self):
+        delay_time = Config.params["scheduler"]["delay_time"]
+        return self.delay_added["n_delay_added"].sum() * delay_time
+
+    @property
     def summary(self):
 
         if len(self.delay_added) == 0:
@@ -190,6 +204,34 @@ class ScheduleMetric():
 
         return "Schedule # delayed added: top %d low %d mean %d" % (
             nd.max(), nd.min(), nd.mean()
+        )
+
+class ExecutionTimeMetric():
+
+    def __init__(self):
+        # Reschedule execution time
+        self.rs_exec_time = pd.DataFrame(
+            columns=["time", "rs_exec_time"])
+
+    def update_on_reschedule(self, rs_exec_time, now):
+        self.rs_exec_time = self.rs_exec_time.append(
+            {"time": now, "rs_exec_time": rs_exec_time},
+            ignore_index = True)
+
+    @property
+    def avg_reschedule_exec_time(self):
+        return self.rs_exec_time["rs_exec_time"].mean()
+
+    @property
+    def summary(self):
+        
+        if len(self.rs_exec_time) == 0:
+            return "Execution Time: insufficient data"
+
+        rst = self.rs_exec_time.set_index("time")
+
+        return "Reschedule execution time: top %d low %d mean %d" % (
+            rst.max(), rst.min(), rst.mean()
         )
 
 class Analyst:
@@ -206,6 +248,7 @@ class Analyst:
         self.conflict_metric = ConflictMetric()
         self.gate_queue_metric = GateQueueMetric(simulation.airport.surface)
         self.schedule_metric = ScheduleMetric()
+        self.execution_time_metric = ExecutionTimeMetric()
 
     def observe_on_tick(self, simulation):
 
@@ -225,11 +268,10 @@ class Analyst:
     def observe_on_reschedule(self, schedule, simulation):
         now = simulation.now
         self.schedule_metric.update_on_reschedule(schedule, now)
+        self.execution_time_metric.update_on_reschedule(
+            simulation.last_schedule_exec_time, now)
 
-    def print_summary(self, simulation):
-
-        if Config.params["analyst"]["details"]:
-            self.print_detail_summary()
+    def print_summary(self):
 
         self.logger.debug(self.taxitime_metric.summary)
         self.logger.debug(self.makespan_metric.summary)
@@ -237,12 +279,15 @@ class Analyst:
         self.logger.debug(self.conflict_metric.summary)
         self.logger.debug(self.gate_queue_metric.summary)
         self.logger.debug(self.schedule_metric.summary)
+        self.logger.debug(self.execution_time_metric.summary)
 
-    def print_detail_summary(self):
-        self.print_tick_detail_summary()
-        self.print_schedule_detail_summary()
+    def save(self):
 
-    def print_tick_detail_summary(self):
+        self.save_tick_summary()
+        self.save_schedule_summary()
+        self.save_metrics()
+
+    def save_tick_summary(self):
 
         c = self.aircraft_count_metric.counter.set_index("time")
         cr = self.conflict_metric.conflict_node.set_index("time")
@@ -271,15 +316,27 @@ class Analyst:
         self.save_fig("conflicts", cf)
         self.save_fig("gate-queue-size", qs)
 
-    def print_schedule_detail_summary(self):
+    def save_schedule_summary(self):
 
         # Schedule metrics
+
+        # Number of delays added
         dn = self.schedule_metric.delay_added.set_index("time")
         with pd.option_context("display.max_rows", None):
             self.logger.debug("\n" + str(dn))
 
-        self.save_csv("schedule", dn)
         self.save_fig("delay_added", dn)
+
+        # Execution time
+        rst = self.execution_time_metric.rs_exec_time.set_index("time")
+        with pd.option_context("display.max_rows", None):
+            self.logger.debug("\n" + str(rst))
+
+        self.save_fig("schedule_execution_time", rst)
+
+        # Writes to one csv file
+        stats = dn.join(rst)
+        self.save_csv("schedule", stats)
 
     def save_csv(self, type_name, df):
         filename = "%s%s.csv" % (get_output_dir_name(), type_name)
@@ -288,6 +345,23 @@ class Analyst:
     def save_fig(self, fig_name, df):
         filename = "%s%s.png" % (get_output_dir_name(), fig_name)
         df.plot(kind="line").get_figure().savefig(filename)
+
+    def save_metrics(self):
+        """
+        Saves the output metrics of the simulation to a JSON file.
+        """
+        filename = "%smetrics.json" % get_output_dir_name()
+        response = {
+            "total_conflicts": self.conflict_metric.total_conflicts,
+            "makespan": self.makespan_metric.makespan,
+            "delay_added": self.schedule_metric.total_delay_time_added,
+            "avg_queue_size": self.gate_queue_metric.avg_queue_size,
+            "avg_reschedule_exec_time":
+            self.execution_time_metric.avg_reschedule_exec_time
+        }
+        with open(filename, "w") as f:
+            f.write(json.dumps(response))
+        self.logger.info("Output metrics saved to %s" % filename)
 
     def __getstate__(self):
         d = dict(self.__dict__)

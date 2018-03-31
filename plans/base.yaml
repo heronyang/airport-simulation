@@ -50,8 +50,6 @@ scheduler:
 analyst:
   # Enable or disable analyst
   enabled: true
-  # Enable or disble showing the details
-  details: true
 
 logger:
   # Options are: critical, error, warning, info, debug, notset
