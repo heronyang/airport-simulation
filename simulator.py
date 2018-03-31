@@ -113,7 +113,7 @@ def set_expr_var(expr_var_name, expr_var):
     c[expr_var_name_layer[0]] = expr_var
 
 def set_plan_name(name, expr_var):
-    cfg.params["name"] += "-batch-" + str(expr_var)
+    cfg.params["name"] = name + "-batch-" + str(expr_var)
 
 def save_batch_result(expr_var_name, expr_var_range):
     pass
