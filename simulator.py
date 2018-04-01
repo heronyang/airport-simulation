@@ -13,6 +13,7 @@ from simulation import Simulation
 from clock import ClockException
 from config import Config as cfg
 from utils import get_output_dir_name
+from reporter import save_batch_result
 
 logger = logging.getLogger(__name__)
 
@@ -73,7 +74,6 @@ def init_logger():
     else:
         coloredlogs.install(level=level, fmt=cfg.LOG_FORMAT)
 
-
 done = False
 
 def run_batch():
@@ -86,7 +86,7 @@ def run_batch():
         set_expr_var(expr_var_name, expr_var)
         set_plan_name(name, expr_var)
         run()
-    save_batch_result(name, expr_var_range)
+    save_batch_result(name, expr_var_name, expr_var_range)
 
 def get_expr_var_range(expr_var_name):
 
@@ -114,9 +114,6 @@ def set_expr_var(expr_var_name, expr_var):
 
 def set_plan_name(name, expr_var):
     cfg.params["name"] = name + "-batch-" + str(expr_var)
-
-def save_batch_result(expr_var_name, expr_var_range):
-    pass
 
 def run():
 
