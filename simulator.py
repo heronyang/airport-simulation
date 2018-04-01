@@ -15,19 +15,17 @@ from config import Config as cfg
 from utils import get_output_dir_name
 from reporter import save_batch_result
 
-logger = logging.getLogger(__name__)
-
+logger = None
 
 def main():
 
     init_params()
-    init_logger()
 
     if cfg.params["batch"]:
-        logger.info("Starting the simulation in batch mode")
+        print("Starting the simulation in batch mode")
         run_batch()
     else:
-        logger.info("Starting the simulation")
+        print("Starting the simulation")
         run()
 
 
@@ -45,6 +43,10 @@ def init_params():
 
 def init_logger():
 
+    # Removes previous handler
+    for handler in logging.root.handlers[:]:
+        logging.root.removeHandler(handler)
+
     levels = {
         "info": logging.INFO,
         "debug": logging.DEBUG,
@@ -59,7 +61,7 @@ def init_logger():
         logger.error("Unknown logging level")
         os._exit(1)
 
-    if cfg.params["logger"]["file"]:
+    if cfg.params["logger"]["file"] or cfg.params["batch"] is not None:
         log_filename = get_output_dir_name() + "log"
         try:
             os.remove(log_filename)
@@ -74,6 +76,8 @@ def init_logger():
     else:
         coloredlogs.install(level=level, fmt=cfg.LOG_FORMAT)
 
+    return logging.getLogger(__name__)
+
 done = False
 
 def run_batch():
@@ -82,11 +86,16 @@ def run_batch():
     expr_var_name = cfg.params["batch"]
     expr_var_range = get_expr_var_range(expr_var_name)
     for expr_var in expr_var_range:
+        print("Running simulation with %s = %f" % (expr_var_name, expr_var))
         done = False
         set_expr_var(expr_var_name, expr_var)
         set_plan_name(name, expr_var)
+        start = time.time()
         run()
+        print("Finished simulation with %s = %f, time %s seconds" %
+              (expr_var_name, expr_var, time.time() - start))
     save_batch_result(name, expr_var_name, expr_var_range)
+    print("Saved result")
 
 def get_expr_var_range(expr_var_name):
 
@@ -117,6 +126,7 @@ def set_plan_name(name, expr_var):
 
 def run():
 
+    logger = init_logger()
     simulation = Simulation()
 
     global done

@@ -21,6 +21,10 @@ airport code).
 
     $ python3 simulator.py -f plans/base.yaml
 
+## Batch Run
+
+    $ python3 simulation.py -f batch_plans/simple-continuous-uc.yaml
+
 ## Run Tests
 
     $ python3 -m unittest discover tests    # all tests

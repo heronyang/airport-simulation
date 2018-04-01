@@ -1,1 +1,1 @@
-{"total_conflicts": 617, "makespan": 80640, "delay_added": 150, "avg_queue_size": 1.480121254517895, "avg_reschedule_exec_time": 0.11938277726034516}
+{"total_conflicts": 509, "makespan": 82320, "delay_added": 150, "avg_queue_size": 2.4510901247522336, "avg_reschedule_exec_time": 0.07756444551412342}

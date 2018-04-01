@@ -39,6 +39,7 @@ def save_metrics(metrics, output_dir):
         metrics[col].plot(kind="line").get_figure().savefig(
             output_dir + col + ".png")
         plt.clf()
+        plt.close('all')
 
 def setup_output_dir(output_dir):
     # Removes the folder if it's already exists

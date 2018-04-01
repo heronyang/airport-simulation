@@ -2,6 +2,7 @@ import logging
 import pandas as pd
 import json
 import os
+import matplotlib.pyplot as plt
 
 from clock import Clock
 from aircraft import State
@@ -344,7 +345,10 @@ class Analyst:
 
     def save_fig(self, fig_name, df):
         filename = "%s%s.png" % (get_output_dir_name(), fig_name)
+        plt.figure()
         df.plot(kind="line").get_figure().savefig(filename)
+        plt.clf()
+        plt.close('all')
 
     def save_metrics(self):
         """
