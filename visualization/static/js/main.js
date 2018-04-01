@@ -80,18 +80,24 @@ function loadAirports(airports) {
     var dropdown = $("#dropdown-airport");
     dropdown.empty();
     for (let airport of airports) {
-        dropdown.append('<a class="dropdown-item" href="#">' +
+        dropdown.append('<a class="dropdown-item option-airport" href="#">' +
             airport + '</a>');
     }
+    $(".option-airport").click(function(e) {
+        setAirportShow(e.target.text);
+    });
 }
 
 function loadPlans(plans) {
     var dropdown = $("#dropdown-plan");
     dropdown.empty();
     for (let plan of plans) {
-        dropdown.append('<a class="dropdown-item" href="#">' +
+        dropdown.append('<a class="dropdown-item option-plan" href="#">' +
             plan + '</a>');
     }
+    $(".option-plan").click(function(e) {
+        setPlanShow(e.target.text);
+    });
 }
 
 function setAirportShow(airport) {
@@ -115,9 +121,51 @@ function setAutoRunShow(enabled) {
     }
 }
 
+function showError(message) {
+    alert("Error: " + message);
+}
+
+/* API Adapter Functions */
+function getAirports(callback) {
+    $.get("/airports", function(data) {
+        callback(JSON.parse(data));
+    });
+}
+
+function getPlans(callback) {
+    $.get("/plans", function(data) {
+        callback(JSON.parse(data));
+    });
+}
+
 /* Controllers */
 var autoRun = false;
 function toggleAutoRun() {
     autoRun = !autoRun;
     setAirportShow(autoRun);
+}
+
+/* Main */
+$("document").ready(function(){
+    loadOptions();
+    const params = getParams();
+    if ("airport" in params && "plan" in params) {
+        const airport = params["airport"];
+        const plan = params["plan"];
+        setAirportShow(airport);
+        setPlanShow(plan);
+        loadExprData(airport, plan);
+    }
+});
+
+function loadOptions() {
+    getAirports(function(airports) {
+        loadAirports(airports);
+    });
+    getPlans(function(plans) {
+        loadPlans(plans)
+    });
+}
+
+function loadExprData(airport, plan) {
 }

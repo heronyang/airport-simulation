@@ -15,11 +15,13 @@ def send_index():
 
 @app.route("/airports")
 def api_airports():
-    return json.dumps([f for f in next(os.walk(AIRPORT_DATA_FOLDER))[1]])
+    return json.dumps(sorted(
+        [f for f in next(os.walk(AIRPORT_DATA_FOLDER))[1]]))
 
 @app.route("/plans")
 def api_plans():
-    return json.dumps([f for f in next(os.walk(PLAN_OUTPUT_FOLDER))[1]])
+    return json.dumps(sorted(
+        [f for f in next(os.walk(PLAN_OUTPUT_FOLDER))[1]]))
 
 @app.route("/expr_data")
 def api_expr_data():
