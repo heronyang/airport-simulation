@@ -240,6 +240,7 @@ class Analyst:
     def __init__(self, simulation):
 
         self.logger = logging.getLogger(__name__)
+        self.airport_name = simulation.airport.code
 
         sim_time = simulation.clock.sim_time
 
@@ -287,6 +288,7 @@ class Analyst:
         self.save_tick_summary()
         self.save_schedule_summary()
         self.save_metrics()
+        self.save_airport_name()
 
     def save_tick_summary(self):
 
@@ -366,6 +368,12 @@ class Analyst:
         with open(filename, "w") as f:
             f.write(json.dumps(response, indent=4))
         self.logger.info("Output metrics saved to %s" % filename)
+
+    def save_airport_name(self):
+        filename = "%sairport.txt" % get_output_dir_name()
+        with open(filename, "w") as f:
+            f.write(self.airport_name)
+        self.logger.info("Airport name logged to %s" % filename)
 
     def __getstate__(self):
         d = dict(self.__dict__)

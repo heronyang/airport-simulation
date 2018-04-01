@@ -58,36 +58,23 @@ function removeNodes() {
 }
 
 /* UI Callbacks */
-$("#submit").click(function() {
-    console.log("submit");
-});
-
-$("#auto").click(function() {
+$("#auto").click(function(e) {
     console.log("auto");
+    e.preventDefault();
     toggleAutoRun();
 });
 
-$("#prev").click(function() {
+$("#prev").click(function(e) {
+    e.preventDefault();
     console.log("prev");
 });
 
-$("#next").click(function() {
+$("#next").click(function(e) {
+    e.preventDefault();
     console.log("next");
 });
 
 /* UI Operations */
-function loadAirports(airports) {
-    var dropdown = $("#dropdown-airport");
-    dropdown.empty();
-    for (let airport of airports) {
-        dropdown.append('<a class="dropdown-item option-airport" href="#">' +
-            airport + '</a>');
-    }
-    $(".option-airport").click(function(e) {
-        setAirportShow(e.target.text);
-    });
-}
-
 function loadPlans(plans) {
     var dropdown = $("#dropdown-plan");
     dropdown.empty();
@@ -96,16 +83,17 @@ function loadPlans(plans) {
             plan + '</a>');
     }
     $(".option-plan").click(function(e) {
-        setPlanShow(e.target.text);
+        e.preventDefault();
+        window.location.href = "?plan=" + e.target.text;
     });
-}
-
-function setAirportShow(airport) {
-    $("#dropdown-airport-label").html(airport);
 }
 
 function setPlanShow(plan) {
     $("#dropdown-plan-label").html(plan);
+}
+
+function getShownPlan() {
+    return $("#dropdown-plan-label").html();
 }
 
 function setCurrentTime(time) {
@@ -126,15 +114,20 @@ function showError(message) {
 }
 
 /* API Adapter Functions */
-function getAirports(callback) {
-    $.get("/airports", function(data) {
-        callback(JSON.parse(data));
-    });
-}
-
 function getPlans(callback) {
     $.get("/plans", function(data) {
         callback(JSON.parse(data));
+    }).fail(function(jqXHR, textStatus) {
+        showError(jqXHR.responseText);
+    });
+}
+
+function getExprData(plan, callback) {
+    const url = "/expr_data?plan=" + plan;
+    $.get(url, function(data) {
+        callback(JSON.parse(data));
+    }).fail(function(jqXHR, textStatus) {
+        showError(jqXHR.responseText);
     });
 }
 
@@ -149,23 +142,21 @@ function toggleAutoRun() {
 $("document").ready(function(){
     loadOptions();
     const params = getParams();
-    if ("airport" in params && "plan" in params) {
-        const airport = params["airport"];
+    if ("plan" in params) {
         const plan = params["plan"];
-        setAirportShow(airport);
         setPlanShow(plan);
-        loadExprData(airport, plan);
+        loadExprData(plan);
     }
 });
 
 function loadOptions() {
-    getAirports(function(airports) {
-        loadAirports(airports);
-    });
     getPlans(function(plans) {
         loadPlans(plans)
     });
 }
 
-function loadExprData(airport, plan) {
+function loadExprData(plan) {
+    getExprData(plan, function(data) {
+        console.log(data);
+    });
 }

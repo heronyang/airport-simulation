@@ -3,20 +3,15 @@ import os
 import json
 from flask import Flask, request, abort, jsonify
 
-dir_path = os.path.dirname(os.path.realpath(__file__))
-AIRPORT_DATA_FOLDER = dir_path + "/../data/"
-PLAN_OUTPUT_FOLDER = dir_path + "/../output/"
+dir_path = os.path.dirname(os.path.realpath(__file__)) + "/../"
+AIRPORT_DATA_FOLDER = dir_path + "data/"
+PLAN_OUTPUT_FOLDER = dir_path + "output/"
 
 app = Flask(__name__, static_url_path="")
 
 @app.route("/")
 def send_index():
     return app.send_static_file("index.html")
-
-@app.route("/airports")
-def api_airports():
-    return json.dumps(sorted(
-        [f for f in next(os.walk(AIRPORT_DATA_FOLDER))[1]]))
 
 @app.route("/plans")
 def api_plans():
@@ -26,19 +21,28 @@ def api_plans():
 @app.route("/expr_data")
 def api_expr_data():
 
-    airport = request.args.get("airport")
-    plan = request.args.get("plan")
-
-    if airport is None or plan is None:
-        abort(400, description="Invalid parameter")
-
     try:
+        plan = request.args.get("plan")
+        airport = get_airport_from_plan(plan)
+
+        if plan is None:
+            abort(400, description="Invalid parameter")
+
         return json.dumps({
             "surface": get_surface_data(airport),
             "state": get_state_data(plan)
         })
+
     except Exception as e:
         abort(400, description=str(e))
+
+def get_airport_from_plan(plan):
+    filename = PLAN_OUTPUT_FOLDER + plan + "/airport.txt"
+    if not os.path.isfile(filename):
+        raise Exception("Airport name not found at %s" % filename)
+    with open(filename) as f:
+        airport = f.read().strip()
+    return airport
 
 def get_surface_data(airport):
 
@@ -97,4 +101,4 @@ def get_state_data(plan):
     return json.loads(content)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
