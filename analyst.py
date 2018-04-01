@@ -364,7 +364,7 @@ class Analyst:
             self.execution_time_metric.avg_reschedule_exec_time
         }
         with open(filename, "w") as f:
-            f.write(json.dumps(response))
+            f.write(json.dumps(response, indent=4))
         self.logger.info("Output metrics saved to %s" % filename)
 
     def __getstate__(self):

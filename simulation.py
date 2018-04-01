@@ -13,6 +13,7 @@ from utils import get_seconds_after, get_seconds_before
 from uncertainty import Uncertainty
 from config import Config
 from collections import deque
+from state_logger import StateLogger
 import importlib
 import numpy as np
 
@@ -53,6 +54,9 @@ class Simulation:
         if p["analyst"]["enabled"]:
             self.analyst = Analyst(self)
 
+        # Sets up the state logger
+        self.state_logger = StateLogger()
+
         # Sets up a delegate of this simulation
         self.delegate = SimulationDelegate(self)
 
@@ -86,6 +90,7 @@ class Simulation:
 
             # Tick
             self.airport.tick()
+            self.state_logger.log_on_tick(self.delegate)
             self.remove_aircrafts()
             self.clock.tick()
 
@@ -97,6 +102,7 @@ class Simulation:
             # Finishes
             if Config.params["analyst"]["enabled"]:
                 self.analyst.save()
+            self.state_logger.save()
             raise e
         except Exception as e:
             self.logger.error(traceback.format_exc())
