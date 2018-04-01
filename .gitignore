@@ -111,3 +111,6 @@ cache/
 .DS_Store
 
 *.lprof
+
+# state files are too large for storing in the repo
+states.json
