@@ -1,7 +1,5 @@
 /* Map */
 var map;
-var nodes = [];
-var links = [];
 
 const FLIGT_ICON_URL = "/image/flight.png";
 const GATE_ICON_URL = "http://maps.google.com/mapfiles/ms/icons/blue-dot.png";
@@ -58,7 +56,7 @@ function drawNode(lat, lng, icon_url, content) {
 		infowindow.open(map, marker);
 	});
 
-    nodes.push(marker);
+    return marker;
 
 }
 
@@ -68,18 +66,6 @@ function drawLink(nodes, color) {
         strokeColor: color,
     });
     link.setMap(map);
-    links.push(link);
-}
-
-function removeAll() {
-    for (var i = 0; i < nodes.length; i++) {
-        nodes[i].setMap(null);
-    }
-    nodes = [];
-    for (var i = 0; i < links.length; i++) {
-        links[i].setMap(null);
-    }
-    links = [];
 }
 
 /* UI Callbacks */
@@ -91,12 +77,12 @@ $("#auto").click(function(e) {
 
 $("#prev").click(function(e) {
     e.preventDefault();
-    console.log("prev");
+    prevState();
 });
 
 $("#next").click(function(e) {
     e.preventDefault();
-    console.log("next");
+    nextState();
 });
 
 /* UI Operations */
@@ -157,10 +143,20 @@ function getExprData(plan, callback) {
 }
 
 /* Controllers */
-var autoRun = false;
+var autoRunWorker = null;
 function toggleAutoRun() {
-    autoRun = !autoRun;
-    setAirportShow(autoRun);
+
+    if (autoRunWorker) {
+        clearInterval(autoRunWorker);
+        setAutoRunShow(false);
+        autoRunWorker = null;
+    } else {
+		autoRunWorker = window.setInterval(function() {
+            nextState();
+		}, 500);
+        setAutoRunShow(true);
+    }
+
 }
 
 /* Main */
@@ -186,6 +182,7 @@ function loadExprData(plan) {
         expr_data = data;
         setAirportCenter();
         drawSurfaceData();
+        updateState();
     });
 }
 
@@ -234,4 +231,47 @@ function parseNodes(rawNodes) {
         nodes.push({"lat": node[1], "lng": node[0]});
     }
     return nodes;
+}
+
+/* State */
+var state_index = 0;
+function nextState() {
+    state_index = (state_index + 1) % expr_data["state"].length;
+    updateState();
+}
+
+function prevState() {
+    state_index -= 1;
+    if (state_index < 0) {
+        state_index += expr_data["state"].length;
+    }
+    updateState();
+}
+
+var aircrafts = [];
+function updateState() {
+
+    // Clean previous state
+	for (var i = 0; i < aircrafts.length; i++) {
+		aircrafts[i].setMap(null);
+	}
+	aircrafts = [];
+
+    // Current time
+    const state = expr_data["state"][state_index];
+    setCurrentTime(state["time"]);
+
+    // Aircrafts
+    for (let aircraft of expr_data["state"][state_index]["aircrafts"]) {
+        aircrafts.push(drawNode(
+            aircraft["true_location"]["lat"],
+            aircraft["true_location"]["lng"],
+            FLIGT_ICON_URL, parseAircraftContent(aircraft)
+        ));
+    }
+
+}
+
+function parseAircraftContent(aircraft) {
+    return aircraft["callsign"];
 }
