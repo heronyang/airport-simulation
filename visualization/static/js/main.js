@@ -2,6 +2,8 @@
 var map;
 
 const FLIGT_ICON_URL = "/image/flight.png";
+const FLIGT_MOVING_ICON_URL = "/image/flight-moving.png";
+const FLIGT_HOLD_ICON_URL = "/image/flight-hold.png";
 const GATE_ICON_URL = "http://maps.google.com/mapfiles/ms/icons/blue-dot.png";
 const SPOT_ICON_URL = "http://maps.google.com/mapfiles/ms/icons/green-dot.png";
 
@@ -264,14 +266,40 @@ function updateState() {
     // Aircrafts
     for (let aircraft of expr_data["state"][state_index]["aircrafts"]) {
         aircrafts.push(drawNode(
-            aircraft["true_location"]["lat"],
-            aircraft["true_location"]["lng"],
-            FLIGT_ICON_URL, parseAircraftContent(aircraft)
+            aircraft["true_location"]["lat"], aircraft["true_location"]["lng"],
+            getAircraftIconUrl(aircraft["state"]),
+            parseAircraftContent(aircraft)
         ));
     }
 
 }
 
 function parseAircraftContent(aircraft) {
-    return aircraft["callsign"];
+    var html = aircraft["callsign"] + "</br>";
+    if (aircraft["itinerary"] == null) {
+        return html + "No itinerary";
+    }
+    html += "<table>";
+    for (let target of aircraft["itinerary"]) {
+        var latlng = target["node_location"]["lat"] + "," +
+            target["node_location"]["lng"];
+        html += "<tr>" + 
+            "<td>" + target["node_name"] + "</td>" +
+            "<td>" + latlng + "</td>" +
+            "<td>" + target["eat"] + "</td>" +
+            "<td>" + target["edt"] + "</td>" +
+            "</tr>";
+    }
+    html += "</table>";
+    return html;
+}
+
+function getAircraftIconUrl(aircraft_state) {
+    if (aircraft_state === "moving") {
+        return FLIGT_MOVING_ICON_URL;
+    }
+    if (aircraft_state === "hold") {
+        return FLIGT_HOLD_ICON_URL;
+    }
+    return FLIGT_ICON_URL;
 }

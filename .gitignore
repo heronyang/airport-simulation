@@ -112,5 +112,6 @@ cache/
 
 *.lprof
 
-# state files are too large for storing in the repo
+# log and state files are too large for storing in the repo
 states.json
+log

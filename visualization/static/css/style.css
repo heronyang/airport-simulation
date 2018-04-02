@@ -22,3 +22,7 @@ html, body {
 	max-height: 80vh;
 	overflow-x: hidden;
 }
+
+table, th, td {
+    border: 1px solid black;
+}
