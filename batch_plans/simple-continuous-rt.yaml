@@ -1,12 +1,15 @@
-name: sfo-terminal-2-uc
-airport: sfo-terminal-2
-batch: uncertainty.prob_hold
+name: simple-continuous-rt
+airport: simple
+batch: simulation.reschedule_cycle
+
+simulation:
+  reschedule_cycle: 60:1801:180
 
 uncertainty:
   # Enable or disable the uncertain in simulation
   enabled: true
   # Probability of an aircraft holds at node unexpectedly (depends on time_unit)
-  prob_hold: 0:0.8:0.1
+  prob_hold: 0.2
   # Seconds of the mean of an unexpected hold at node
   hold_time_mean: 60
   # Seconds of the standard deviation of an unexpected hold at node
