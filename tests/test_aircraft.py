@@ -15,6 +15,8 @@ sys.path.append('..')
 
 class TestAircraft(unittest.TestCase):
 
+    Config.params["simulator"]["test_mode"] = True
+
     # Generates a itinerary_template
     n1 = Node("N1", {"lat": 47.722000, "lng": -122.079057})
     n2 = Node("N2", {"lat": 47.822000, "lng": -122.079057})
@@ -27,28 +29,17 @@ class TestAircraft(unittest.TestCase):
 
     itinerary_template = Itinerary([n1, n2, n3])
 
-    class SimulationMock():
-
-        class AirportMock():
-            def update_aircraft_location(a, b, c, d):
-                pass
-
-        def __init__(self):
-            self.airport = self.AirportMock()
-
     def test_init(self):
 
-        simulation = self.SimulationMock()
-        aircraft = Aircraft(simulation, "F1", "M1", self.n1, State.unknown)
+        aircraft = Aircraft("F1", "M1", self.n1, State.unknown)
         aircraft.set_location(self.n1)
         self.assertEqual(aircraft.location, self.n1)
 
     def test_tick(self):
 
         itinerary = deepcopy(self.itinerary_template)
-        simulation = self.SimulationMock()
 
-        aircraft = Aircraft(simulation, "F1", "M1", self.n1, State.stop)
+        aircraft = Aircraft("F1", "M1", self.n1, State.stop)
         aircraft.set_location(self.n1)
         self.assertEqual(aircraft.state, State.stop)
 
@@ -75,9 +66,8 @@ class TestAircraft(unittest.TestCase):
     def test_tick_with_delay(self):
 
         itinerary = deepcopy(self.itinerary_template)
-        simulation = self.SimulationMock()
 
-        aircraft = Aircraft(simulation, "F1", "M1", self.n1, State.stop)
+        aircraft = Aircraft("F1", "M1", self.n1, State.stop)
         aircraft.set_location(self.n1)
         self.assertEqual(aircraft.state, State.stop)
 

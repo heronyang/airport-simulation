@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+from config import Config
 from copy import deepcopy
 from clock import Clock
 from datetime import time
@@ -13,6 +14,8 @@ sys.path.append('..')
 
 
 class TestItinerary(unittest.TestCase):
+
+    Config.params["simulator"]["test_mode"] = True
 
     n1 = Node("N1", {"lat": 47.722000, "lng": -122.079057})
     n2 = Node("N2", {"lat": 47.822000, "lng": -122.079057})

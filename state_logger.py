@@ -22,7 +22,7 @@ class StateLogger:
         })
 
     def parse_aircraft(self, aircraft):
-        itinerary = self.parse_itinerary(aircraft.pilot.itinerary)
+        itinerary = self.parse_itinerary(aircraft.itinerary)
         return {
             "callsign": aircraft.callsign,
             "state": aircraft.state.name,

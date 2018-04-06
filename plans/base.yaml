@@ -5,6 +5,8 @@ batch: null
 simulator:
   # Real seconds passed between each tick
   pause_time: 0
+  # Enable for test mode
+  test_mode: false
 
 simulation:
   # Seconds between each simulation epoch
@@ -47,10 +49,6 @@ scheduler:
   max_resolve_conflict_attempt: 10
   # Delay time added on the aircraft with less priority when a conflict is found
   delay_time: 30
-
-analyst:
-  # Enable or disable analyst
-  enabled: true
 
 logger:
   # Options are: critical, error, warning, info, debug, notset

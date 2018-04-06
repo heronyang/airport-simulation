@@ -13,11 +13,10 @@ class State(enum.Enum):
 
 class Aircraft:
 
-    def __init__(self, simulation, callsign, model, location, state):
+    def __init__(self, callsign, model, location, state):
 
         self.logger = logging.getLogger(__name__)
 
-        self.simulation = simulation
         self.callsign = callsign
         self.model = model
         self.location = location
@@ -29,9 +28,6 @@ class Aircraft:
 
         original_location = self.location
         self.location = location
-        # Informs the simulation that the aircraft's location had changed
-        self.simulation.airport.update_aircraft_location(
-            self, original_location, location)
         self.logger.info("%s location changed to %s" % (self, location))
 
     def set_itinerary(self, itinerary):

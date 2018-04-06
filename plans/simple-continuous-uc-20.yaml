@@ -11,10 +11,6 @@ uncertainty:
   # Seconds of the standard deviation of an unexpected hold at node
   hold_time_deviation: 60
 
-scheduler:
-  # Name of the scheduler file under the `scheduler` folder
-  name: deterministic_continuous_scheduler
-
 logger:
   # Enable logging into a file instead of stdout/stderr
   file: false

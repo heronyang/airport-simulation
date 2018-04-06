@@ -19,6 +19,8 @@ sys.path.append('..')
 
 class TestScheduler(unittest.TestCase):
 
+    Config.params["simulator"]["test_mode"] = True
+
     #     (G1)
     #      |
     #      | <3647.9 ft, 12.2 mins>

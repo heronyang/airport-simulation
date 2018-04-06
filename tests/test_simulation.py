@@ -16,7 +16,7 @@ class TestSimulation(unittest.TestCase):
 
     Config.params["airport"] = "simple"
     Config.params["uncertainty"]["enabled"] = False
-    Config.params["analyst"]["enabled"] = False
+    Config.params["simulator"]["test_mode"] = True
 
     class SchedulerMock():
 

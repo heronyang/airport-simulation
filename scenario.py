@@ -65,7 +65,7 @@ class Scenario:
 class ScenarioFactory:
 
     @classmethod
-    def create(self, simulation, code, surface):
+    def create(self, code, surface):
 
         # Loads file if it exists; otherwise, raises error
         dir_path = Config.DATA_ROOT_DIR_PATH % code
@@ -79,7 +79,6 @@ class ScenarioFactory:
         arrivals = []
         for af in scenario_raw["arrivals"]:
             arrivals.append(ArrivalFlight(
-                simulation,
                 af["callsign"],
                 af["model"],
                 af["airport"],
@@ -94,7 +93,6 @@ class ScenarioFactory:
         departures = []
         for df in scenario_raw["departures"]:
             departures.append(DepartureFlight(
-                simulation,
                 df["callsign"],
                 df["model"],
                 df["airport"],
