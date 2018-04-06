@@ -31,7 +31,7 @@ class TestItinerary(unittest.TestCase):
 
         clock = Clock()
         self.assertFalse(itinerary.is_completed)
-        self.assertEqual(itinerary.next_target, self.n1)
+        self.assertEqual(itinerary.current_target, self.n1)
 
     def test_is_completed(self):
 
@@ -48,36 +48,36 @@ class TestItinerary(unittest.TestCase):
         # Gets a copy of the itinerary
         itinerary = deepcopy(self.itinerary_template)
 
-        self.assertEqual(itinerary.next_target, self.n1)
+        self.assertEqual(itinerary.current_target, self.n1)
         itinerary.tick()
-        self.assertEqual(itinerary.next_target, self.n2)
+        self.assertEqual(itinerary.current_target, self.n2)
         itinerary.tick()
-        self.assertEqual(itinerary.next_target, self.n3)
+        self.assertEqual(itinerary.current_target, self.n3)
 
-    def test_next_target(self):
+    def test_current_target(self):
 
         # Gets a copy of the itinerary
         itinerary = deepcopy(self.itinerary_template)
 
-        self.assertEqual(itinerary.next_target, self.n1)
+        self.assertEqual(itinerary.current_target, self.n1)
         itinerary.tick()
-        self.assertEqual(itinerary.next_target, self.n2)
+        self.assertEqual(itinerary.current_target, self.n2)
         itinerary.tick()
-        self.assertEqual(itinerary.next_target, self.n3)
+        self.assertEqual(itinerary.current_target, self.n3)
         itinerary.tick()
-        self.assertEqual(itinerary.next_target, None)
+        self.assertEqual(itinerary.current_target, None)
         itinerary.tick()
-        self.assertEqual(itinerary.next_target, None)
+        self.assertEqual(itinerary.current_target, None)
 
     def test_add_delay(self):
 
         # Gets a copy of the itinerary
         itinerary = deepcopy(self.itinerary_template)
 
-        self.assertEqual(itinerary.next_target, self.n1)
+        self.assertEqual(itinerary.current_target, self.n1)
         itinerary.add_delay()
         target = itinerary.tick()
-        self.assertEqual(itinerary.next_target, self.n1)
+        self.assertEqual(itinerary.current_target, self.n1)
 
         target = itinerary.tick()
-        self.assertEqual(itinerary.next_target, self.n2)
+        self.assertEqual(itinerary.current_target, self.n2)

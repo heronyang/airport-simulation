@@ -21,9 +21,9 @@ class Itinerary:
         if self.is_completed:
             return
 
-        next_target = self.next_target
+        current_target = self.current_target
         self.targets = self.targets[1:]
-        self.past_target = next_target
+        self.past_target = current_target
 
     def add_delay(self):
         if self.is_completed:
@@ -31,7 +31,13 @@ class Itinerary:
         self.targets.insert(0, self.targets[0])
 
     @property
-    def next_target(self):
+    def is_hold(self):
+        if len(self.targets) < 2:
+            return False
+        return self.targets[0].name == self.targets[1].name
+
+    @property
+    def current_target(self):
         if len(self.targets) < 1:
             return None
         return self.targets[0]
