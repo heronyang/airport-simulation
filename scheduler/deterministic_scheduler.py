@@ -1,5 +1,6 @@
 import logging
 
+from copy import deepcopy
 from schedule import Schedule
 from config import Config
 from aircraft import State
@@ -27,20 +28,19 @@ class Scheduler(AbstractScheduler):
 
     def resolve_conflicts(self, itineraries, simulation):
 
+        # Backups the itineraries in case we need to reverse the delay
+        backup_itineraries = deepcopy(itineraries)
+
         # Gets configuration parameters
-        (tick_times, max_resolve_conflict_attempt) = self.get_params()
+        (tick_times, max_attempt) = self.get_params()
 
         # Setups variables
         attempts = {}   # attemps[conflict] = count
         unsolvable_conflicts = set()
-        count = 0
+
         while True:
 
-            count += 1
-            if count > 10:
-                # import pdb; pdb.set_trace()
-                pass
-
+            # Create simulation copy for prediction
             predict_simulation = simulation.copy
             predict_simulation.airport.apply_schedule(Schedule(itineraries, 0))
 
@@ -53,15 +53,16 @@ class Scheduler(AbstractScheduler):
                 # Ticks and gets the conflict
                 predict_simulation.quiet_tick()
                 conflicts = predict_simulation.airport.conflicts
-                conflict = self.get_conflict_to_solve(conflicts,
-                                                      unsolvable_conflicts)
+                conflict = self.get_conflict_to_solve(
+                    conflicts, unsolvable_conflicts)
 
                 # If conflict is found, try to resolve it
                 if conflict is not None:
                     try:
                         self.resolve_conflict(
-                            simulation, itineraries, conflict, attempts,
-                            unsolvable_conflicts, max_resolve_conflict_attempt)
+                            simulation, itineraries, backup_itineraries,
+                            conflict, attempts, unsolvable_conflicts,
+                            max_attempt)
                         # It works well, re-run again
                         break
                     except ConflictException:
@@ -76,8 +77,9 @@ class Scheduler(AbstractScheduler):
                     return Schedule(itineraries,
                                     self.get_n_delay_added(attempts))
 
-    def resolve_conflict(self, simulation, itineraries, conflict, attempts,
-                         unsolvable_conflicts, max_resolve_conflict_attempt):
+    def resolve_conflict(self, simulation, itineraries, backup_itineraries,
+                         conflict, attempts, unsolvable_conflicts,
+                         max_attempt):
 
         self.logger.info("Try to solve %s" % conflict)
         
@@ -86,34 +88,32 @@ class Scheduler(AbstractScheduler):
         if aircraft in itineraries:
 
             # NOTE: New aircrafts that only appear in prediction are ignored
-            itineraries[aircraft].add_delay(self.delay_time)
+            itineraries[aircraft].add_delay()
 
-            # Marks
-            attempts[conflict] = attempts.get(conflict, 0) + 1
-            if attempts[conflict] >= max_resolve_conflict_attempt:
+            self.mark_attempt(attempts, max_attempt, conflict, aircraft,
+                              itineraries, backup_itineraries)
+            self.logger.info("Added delay on %s" % aircraft)
 
-                # Adds this as an unsolvable conflict
-                unsolvable_conflicts.add(conflict)
+    def mark_attempt(self, attempts, max_attempt, conflict, aircraft,
+                     itineraries, backup_itineraries):
 
-                # Reverse the delay we added
-                itineraries[aircraft].remove_delay(
-                    self.delay_time * max_resolve_conflict_attempt)
-
-                # Forget the attempts
-                del attempts[conflict]
-
-            self.logger.info("Added %d delay on %s" %
-                             (self.delay_time, aircraft))
+        attempts[conflict] = attempts.get(conflict, 0) + 1
+        if attempts[conflict] >= max_attempt:
+            # Reverse the delay
+            itineraries[aircraft] = deepcopy(backup_itineraries[aircraft])
+            # Forget the attempts
+            del attempts[conflict]
+            raise ConflictException("Too many attempts")
 
     def get_params(self):
 
         rc_time = Config.params["scheduler"]["resolve_conflicts_time"]
         sim_time = Config.params["simulation"]["time_unit"]
         tick_times = int(rc_time / sim_time)
-        max_resolve_conflict_attempt = \
+        max_attempt = \
                 Config.params["scheduler"]["max_resolve_conflict_attempt"]
 
-        return (tick_times, max_resolve_conflict_attempt)
+        return (tick_times, max_attempt)
 
     def get_conflict_to_solve(self, conflicts, unsolvable_conflicts):
         while True:
@@ -126,10 +126,6 @@ class Scheduler(AbstractScheduler):
 
     def get_aircraft_to_delay(self, conflict, simulation):
         a0, a1 = conflict.aircrafts
-        if a0.state == State.moving and a1.state == State.hold:
-            return a0
-        if a0.state == State.hold and a1.state == State.moving:
-            return a1
         if a0.state == State.hold and a1.state == State.hold:
             # This is the case generated by uncertainty in simulation and it's
             # unsolvable. However, if it's not generated by the uncertainty,

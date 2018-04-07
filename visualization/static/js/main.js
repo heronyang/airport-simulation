@@ -266,7 +266,7 @@ function updateState() {
     // Aircrafts
     for (let aircraft of expr_data["state"][state_index]["aircrafts"]) {
         aircrafts.push(drawNode(
-            aircraft["true_location"]["lat"], aircraft["true_location"]["lng"],
+            aircraft["location"]["lat"], aircraft["location"]["lng"],
             getAircraftIconUrl(aircraft["state"]),
             parseAircraftContent(aircraft)
         ));

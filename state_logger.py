@@ -27,7 +27,6 @@ class StateLogger:
             "callsign": aircraft.callsign,
             "state": aircraft.state.name,
             "location": aircraft.location.geo_pos,
-            "true_location": aircraft.true_location.geo_pos,
             "itinerary": itinerary
         }
 
@@ -35,10 +34,8 @@ class StateLogger:
 
         return [
             {
-                "node_name": target.node.name,
-                "node_location": target.node.geo_pos,
-                "eat": self.parse_time(target.eat),
-                "edt": self.parse_time(target.edt)
+                "node_name": target.name,
+                "node_location": target.geo_pos
             }
             for target in itinerary.targets
         ] if itinerary is not None else None
