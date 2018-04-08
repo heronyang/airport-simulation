@@ -224,6 +224,8 @@ class Analyst:
         self.schedule_metric = ScheduleMetric()
         self.execution_time_metric = ExecutionTimeMetric()
 
+        self.save_airport_name()
+
     def observe_on_tick(self, simulation):
 
         now = simulation.now
@@ -259,7 +261,6 @@ class Analyst:
         self.save_tick_summary()
         self.save_schedule_summary()
         self.save_metrics()
-        self.save_airport_name()
 
     def save_tick_summary(self):
 

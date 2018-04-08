@@ -283,7 +283,7 @@ function updateState() {
     for (let aircraft of expr_data["state"][state_index]["aircrafts"]) {
         aircrafts.push(drawNode(
             aircraft["location"]["lat"], aircraft["location"]["lng"],
-            getAircraftIconUrl(aircraft["state"]),
+            getAircraftIconUrl(aircraft["state"], aircraft["is_delayed"]),
             aircraft["callsign"],
             parseAircraftContent(aircraft),
             true
@@ -319,12 +319,12 @@ function parseAircraftContent(aircraft) {
     return html;
 }
 
-function getAircraftIconUrl(aircraft_state) {
-    if (aircraft_state === "moving") {
-        return FLIGT_MOVING_ICON_URL;
+function getAircraftIconUrl(aircraft_state, is_delayed) {
+    if (aircraft_state == "stop") {
+        return FLIGT_ICON_URL;
     }
-    if (aircraft_state === "hold") {
+    if (is_delayed) {
         return FLIGT_HOLD_ICON_URL;
     }
-    return FLIGT_ICON_URL;
+    return FLIGT_MOVING_ICON_URL;
 }

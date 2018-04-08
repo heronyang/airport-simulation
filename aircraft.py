@@ -48,9 +48,10 @@ class Aircraft:
 
     def add_delay(self):
         if not self.itinerary:
-            self.logger.debug("No itinerary to add delay")
+            self.logger.debug("%s: No itinerary to add delay", self)
             return
-        self.itinerary.add_delay()
+        delay_added_at = self.itinerary.add_delay()
+        self.logger.debug("%s: Delay added at %s" % (self, delay_added_at))
 
     def tick(self):
 
@@ -68,11 +69,14 @@ class Aircraft:
 
     @property
     def state(self):
-        if not self.itinerary:
+        if not self.itinerary or self.itinerary.is_completed:
             return State.stop
-        if self.itinerary.is_hold:
-            return State.hold
-        return State.moving
+        return State.hold if self.itinerary.current_target.is_close_to(
+                    self.itinerary.next_target) else State.moving
+
+    @property
+    def is_delayed(self):
+        return self.itinerary.is_delayed if self.itinerary else False
 
     def set_quiet(self, logger):
         self.logger = logger

@@ -37,6 +37,7 @@ class StateLogger:
         return {
             "callsign": aircraft.callsign,
             "state": aircraft.state.name,
+            "is_delayed": aircraft.is_delayed,
             "location": aircraft.location.geo_pos,
             "itinerary": itinerary,
             "itinerary_index": itinerary_index

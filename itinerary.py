@@ -1,7 +1,6 @@
 import logging
 from copy import deepcopy
-from utils import get_time_delta, get_seconds_after, get_seconds_before, str2sha1
-from node import get_middle_node
+from utils import str2sha1
 
 
 """
@@ -16,6 +15,7 @@ class Itinerary:
         self.index = 0  # If index == len(targets): completed
 
         self.hash = str2sha1("#".join(str(self.targets)))
+        self.delayed_index = []
 
     def tick(self):
         if self.is_completed:
@@ -24,24 +24,33 @@ class Itinerary:
 
     def add_delay(self):
         if self.is_completed:
-            return
+            return None
         self.targets.insert(self.index, self.targets[self.index])
+        self.update_delayed_index(self.index)
+        return self.targets[self.index]
+
+    def update_delayed_index(self, new_index):
+        for i in range(len(self.delayed_index)):
+            if self.delayed_index[i] >= new_index:
+                self.delayed_index[i] += 1
+        self.delayed_index.append(new_index)
 
     def reset(self):
         self.index = 0
 
     def restore(self):
         self.targets = deepcopy(self.backup)
+        self.delayed_index = []
 
     @property
     def length(self):
         return len(self.targets)
 
     @property
-    def is_hold(self):
+    def is_delayed(self):
         if self.next_target is None:
             return False
-        return self.current_target == self.next_target
+        return self.index in self.delayed_index
 
     @property
     def current_target(self):

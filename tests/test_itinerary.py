@@ -117,3 +117,20 @@ class TestItinerary(unittest.TestCase):
         itinerary.reset()
         self.assertEqual(itinerary.current_target, self.n1)
         self.assertEqual(itinerary.next_target, self.n2)
+
+    def test_is_hold(self):
+
+        # Gets a copy of the itinerary
+        itinerary = deepcopy(self.itinerary_template)
+
+        # [n1] - n2 - n3
+        self.assertFalse(itinerary.is_hold)
+        itinerary.add_delay()
+        # [n1] - n1 - n2 - n3
+        self.assertTrue(itinerary.is_hold)
+
+        itinerary.tick()
+        self.assertFalse(itinerary.is_hold)
+        itinerary.add_delay()
+        # n1 - [n1] - n1 - n2 - n3
+        self.assertTrue(itinerary.is_hold)
