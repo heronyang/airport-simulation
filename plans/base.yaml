@@ -47,8 +47,6 @@ scheduler:
   resolve_conflicts_time: 600
   # Maximum number of attempts on trying to resolve a conflict
   max_resolve_conflict_attempt: 10
-  # Delay time added on the aircraft with less priority when a conflict is found
-  delay_time: 30
 
 logger:
   # Options are: critical, error, warning, info, debug, notset

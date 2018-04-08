@@ -70,7 +70,7 @@ class TestRoutingExpert(unittest.TestCase):
         self.airport = AirportFactory.create(None, airport_code)
 
         # Sets up the scenario
-        self.scenario = ScenarioFactory.create(None, airport_code,
+        self.scenario = ScenarioFactory.create(airport_code,
                                                self.airport.surface)
 
         links = self.airport.surface.links
@@ -93,7 +93,7 @@ class TestRoutingExpert(unittest.TestCase):
         self.airport = AirportFactory.create(None, airport_code)
 
         # Sets up the scenario
-        self.scenario = ScenarioFactory.create(None, airport_code,
+        self.scenario = ScenarioFactory.create(airport_code,
                                                self.airport.surface)
 
         links = self.airport.surface.links
@@ -119,7 +119,7 @@ class TestRoutingExpert(unittest.TestCase):
         self.airport = AirportFactory.create(None, airport_code)
 
         # Sets up the scenario
-        self.scenario = ScenarioFactory.create(None, airport_code,
+        self.scenario = ScenarioFactory.create(airport_code,
                                                self.airport.surface)
 
         links = self.airport.surface.links
@@ -145,7 +145,7 @@ class TestRoutingExpert(unittest.TestCase):
         self.airport = AirportFactory.create(None, airport_code)
 
         # Sets up the scenario
-        self.scenario = ScenarioFactory.create(None, airport_code,
+        self.scenario = ScenarioFactory.create(airport_code,
                                                self.airport.surface)
 
         links = self.airport.surface.links

@@ -12,39 +12,52 @@ class Itinerary:
     def __init__(self, targets=[]):
 
         self.targets = targets
-        self.past_target = None
+        self.backup = deepcopy(targets)
+        self.index = 0  # If index == len(targets): completed
 
         self.hash = str2sha1("#".join(str(self.targets)))
 
     def tick(self):
-
         if self.is_completed:
             return
-
-        current_target = self.current_target
-        self.targets = self.targets[1:]
-        self.past_target = current_target
+        self.index += 1
 
     def add_delay(self):
         if self.is_completed:
             return
-        self.targets.insert(0, self.targets[0])
+        self.targets.insert(self.index, self.targets[self.index])
+
+    def reset(self):
+        self.index = 0
+
+    def restore(self):
+        self.targets = deepcopy(self.backup)
+
+    @property
+    def length(self):
+        return len(self.targets)
 
     @property
     def is_hold(self):
-        if len(self.targets) < 2:
+        if self.next_target is None:
             return False
-        return self.targets[0].name == self.targets[1].name
+        return self.current_target == self.next_target
 
     @property
     def current_target(self):
-        if len(self.targets) < 1:
+        if self.is_completed:
             return None
-        return self.targets[0]
+        return self.targets[self.index]
+
+    @property
+    def next_target(self):
+        if self.index >= self.length - 1:
+            return None
+        return self.targets[self.index + 1]
 
     @property
     def is_completed(self):
-        return len(self.targets) == 0
+        return self.index >= self.length
 
     def __repr__(self):
         return "<Itinerary: %d target>" % len(self.targets)

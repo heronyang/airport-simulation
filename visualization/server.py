@@ -97,8 +97,8 @@ def get_state_data(plan):
     
     # Reads the file
     with open(filename) as f:
-        content = f.read()
-    return json.loads(content)
+        content = [json.loads(j) for j in f.read().split("\n") if j]
+    return content
 
 if __name__ == "__main__":
     app.run()

@@ -42,16 +42,32 @@ function getParams() {
     return params;
 }
 
-function drawNode(lat, lng, icon_url, content) {
+function drawNode(lat, lng, icon_url, label, content, is_center) {
 
 	var infowindow = new google.maps.InfoWindow({
 		content: content
 	});
 
+    if (is_center != undefined) {
+        var image = {
+            url: icon_url,
+            // This marker is 20 pixels wide by 32 pixels high.
+            size: new google.maps.Size(36, 36),
+            // The origin for this image is (0, 0).
+            origin: new google.maps.Point(0, 0),
+            // The anchor for this image is the base of the flagpole at (0, 32).
+            anchor: new google.maps.Point(18, 18)
+        };
+    } else {
+        var image = icon_url;
+    }
+
+
     var marker = new google.maps.Marker({
         position: {lat: lat, lng: lng},
         map: map,
-        icon: icon_url
+        label: label,
+        icon: image
     });
 
 	marker.addListener("click", function() {
@@ -198,13 +214,13 @@ function drawSurfaceData() {
     // Gate
     for (let gate of expr_data["surface"]["gates"]) {
 		var name = "GATE: " + gate["name"];
-        drawNode(gate["lat"], gate["lng"], GATE_ICON_URL, name);
+        drawNode(gate["lat"], gate["lng"], GATE_ICON_URL, "", name);
     }
 
     // Spot
     for (let spot of expr_data["surface"]["spots"]) {
 		var name = "SPOT POSITION: " + spot["name"];
-        drawNode(spot["lat"], spot["lng"], SPOT_ICON_URL, name);
+        drawNode(spot["lat"], spot["lng"], SPOT_ICON_URL, "", name);
     }
 
     // Pushback way
@@ -268,7 +284,9 @@ function updateState() {
         aircrafts.push(drawNode(
             aircraft["location"]["lat"], aircraft["location"]["lng"],
             getAircraftIconUrl(aircraft["state"]),
-            parseAircraftContent(aircraft)
+            aircraft["callsign"],
+            parseAircraftContent(aircraft),
+            true
         ));
     }
 
@@ -280,15 +298,22 @@ function parseAircraftContent(aircraft) {
         return html + "No itinerary";
     }
     html += "<table>";
+    var index = aircraft["itinerary_index"];
+    var i = 0;
     for (let target of aircraft["itinerary"]) {
         var latlng = target["node_location"]["lat"] + "," +
             target["node_location"]["lng"];
-        html += "<tr>" + 
-            "<td>" + target["node_name"] + "</td>" +
+        if (i < index) {
+            html += "<tr class=\"past-target\">";
+        } else if (i == index) {
+            html += "<tr class=\"current-target\">";
+        } else {
+            html += "<tr class=\"future-target\">";
+        }
+        html += "<td>" + target["node_name"] + "</td>" +
             "<td>" + latlng + "</td>" +
-            "<td>" + target["eat"] + "</td>" +
-            "<td>" + target["edt"] + "</td>" +
             "</tr>";
+        i += 1;
     }
     html += "</table>";
     return html;

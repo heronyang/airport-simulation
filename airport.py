@@ -7,7 +7,6 @@ from config import Config
 from conflict import Conflict
 from aircraft import State
 from node import get_middle_node
-from copy import deepcopy
 
 
 class Airport:
@@ -39,7 +38,7 @@ class Airport:
             is_applied = False
             for airport_aircraft in self.aircrafts:
                 if airport_aircraft == aircraft:
-                    airport_aircraft.set_itinerary(deepcopy(itinerary))
+                    airport_aircraft.set_itinerary(itinerary)
                     is_applied = True
                     break
             if not is_applied:
@@ -53,19 +52,29 @@ class Airport:
 
     @property
     def conflicts(self):
+        return self.__get_conflicts()
 
+    @property
+    def next_conflicts(self):
+        return self.__get_conflicts(is_next=True)
+
+    def __get_conflicts(self, is_next=False):
         __conflicts = []
         aircraft_pairs = list(itertools.combinations(self.aircrafts, 2))
         for ap in aircraft_pairs:
-            l0, l1 = ap[0].location, ap[1].location
-            if not l0 == l1:
+            if is_next:
+                l0, l1 = ap[0].next_location, ap[1].next_location
+            else:
+                l0, l1 = ap[0].location, ap[1].location
+            if not l0.is_close_to(l1):
                 continue
-            __conflicts.append(Conflict(l0, ap, self.simulation.now))
+            __conflicts.append(Conflict((l0, l1), ap, self.simulation.now))
         return __conflicts
+
 
     def is_occupied_at(self, node):
         for aircraft in self.aircrafts:
-            if node == aircraft.location:
+            if aircraft.location.is_close_to(node):
                 return True
         return False
 

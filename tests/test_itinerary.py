@@ -72,15 +72,48 @@ class TestItinerary(unittest.TestCase):
         itinerary.tick()
         self.assertEqual(itinerary.current_target, None)
 
-    def test_add_delay(self):
+    def test_next_target(self):
 
         # Gets a copy of the itinerary
         itinerary = deepcopy(self.itinerary_template)
 
-        self.assertEqual(itinerary.current_target, self.n1)
-        itinerary.add_delay()
-        target = itinerary.tick()
+        self.assertEqual(itinerary.next_target, self.n2)
+        itinerary.tick()
+        self.assertEqual(itinerary.next_target, self.n3)
+        itinerary.tick()
+        self.assertEqual(itinerary.next_target, None)
+        itinerary.tick()
+        self.assertEqual(itinerary.next_target, None)
+
+    def test_add_delay(self):
+
+        # Gets a copy of the itinerary
+        itinerary = deepcopy(self.itinerary_template)
+        # [n1] - n2 - n3
         self.assertEqual(itinerary.current_target, self.n1)
 
-        target = itinerary.tick()
+        itinerary.add_delay()
+        # [n1] - n1 - n2 - n3
+
+        itinerary.tick()
+        # n1 - [n1] - n2 - n3
+        self.assertEqual(itinerary.current_target, self.n1)
+
+        itinerary.tick()
+        # n1 - n1 - [n2] - n3
         self.assertEqual(itinerary.current_target, self.n2)
+
+    def test_reset(self):
+
+        # Gets a copy of the itinerary
+        itinerary = deepcopy(self.itinerary_template)
+
+        itinerary.tick()
+        itinerary.tick()
+        itinerary.tick()
+        itinerary.tick()
+        itinerary.tick()
+        
+        itinerary.reset()
+        self.assertEqual(itinerary.current_target, self.n1)
+        self.assertEqual(itinerary.next_target, self.n2)

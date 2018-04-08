@@ -164,7 +164,7 @@ class ScheduleMetric():
 
     @property
     def total_delay_time_added(self):
-        delay_time = Config.params["scheduler"]["delay_time"]
+        delay_time = Config.params["simulation"]["time_unit"]
         return self.delay_added["n_delay_added"].sum() * delay_time
 
     @property

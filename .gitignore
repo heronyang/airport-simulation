@@ -115,3 +115,4 @@ cache/
 # log and state files are too large for storing in the repo
 states.json
 log
+.todo

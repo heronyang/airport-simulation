@@ -30,6 +30,14 @@ class Aircraft:
         self.location = location
         self.logger.info("%s location changed to %s" % (self, location))
 
+    @property
+    def next_location(self):
+        if self.itinerary:
+            nl = self.itinerary.next_target
+            if nl is not None:
+                return nl
+        return self.location
+
     def set_itinerary(self, itinerary):
 
         self.itinerary = itinerary

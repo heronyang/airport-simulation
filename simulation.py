@@ -75,8 +75,7 @@ class Simulation:
         self.logger.debug("\nCurrent Time: %s" % self.now)
 
         try:
-
-            self.add_aircrafts()
+            # Reschedule happens before the tick
             if self.is_time_to_reschedule():
                 self.logger.info("Time to reschedule")
                 start = time.time()
@@ -91,6 +90,7 @@ class Simulation:
                 self.uncertainty.inject(self)
 
             # Tick
+            self.add_aircrafts()
             self.airport.tick()
             if not Config.params["simulator"]["test_mode"]:
                 self.state_logger.log_on_tick(self.delegate)
