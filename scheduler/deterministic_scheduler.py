@@ -93,7 +93,7 @@ class Scheduler(AbstractScheduler):
         if aircraft in itineraries:
 
             # NOTE: New aircrafts that only appear in prediction are ignored
-            aircraft.add_delay()
+            aircraft.add_scheduler_delay()
             self.mark_attempt(attempts, max_attempt, conflict, aircraft,
                               itineraries)
             self.logger.info("Added delay on %s" % aircraft)

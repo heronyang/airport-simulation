@@ -14,6 +14,8 @@ const RUNWAY_COLOR = "#FF0000";    // red
 const ZOOM_GLOBAL = 2;
 const ZOOM_AIRPORT = 17;
 
+const QUICK_NEXT_PREV_TIMES = 120;
+
 function initMap() {
 	map = new google.maps.Map(document.getElementById("map"), {
 		center: {lat: 0, lng: 0},
@@ -62,7 +64,6 @@ function drawNode(lat, lng, icon_url, label, content, is_center) {
         var image = icon_url;
     }
 
-
     var marker = new google.maps.Marker({
         position: {lat: lat, lng: lng},
         map: map,
@@ -101,6 +102,20 @@ $("#prev").click(function(e) {
 $("#next").click(function(e) {
     e.preventDefault();
     nextState();
+});
+
+$("#prev-prev").click(function(e) {
+    e.preventDefault();
+    for (var i=0; i < QUICK_NEXT_PREV_TIMES; i++) {
+        prevState();
+    }
+});
+
+$("#next-next").click(function(e) {
+    e.preventDefault();
+    for (var i=0; i < QUICK_NEXT_PREV_TIMES; i++) {
+        nextState();
+    }
 });
 
 /* UI Operations */
@@ -284,7 +299,7 @@ function updateState() {
     for (let aircraft of expr_data["state"][state_index]["aircrafts"]) {
         aircrafts.push(drawNode(
             aircraft["location"]["lat"], aircraft["location"]["lng"],
-            getAircraftIconUrl(aircraft["state"], aircraft["is_delayed"]),
+            getAircraftIconUrl(aircraft),
             aircraft["callsign"],
             parseAircraftContent(aircraft),
             true
@@ -298,19 +313,25 @@ function parseAircraftContent(aircraft) {
     if (aircraft["itinerary"] == null) {
         return html + "No itinerary";
     }
-    html += "<table>";
+    html += "<table><tr><th>Target</th><th>LatLng</th><th>UC</th><th>SC</th></tr>";
     var index = aircraft["itinerary_index"];
-    var delayed_index = aircraft["delayed_index"];
+    var uc_delay_index = aircraft["uncertainty_delayed_index"];
+    var sc_delay_index = aircraft["scheduler_delayed_index"];
     var i = 0;
     for (let target of aircraft["itinerary"]) {
         var latlng = target["node_location"]["lat"] + "," +
             target["node_location"]["lng"];
         html += "<tr class=\"" + getTargetClassName(i, index) + "\">";
         html += "<td>" + target["node_name"] + "</td><td>" + latlng + "</td>";
-        if ($.inArray(delayed_index, i) >= 0) {
+        if ($.inArray(i, uc_delay_index) >= 0) {
             html += "<td>V</td>";
         } else {
-            html += "<td></td>";
+            html += "<td>&nbsp;</td>";
+        }
+        if ($.inArray(i, sc_delay_index) >= 0) {
+            html += "<td>V</td>";
+        } else {
+            html += "<td>&nbsp;</td>";
         }
         html += "</tr>";
         i += 1;
@@ -328,12 +349,16 @@ function getTargetClassName(current_index, index) {
     return "future-target";
 }
 
-function getAircraftIconUrl(aircraft_state, is_delayed) {
-    if (aircraft_state == "stop") {
+function getAircraftIconUrl(aircraft) {
+
+    if (aircraft["state"] == "stop") {
         return FLIGT_ICON_URL;
     }
-    if (is_delayed) {
+
+    if (aircraft["is_delayed"]) {
         return FLIGT_HOLD_ICON_URL;
     }
+
     return FLIGT_MOVING_ICON_URL;
+
 }

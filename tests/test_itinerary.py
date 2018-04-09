@@ -92,7 +92,7 @@ class TestItinerary(unittest.TestCase):
         # [n1] - n2 - n3
         self.assertEqual(itinerary.current_target, self.n1)
 
-        itinerary.add_delay()
+        itinerary.add_uncertainty_delay()
         # [n1] - n1 - n2 - n3
 
         itinerary.tick()
@@ -118,19 +118,19 @@ class TestItinerary(unittest.TestCase):
         self.assertEqual(itinerary.current_target, self.n1)
         self.assertEqual(itinerary.next_target, self.n2)
 
-    def test_is_hold(self):
+    def test_is_delayed(self):
 
         # Gets a copy of the itinerary
         itinerary = deepcopy(self.itinerary_template)
 
         # [n1] - n2 - n3
-        self.assertFalse(itinerary.is_hold)
-        itinerary.add_delay()
+        self.assertFalse(itinerary.is_delayed)
+        itinerary.add_uncertainty_delay()
         # [n1] - n1 - n2 - n3
-        self.assertTrue(itinerary.is_hold)
+        self.assertTrue(itinerary.is_delayed)
 
         itinerary.tick()
-        self.assertFalse(itinerary.is_hold)
-        itinerary.add_delay()
+        self.assertFalse(itinerary.is_delayed)
+        itinerary.add_scheduler_delay()
         # n1 - [n1] - n1 - n2 - n3
-        self.assertTrue(itinerary.is_hold)
+        self.assertTrue(itinerary.is_delayed)

@@ -46,12 +46,21 @@ class Aircraft:
         for target in itinerary.targets:
             self.logger.debug(target)
 
-    def add_delay(self):
+    def add_uncertainty_delay(self):
         if not self.itinerary:
             self.logger.debug("%s: No itinerary to add delay", self)
             return
-        delay_added_at = self.itinerary.add_delay()
-        self.logger.debug("%s: Delay added at %s" % (self, delay_added_at))
+        delay_added_at = self.itinerary.add_uncertainty_delay()
+        self.logger.debug("%s: Delay added at %s by uncertainty" %
+                          (self, delay_added_at))
+
+    def add_scheduler_delay(self):
+        if not self.itinerary:
+            self.logger.debug("%s: No itinerary to add delay", self)
+            return
+        delay_added_at = self.itinerary.add_scheduler_delay()
+        self.logger.debug("%s: Delay added at %s by uncertainty" %
+                          (self, delay_added_at))
 
     def tick(self):
 
