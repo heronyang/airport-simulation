@@ -20,7 +20,7 @@ class Scheduler(AbstractScheduler):
             itinerary = self.schedule_aircraft(aircraft, simulation)
             itineraries[aircraft] = itinerary
 
-        # Resolve conflicts
+        # Resolves conflicts
         schedule = self.resolve_conflicts(itineraries, simulation)
 
         self.logger.info("Scheduling end")
@@ -40,7 +40,7 @@ class Scheduler(AbstractScheduler):
             # Resets the itineraries (set their state to start node)
             self.reset_itineraries(itineraries)
 
-            # Create simulation copy for prediction
+            # Creates simulation copy for prediction
             predict_simulation = simulation.copy
             predict_simulation.airport.apply_schedule(
                 Schedule(itineraries, 0, 0))
@@ -53,7 +53,7 @@ class Scheduler(AbstractScheduler):
                     unsolvable_conflicts
                 )
 
-                # If a conflict is found, try to resolve it
+                # If a conflict is found, tries to resolve it
                 if conflict is not None:
                     try:
                         self.resolve_conflict(
@@ -122,6 +122,7 @@ class Scheduler(AbstractScheduler):
         return (tick_times, max_attempt)
 
     def get_conflict_to_solve(self, conflicts, unsolvable_conflicts):
+
         while True:
             if len(conflicts) == 0:
                 return None
@@ -131,7 +132,9 @@ class Scheduler(AbstractScheduler):
                 return conflicts[0]
 
     def get_aircraft_to_delay(self, conflict, simulation):
+
         a0, a1 = conflict.aircrafts
+
         if a0.state == State.moving and a1.state == State.hold:
             return a0
         if a0.state == State.hold and a1.state == State.moving:
@@ -142,6 +145,7 @@ class Scheduler(AbstractScheduler):
             # then this will be a bug needed to be fixed.
             self.logger.debug("Found conflict with two hold aircrafts")
             raise ConflictException("Unsolvable conflict found")
+
         return conflict.get_less_priority_aircraft(simulation.scenario)
 
     def get_n_delay_added(self, attempts):
