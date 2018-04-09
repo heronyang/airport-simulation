@@ -20,7 +20,7 @@ def save_batch_result(name, expr_var_name, expr_var_range):
             d = json.load(f)
             metrics = metrics.append({
                 expr_var_name: expr_var,
-                "conflicts": d["total_conflicts"],
+                "conflicts": d["conflicts"],
                 "makespan": d["makespan"],
                 "delay_added": d["delay_added"],
                 "avg_queue_size": d["avg_queue_size"],

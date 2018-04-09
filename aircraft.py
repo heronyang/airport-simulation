@@ -93,7 +93,10 @@ class Aircraft:
 
     @property
     def state(self):
-        if not self.itinerary or self.itinerary.is_completed:
+        if self.itinerary is None or self.itinerary.is_completed:
+            return State.stop
+        if self.itinerary.next_target is None or\
+           self.itinerary.current_target is None:
             return State.stop
         return State.hold if self.itinerary.current_target.is_close_to(
                     self.itinerary.next_target) else State.moving

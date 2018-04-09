@@ -1,0 +1,13 @@
+name: simple-uc
+airport: simple
+batch: uncertainty.prob_hold
+
+uncertainty:
+  # Enable or disable the uncertain in simulation
+  enabled: true
+  # Probability of an aircraft holds at node unexpectedly (depends on time_unit)
+  prob_hold: 0:0.8:0.1
+
+scheduler:
+  # Name of the scheduler file under the `scheduler` folder
+  name: deterministic_scheduler

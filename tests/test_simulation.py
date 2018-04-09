@@ -21,7 +21,7 @@ class TestSimulation(unittest.TestCase):
     class SchedulerMock():
 
         def schedule(self, _):
-            return Schedule({}, 0)
+            return Schedule({}, 0, 0)
 
     def test_init(self):
 

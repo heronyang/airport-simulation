@@ -42,7 +42,7 @@ class TestAirport(unittest.TestCase):
 
         # Test if the conflict looks like what we expected
         conflict = airport.conflicts[0]
-        self.assertTrue(conflict.location == self.n1)
+        self.assertTrue(conflict.locations[0] == self.n1)
         self.assertEqual(len(conflict.aircrafts), 2)
         self.assertTrue(a1 in conflict.aircrafts)
         self.assertTrue(a2 in conflict.aircrafts)

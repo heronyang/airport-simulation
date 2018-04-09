@@ -82,14 +82,14 @@ class TestAircraft(unittest.TestCase):
         self.assertEqual(aircraft.itinerary.current_target, self.n1)
 
         # targets: n1 - n2 - n3
-        aircraft.add_delay()
+        aircraft.add_uncertainty_delay()
         # targets: n1 - n1 - n2 - n3
 
         aircraft.tick()
         # targets: n1 - n2 - n3
         self.assertEqual(aircraft.itinerary.current_target, self.n1)
 
-        aircraft.add_delay()
+        aircraft.add_uncertainty_delay()
         # targets: n1 - n1 - n2 - n3
         self.assertEqual(aircraft.itinerary.current_target, self.n1)
 

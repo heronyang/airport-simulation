@@ -1,0 +1,16 @@
+name: simple-rt
+airport: simple
+batch: simulation.reschedule_cycle
+
+simulation:
+  reschedule_cycle: 60:1801:180
+
+uncertainty:
+  # Enable or disable the uncertain in simulation
+  enabled: true
+  # Probability of an aircraft holds at node unexpectedly (depends on time_unit)
+  prob_hold: 0.2
+
+scheduler:
+  # Name of the scheduler file under the `scheduler` folder
+  name: deterministic_scheduler
