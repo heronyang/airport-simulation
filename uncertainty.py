@@ -6,16 +6,9 @@ from config import Config
 
 class Uncertainty:
 
-    def __init__(
-        self,
-        prob_hold=Config.params["uncertainty"]["prob_hold"],
-        hold_time_mean=Config.params["uncertainty"]["hold_time_mean"],
-        hold_time_deviation=Config.params["uncertainty"]["hold_time_deviation"]
-    ):
+    def __init__(self, prob_hold=Config.params["uncertainty"]["prob_hold"]):
         self.logger = logging.getLogger(__name__)
         self.prob_hold = prob_hold
-        self.hold_time_mean = hold_time_mean
-        self.hold_time_deviation = hold_time_deviation
 
     def inject(self, simulation):
 
@@ -25,18 +18,9 @@ class Uncertainty:
             if not self.happens_with_prob(self.prob_hold):
                 continue
 
-            delay = self.get_sample(self.hold_time_mean,
-                                    self.hold_time_deviation)
-            if delay <= 0:
-                continue
-
-            if aircraft.pilot.itinerary is not None:
-                aircraft.pilot.itinerary.add_delay(delay)
-                self.logger.info("%s added delay %d seconds" %
-                                 (aircraft, delay))
+            if aircraft.itinerary is not None:
+                aircraft.add_delay()
+                self.logger.info("%s added delay" % aircraft)
 
     def happens_with_prob(self, prob):
         return random.random() < prob
-
-    def get_sample(self, mean, deviation):
-        return random.normalvariate(mean, deviation)

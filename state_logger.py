@@ -34,13 +34,15 @@ class StateLogger:
     def parse_aircraft(self, aircraft):
         itinerary = self.parse_itinerary(aircraft.itinerary)
         itinerary_index = aircraft.itinerary.index if itinerary else None
+        delayed_index = aircraft.itinerary.delayed_index if itinerary else None
         return {
             "callsign": aircraft.callsign,
             "state": aircraft.state.name,
             "is_delayed": aircraft.is_delayed,
             "location": aircraft.location.geo_pos,
             "itinerary": itinerary,
-            "itinerary_index": itinerary_index
+            "itinerary_index": itinerary_index,
+            "delayed_index": delayed_index
         }
 
     def parse_itinerary(self, itinerary):

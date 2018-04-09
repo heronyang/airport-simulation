@@ -103,6 +103,8 @@ class Scheduler(AbstractScheduler):
 
         attempts[conflict] = attempts.get(conflict, 0) + 1
         if attempts[conflict] >= max_attempt:
+            self.logger.error("Found deadlock")
+            import pdb; pdb.set_trace()
             # Reverse the delay
             itineraries[aircraft].restore()
             # Forget the attempts

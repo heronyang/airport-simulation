@@ -91,7 +91,7 @@ class Aircraft:
         return not(self == other)
 
     def __repr__(self):
-        return "<Aircraft: %s>" % self.callsign
+        return "<Aircraft: %s %s>" % (self.callsign, self.state)
 
     def __getstate__(self):
         d = dict(self.__dict__)

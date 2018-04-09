@@ -162,6 +162,7 @@ function getExprData(plan, callback) {
 
 /* Controllers */
 var autoRunWorker = null;
+var pauseTime = 500;
 function toggleAutoRun() {
 
     if (autoRunWorker) {
@@ -171,7 +172,7 @@ function toggleAutoRun() {
     } else {
 		autoRunWorker = window.setInterval(function() {
             nextState();
-		}, 500);
+		}, pauseTime);
         setAutoRunShow(true);
     }
 
@@ -299,24 +300,32 @@ function parseAircraftContent(aircraft) {
     }
     html += "<table>";
     var index = aircraft["itinerary_index"];
+    var delayed_index = aircraft["delayed_index"];
     var i = 0;
     for (let target of aircraft["itinerary"]) {
         var latlng = target["node_location"]["lat"] + "," +
             target["node_location"]["lng"];
-        if (i < index) {
-            html += "<tr class=\"past-target\">";
-        } else if (i == index) {
-            html += "<tr class=\"current-target\">";
+        html += "<tr class=\"" + getTargetClassName(i, index) + "\">";
+        html += "<td>" + target["node_name"] + "</td><td>" + latlng + "</td>";
+        if ($.inArray(delayed_index, i) >= 0) {
+            html += "<td>V</td>";
         } else {
-            html += "<tr class=\"future-target\">";
+            html += "<td></td>";
         }
-        html += "<td>" + target["node_name"] + "</td>" +
-            "<td>" + latlng + "</td>" +
-            "</tr>";
+        html += "</tr>";
         i += 1;
     }
     html += "</table>";
     return html;
+}
+
+function getTargetClassName(current_index, index) {
+    if (current_index < index) {
+        return "past-target";
+    } else if (current_index == index) {
+        return "current-target";
+    }
+    return "future-target";
 }
 
 function getAircraftIconUrl(aircraft_state, is_delayed) {

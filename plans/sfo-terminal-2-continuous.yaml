@@ -1,6 +1,0 @@
-name: sfo-terminal-2-continuous
-airport: sfo-terminal-2
-
-logger:
-  # Enable logging into a file instead of stdout/stderr
-  file: false
