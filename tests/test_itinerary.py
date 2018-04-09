@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 
+from config import Config
 from copy import deepcopy
 from clock import Clock
 from datetime import time
 from node import Node
 from itinerary import Itinerary
-from utils import get_seconds_after
 
 import sys
 import unittest
@@ -15,16 +15,13 @@ sys.path.append('..')
 
 class TestItinerary(unittest.TestCase):
 
+    Config.params["simulator"]["test_mode"] = True
+
     n1 = Node("N1", {"lat": 47.722000, "lng": -122.079057})
     n2 = Node("N2", {"lat": 47.822000, "lng": -122.079057})
     n3 = Node("N3", {"lat": 47.922000, "lng": -122.079057})
 
-    targets = [
-        Itinerary.Target(n1, time(0, 2), time(0, 3)),
-        Itinerary.Target(n2, time(0, 5), time(0, 7)),
-        Itinerary.Target(n3, time(0, 9), None),
-    ]
-    itinerary_template = Itinerary(targets)
+    itinerary_template = Itinerary(targets=[n1, n2, n3])
 
     def test_init(self):
 
@@ -37,7 +34,7 @@ class TestItinerary(unittest.TestCase):
 
         clock = Clock()
         self.assertFalse(itinerary.is_completed)
-        self.assertEqual(itinerary.next_target.node, self.n1)
+        self.assertEqual(itinerary.current_target, self.n1)
 
     def test_is_completed(self):
 
@@ -45,55 +42,95 @@ class TestItinerary(unittest.TestCase):
         itinerary = deepcopy(self.itinerary_template)
 
         for i in range(3):
-            itinerary.pop_target()
+            itinerary.tick()
 
         self.assertTrue(itinerary.is_completed)
 
-    def test_pop_node(self):
+    def test_tick(self):
 
         # Gets a copy of the itinerary
         itinerary = deepcopy(self.itinerary_template)
 
-        self.assertEqual(itinerary.pop_target().node, self.n1)
-        self.assertEqual(itinerary.pop_target().node, self.n2)
-        self.assertEqual(itinerary.pop_target().node, self.n3)
-        self.assertRaises(Exception, itinerary.pop_target)
+        self.assertEqual(itinerary.current_target, self.n1)
+        itinerary.tick()
+        self.assertEqual(itinerary.current_target, self.n2)
+        itinerary.tick()
+        self.assertEqual(itinerary.current_target, self.n3)
+
+    def test_current_target(self):
+
+        # Gets a copy of the itinerary
+        itinerary = deepcopy(self.itinerary_template)
+
+        self.assertEqual(itinerary.current_target, self.n1)
+        itinerary.tick()
+        self.assertEqual(itinerary.current_target, self.n2)
+        itinerary.tick()
+        self.assertEqual(itinerary.current_target, self.n3)
+        itinerary.tick()
+        self.assertEqual(itinerary.current_target, None)
+        itinerary.tick()
+        self.assertEqual(itinerary.current_target, None)
 
     def test_next_target(self):
 
         # Gets a copy of the itinerary
         itinerary = deepcopy(self.itinerary_template)
 
-        self.assertEqual(itinerary.next_target.node, self.n1)
-        itinerary.pop_target()
-        self.assertEqual(itinerary.next_target.node, self.n2)
-        itinerary.pop_target()
-        self.assertEqual(itinerary.next_target.node, self.n3)
-        itinerary.pop_target()
-
-        try:
-            itinerary.next_target
-            raise Exception("next_target failed to raise exception on error")
-        except Exception:
-            pass
+        self.assertEqual(itinerary.next_target, self.n2)
+        itinerary.tick()
+        self.assertEqual(itinerary.next_target, self.n3)
+        itinerary.tick()
+        self.assertEqual(itinerary.next_target, None)
+        itinerary.tick()
+        self.assertEqual(itinerary.next_target, None)
 
     def test_add_delay(self):
 
         # Gets a copy of the itinerary
         itinerary = deepcopy(self.itinerary_template)
+        # [n1] - n2 - n3
+        self.assertEqual(itinerary.current_target, self.n1)
 
-        self.assertEqual(itinerary.next_target.node, self.n1)
-        itinerary.add_delay(10)
-        target = itinerary.pop_target()
-        self.assertEqual(target.edt, time(0, 3, 10))
+        itinerary.add_uncertainty_delay()
+        # [n1] - n1 - n2 - n3
 
-        self.assertEqual(itinerary.next_target.node, self.n2)
-        itinerary.add_delay(20)
-        target = itinerary.pop_target()
-        self.assertEqual(target.edt, time(0, 7, 30))
+        itinerary.tick()
+        # n1 - [n1] - n2 - n3
+        self.assertEqual(itinerary.current_target, self.n1)
 
-        self.assertEqual(itinerary.next_target.node, self.n3)
-        itinerary.pop_target()
+        itinerary.tick()
+        # n1 - n1 - [n2] - n3
+        self.assertEqual(itinerary.current_target, self.n2)
 
-        # If the itinerary is empty, it should not raise error
-        itinerary.add_delay(10)
+    def test_reset(self):
+
+        # Gets a copy of the itinerary
+        itinerary = deepcopy(self.itinerary_template)
+
+        itinerary.tick()
+        itinerary.tick()
+        itinerary.tick()
+        itinerary.tick()
+        itinerary.tick()
+        
+        itinerary.reset()
+        self.assertEqual(itinerary.current_target, self.n1)
+        self.assertEqual(itinerary.next_target, self.n2)
+
+    def test_is_delayed(self):
+
+        # Gets a copy of the itinerary
+        itinerary = deepcopy(self.itinerary_template)
+
+        # [n1] - n2 - n3
+        self.assertFalse(itinerary.is_delayed)
+        itinerary.add_uncertainty_delay()
+        # [n1] - n1 - n2 - n3
+        self.assertTrue(itinerary.is_delayed)
+
+        itinerary.tick()
+        self.assertFalse(itinerary.is_delayed)
+        itinerary.add_scheduler_delay()
+        # n1 - [n1] - n1 - n2 - n3
+        self.assertTrue(itinerary.is_delayed)

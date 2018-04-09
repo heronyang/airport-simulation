@@ -9,11 +9,10 @@ class Flight:
 
 class ArrivalFlight(Flight):
 
-    def __init__(self, simulation, callsign, model, from_airport, to_gate,
+    def __init__(self, callsign, model, from_airport, to_gate,
                  spot, runway, arrival_time, appear_time):
 
-        self.aircraft = Aircraft(simulation, callsign, model, None,
-                                 State.flying)
+        self.aircraft = Aircraft(callsign, model, None, State.flying)
         self.from_airport = from_airport
         self.to_gate = to_gate
         self.spot = spot
@@ -28,9 +27,9 @@ class ArrivalFlight(Flight):
 
 class DepartureFlight(Flight):
 
-    def __init__(self, simulation, callsign, model, to_airport, from_gate,
+    def __init__(self, callsign, model, to_airport, from_gate,
                  spot, runway, departure_time, appear_time):
-        self.aircraft = Aircraft(simulation, callsign, model, None, State.stop)
+        self.aircraft = Aircraft(callsign, model, None, State.stop)
         self.to_airport = to_airport
         self.from_gate = from_gate
         self.spot = spot

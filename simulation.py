@@ -35,8 +35,8 @@ class Simulation:
         self.airport = AirportFactory.create(self, airport_code)
 
         # Sets up the scenario
-        self.scenario = ScenarioFactory.create(self, airport_code,
-                                               self.airport.surface)
+        self.scenario = ScenarioFactory.create(
+            airport_code, self.airport.surface)
 
         # Sets up the routing expert monitoring the airport surface
         self.routing_expert = RoutingExpert(self.airport.surface.links,
@@ -50,12 +50,14 @@ class Simulation:
         # Loads the requested scheduler
         self.scheduler = get_scheduler()
 
-        # Sets up the analyst
-        if p["analyst"]["enabled"]:
+        if not p["simulator"]["test_mode"]:
+
+            # Sets up the analyst
             self.analyst = Analyst(self)
 
-        # Sets up the state logger
-        self.state_logger = StateLogger()
+            # Sets up the state logger
+            self.state_logger = StateLogger()
+
 
         # Sets up a delegate of this simulation
         self.delegate = SimulationDelegate(self)
@@ -73,8 +75,7 @@ class Simulation:
         self.logger.debug("\nCurrent Time: %s" % self.now)
 
         try:
-
-            self.add_aircrafts()
+            # Reschedule happens before the tick
             if self.is_time_to_reschedule():
                 self.logger.info("Time to reschedule")
                 start = time.time()
@@ -89,20 +90,22 @@ class Simulation:
                 self.uncertainty.inject(self)
 
             # Tick
+            self.add_aircrafts()
             self.airport.tick()
-            self.state_logger.log_on_tick(self.delegate)
+            if not Config.params["simulator"]["test_mode"]:
+                self.state_logger.log_on_tick(self.delegate)
             self.remove_aircrafts()
             self.clock.tick()
 
             # Observe
-            if Config.params["analyst"]["enabled"]:
+            if not Config.params["simulator"]["test_mode"]:
                 self.analyst.observe_on_tick(self.delegate)
 
         except ClockException as e:
             # Finishes
-            if Config.params["analyst"]["enabled"]:
+            if not Config.params["simulator"]["test_mode"]:
                 self.analyst.save()
-            self.state_logger.save()
+                self.state_logger.save()
             raise e
         except Exception as e:
             self.logger.error(traceback.format_exc())
@@ -131,7 +134,8 @@ class Simulation:
     def reschedule(self):
         schedule = self.scheduler.schedule(self.delegate)
         self.airport.apply_schedule(schedule)
-        self.analyst.observe_on_reschedule(schedule, self.delegate)
+        if not Config.params["simulator"]["test_mode"]:
+            self.analyst.observe_on_reschedule(schedule, self.delegate)
 
     def add_aircrafts(self):
         self.add_aircrafts_from_queue()

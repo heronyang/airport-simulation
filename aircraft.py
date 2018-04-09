@@ -1,10 +1,6 @@
 import enum
 import logging
 
-from clock import Clock
-from config import Config
-from utils import is_collinear
-
 
 class State(enum.Enum):
 
@@ -17,63 +13,100 @@ class State(enum.Enum):
 
 class Aircraft:
 
-    """
-    Aircraft contains information of a aircraft and states that the pilot
-    knows. It won't obtain information other than its own state and operation.
-    """
+    def __init__(self, callsign, model, location, state):
 
-    def __init__(self, simulation, callsign, model, location, state):
-
-        # Setups the logger
         self.logger = logging.getLogger(__name__)
 
-        self.simulation = simulation
         self.callsign = callsign
         self.model = model
         self.location = location
-        self.pilot = Pilot(simulation, self)
-        self.state = state
+        self.__state = state
 
-    """
-    Aircraft's location be set by the simulation.
-    """
+        self.itinerary = None
+
     def set_location(self, location):
 
         original_location = self.location
         self.location = location
-        self.simulation.airport.update_aircraft_location(
-            self, original_location, location)
-        self.logger.info("%s changed location to %s" % (self, location))
+        self.logger.info("%s location changed to %s" % (self, location))
 
-    """
-    Aircraft's true location while moving.
-    """
     @property
-    def true_location(self):
+    def next_location(self):
+        if self.itinerary:
+            nl = self.itinerary.next_target
+            if nl is not None:
+                return nl
+        return self.location
 
-        if self.state is not State.moving:
-            return self.location
-
-        return self.pilot.itinerary.get_true_location(self.simulation.now)
-
-
-    """
-    Aircraft radio received new itinerary, and it will be passed to the pilot
-    right the way.
-    """
     def set_itinerary(self, itinerary):
-        self.pilot.set_itinerary(itinerary)
+
+        self.itinerary = itinerary
+        self.logger.debug("%s: Roger, %s received." % (self, itinerary))
+
+        for target in itinerary.targets:
+            self.logger.debug(target)
+
+    def add_uncertainty_delay(self):
+        if not self.itinerary:
+            self.logger.debug("%s: No itinerary to add delay", self)
+            return
+        delay_added_at = self.itinerary.add_uncertainty_delay()
+        self.logger.debug("%s: Delay added at %s by uncertainty" %
+                          (self, delay_added_at))
+
+    def add_scheduler_delay(self):
+        if not self.itinerary:
+            self.logger.debug("%s: No itinerary to add delay", self)
+            return
+        delay_added_at = self.itinerary.add_scheduler_delay()
+        self.logger.debug("%s: Delay added at %s by uncertainty" %
+                          (self, delay_added_at))
 
     def tick(self):
-        if self.state == State.moving:
-            self.logger.info("%s at %s %s to %s" % (self, self.true_location,
-                                                    self.state, self.location))
+
+        if self.itinerary:
+            self.itinerary.tick()
+            if self.itinerary.is_completed:
+                self.logger.debug("%s: %s completed." % (self, self.itinerary))
+                self.itinerary = None
+            else:
+                self.set_location(self.itinerary.current_target)
         else:
-            self.logger.info("%s at %s %s" % (self, self.state, self.location))
+            self.logger.debug("%s: No itinerary request." % self)
+
+        self.logger.info("%s at %s" % (self, self.location))
+
+    def is_heading_same(self, another_aircraft):
+        if self.itinerary is None or another_aircraft.itinerary is None:
+            return False
+        if self.itinerary.next_target is None or\
+           another_aircraft.itinerary.next_target is None:
+            return False
+        if self.itinerary.next_target.is_close_to(
+            self.itinerary.current_target):
+            return False
+        if another_aircraft.itinerary.next_target.is_close_to(
+            another_aircraft.itinerary.current_target):
+            return False
+        return self.itinerary.next_target.is_close_to(
+            another_aircraft.itinerary.next_target)
 
     @property
-    def is_idle(self):
-        return self.pilot.is_aircraft_idle
+    def state(self):
+        if self.itinerary is None or self.itinerary.is_completed:
+            return State.stop
+        if self.itinerary.next_target is None or\
+           self.itinerary.current_target is None:
+            return State.stop
+        return State.hold if self.itinerary.current_target.is_close_to(
+                    self.itinerary.next_target) else State.moving
+
+    @property
+    def is_delayed(self):
+        return self.itinerary.is_delayed if self.itinerary else False
+
+    def set_quiet(self, logger):
+        self.logger = logger
 
     def __hash__(self):
         return hash(self.callsign)
@@ -85,7 +118,7 @@ class Aircraft:
         return not(self == other)
 
     def __repr__(self):
-        return "<Aircraft: %s>" % self.callsign
+        return "<Aircraft: %s %s>" % (self.callsign, self.state)
 
     def __getstate__(self):
         d = dict(self.__dict__)
@@ -94,117 +127,3 @@ class Aircraft:
 
     def __setstate__(self, d):
         self.__dict__.update(d)
-
-    def set_quiet(self, logger):
-        self.logger = logger
-        self.pilot.set_quiet(logger)
-
-
-class Pilot:
-
-    def __init__(self, simulation, aircraft):
-
-        # Setups the logger
-        self.logger = logging.getLogger(__name__)
-
-        self.simulation = simulation
-        self.aircraft = aircraft
-        self.itinerary = None
-
-    def set_itinerary(self, itinerary):
-        if not itinerary.is_valid(self.simulation.clock.now):
-            self.logger.error("%s: The itinerary is impossible to make it." %
-                              self)
-            return
-
-        self.itinerary = itinerary
-        self.logger.debug("%s: Roger, new itinerary %s received." %
-                          (self, itinerary))
-
-        for target in itinerary.targets:
-            self.logger.debug(target)
-
-    def tick(self):
-
-        self.move()
-        self.update_state()
-        self.aircraft.tick()
-
-    def move(self):
-
-        if not self.itinerary:
-            self.logger.debug("%s: No itinerary request." % self)
-            return
-
-        now = self.simulation.now
-        while not self.itinerary.is_completed:
-            next_target = self.itinerary.next_target
-
-            # Pop one target node when 1) the top node is not the last one and
-            # it's finished, or 2) the top node is the last one and we've
-            # arrived the node
-            if (next_target.edt is not None and next_target.edt <= now) or \
-               (next_target.edt is None and next_target.eat <= now):
-                past_target = self.itinerary.pop_target()
-
-                # Move to the past node if it hasn't
-                if not self.aircraft.location.is_close_to(past_target.node):
-                    self.aircraft.set_location(past_target.node)
-                    self.logger.debug("%s: Moved to %s." %
-                                      (self, past_target))
-
-                self.logger.debug("%s: %s finished." % (self, next_target))
-                continue
-
-            if not self.aircraft.location.is_close_to(next_target.node):
-                self.aircraft.set_location(next_target.node)
-                self.logger.debug("%s: Moved to %s." % (self, next_target))
-
-            break
-
-        if self.itinerary.is_completed:
-            self.logger.debug("%s: %s completed." % (self, self.itinerary))
-            self.itinerary = None
-
-    def update_state(self):
-
-        if not self.itinerary:
-            self.aircraft.state = State.stop
-            return
-
-        now = self.simulation.now
-        next_target = self.itinerary.next_target
-
-        if now < next_target.eat:
-            self.aircraft.state = State.moving
-            return
-
-        if now >= next_target.eat and now < next_target.edt:
-            self.aircraft.state = State.hold
-            return
-
-        self.aircraft.state = State.uknown
-
-    def is_heading_same(self, aircraft):
-        if self.itinerary is None or aircraft.pilot.itinerary is None:
-            return False
-        if self.itinerary.next_target is None or\
-           aircraft.pilot.itinerary.next_target is None:
-            return False
-        next_target = self.itinerary.next_target
-        return is_collinear(next_target.node, self.aircraft.true_location,
-                            aircraft.true_location)
-
-    def __repr__(self):
-        return "<Pilot on %s>" % self.aircraft
-
-    def __getstate__(self):
-        d = dict(self.__dict__)
-        del d["logger"]
-        return d
-
-    def __setstate__(self, d):
-        self.__dict__.update(d)
-
-    def set_quiet(self, logger):
-        self.logger = logger

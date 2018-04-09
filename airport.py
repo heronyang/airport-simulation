@@ -7,7 +7,6 @@ from config import Config
 from conflict import Conflict
 from aircraft import State
 from node import get_middle_node
-from copy import deepcopy
 
 
 class Airport:
@@ -30,42 +29,20 @@ class Airport:
         # Queues for departure flights at gates
         self.gate_queue = {}
 
-        # Inverse lookup from node to aircraft
-        self.node2aircraft = {}
-
         # Static data
         self.code = code
         self.surface = surface
 
     def apply_schedule(self, schedule):
-        # NOTE: the aircraft in schedule may be different from the one in
-        # the airport, they should be retrieved by comparing the callsign
-        # (hash)
         for aircraft, itinerary in schedule.itineraries.items():
             is_applied = False
             for airport_aircraft in self.aircrafts:
                 if airport_aircraft == aircraft:
-                    airport_aircraft.set_itinerary(deepcopy(itinerary))
+                    airport_aircraft.set_itinerary(itinerary)
                     is_applied = True
                     break
             if not is_applied:
                 raise Exception("%s not found in the airport" % r.aircraft)
-
-    def update_aircraft_location(self, aircraft, original_location, location):
-        self.logger.info("Update %s location from %s to %s" % 
-                        (aircraft, original_location, location))
-
-        # Removes previous one if found
-        if original_location in self.node2aircraft:
-            self.node2aircraft[original_location].remove(aircraft)
-
-        # Appends the new one
-        s = self.node2aircraft.get( location, set())
-        s.add(aircraft)
-        self.node2aircraft[location] = s
-
-    def is_occupied_at(self, node):
-        return node in self.node2aircraft and len(self.node2aircraft[node]) > 0
 
     def add_aircraft(self, aircraft):
         self.aircrafts.append(aircraft)
@@ -74,45 +51,36 @@ class Airport:
         self.aircrafts.remove(aircraft)
 
     @property
-    def conflicts_at_node(self):
-
-        occupied_by = {}
-        for aircraft in self.aircrafts:
-            if aircraft.state == State.moving:
-                continue
-            location = aircraft.location
-            entry = occupied_by.get(location, [])
-            entry.append(aircraft)
-            occupied_by[location] = entry
-
-        now = self.simulation.now
-        result = []
-        for location in occupied_by:
-            aircrafts = occupied_by[location]
-            if len(aircrafts) <= 1:
-                continue
-            result.append(Conflict(location, aircrafts, now))
-        return result
+    def conflicts(self):
+        return self.__get_conflicts()
 
     @property
-    def conflicts(self):
+    def next_conflicts(self):
+        return self.__get_conflicts(is_next=True)
 
-        cs = []
-
-        separation = Config.params["simulation"]["separation"]
+    def __get_conflicts(self, is_next=False):
+        __conflicts = []
         aircraft_pairs = list(itertools.combinations(self.aircrafts, 2))
         for ap in aircraft_pairs:
-            l0, l1 = ap[0].true_location, ap[1].true_location
-            if l0.get_distance_to(l1) > separation:
+            if is_next:
+                l0, l1 = ap[0].next_location, ap[1].next_location
+            else:
+                l0, l1 = ap[0].location, ap[1].location
+            if not l0.is_close_to(l1):
                 continue
-            middle_node = get_middle_node(l0, l1)
-            cs.append(Conflict(middle_node, ap, self.simulation.now))
+            __conflicts.append(Conflict((l0, l1), ap, self.simulation.now))
+        return __conflicts
 
-        return cs
+
+    def is_occupied_at(self, node):
+        for aircraft in self.aircrafts:
+            if aircraft.location.is_close_to(node):
+                return True
+        return False
 
     def tick(self):
         for aircraft in self.aircrafts:
-            aircraft.pilot.tick()
+            aircraft.tick()
 
     def print_stats(self):
         self.surface.print_stats()

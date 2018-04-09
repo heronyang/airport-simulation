@@ -14,6 +14,8 @@ const RUNWAY_COLOR = "#FF0000";    // red
 const ZOOM_GLOBAL = 2;
 const ZOOM_AIRPORT = 17;
 
+const QUICK_NEXT_PREV_TIMES = 120;
+
 function initMap() {
 	map = new google.maps.Map(document.getElementById("map"), {
 		center: {lat: 0, lng: 0},
@@ -42,16 +44,31 @@ function getParams() {
     return params;
 }
 
-function drawNode(lat, lng, icon_url, content) {
+function drawNode(lat, lng, icon_url, label, content, is_center) {
 
 	var infowindow = new google.maps.InfoWindow({
 		content: content
 	});
 
+    if (is_center != undefined) {
+        var image = {
+            url: icon_url,
+            // This marker is 20 pixels wide by 32 pixels high.
+            size: new google.maps.Size(36, 36),
+            // The origin for this image is (0, 0).
+            origin: new google.maps.Point(0, 0),
+            // The anchor for this image is the base of the flagpole at (0, 32).
+            anchor: new google.maps.Point(18, 18)
+        };
+    } else {
+        var image = icon_url;
+    }
+
     var marker = new google.maps.Marker({
         position: {lat: lat, lng: lng},
         map: map,
-        icon: icon_url
+        label: label,
+        icon: image
     });
 
 	marker.addListener("click", function() {
@@ -85,6 +102,20 @@ $("#prev").click(function(e) {
 $("#next").click(function(e) {
     e.preventDefault();
     nextState();
+});
+
+$("#prev-prev").click(function(e) {
+    e.preventDefault();
+    for (var i=0; i < QUICK_NEXT_PREV_TIMES; i++) {
+        prevState();
+    }
+});
+
+$("#next-next").click(function(e) {
+    e.preventDefault();
+    for (var i=0; i < QUICK_NEXT_PREV_TIMES; i++) {
+        nextState();
+    }
 });
 
 /* UI Operations */
@@ -146,6 +177,7 @@ function getExprData(plan, callback) {
 
 /* Controllers */
 var autoRunWorker = null;
+var pauseTime = 500;
 function toggleAutoRun() {
 
     if (autoRunWorker) {
@@ -155,7 +187,7 @@ function toggleAutoRun() {
     } else {
 		autoRunWorker = window.setInterval(function() {
             nextState();
-		}, 500);
+		}, pauseTime);
         setAutoRunShow(true);
     }
 
@@ -198,13 +230,13 @@ function drawSurfaceData() {
     // Gate
     for (let gate of expr_data["surface"]["gates"]) {
 		var name = "GATE: " + gate["name"];
-        drawNode(gate["lat"], gate["lng"], GATE_ICON_URL, name);
+        drawNode(gate["lat"], gate["lng"], GATE_ICON_URL, "", name);
     }
 
     // Spot
     for (let spot of expr_data["surface"]["spots"]) {
 		var name = "SPOT POSITION: " + spot["name"];
-        drawNode(spot["lat"], spot["lng"], SPOT_ICON_URL, name);
+        drawNode(spot["lat"], spot["lng"], SPOT_ICON_URL, "", name);
     }
 
     // Pushback way
@@ -266,9 +298,11 @@ function updateState() {
     // Aircrafts
     for (let aircraft of expr_data["state"][state_index]["aircrafts"]) {
         aircrafts.push(drawNode(
-            aircraft["true_location"]["lat"], aircraft["true_location"]["lng"],
-            getAircraftIconUrl(aircraft["state"]),
-            parseAircraftContent(aircraft)
+            aircraft["location"]["lat"], aircraft["location"]["lng"],
+            getAircraftIconUrl(aircraft),
+            aircraft["callsign"],
+            parseAircraftContent(aircraft),
+            true
         ));
     }
 
@@ -279,27 +313,52 @@ function parseAircraftContent(aircraft) {
     if (aircraft["itinerary"] == null) {
         return html + "No itinerary";
     }
-    html += "<table>";
+    html += "<table><tr><th>Target</th><th>LatLng</th><th>UC</th><th>SC</th></tr>";
+    var index = aircraft["itinerary_index"];
+    var uc_delay_index = aircraft["uncertainty_delayed_index"];
+    var sc_delay_index = aircraft["scheduler_delayed_index"];
+    var i = 0;
     for (let target of aircraft["itinerary"]) {
         var latlng = target["node_location"]["lat"] + "," +
             target["node_location"]["lng"];
-        html += "<tr>" + 
-            "<td>" + target["node_name"] + "</td>" +
-            "<td>" + latlng + "</td>" +
-            "<td>" + target["eat"] + "</td>" +
-            "<td>" + target["edt"] + "</td>" +
-            "</tr>";
+        html += "<tr class=\"" + getTargetClassName(i, index) + "\">";
+        html += "<td>" + target["node_name"] + "</td><td>" + latlng + "</td>";
+        if ($.inArray(i, uc_delay_index) >= 0) {
+            html += "<td>V</td>";
+        } else {
+            html += "<td>&nbsp;</td>";
+        }
+        if ($.inArray(i, sc_delay_index) >= 0) {
+            html += "<td>V</td>";
+        } else {
+            html += "<td>&nbsp;</td>";
+        }
+        html += "</tr>";
+        i += 1;
     }
     html += "</table>";
     return html;
 }
 
-function getAircraftIconUrl(aircraft_state) {
-    if (aircraft_state === "moving") {
-        return FLIGT_MOVING_ICON_URL;
+function getTargetClassName(current_index, index) {
+    if (current_index < index) {
+        return "past-target";
+    } else if (current_index == index) {
+        return "current-target";
     }
-    if (aircraft_state === "hold") {
+    return "future-target";
+}
+
+function getAircraftIconUrl(aircraft) {
+
+    if (aircraft["state"] == "stop") {
+        return FLIGT_ICON_URL;
+    }
+
+    if (aircraft["is_delayed"]) {
         return FLIGT_HOLD_ICON_URL;
     }
-    return FLIGT_ICON_URL;
+
+    return FLIGT_MOVING_ICON_URL;
+
 }

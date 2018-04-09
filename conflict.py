@@ -3,9 +3,9 @@ from utils import str2sha1
 
 class Conflict:
 
-    def __init__(self, location, aircrafts, time):
+    def __init__(self, locations, aircrafts, time):
 
-        self.location = location
+        self.locations = locations
         self.aircrafts = aircrafts
         self.time = time
 
@@ -14,7 +14,8 @@ class Conflict:
             h.append(aircraft.callsign)
         h.sort()
 
-        self.hash = str2sha1("%s#%s" % ("#".join(h), location))
+        self.hash = str2sha1("%s#%s" %
+                             ("#".join(h), "#".join(str(self.locations))))
 
     def __hash__(self):
         return self.hash
@@ -26,7 +27,7 @@ class Conflict:
         return not(self == other)
 
     def __repr__(self):
-        return "<Conflict: %s %s>" % (self.location, self.aircrafts)
+        return "<Conflict: %s %s>" % (self.locations, self.aircrafts)
 
     def get_less_priority_aircraft(self, scenario):
         f0, f1 = scenario.get_flight(self.aircrafts[0]), \

@@ -26,3 +26,11 @@ html, body {
 table, th, td {
     border: 1px solid black;
 }
+
+.past-target {
+    color: #bbb;
+}
+
+.current-target {
+    font-weight: bold;
+}

@@ -1,108 +1,88 @@
 import logging
-from utils import get_time_delta, get_seconds_after, get_seconds_before, str2sha1
-from node import get_middle_node
+from copy import deepcopy
+from utils import str2sha1, random_string
 
 
+"""
+Itinerary is a list of target nodes that an aircraft follows per tick.
+"""
 class Itinerary:
 
-    class Target:
-
-        """
-        eat = expected arrival time
-        edt = expected departure time
-        """
-        def __init__(self, node, eat, edt):
-            self.node = node
-            self.eat = eat
-            self.edt = edt
-            self.hash = str2sha1("%s#%s#%s" % (self.node, self.eat, self.edt))
-
-        def __repr__(self):
-            return "<Target %s | eat %s | edt %s>" \
-                    % (self.node, self.eat, self.edt)
-
-        def __hash__(self):
-            return self.hash
-
-        def __eq__(self, other):
-            return self.hash == other.hash
-
-        def __ne__(self, other):
-            return not(self == other)
-
-    def __init__(self, targets):
+    def __init__(self, targets=[]):
 
         self.targets = targets
-        self.past_target = None
+        self.backup = deepcopy(targets)
+        self.index = 0  # If index == len(targets): completed
 
         self.hash = str2sha1("#".join(str(self.targets)))
+        self.uncertainty_delayed_index = []
+        self.scheduler_delayed_index = []
 
-    def pop_target(self):
+    def tick(self):
+        if self.is_completed:
+            return
+        self.index += 1
 
-        # Gets the next node
-        next_target = self.next_target
+    def __add_delay(self):
+        if self.is_completed:
+            return None
+        self.targets.insert(self.index, self.targets[self.index])
+        return self.targets[self.index]
 
-        # Remove the next node from the queue
-        self.targets = self.targets[1:]
+    def add_uncertainty_delay(self):
+        self.__update_delayed_index(self.index)
+        self.uncertainty_delayed_index.append(self.index)
+        return self.__add_delay()
 
-        # Saves the original next node as past node
-        self.past_target = next_target
+    def add_scheduler_delay(self):
+        self.__update_delayed_index(self.index)
+        self.scheduler_delayed_index.append(self.index)
+        return self.__add_delay()
 
-        return next_target
+    def __update_delayed_index(self, new_index):
+        for i in range(len(self.uncertainty_delayed_index)):
+            if self.uncertainty_delayed_index[i] >= new_index:
+                self.uncertainty_delayed_index[i] += 1
+        for i in range(len(self.scheduler_delayed_index)):
+            if self.scheduler_delayed_index[i] >= new_index:
+                self.scheduler_delayed_index[i] += 1
 
-    def get_true_location(self, now):
+    def reset(self):
+        self.index = 0
 
-        if self.past_target is None:
-            # If we have't started the itinerary, use next_target
-            if self.next_target:
-                return self.next_target.node
-            # If there's no node informations, raise exception
-            raise Exception("Unable to find true location")
+    def restore(self):
+        # NOTE: This function doesn't work well on cleaning the delayed indexes
+        # and we should avoid using this function.
+        self.targets = deepcopy(self.backup)
+        self.uncertainty_delayed_index = []
+        self.scheduler_delayed_index = []
 
-        total_time = get_time_delta(self.next_target.eat, self.past_target.edt)
-        past_time = get_time_delta(now, self.past_target.edt)
+    @property
+    def length(self):
+        return len(self.targets)
 
-        ratio = past_time / total_time
-        return get_middle_node(self.past_target.node,
-                               self.next_target.node, ratio)
+    @property
+    def is_delayed(self):
+        if self.next_target is None:
+            return False
+        return self.index in \
+                self.uncertainty_delayed_index + self.scheduler_delayed_index
 
-    def add_delay(self, delay):
-        is_first = True
-        for target in self.targets:
-            if target.edt is None:
-                break
-            target.edt = get_seconds_after(target.edt, delay)
-            if not is_first:
-                # the expected arrival time of the next node is fixed
-                target.eat = get_seconds_after(target.eat, delay)
-            is_first = False
-
-    def remove_delay(self, delay):
-        is_first = True
-        for target in self.targets:
-            if target.edt is None:
-                break
-            target.edt = get_seconds_before(target.edt, delay)
-            if not is_first:
-                # the expected arrival time of the next node is fixed
-                target.eat = get_seconds_before(target.eat, delay)
-            is_first = False
+    @property
+    def current_target(self):
+        if self.is_completed:
+            return None
+        return self.targets[self.index]
 
     @property
     def next_target(self):
-        if len(self.targets) < 1:
-            raise Exception("Can't peek node while there's no target node")
-        return self.targets[0]
+        if self.index >= self.length - 1:
+            return None
+        return self.targets[self.index + 1]
 
     @property
     def is_completed(self):
-        return len(self.targets) == 0
-
-    def is_valid(self, now):
-        # TODO: More validation can be added to avoid hidden bug
-        if not self.targets or len(self.targets) <= 1:
-            return False
-        return self.targets[0].edt >= now
+        return self.index >= self.length
 
     def __repr__(self):
         return "<Itinerary: %d target>" % len(self.targets)
