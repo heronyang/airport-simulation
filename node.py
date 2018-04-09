@@ -1,6 +1,5 @@
 from utils import is_valid_geo_pos, str2sha1
 from geopy.distance import vincenty
-from utils import random_string
 from config import Config
 from id_generator import get_new_node_id
 

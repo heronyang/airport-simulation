@@ -67,6 +67,21 @@ class Aircraft:
 
         self.logger.info("%s at %s" % (self, self.location))
 
+    def is_heading_same(self, another_aircraft):
+        if self.itinerary is None or another_aircraft.itinerary is None:
+            return False
+        if self.itinerary.next_target is None or\
+           another_aircraft.itinerary.next_target is None:
+            return False
+        if self.itinerary.next_target.is_close_to(
+            self.itinerary.current_target):
+            return False
+        if another_aircraft.itinerary.next_target.is_close_to(
+            another_aircraft.itinerary.current_target):
+            return False
+        return self.itinerary.next_target.is_close_to(
+            another_aircraft.itinerary.next_target)
+
     @property
     def state(self):
         if not self.itinerary or self.itinerary.is_completed:

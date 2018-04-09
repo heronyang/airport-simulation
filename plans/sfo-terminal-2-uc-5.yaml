@@ -1,0 +1,8 @@
+name: sfo-terminal-2-uc-5
+airport: sfo-terminal-2
+
+uncertainty:
+  # Enable or disable the uncertain in simulation
+  enabled: true
+  # Probability of an aircraft holds at node unexpectedly (depends on time_unit)
+  prob_hold: 0.05

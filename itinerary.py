@@ -1,6 +1,6 @@
 import logging
 from copy import deepcopy
-from utils import str2sha1
+from utils import str2sha1, random_string
 
 
 """

@@ -1,12 +1,8 @@
 import logging
 
+from copy import deepcopy
 from schedule import Schedule
-from aircraft import Aircraft, State
-from route import Route
 from itinerary import Itinerary
-from config import Config
-from utils import get_seconds_after, get_seconds, get_seconds_taken
-from heapdict import heapdict
 
 
 class AbstractScheduler:
@@ -26,7 +22,7 @@ class AbstractScheduler:
         src, dst = aircraft.location, flight.runway.start
         route = simulation.routing_expert.get_shortest_route(src, dst)
 
-        return Itinerary(route.nodes)
+        return Itinerary(deepcopy(route.nodes))
 
     def __getstate__(self):
         d = dict(self.__dict__)
