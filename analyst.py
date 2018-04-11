@@ -123,14 +123,9 @@ class GateQueueMetric():
         self.n_gates = len(surface.gates)
 
     def update_on_tick(self, airport, now):
-
-        s = 0
-        for _, queue in airport.gate_queue.items():
-            s += len(queue)
-
-        avg_queue_size = s / self.n_gates
+        s = sum([len(q) for q in airport.gate_queue.values()])
         self.gate_queue_size = self.gate_queue_size.append(
-            {"time": now, "size": avg_queue_size}, ignore_index=True
+            {"time": now, "size": s}, ignore_index=True
         )
 
     @property
@@ -262,6 +257,8 @@ class Analyst:
         self.save_schedule_summary()
         self.save_metrics()
 
+        plt.close('all')
+
     def save_tick_summary(self):
 
         c = self.aircraft_count_metric.counter.set_index("time")
@@ -280,8 +277,8 @@ class Analyst:
             self.logger.debug("\n" + str(stats))
 
         self.save_csv("tick", stats)
-        self.save_fig("conflicts", cf)
-        self.save_fig("gate-queue-size", qs)
+        self.save_fig("conflicts", cf, "line")
+        self.save_fig("gate_queue_size", qs, "line")
 
     def save_schedule_summary(self):
 
@@ -292,14 +289,14 @@ class Analyst:
         with pd.option_context("display.max_rows", None):
             self.logger.debug("\n" + str(dn))
 
-        self.save_fig("delay_added", dn)
+        self.save_fig("delay_added", dn, "line")
 
         # Execution time
         rst = self.execution_time_metric.rs_exec_time.set_index("time")
         with pd.option_context("display.max_rows", None):
             self.logger.debug("\n" + str(rst))
 
-        self.save_fig("schedule_execution_time", rst)
+        self.save_fig("schedule_execution_time", rst, "line")
 
         # Writes to one csv file
         stats = dn.join(rst)
@@ -309,12 +306,13 @@ class Analyst:
         filename = "%s%s.csv" % (get_output_dir_name(), type_name)
         df.to_csv(filename)
 
-    def save_fig(self, fig_name, df):
+    def save_fig(self, fig_name, df, kind):
         filename = "%s%s.png" % (get_output_dir_name(), fig_name)
-        plt.figure()
-        df.plot(kind="line").get_figure().savefig(filename)
         plt.clf()
-        plt.close('all')
+        plt.figure(figsize=Config.OUTPUT_FIG_SIZE)
+        df.plot(kind=kind)
+        plt.tight_layout()
+        plt.savefig(filename, dpi=Config.OUTPUT_FIG_DPI)
 
     def save_metrics(self):
         """

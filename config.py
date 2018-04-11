@@ -28,3 +28,6 @@ class Config(metaclass=MetaConfig):
     BATCH_OUTPUT_DIR = "./batch_output/"
 
     SCHEDULER_DIR_NAME = "scheduler"
+    OUTPUT_FIG_DPI = 150
+    OUTPUT_FIG_SIZE = (20, 10)
+    OUTPUT_FIG_X_ROT = 90
