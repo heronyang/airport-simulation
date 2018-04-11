@@ -1,12 +1,11 @@
 import os
 import random
 import logging
-from config import Config
 
 
 class Uncertainty:
 
-    def __init__(self, prob_hold=Config.params["uncertainty"]["prob_hold"]):
+    def __init__(self, prob_hold):
         self.logger = logging.getLogger(__name__)
         self.prob_hold = prob_hold
 

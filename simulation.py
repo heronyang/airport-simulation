@@ -44,8 +44,8 @@ class Simulation:
                                             p["simulation"]["cache"])
 
         # Sets up the uncertainty module
-        self.uncertainty = (Uncertainty() if p["uncertainty"]["enabled"]
-                            else (None))
+        self.uncertainty = (Uncertainty(p["uncertainty"]["prob_hold"])
+                            if p["uncertainty"]["enabled"] else (None))
 
         # Loads the requested scheduler
         self.scheduler = get_scheduler()

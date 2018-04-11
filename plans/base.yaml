@@ -22,10 +22,6 @@ simulation:
   # Separation requirement in feets between two aircrafts
   separation: 50
 
-monitor:
-  # Enable or disable the real-time monitor
-  enabled: false
-
 uncertainty:
   # Enable or disable the uncertain in simulation
   enabled: false

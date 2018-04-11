@@ -1,6 +1,7 @@
 import os
 import json
 import logging
+import cache
 
 from node import Node
 from link import Link
@@ -35,6 +36,16 @@ class Surface:
     def break_links(self):
 
         self.logger.info("Starts to break links")
+        cache_enabled = Config.params["simulation"]["cache"]
+
+        # Loads all_nodes from cache if exists
+        if cache_enabled:
+            hash_key = cache.hash([], self.nodes)
+            cached = cache.get(hash_key)
+            if cached:
+                self.runways, self.taxiways, self.pushback_ways = cached
+                self.logger.debug("Done breaking links using cache")
+                return
 
         # Retrieve all nodes and links
         all_nodes = self.nodes
@@ -47,6 +58,11 @@ class Surface:
             pass
 
         self.logger.info("Done breaking links")
+
+        # Stores the result into cache for future usages
+        if cache_enabled:
+            to_cache = [self.runways, self.taxiways, self.pushback_ways]
+            cache.put(hash_key, to_cache)
 
     def break_next_link(self, all_nodes):
 
