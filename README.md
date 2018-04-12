@@ -23,7 +23,7 @@ airport code).
 
 ## Batch Run
 
-    $ python3 simulation.py -f batch_plans/simple-continuous-uc.yaml
+    $ python3 simulator.py -f batch_plans/simple-continuous-uc.yaml
 
 ## Run Tests
 
