@@ -7,6 +7,8 @@ simulator:
   pause_time: 0
   # Enable for test mode
   test_mode: false
+  # Enable scenerio regeneration
+  scenario_regeneration: true
 
 simulation:
   # Seconds between each simulation epoch

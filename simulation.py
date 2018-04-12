@@ -32,12 +32,12 @@ class Simulation:
         self.clock = Clock()
 
         # Sets up the airport
-        airport_code = p["airport"]
-        self.airport = AirportFactory.create(self, airport_code)
+        airport_name = p["airport"]
+        self.airport = AirportFactory.create(self, airport_name)
 
         # Sets up the scenario
         self.scenario = ScenarioFactory.create(
-            airport_code, self.airport.surface)
+            airport_name, self.airport.surface)
 
         # Sets up the routing expert monitoring the airport surface
         self.routing_expert = RoutingExpert(self.airport.surface.links,

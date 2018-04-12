@@ -65,10 +65,10 @@ class Scenario:
 class ScenarioFactory:
 
     @classmethod
-    def create(self, code, surface):
+    def create(self, name, surface):
 
         # Loads file if it exists; otherwise, raises error
-        dir_path = Config.DATA_ROOT_DIR_PATH % code
+        dir_path = Config.DATA_ROOT_DIR_PATH % name
         file_path = dir_path + "scenario.json"
         if not os.path.exists(file_path):
             raise Exception("Scenario file not found")

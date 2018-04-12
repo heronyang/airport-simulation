@@ -14,6 +14,7 @@ from clock import ClockException
 from config import Config as cfg
 from utils import get_output_dir_name
 from reporter import save_batch_result
+from subprocess import call
 
 logger = None
 
@@ -133,7 +134,12 @@ def set_plan_name(name, expr_var):
 
 def run():
 
+    global logger
     logger = init_logger()
+
+    if cfg.params["simulator"]["scenario_regeneration"]:
+        regenerate_scenario()
+
     simulation = Simulation()
 
     global done
@@ -154,6 +160,14 @@ def run():
         logger.error("Simulation exists on unexpected error")
         os._exit(-1)
 
+def regenerate_scenario():
+    logger.info("Generating scenario files")
+    dir_path = cfg.DATA_GENERATION_DIR_PATH % cfg.params["airport"]
+    current_dir = os.getcwd()
+    os.chdir(dir_path)
+    call(["./generate_scenario.py"])
+    os.chdir(current_dir)
+    logger.info("Scenario files generated")
 
 if __name__ == "__main__":
     main()
