@@ -68,7 +68,6 @@ class Aircraft:
             self.itinerary.tick()
             if self.itinerary.is_completed:
                 self.logger.debug("%s: %s completed." % (self, self.itinerary))
-                self.itinerary = None
             else:
                 self.set_location(self.itinerary.current_target)
         else:

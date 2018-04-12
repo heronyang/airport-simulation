@@ -14,6 +14,7 @@ from uncertainty import Uncertainty
 from config import Config
 from collections import deque
 from state_logger import StateLogger
+from itinerary import CompletedItinerary
 import importlib
 import numpy as np
 
@@ -68,6 +69,9 @@ class Simulation:
         # Initializes the last execution time for rescheduling to None
         self.last_schedule_exec_time = None
 
+        # Initializes the completed itinerary array
+        self.completed_itineraries = []
+
         self.print_stats()
 
     def tick(self):
@@ -104,6 +108,7 @@ class Simulation:
         except ClockException as e:
             # Finishes
             if not Config.params["simulator"]["test_mode"]:
+                self.analyst.observe_on_finish(self.delegate)
                 self.analyst.save()
                 self.state_logger.save()
             raise e
@@ -197,6 +202,11 @@ class Simulation:
 
         for aircraft in to_remove_aircrafts:
             self.logger.info("Removes %s from the airport" % aircraft)
+            self.completed_itineraries.append(
+                CompletedItinerary(
+                    self.scenario.get_flight(aircraft).appear_time,
+                    self.now, aircraft.itinerary)
+            )
             self.airport.remove_aircraft(aircraft)
 
     @property
@@ -252,6 +262,10 @@ class SimulationDelegate:
     @property
     def last_schedule_exec_time(self):
         return self.simulation.last_schedule_exec_time
+
+    @property
+    def completed_itineraries(self):
+        return self.simulation.completed_itineraries
 
     @property
     def copy(self, uncertainty=None):

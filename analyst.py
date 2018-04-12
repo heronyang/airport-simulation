@@ -202,6 +202,46 @@ class ExecutionTimeMetric():
             rst.max(), rst.min(), rst.mean()
         )
 
+class ItineraryMetric():
+
+    def __init__(self):
+        self.itinerary = pd.DataFrame(
+            columns=["n_scheduler_delay", "n_uncertainty_delay", "time_taken"]
+        )
+
+    def update_on_finish(self, completed_itineraries):
+        for ci in completed_itineraries:
+            self.itinerary = self.itinerary.append(
+                {
+                    "n_scheduler_delay": ci.itinerary.n_scheduler_delay,
+                    "n_uncertainty_delay": ci.itinerary.n_uncertainty_delay,
+                    "time_taken": ci.time_taken
+                }, ignore_index=True
+            )
+
+    @property
+    def summary(self):
+
+        if len(self.itinerary) == 0:
+            return "Itinerary: insufficient data"
+
+        return "Itinerary avg # delay: %f (scheduler: %f, uncertainty: %f)" % (
+            self.avg_n_delay, self.avg_n_scheduler_delay,
+            self.avg_n_uncertainty_delay
+        )
+
+    @property
+    def avg_n_scheduler_delay(self):
+        return self.itinerary["n_scheduler_delay"].mean()
+
+    @property
+    def avg_n_uncertainty_delay(self):
+        return self.itinerary["n_uncertainty_delay"].mean()
+
+    @property
+    def avg_n_delay(self):
+        return self.avg_n_scheduler_delay + self.avg_n_uncertainty_delay
+
 class Analyst:
 
     def __init__(self, simulation):
@@ -218,6 +258,7 @@ class Analyst:
         self.gate_queue_metric = GateQueueMetric(simulation.airport.surface)
         self.schedule_metric = ScheduleMetric()
         self.execution_time_metric = ExecutionTimeMetric()
+        self.itinerary_metric = ItineraryMetric()
 
         self.save_airport_name()
 
@@ -241,6 +282,10 @@ class Analyst:
         self.execution_time_metric.update_on_reschedule(
             simulation.last_schedule_exec_time, now)
 
+    def observe_on_finish(self, simulation):
+        self.itinerary_metric.update_on_finish(
+            simulation.completed_itineraries)
+
     def print_summary(self):
 
         self.logger.debug(self.taxitime_metric.summary)
@@ -250,11 +295,13 @@ class Analyst:
         self.logger.debug(self.gate_queue_metric.summary)
         self.logger.debug(self.schedule_metric.summary)
         self.logger.debug(self.execution_time_metric.summary)
+        self.logger.debug(self.itinerary_metric.summary)
 
     def save(self):
 
         self.save_tick_summary()
         self.save_schedule_summary()
+        self.save_itinerary_summary()
         self.save_metrics()
 
         plt.close('all')
@@ -302,6 +349,11 @@ class Analyst:
         stats = dn.join(rst)
         self.save_csv("schedule", stats)
 
+    def save_itinerary_summary(self):
+        iti = self.itinerary_metric.itinerary
+        iti["n_delay"] = iti["n_scheduler_delay"] + iti["n_uncertainty_delay"]
+        self.save_csv("itinerary", iti)
+
     def save_csv(self, type_name, df):
         filename = "%s%s.csv" % (get_output_dir_name(), type_name)
         df.to_csv(filename)
@@ -325,7 +377,12 @@ class Analyst:
             "delay_added": self.schedule_metric.total_delay_time_added,
             "avg_queue_size": self.gate_queue_metric.avg_queue_size,
             "avg_reschedule_exec_time":
-            self.execution_time_metric.avg_reschedule_exec_time
+            self.execution_time_metric.avg_reschedule_exec_time,
+            "avg_n_delay": self.itinerary_metric.avg_n_delay,
+            "avg_n_scheduler_delay":
+            self.itinerary_metric.avg_n_scheduler_delay,
+            "avg_n_uncertainty_delay":
+            self.itinerary_metric.avg_n_uncertainty_delay
         }
         with open(filename, "w") as f:
             f.write(json.dumps(response, indent=4))

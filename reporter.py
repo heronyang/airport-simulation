@@ -9,8 +9,16 @@ def save_batch_result(name, expr_var_name, expr_var_range):
 
     # Reads and merges the metrics
     metrics = pd.DataFrame(columns=[
-        expr_var_name, "conflicts", "makespan", "delay_added", "avg_queue_size",
-        "avg_reschedule_exec_time"])
+        expr_var_name,
+        "conflicts",
+        "makespan",
+        "delay_added",
+        "avg_queue_size",
+        "avg_reschedule_exec_time",
+        "avg_n_delay",
+        "avg_n_scheduler_delay",
+        "avg_n_uncertainty_delay"
+    ])
 
     for expr_var in expr_var_range:
         filename = cfg.OUTPUT_DIR + name + "-batch-" + str(expr_var) +\
@@ -24,7 +32,10 @@ def save_batch_result(name, expr_var_name, expr_var_range):
                 "makespan": d["makespan"],
                 "delay_added": d["delay_added"],
                 "avg_queue_size": d["avg_queue_size"],
-                "avg_reschedule_exec_time": d["avg_reschedule_exec_time"]
+                "avg_reschedule_exec_time": d["avg_reschedule_exec_time"],
+                "avg_n_delay": d["avg_n_delay"],
+                "avg_n_scheduler_delay": d["avg_n_scheduler_delay"],
+                "avg_n_uncertainty_delay": d["avg_n_uncertainty_delay"]
             }, ignore_index=True)
 
     # Saves the metrics onto disk
@@ -35,11 +46,13 @@ def save_metrics(metrics, output_dir):
     setup_output_dir(output_dir)
     metrics.to_csv(output_dir + "metrics.csv")
     for col in list(metrics):
-        plt.figure()
-        metrics[col].plot(kind="line").get_figure().savefig(
-            output_dir + col + ".png")
         plt.clf()
-        plt.close('all')
+        plt.figure(figsize=cfg.OUTPUT_FIG_SIZE)
+        filename = output_dir + col + ".png" 
+        metrics[col].plot(kind="line")
+        plt.tight_layout()
+        plt.savefig(filename, dpi=cfg.OUTPUT_FIG_DPI)
+    plt.close('all')
 
 def setup_output_dir(output_dir):
     # Removes the folder if it's already exists
