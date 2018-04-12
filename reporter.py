@@ -12,7 +12,6 @@ def save_batch_result(name, expr_var_name, expr_var_range):
         expr_var_name,
         "conflicts",
         "makespan",
-        "delay_added",
         "avg_queue_size",
         "avg_reschedule_exec_time",
         "avg_n_delay",
@@ -30,7 +29,6 @@ def save_batch_result(name, expr_var_name, expr_var_range):
                 expr_var_name: expr_var,
                 "conflicts": d["conflicts"],
                 "makespan": d["makespan"],
-                "delay_added": d["delay_added"],
                 "avg_queue_size": d["avg_queue_size"],
                 "avg_reschedule_exec_time": d["avg_reschedule_exec_time"],
                 "avg_n_delay": d["avg_n_delay"],
@@ -61,5 +59,10 @@ def setup_output_dir(output_dir):
     # Creates a brand new folder
     os.makedirs(output_dir)
 
-# import numpy
-# save_batch_result("simple-continuous-uc", "uncertainty.hold_prob", numpy.arange(0.0, 0.8, 0.2))
+def test():
+    import numpy
+    save_batch_result(
+        "simple-continuous-uc",
+        "uncertainty.hold_prob",
+        numpy.arange(0.0, 0.8, 0.2)
+    )

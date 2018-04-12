@@ -81,10 +81,16 @@ def init_logger():
 done = False
 
 def run_batch():
+
     global done
+
     name = cfg.params["name"]
     expr_var_name = cfg.params["batch"]
     expr_var_range = get_expr_var_range(expr_var_name)
+
+    if len(expr_var_range) < 2:
+        raise Exception("Invalid configuration on expr_var_range")
+
     for expr_var in expr_var_range:
         print("Running simulation with %s = %f" % (expr_var_name, expr_var))
         done = False
@@ -94,6 +100,7 @@ def run_batch():
         run()
         print("Finished simulation with %s = %f, time %s seconds" %
               (expr_var_name, expr_var, time.time() - start))
+
     save_batch_result(name, expr_var_name, expr_var_range)
     print("Saved result")
 

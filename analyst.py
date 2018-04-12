@@ -144,36 +144,6 @@ class GateQueueMetric():
             qs.max(), qs.min(), qs.mean()
         )
 
-class ScheduleMetric():
-
-    def __init__(self):
-
-        self.delay_added = pd.DataFrame(columns=["time", "n_delay_added"])
-
-    def update_on_reschedule(self, schedule, now):
-
-        self.delay_added = self.delay_added.append(
-            {"time": now, "n_delay_added": schedule.n_delay_added},
-            ignore_index= True
-        )
-
-    @property
-    def total_delay_time_added(self):
-        delay_time = Config.params["simulation"]["time_unit"]
-        return self.delay_added["n_delay_added"].sum() * delay_time
-
-    @property
-    def summary(self):
-
-        if len(self.delay_added) == 0:
-            return "Schedule: insufficient data"
-
-        nd = self.delay_added.set_index("time")
-
-        return "Schedule # delayed added: top %d low %d mean %d" % (
-            nd.max(), nd.min(), nd.mean()
-        )
-
 class ExecutionTimeMetric():
 
     def __init__(self):
@@ -256,7 +226,6 @@ class Analyst:
         self.aircraft_count_metric = AircraftCountMetric()
         self.conflict_metric = ConflictMetric()
         self.gate_queue_metric = GateQueueMetric(simulation.airport.surface)
-        self.schedule_metric = ScheduleMetric()
         self.execution_time_metric = ExecutionTimeMetric()
         self.itinerary_metric = ItineraryMetric()
 
@@ -278,7 +247,6 @@ class Analyst:
 
     def observe_on_reschedule(self, schedule, simulation):
         now = simulation.now
-        self.schedule_metric.update_on_reschedule(schedule, now)
         self.execution_time_metric.update_on_reschedule(
             simulation.last_schedule_exec_time, now)
 
@@ -293,7 +261,6 @@ class Analyst:
         self.logger.debug(self.aircraft_count_metric.summary)
         self.logger.debug(self.conflict_metric.summary)
         self.logger.debug(self.gate_queue_metric.summary)
-        self.logger.debug(self.schedule_metric.summary)
         self.logger.debug(self.execution_time_metric.summary)
         self.logger.debug(self.itinerary_metric.summary)
 
@@ -329,15 +296,6 @@ class Analyst:
 
     def save_schedule_summary(self):
 
-        # Schedule metrics
-
-        # Number of delays added
-        dn = self.schedule_metric.delay_added.set_index("time")
-        with pd.option_context("display.max_rows", None):
-            self.logger.debug("\n" + str(dn))
-
-        self.save_fig("delay_added", dn, "line")
-
         # Execution time
         rst = self.execution_time_metric.rs_exec_time.set_index("time")
         with pd.option_context("display.max_rows", None):
@@ -346,8 +304,7 @@ class Analyst:
         self.save_fig("schedule_execution_time", rst, "line")
 
         # Writes to one csv file
-        stats = dn.join(rst)
-        self.save_csv("schedule", stats)
+        self.save_csv("schedule", rst)
 
     def save_itinerary_summary(self):
         iti = self.itinerary_metric.itinerary
@@ -374,7 +331,6 @@ class Analyst:
         response = {
             "conflicts": self.conflict_metric.conflicts,
             "makespan": self.makespan_metric.makespan,
-            "delay_added": self.schedule_metric.total_delay_time_added,
             "avg_queue_size": self.gate_queue_metric.avg_queue_size,
             "avg_reschedule_exec_time":
             self.execution_time_metric.avg_reschedule_exec_time,
