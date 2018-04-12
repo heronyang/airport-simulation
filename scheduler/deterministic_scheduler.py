@@ -113,9 +113,9 @@ class Scheduler(AbstractScheduler):
 
     def get_params(self):
 
-        rc_time = Config.params["scheduler"]["resolve_conflicts_time"]
+        rs_time = Config.params["simulation"]["reschedule_cycle"]
         sim_time = Config.params["simulation"]["time_unit"]
-        tick_times = int(rc_time / sim_time)
+        tick_times = int(rs_time / sim_time) + 1
         max_attempt = \
                 Config.params["scheduler"]["max_resolve_conflict_attempt"]
 

@@ -9,6 +9,8 @@ simulator:
   test_mode: false
   # Enable scenerio regeneration
   scenario_regeneration: true
+  # Number of simulation runs with one same setting (only works in batch mode)
+  times: 1
 
 simulation:
   # Seconds between each simulation epoch
@@ -33,14 +35,8 @@ uncertainty:
 scheduler:
   # Name of the scheduler file under the `scheduler` folder
   name: deterministic_scheduler
-  # Minimum tightness at each node in schedule
-  tightness: 180
   # Velocity of an moving aircraft used for distance calculation (ft/sec)
   aircraft_velocity: 5
-  # Future time period that the scheduler solves the conflicts (sec)
-  # This number should be larger than simulation.reschedule_cycle; otherwise,
-  # you won't cover solving all the conflicts.
-  resolve_conflicts_time: 1200
   # Maximum number of attempts on trying to resolve a conflict
   max_resolve_conflict_attempt: 10
 

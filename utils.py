@@ -105,6 +105,12 @@ def get_output_dir_name():
         os.makedirs(dir_name)
     return dir_name
 
+def get_batch_plan_name(original_name, expr_var, nth):
+    if nth is None:
+        return original_name + "-batch-" + str(expr_var)
+    else:
+        return original_name + "-" + str(nth) + "-batch-" + str(expr_var)
+
 def is_collinear(n1, n2, n3):
     # If the area size is near 0, then the points are on the same line
     x1, y1 = n1.geo_pos["lat"], n1.geo_pos["lng"]

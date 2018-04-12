@@ -12,7 +12,7 @@ import traceback
 from simulation import Simulation
 from clock import ClockException
 from config import Config as cfg
-from utils import get_output_dir_name
+from utils import get_output_dir_name, get_batch_plan_name
 from reporter import save_batch_result
 from subprocess import call
 
@@ -79,13 +79,10 @@ def init_logger():
 
     return logging.getLogger(__name__)
 
-done = False
-
 def run_batch():
 
-    global done
-
     name = cfg.params["name"]
+    times = cfg.params["simulator"]["times"]
     expr_var_name = cfg.params["batch"]
     expr_var_range = get_expr_var_range(expr_var_name)
 
@@ -93,17 +90,30 @@ def run_batch():
         raise Exception("Invalid configuration on expr_var_range")
 
     for expr_var in expr_var_range:
-        print("Running simulation with %s = %f" % (expr_var_name, expr_var))
-        done = False
-        set_expr_var(expr_var_name, expr_var)
-        set_plan_name(name, expr_var)
-        start = time.time()
-        run()
-        print("Finished simulation with %s = %f, time %s seconds" %
-              (expr_var_name, expr_var, time.time() - start))
+        if times <= 1:
+            run_wrapper(expr_var_name, expr_var, name, nth=None)
+        else:
+            for t in range(times):
+                run_wrapper(expr_var_name, expr_var, name, nth=t)
 
-    save_batch_result(name, expr_var_name, expr_var_range)
+    save_batch_result(name, expr_var_name, expr_var_range, times)
     print("Saved result")
+
+done = False
+
+def run_wrapper(expr_var_name, expr_var, name, nth):
+
+    global done
+
+    print("Running simulation with %s = %f (nth = %d)"
+          % (expr_var_name, expr_var, nth))
+    done = False
+    set_expr_var(expr_var_name, expr_var)
+    set_plan_name(name, expr_var, nth)
+    start = time.time()
+    run()
+    print("Finished simulation with %s = %f, time %s seconds, nth = %d" %
+          (expr_var_name, expr_var, time.time() - start, nth))
 
 def get_expr_var_range(expr_var_name):
 
@@ -129,8 +139,8 @@ def set_expr_var(expr_var_name, expr_var):
         expr_var_name_layer = expr_var_name_layer[1:]
     c[expr_var_name_layer[0]] = expr_var
 
-def set_plan_name(name, expr_var):
-    cfg.params["name"] = name + "-batch-" + str(expr_var)
+def set_plan_name(name, expr_var, nth):
+    cfg.params["name"] = get_batch_plan_name(name, expr_var, nth)
 
 def run():
 
