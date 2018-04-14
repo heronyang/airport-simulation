@@ -46,7 +46,7 @@ class TestRoutingExpert(unittest.TestCase):
         self.assertEqual(route.links[1], self.L1)
 
         # Checks if the shortest distance is expected
-        self.assertAlmostEqual(route.distance, 218489.353890, 6)
+        self.assertAlmostEqual(route.distance, 218489.353890, 5)
 
     def test_cache(self):
 
@@ -83,7 +83,7 @@ class TestRoutingExpert(unittest.TestCase):
                                                         links[0].start)
 
         self.assertEqual(len(routeG3toR1.nodes), 8)
-        self.assertAlmostEqual(routeG3toR1.distance, 1352.6500035604972)
+        self.assertAlmostEqual(routeG3toR1.distance, 1352.6500035604972, 5)
 
     def test_sfo_terminal_2_closest(self):
 
@@ -107,7 +107,7 @@ class TestRoutingExpert(unittest.TestCase):
         routeG58Bto10R = \
                 routing_expert.get_shortest_route(gate_58B, runway_start)
 
-        self.assertAlmostEqual(routeG58Bto10R.distance, 8198.5613013809)
+        self.assertAlmostEqual(routeG58Bto10R.distance, 8198.5613013809, 5)
         self.assertEqual(len(routeG58Bto10R.nodes), 32)
         self.assertEqual(len(routeG58Bto10R.links), 31)
 

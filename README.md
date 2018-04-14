@@ -19,6 +19,8 @@ airport code).
 
     $ pip3 install -r requirements.txt
 
+If you're using Linux system without X11, add `backend : Agg` into `~/.config/matplotlib/matplotlibrc` to avoid X11 error.
+
 ## Run
 
     $ python3 simulator.py -f plans/base.yaml
