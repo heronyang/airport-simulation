@@ -1,7 +1,9 @@
 language: python
+os:
+  - osx
 python:
   - "3.6"
 install:
   - pip install -r requirements.txt
 script:
-  - python -m unittest discover -f tests
+  - python -m unittest discover tests

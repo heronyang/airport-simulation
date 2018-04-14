@@ -1,5 +1,7 @@
 # ASSET2 - Airport Surface Simulator and Evaluation Tool 2
 
+[![Build Status](https://travis-ci.org/heronyang/airport-simulation.svg?branch=master)](https://travis-ci.org/heronyang/airport-simulation)
+
 ## About
 
 ASSET2 is built for Carnegie Mellon University MSIT Practicum Project, "NASA: Optimization of Airport Surface Planning and Scheduling" in 2017 Fall semester. The team is formed by CMU students and sponsored by NASA Ames Research Center. Please check out following materials for more information.
@@ -23,7 +25,7 @@ airport code).
 
 ## Batch Run
 
-    $ python3 simulator.py -f batch_plans/simple-continuous-uc.yaml
+    $ python3 simulator.py -f batch_plans/simple-uc.yaml
 
 ## Run Tests
 
@@ -54,9 +56,9 @@ for each class in `__init__` like this way:
 
 ### Debug
 
-**[IMPORTANT]** Put breakpoint in this way (make sure IPython is installed):
+**[IMPORTANT]** Put breakpoint in this way:
 
-    from IPython.core.debugger import Tracer; Tracer()()
+    import pdb; pdb.set_trace()
 
 Also, please refer to our [Google Map](https://drive.google.com/open?id=1votbJbKKRUF5gDumno4GXOxVLAE&usp=sharing) for debugging the details.
 
