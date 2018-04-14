@@ -3,28 +3,35 @@
 \usepackage{amsmath,amsfonts,amssymb}
 \usepackage{verbatim}
 \usepackage{graphicx}
+\usepackage{tabularx}
 \usepackage{booktabs}
 \usepackage{multirow}
-\usepackage[hyphens]{url}
-
+\usepackage{algorithm}
+\usepackage{algorithmic}
+%\usepackage{algpseudocode}
 \usepackage{xargs}
 \usepackage{xspace}
-\IEEEoverridecommandlockouts                             
-\overrideIEEEmargins   
+\usepackage[hyphens]{url}
+\IEEEoverridecommandlockouts
+\overrideIEEEmargins
+\floatname{algorithm}{Algorithm}
+\usepackage[algo2e]{algorithm2e}
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+\renewcommand{\algorithmicensure}{\textbf{Output:}}
+\newcommand{\inlinecode}{\texttt}
 % Insert comments
 %\usepackage[colorinlistoftodos,prependcaption,textsize=tiny]{todonotes}
 %\newcommandx{\kasper}[2][1=]{\todo[linecolor=blue,backgroundcolor=blue!25,bordercolor=blue,#1]{Kasper: #2}}
-\newcommand{\tool}[0]{\textsc{TOOLNAME}\xspace} 
-%\title{Uncertainty Management for Airport Surface Planning and Scheduling}
-\title{Analysis of Airport Surface Operations under Uncertainty}
+\newcommand{\tool}[0]{\textsc{TOOLNAME}\xspace}
+\title{Uncertainty Management for Airport Surface Planning and Scheduling}
 \author{Robert Morris$^{1}$ \and Heron Yang$^{2}$  \and Corina Pasareanu$^{3}$ \\ % <-this % stops a space
-\thanks{$^{3}$ Heron Yang {\tt\small heronyang@cmu.edu}} \\
+\thanks{$^{2}$ Heron Yang {\tt\small heronyang@cmu.edu}} \\
 \thanks{$^{1}$ Robert Morris {\tt\small robert.a.morris@nasa.gov}} \\%
-\thanks{$^{2}$ Corina Pasareanu {\tt\small corina.pasareanu@west.cmu.edu}}%
+\thanks{$^{3}$ Corina Pasareanu {\tt\small corina.pasareanu@west.cmu.edu}}%
 }
 \begin{document}
 \maketitle
-\begin{abstract}
+\begin{abstract}planning
 \end{abstract}
 \section{Introduction and Motivation}
 
@@ -34,51 +41,121 @@ In this paper we focus on analyzing the relationship between tightness and perfo
 
 \section{Problem}
 
+(draft)
+
 1. Describe the how common uncertainties happen in airport surfaces and how important it is to handle them
 
 2. Describe the importance of reducing the taxi-time (economically, environmentally) and delays (economically)
 
 3. Describe the current schedulers only deal with uncertainties by consistently rescheduling. The downside of this is: a) we have no confident or knowledge in how well a generated schedule can perform under uncertainty b) since the reschedule window is short, the computation can be executed is limited
 
-\section{Summary of Previous Work}
-
-\textbf{MILP}
-
-Hanbong Lee's Thesis
-
-\textbf{chance constrained scheduling}
-
-chance-constrained scheduling via conflict-directed risk allocation (Andrew J. Wang)
-
-air traffic flow management under uncertainty: application of chance constraints (Dr Gillian Clare)
-
 \section{Approach}
+\subsection{Multi-agent Path Planning Problem}
 
-Describe the design of the uncertainty-aware scheduler
+Using a technique discussed in \cite{flow}, we define a {\em multi-agent path planning problem (MAPPP)}. The first step in this formulation is a transformation of a node-link model into a unit-distance graph $G = \langle V, E \rangle$ comprised of a set of vertices $V$ and a set of edges $E$ representing a unit distance between vertices, i.e., a distance related to discrete time-steps in the execution of a path. To handle holding actions, we assume that each vertex has an edge directed to itself; i.e., $\{ \langle v_i, v_i \rangle \} \in E$ for all $v_i \in V$.
+
+Given a set $A = \{a_1,\ldots,a_k\}$ of agents, and a time horizon $H = 0 \ldots T$, we define the {\em state} of an agent as a triple $\langle a_i, v_j, t_k \rangle$ of agent, vertex in $G$ and time in $H$. An {\em itinerary} $I$ is a set of tuples $\langle a_i, v_{s,i}, v_{g,i}, e_t, d_t \rangle$ consisting of an agent, a start and goal vertex, a time $e_t$ representing the time the agent enters the planning system, and its scheduled arrival or departure time. Given $I$, a {\em feasible path} for an agent $a_i$ is a sequence of vertices $P = \langle v_0, \ldots, v_n \rangle$, where $v_0 = v_{s,i}$, $v_n = v_{e,i}$, and there are edges $\langle v_k, v_{k+1}\rangle \in E$ for $k = 1 \ldots n-1$.  The length of a path is the number of vertices in the path. A {\em route} between two vertices in $G$ is a path with no duplicated vertices.  A feasible path for an agent corresponds to a sequence of states $S_a = [ \langle a, v_j, t_k \rangle]$. We write $P(S_a ) = \langle v_0, \ldots, v_n \rangle$ to represent the path defined by the sequence of vertices in $S_a$.
+
+An {\em action model} defines the allowable transitions between states, i.e. a set of actions $A_i : S \rightarrow S'$, where $A_i(S) = S'$. The action model used here consists of two actions: $hold$ and $move$, defined by $hold(\langle a_i, v_j, t_k \rangle) = \langle a_i, v_j, t_{k+1} \rangle$ and $move(\langle a_i, v_j, t_k \rangle) = \langle a_i, v_l, t_{k+1} \rangle$, where $\langle v_j, v_l \rangle \in E \footnote{Of course, if there are multiple vertices to which an agent can move, an argument should be added to $move$ to distinguish among the different destinations. But as we'll see later, for this MAPPP this argument won't be required.}$. A feasible transition sequence is a sequence $TS = S_0, A_0, S_1, A_1, \ldots A_n, S_n$, where $P(S_0, \ldots S_n)$ is a feasible path, and $A_i(S_i) = S_{i+1}$ for all $i = 0, \ldots n-1$. $S_0$ ($S_n$) will be called the initial (terminal) state. Similarly, given an initial state $S_s$ and goal state $S_g$, a {\em plan} is a sequence of actions $A_0, A_1, \ldots A_n$ such that $S_s, A_0, S_1, A_1, \ldots A_n, S_g$  is a feasible transition sequence from the start to goal states. The action model $M = \{ hold, move\}$ is used by the planner to generate a plan sequence. Notice that if a path is a route, a corresponding transition sequence has the form $S_0, move, S_1, move, \ldots, move,  S_n$. This special case will be called the {\em unimpeded} transition sequence, with associated unimpeded plan abbreviated by $move_{0, \ldots n-1}$. Thus, without fear of ambiguity, we use feasibility interchangeably to define paths, state sequences and transition sequences.
+
+In addition, because we are solving a continuous planning problem, we extend the action model to include actions not assigned by the planner; specifically we define two actions $exit, enter$ that define when an agent enters or exits the planning problem. The passing of time and the itinerary $I$ determine when an agent enters the system: specifically given $\langle a_i, v_{s,i}, v_{g,i}, e_t, d_t \rangle \in I$, agent $a_i$ enters the problem at time $e_t$. Conversely, given a transition sequence with terminal state $S_n = \langle a, v_j, t_k \rangle$, agent $a$ leaves the problem at time $t_{k+1}$.  Finally, we say an agent is {\em active} if it  entered the problem but has not exited.
+
+Given two transition sequences $TS_{a_0}, TS_{a_1}$  a {\em conflict} is a pair of states $\langle a_0, v_j, t_k \rangle \in TS_{a_0}, \langle a_1, v_j, t_k \rangle \in TS_{a_1}$. There are two kinds of conflict: a move-move conflict is the result of two (or more) agents converging to a single vertex; a move-hold conflict is the result of one agents moving to a vertex in which another is holding. All conflicts are resolved by introducing delays (hold actions) on agent plans. Resolving either kind of conflict might result in the creation of one or more new move-hold or move-move conflicts. The total number of hold insertions needed to create a conflict-free feasible set of transition sequences is bounded by the number of agents, as well as the length of the longest route between start and goal states.
+
+A MAPPP is a tuple $\langle G, I, A \rangle$, where $G$ is a unit-distance graph, $I$ an itinerary, and $A$ a set of agents. A solution to a MAPPP is a collection of conflict-free feasible Transition Sequences $TS = \{TS_{a_1}, \ldots, TS_{a_n}\}$ for each $a_i \in A$. Solving an MAPPP consists of finding a path plan for each agent: a sequence of actions that defines a feasible transition sequence from a start state to a goal state that does not contain states that conflict with states of other agents.
+\subsection{Planning Approach}
+
+The interest here is in representing the airport surface scheduling problem by casting it as a MAPPP, where the agents are aircraft arriving or departing. Drawing upon previous work on solving the same problem, and on characteristics of real airport operations, we first make the simplifying assumption that given a start and goal vertex $v_s, v_g$, e.g. corresponding to a gate and runway node for departing aircraft, there is a single predetermined route $R_{v_s, v_g}$ assigned to any aircraft. This simplifies the problem while making it more realistic for airport surface planning, but the assumption can be removed without fundamentally changing the overall approach adopted here.
+
+The second characteristic of airport surface planning is uncertainty. Specifically, a solution to a MAPPP may lead to conflicts when executed, due to unexpected delays. In general, there are two ways to handle uncertainty: by anticipating them at planning time by applying uncertainty models, or by responding to unanticipated changes to the operational environment by continuous re-planning. The interest of the research effort here is in both approaches to handling uncertainty.
+
+First, we define an approach to continuous re-planning based on the idea of a {\em rolling horizon} (RH) \cite{clare}.   The RH variable defines a moving window for solving a subproblem of the complete planning problem. Given a  rolling horizon of N, the inputs to a RH planner is a set of current states $\{\langle a_i, v_j, t_k \rangle\}$ for each $a_i$ in the set of active aircraft. The output of the planner is a set of feasible conflict-free transition sequences of the form $\langle a_i, v_j, t_k \rangle, A_k, \langle a_i, v_{j+1}, t_{k+1}\rangle A_{k+1}, \ldots ,  A_{k+N}, \\ \langle a_i, v_{j+N}, t_{k+N} \rangle$. For uniformity, if an aircraft enters or exits the plan within the planning horizon, the states and actions before entering or after exiting consist are designated as NULL actions and NULL states.
+
+In an environment with no delay uncertainty, the result of executing any RH-plan $P =A_{k, \ldots,  k+N}$ from a set of initial states of the form $\{\langle a_i, v_j, t_k \rangle\}$ would be a set of states $S_{rh} = \{ \langle a_i, v_{j+N}, t_{k+N} \rangle \}$ for each $a_i \in A$. Equivalently, the degree of delay uncertainty determines the extent to which the the set of states $S$ resulting from executing $P$ from the set of initial states differs from $S_{rh}$. To avoid conflicts from unexpected delays, we introduce a re-planning variable RP that designates the time between RH-planning, thus controlling the effects of uncertainty. Specifically, a smaller RP allows for more frequent sampling of the current active states, thus allowing for adjustment to unexpected delays in the execution of plans.
+\begin{algorithm}[H]
+\caption{RH Planner}
+\SetAlgoLined
+{\bf Inputs}: Initial states $S = \{ \langle a_i, v_j, t_K \rangle \}$; Itinerary $I$;  Routes $ \{ R_i = v_0 \ldots v_M\}$ for all $a_i$ in the set of active aircraft; A Rolling Horizon $N$ \\
+{\bf Output}: A set of conflict-free feasible Transition Sequences $TS$ and associated plans $A$ for each initial state in $S$
+\begin{enumerate}
+\item Form the set $TS_u$ from generating the unimpeded transition sequence $S_j, move, S_{j+1} \ldots , move, S_{j+N}$ for each initial condition $S_j = \langle a_i, v_j, t_K \rangle \in S$, where $P(S_j, \ldots, S_{j+N}) = v_j, \ldots v_{j+N}$ taken from $R_i$, the preassigned route for $a_i$.
+\item Initialize the set $C$ of conflicts in $TS_u$
+\item Let $TS_u$ and $C$ provide the seed to local search to find a conflict-free feasible transition sequence $TS$
+\item return $TS$
+\end{enumerate}
+\label{rh}
+\end{algorithm}
+
+The RH-planner pseudo-code is found in Figure~\ref{rh}. There are three main computational components of the RH-planner: first, generating the initial unimpeded transition sequences, one for each initial state in the input of states ($O(N)$, step 1); second, detecting the set of conflicts in a set of transition sequences ($O(N^2)$, steps 2 and 3); finally, in the application of local search to repair a conflicted set of transition sequences.
+
+\subsubsection{Local Search for Conflict Resolution}
 
 \section{System}
 
-\url{https://docs.google.com/presentation/d/1QpV9yJCrbKvzwpE17w0m9_30UcFdJAJVOLPI4aZuNl8/edit#slide=id.g34bb45218b_0_8}
+The Airport Surface Simulation and Evaluation Tool, ASSET2\footnote{\url{https://github.com/heronyang/airport-simulation}}, is designed and developed to evaluate our proposed planner under uncertainties. ASSET2 is a generic tools for research purpose as it supports surface data of different airports and runs simulations based on customized experiment plans.
 
-\subsection{Domain}
+\subsection{Components}
 
- (page 3)
+In ASSET2, {\it Simulator} configures the experimental parameters and initializes one or many simulations. {\it Simulation}, a callee of the {\it Simulator}, is a conductor which manipulates an airport surface movement of a day by applying itineraries generated by the RH-planner.
 
-input: surface data, parameters
+Within {\it Simulation}, there are static objects containing immutable data of the simulation, dynamic objects representing run-time states, and the stateless object for computations, the scheduler. Examples of static objects are {\it Surface}, {\it Scenario} and {\it Routing Table}; and dynamic object examples are {\it Airport} (contains a list of {\it Aircraft}) and {\it Clock}. A detailed description of the above objects is included in Table \ref{simulation-objects}.
 
-simulation: constraint, uncertainty, scheduler
+\begin{table}[htbp]
+\centering
+\begin{tabularx}{\linewidth}{
+    |>{\hsize=.15\hsize}X
+    |>{\hsize=.85\hsize}X|}
+\hline
+ & {\bf Description} \\ \hline
+{\it Surface} & Contains airport surface data of the gates, spot positions, taxiway, runway, etc. \\ \hline
+{\it Scenario} & Contains a list of departure and arrival flight information include their designated gates and runways. \\ \hline
+{\it Routing Table} & Used by {\it Routing Expert} object for giving the shortest route between two nodes. \\ \hline
+{\it Airport} & Contains a list of active aircrafts, queues at gates, and the {\it Surface} object \\ \hline
+{\it Clock} &  Contains the simulated time of a day. \\ \hline
+{\it Scheduler}  & Generates itineraries per active aircraft every reschedule cycle. \\ \hline
+\end{tabularx}
+\label{simulation-objects}
+\caption{Description of objects in {\it Simulation}}
+\end{table}
 
-scheduler: options, output
-
-metrics: makespan, taxi-time, conflicts, delays, queue size
+An unit-distance link-node model is applied as a foundation of all objects on the surface. Gates, spot positions, are locations of aircrafts are inherited from a {\it Node} object while runways, taxiways, etc, are inherited from a {\it Link} object.
 
 \subsection{Flow}
 
-(use and describe page 4)
 
-cost function calculation (not sure)
 
-schedulers: deterministic scheduler, uncertainty-aware scheduler
+\subsubsection{Data Preparation}
+
+Two kinds of data are required for executing a simulation, the airport surface data and the scenario data. For the airport surface data, it is usually be presented in a KML file format, and that can be parsed into several JSON files by our script and be used as an input for the simulation. A complete surface data of an airport include the name and geolocation of the gates, spot positions, taxiways, push-back ways, and the runways. For scenario data, they are randomly generated per simulation \footnote{The scenario data can also be provided and be parsed into the format recognized by the simulation in the case of testing real-world scenarios.}. The time gap between two generated flights is based on a normal distribution value while the mean and the deviation value are given.
+
+\subsubsection{Initialization}
+
+To execute a simulation, an {\it experimental plan} describing a set of the configurations is given. {\it Simulation} loads data from the file specified in the {\it experimental plan} then discretizes the links. {\it Routing Expert} object then calculates the shortest path between any two nodes using the Floyd Warshall algorithm and caches the routing table for future usages.
+
+\subsubsection{Simulation}
+
+Within a simulation, we keep a virtual time, $t_v$, in {\it Clock} representing the time of the day and define a constant time value $T_S$ as the simulation time unit. The {\it Simulation} only simulates the states at $t_v = n * T_S, n = 0, 1, ...$; therefore, $T_S$ is similar to the resolution of the simulation.
+
+For objects containing run-time states, the \inlinecode{tick()} function is implemented to update the states of $t_v$ to $t_v + T_S$. {\it Simulation} calls its own \inlinecode{tick()} function in a loop until {\it Clock} object reports the simulated day has reached the end. Inside the \inlinecode{tick()} function, {\it Simulation} first checks if it's a time to reschedule, and if yes, it passes the delegate of the simulation to {\it Scheduler} and retrieve a list of itineraries for each active aircrafts. After applying the itineraries on the aircrafts, it injects uncertainty delays, adds new aircrafts according the {\it Scenario} object, calls the \inlinecode{tick()} function of the {\it Clock} object and all the active aircrafts. Eventually, after the loop is finished, {\it Simulation} asks the {\it State Logger} object and the {\it Analyst} object to save the output metrics into files or plots.
+
+\subsubsection{Scheduler}
+
+{\it Scheduler} is stateless and is called by {\it Simulation} once very reschedule cycle. It offers a function, \inlinecode{schedule(simulation) => itineraries)}, that reads the current simulation state and returns a list of itineraries for each active aircraft. {\it Scheduler} is able to use the run-time states within the simulation object to make scheduling decisions, or to make a copy of the simulation and predict the future states by calling the \inlinecode{tick()} function of the cloned simulation object.
+
+\subsubsection{Visualization}
+
+A web-based visualization tool is provided for viewing a simulation result or for debugging. The tool reads the output metrics of a single simulation, and plot them onto the web interface using Google Map API.
+
+\begin{figure}[h]
+\caption{Screenshot of the visualization tool}
+\centering
+\includegraphics[width=0.5\textwidth]{asset2}
+\label{asset2-screenshot}
+\end{figure}
+
+\subsubsection{Batch Execution}
+
+Batch execution of the simulations are developed and used for running the same simulation for multiple times with or without different experimental values. To implement this feature, {\it Simulator} first decides how many runs are asked and what parameter to change per run by reading the given experimental plan. Then, {\it Simulator} execution single simulations one by one. Last, {\it Simulator} reports the accumulated output metrics into another set of output files.
 
 \section{Experiments}
 
@@ -126,8 +203,11 @@ schedulers: deterministic scheduler, uncertainty-aware scheduler
 
 2. how long it takes for running on different size of dataset
 
+\section{Summary of Previous Work}
+
 \section{Future Work}
 \section{Summary}
 \bibliographystyle{IEEEtran}
-\bibliography{IEEEabrv,icra,references}
+\bibliography{SFOScheduling}
 \end{document}
+
