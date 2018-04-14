@@ -6,4 +6,4 @@ python:
 install:
   - pip install -r requirements.txt
 script:
-  - travis_wait 30 python -m unittest discover tests
+  - travis_wait python -m unittest discover tests
