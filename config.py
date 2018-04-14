@@ -32,3 +32,5 @@ class Config(metaclass=MetaConfig):
     OUTPUT_FIG_DPI = 150
     OUTPUT_FIG_SIZE = (20, 10)
     OUTPUT_FIG_X_ROT = 90
+
+    DECIMAL_ROUND = 7

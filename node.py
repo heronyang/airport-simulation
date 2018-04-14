@@ -29,7 +29,7 @@ class Node:
             (sp["lat"], sp["lng"]),
             (ss["lat"], ss["lng"]),
         )
-        return distance.feet
+        return round(distance.feet, Config.DECIMAL_ROUND)
 
     """
     If the node is in CLOSE_NODE_THRESHOLD_FEET feets from the current node, we

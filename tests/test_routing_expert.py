@@ -102,14 +102,14 @@ class TestRoutingExpert(unittest.TestCase):
         routing_expert = RoutingExpert(links, nodes, True)
         runway_start = self.airport.surface.get_link("10R/28L").start
 
-        # Checks the gate that is near to the runway (G59)
-        gate_59 = self.airport.surface.get_node("59")
-        routeG59to10R = \
-                routing_expert.get_shortest_route(gate_59, runway_start)
+        # Checks the gate that is near to the runway (G58B)
+        gate_58B = self.airport.surface.get_node("58B")
+        routeG58Bto10R = \
+                routing_expert.get_shortest_route(gate_58B, runway_start)
 
-        self.assertAlmostEqual(routeG59to10R.distance, 8171.405978024352)
-        self.assertEqual(len(routeG59to10R.nodes), 32)
-        self.assertEqual(len(routeG59to10R.links), 31)
+        self.assertAlmostEqual(routeG58Bto10R.distance, 8198.5613013809)
+        self.assertEqual(len(routeG58Bto10R.nodes), 32)
+        self.assertEqual(len(routeG58Bto10R.links), 31)
 
     def test_sfo_terminal_2_furthest(self):
 
