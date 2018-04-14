@@ -60,7 +60,7 @@ class TestAircraft(unittest.TestCase):
         self.assertEqual(aircraft.itinerary.current_target, self.n3)
 
         aircraft.tick()
-        self.assertFalse(aircraft.itinerary)
+        self.assertTrue(aircraft.itinerary.is_completed)
 
 
     def test_tick_with_delay(self):

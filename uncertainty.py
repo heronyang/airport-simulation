@@ -1,6 +1,7 @@
 import os
 import random
 import logging
+from surface import Gate
 
 
 class Uncertainty:
@@ -12,9 +13,14 @@ class Uncertainty:
     def inject(self, simulation):
 
         for aircraft in simulation.airport.aircrafts:
-            # For each aircraft, there's a possibility it holds at the node for
-            # some random amount of time.
+
+            # For each aircraft at Gate, there's a possibility it holds at the
+            # node for some random amount of time.
+
             if not self.happens_with_prob(self.prob_hold):
+                continue
+
+            if type(aircraft.location) is not Gate:
                 continue
 
             if aircraft.itinerary is not None:
