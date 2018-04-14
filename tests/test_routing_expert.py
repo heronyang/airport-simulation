@@ -133,7 +133,7 @@ class TestRoutingExpert(unittest.TestCase):
 
         routeG53to10R = \
                 routing_expert.get_shortest_route(gate_53, runway_start)
-        self.assertAlmostEqual(routeG53to10R.distance, 10014.749180929799)
+        self.assertAlmostEqual(routeG53to10R.distance, 10014.749180929799, 5)
         self.assertEqual(len(routeG53to10R.nodes), 39)
         self.assertEqual(len(routeG53to10R.links), 38)
 
