@@ -101,6 +101,10 @@ class Simulation:
             self.remove_aircrafts()
             self.clock.tick()
 
+            # Abort on conflict
+            if len(self.airport.conflicts) > 0:
+                raise SimulationException("Conflict found")
+
             # Observe
             if not Config.params["simulator"]["test_mode"]:
                 self.analyst.observe_on_tick(self.delegate)
@@ -110,6 +114,8 @@ class Simulation:
             if not Config.params["simulator"]["test_mode"]:
                 self.analyst.save()
                 self.state_logger.save()
+            raise e
+        except SimulationException as e:
             raise e
         except Exception as e:
             self.logger.error(traceback.format_exc())
@@ -284,3 +290,6 @@ def get_scheduler():
     # Loads the requested scheduler
     scheduler_name = Config.params["scheduler"]["name"]
     return importlib.import_module("scheduler." + scheduler_name).Scheduler()
+
+class SimulationException(Exception):
+    pass

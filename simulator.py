@@ -8,8 +8,9 @@ import coloredlogs
 import argparse
 import threading
 import traceback
+import pandas as pd
 
-from simulation import Simulation
+from simulation import Simulation, SimulationException
 from clock import ClockException
 from config import Config as cfg
 from utils import get_output_dir_name, get_batch_plan_name
@@ -86,22 +87,24 @@ def run_batch():
     expr_var_name = cfg.params["batch"]
     expr_var_range = get_expr_var_range(expr_var_name)
 
+    logs = pd.DataFrame(columns=["expr_var", "failed", "nth"])
+
     if len(expr_var_range) < 2:
         raise Exception("Invalid configuration on expr_var_range")
 
     for expr_var in expr_var_range:
         if times <= 1:
-            run_wrapper(expr_var_name, expr_var, name, nth=None)
+            run_wrapper(expr_var_name, expr_var, name, logs, nth=None)
         else:
             for t in range(times):
-                run_wrapper(expr_var_name, expr_var, name, nth=t)
+                run_wrapper(expr_var_name, expr_var, name, logs, nth=t)
 
-    save_batch_result(name, expr_var_name, expr_var_range, times)
+    save_batch_result(name, expr_var_name, expr_var_range, logs, times)
     print("Saved result")
 
 done = False
 
-def run_wrapper(expr_var_name, expr_var, name, nth):
+def run_wrapper(expr_var_name, expr_var, name, logs, nth):
 
     global done
 
@@ -110,10 +113,20 @@ def run_wrapper(expr_var_name, expr_var, name, nth):
     done = False
     set_expr_var(expr_var_name, expr_var)
     set_plan_name(name, expr_var, nth)
-    start = time.time()
-    run()
-    print("Finished simulation with %s = %f, time %s seconds, nth = %d" %
-          (expr_var_name, expr_var, time.time() - start, nth))
+
+    failed = 0
+    while True:
+        try:
+            start = time.time()
+            run()
+        except SimulationException:
+            failed += 1
+            print("Conflict found, abort this simulation run")
+        else:
+            print("Finished simulation with %s = %f, time %s seconds, nth = %d"
+                  % (expr_var_name, expr_var, time.time() - start, nth))
+            break
+    logs.loc[len(logs)] = [expr_var, failed, nth]
 
 def get_expr_var_range(expr_var_name):
 
@@ -165,6 +178,8 @@ def run():
         logger.debug("Caught keyboard interrupt, simulation exits")
     except ClockException:
         logger.debug("Simulation ends")
+    except SimulationException:
+        logger.error("Conflict found in the airport, abort")
     except Exception as e:
         logger.error(traceback.format_exc())
         logger.error("Simulation exists on unexpected error")

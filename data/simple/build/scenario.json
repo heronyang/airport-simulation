@@ -38,8 +38,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F4",
-      "time": "0015",
-      "appear_time": "0015"
+      "time": "0017",
+      "appear_time": "0017"
     },
     {
       "model": "A319",
@@ -48,8 +48,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F5",
-      "time": "0022",
-      "appear_time": "0022"
+      "time": "0021",
+      "appear_time": "0021"
     },
     {
       "model": "A319",
@@ -58,8 +58,8 @@
       "spot": "S1",
       "runway": "R1",
       "callsign": "F6",
-      "time": "0027",
-      "appear_time": "0027"
+      "time": "0025",
+      "appear_time": "0025"
     },
     {
       "model": "A319",
@@ -68,8 +68,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F7",
-      "time": "0033",
-      "appear_time": "0033"
+      "time": "0031",
+      "appear_time": "0031"
     },
     {
       "model": "A319",
@@ -78,8 +78,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F8",
-      "time": "0037",
-      "appear_time": "0037"
+      "time": "0036",
+      "appear_time": "0036"
     },
     {
       "model": "A319",
@@ -88,8 +88,8 @@
       "spot": "S1",
       "runway": "R1",
       "callsign": "F9",
-      "time": "0041",
-      "appear_time": "0041"
+      "time": "0042",
+      "appear_time": "0042"
     },
     {
       "model": "A319",
@@ -98,8 +98,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F10",
-      "time": "0045",
-      "appear_time": "0045"
+      "time": "0046",
+      "appear_time": "0046"
     },
     {
       "model": "A319",
@@ -108,8 +108,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F11",
-      "time": "0049",
-      "appear_time": "0049"
+      "time": "0052",
+      "appear_time": "0052"
     },
     {
       "model": "A319",
@@ -118,8 +118,8 @@
       "spot": "S1",
       "runway": "R1",
       "callsign": "F12",
-      "time": "0054",
-      "appear_time": "0054"
+      "time": "0057",
+      "appear_time": "0057"
     },
     {
       "model": "A319",
@@ -128,8 +128,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F13",
-      "time": "0059",
-      "appear_time": "0059"
+      "time": "0101",
+      "appear_time": "0101"
     },
     {
       "model": "A319",
@@ -138,8 +138,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F14",
-      "time": "0104",
-      "appear_time": "0104"
+      "time": "0106",
+      "appear_time": "0106"
     },
     {
       "model": "A319",
@@ -148,8 +148,8 @@
       "spot": "S1",
       "runway": "R1",
       "callsign": "F15",
-      "time": "0109",
-      "appear_time": "0109"
+      "time": "0111",
+      "appear_time": "0111"
     },
     {
       "model": "A319",
@@ -158,8 +158,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F16",
-      "time": "0113",
-      "appear_time": "0113"
+      "time": "0115",
+      "appear_time": "0115"
     },
     {
       "model": "A319",
@@ -168,8 +168,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F17",
-      "time": "0118",
-      "appear_time": "0118"
+      "time": "0122",
+      "appear_time": "0122"
     },
     {
       "model": "A319",
@@ -178,8 +178,8 @@
       "spot": "S1",
       "runway": "R1",
       "callsign": "F18",
-      "time": "0125",
-      "appear_time": "0125"
+      "time": "0129",
+      "appear_time": "0129"
     },
     {
       "model": "A319",
@@ -188,8 +188,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F19",
-      "time": "0131",
-      "appear_time": "0131"
+      "time": "0135",
+      "appear_time": "0135"
     },
     {
       "model": "A319",
@@ -198,8 +198,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F20",
-      "time": "0135",
-      "appear_time": "0135"
+      "time": "0138",
+      "appear_time": "0138"
     },
     {
       "model": "A319",
@@ -208,8 +208,8 @@
       "spot": "S1",
       "runway": "R1",
       "callsign": "F21",
-      "time": "0141",
-      "appear_time": "0141"
+      "time": "0143",
+      "appear_time": "0143"
     },
     {
       "model": "A319",
@@ -218,8 +218,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F22",
-      "time": "0143",
-      "appear_time": "0143"
+      "time": "0147",
+      "appear_time": "0147"
     },
     {
       "model": "A319",
@@ -228,8 +228,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F23",
-      "time": "0147",
-      "appear_time": "0147"
+      "time": "0153",
+      "appear_time": "0153"
     },
     {
       "model": "A319",
@@ -238,8 +238,8 @@
       "spot": "S1",
       "runway": "R1",
       "callsign": "F24",
-      "time": "0152",
-      "appear_time": "0152"
+      "time": "0159",
+      "appear_time": "0159"
     },
     {
       "model": "A319",
@@ -248,8 +248,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F25",
-      "time": "0159",
-      "appear_time": "0159"
+      "time": "0205",
+      "appear_time": "0205"
     },
     {
       "model": "A319",
@@ -258,8 +258,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F26",
-      "time": "0204",
-      "appear_time": "0204"
+      "time": "0210",
+      "appear_time": "0210"
     },
     {
       "model": "A319",
@@ -268,8 +268,8 @@
       "spot": "S1",
       "runway": "R1",
       "callsign": "F27",
-      "time": "0212",
-      "appear_time": "0212"
+      "time": "0213",
+      "appear_time": "0213"
     },
     {
       "model": "A319",
@@ -278,8 +278,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F28",
-      "time": "0217",
-      "appear_time": "0217"
+      "time": "0218",
+      "appear_time": "0218"
     },
     {
       "model": "A319",
@@ -298,8 +298,8 @@
       "spot": "S1",
       "runway": "R1",
       "callsign": "F30",
-      "time": "0227",
-      "appear_time": "0227"
+      "time": "0226",
+      "appear_time": "0226"
     },
     {
       "model": "A319",
@@ -308,8 +308,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F31",
-      "time": "0232",
-      "appear_time": "0232"
+      "time": "0230",
+      "appear_time": "0230"
     },
     {
       "model": "A319",
@@ -318,8 +318,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F32",
-      "time": "0237",
-      "appear_time": "0237"
+      "time": "0236",
+      "appear_time": "0236"
     },
     {
       "model": "A319",
@@ -328,8 +328,8 @@
       "spot": "S1",
       "runway": "R1",
       "callsign": "F33",
-      "time": "0243",
-      "appear_time": "0243"
+      "time": "0241",
+      "appear_time": "0241"
     },
     {
       "model": "A319",
@@ -338,8 +338,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F34",
-      "time": "0249",
-      "appear_time": "0249"
+      "time": "0245",
+      "appear_time": "0245"
     },
     {
       "model": "A319",
@@ -348,8 +348,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F35",
-      "time": "0252",
-      "appear_time": "0252"
+      "time": "0249",
+      "appear_time": "0249"
     },
     {
       "model": "A319",
@@ -358,8 +358,8 @@
       "spot": "S1",
       "runway": "R1",
       "callsign": "F36",
-      "time": "0258",
-      "appear_time": "0258"
+      "time": "0252",
+      "appear_time": "0252"
     },
     {
       "model": "A319",
@@ -368,8 +368,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F37",
-      "time": "0303",
-      "appear_time": "0303"
+      "time": "0258",
+      "appear_time": "0258"
     },
     {
       "model": "A319",
@@ -378,8 +378,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F38",
-      "time": "0308",
-      "appear_time": "0308"
+      "time": "0303",
+      "appear_time": "0303"
     },
     {
       "model": "A319",
@@ -388,8 +388,8 @@
       "spot": "S1",
       "runway": "R1",
       "callsign": "F39",
-      "time": "0313",
-      "appear_time": "0313"
+      "time": "0307",
+      "appear_time": "0307"
     },
     {
       "model": "A319",
@@ -398,8 +398,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F40",
-      "time": "0318",
-      "appear_time": "0318"
+      "time": "0313",
+      "appear_time": "0313"
     },
     {
       "model": "A319",
@@ -408,8 +408,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F41",
-      "time": "0324",
-      "appear_time": "0324"
+      "time": "0319",
+      "appear_time": "0319"
     },
     {
       "model": "A319",
@@ -418,8 +418,8 @@
       "spot": "S1",
       "runway": "R1",
       "callsign": "F42",
-      "time": "0328",
-      "appear_time": "0328"
+      "time": "0324",
+      "appear_time": "0324"
     },
     {
       "model": "A319",
@@ -428,8 +428,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F43",
-      "time": "0332",
-      "appear_time": "0332"
+      "time": "0330",
+      "appear_time": "0330"
     },
     {
       "model": "A319",
@@ -438,8 +438,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F44",
-      "time": "0337",
-      "appear_time": "0337"
+      "time": "0336",
+      "appear_time": "0336"
     },
     {
       "model": "A319",
@@ -448,8 +448,8 @@
       "spot": "S1",
       "runway": "R1",
       "callsign": "F45",
-      "time": "0342",
-      "appear_time": "0342"
+      "time": "0341",
+      "appear_time": "0341"
     },
     {
       "model": "A319",
@@ -458,8 +458,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F46",
-      "time": "0348",
-      "appear_time": "0348"
+      "time": "0346",
+      "appear_time": "0346"
     },
     {
       "model": "A319",
@@ -468,8 +468,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F47",
-      "time": "0354",
-      "appear_time": "0354"
+      "time": "0348",
+      "appear_time": "0348"
     },
     {
       "model": "A319",
@@ -478,8 +478,8 @@
       "spot": "S1",
       "runway": "R1",
       "callsign": "F48",
-      "time": "0358",
-      "appear_time": "0358"
+      "time": "0353",
+      "appear_time": "0353"
     },
     {
       "model": "A319",
@@ -488,8 +488,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F49",
-      "time": "0404",
-      "appear_time": "0404"
+      "time": "0400",
+      "appear_time": "0400"
     },
     {
       "model": "A319",
@@ -498,8 +498,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F50",
-      "time": "0407",
-      "appear_time": "0407"
+      "time": "0404",
+      "appear_time": "0404"
     },
     {
       "model": "A319",
@@ -508,8 +508,8 @@
       "spot": "S1",
       "runway": "R1",
       "callsign": "F51",
-      "time": "0413",
-      "appear_time": "0413"
+      "time": "0408",
+      "appear_time": "0408"
     },
     {
       "model": "A319",
@@ -518,8 +518,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F52",
-      "time": "0419",
-      "appear_time": "0419"
+      "time": "0411",
+      "appear_time": "0411"
     },
     {
       "model": "A319",
@@ -528,8 +528,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F53",
-      "time": "0424",
-      "appear_time": "0424"
+      "time": "0418",
+      "appear_time": "0418"
     },
     {
       "model": "A319",
@@ -538,8 +538,8 @@
       "spot": "S1",
       "runway": "R1",
       "callsign": "F54",
-      "time": "0429",
-      "appear_time": "0429"
+      "time": "0424",
+      "appear_time": "0424"
     },
     {
       "model": "A319",
@@ -548,8 +548,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F55",
-      "time": "0433",
-      "appear_time": "0433"
+      "time": "0427",
+      "appear_time": "0427"
     },
     {
       "model": "A319",
@@ -558,8 +558,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F56",
-      "time": "0440",
-      "appear_time": "0440"
+      "time": "0432",
+      "appear_time": "0432"
     },
     {
       "model": "A319",
@@ -568,8 +568,8 @@
       "spot": "S1",
       "runway": "R1",
       "callsign": "F57",
-      "time": "0446",
-      "appear_time": "0446"
+      "time": "0437",
+      "appear_time": "0437"
     },
     {
       "model": "A319",
@@ -578,8 +578,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F58",
-      "time": "0449",
-      "appear_time": "0449"
+      "time": "0442",
+      "appear_time": "0442"
     },
     {
       "model": "A319",
@@ -588,8 +588,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F59",
-      "time": "0452",
-      "appear_time": "0452"
+      "time": "0447",
+      "appear_time": "0447"
     },
     {
       "model": "A319",
@@ -598,8 +598,8 @@
       "spot": "S1",
       "runway": "R1",
       "callsign": "F60",
-      "time": "0456",
-      "appear_time": "0456"
+      "time": "0450",
+      "appear_time": "0450"
     },
     {
       "model": "A319",
@@ -608,8 +608,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F61",
-      "time": "0500",
-      "appear_time": "0500"
+      "time": "0454",
+      "appear_time": "0454"
     },
     {
       "model": "A319",
@@ -618,8 +618,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F62",
-      "time": "0505",
-      "appear_time": "0505"
+      "time": "0500",
+      "appear_time": "0500"
     },
     {
       "model": "A319",
@@ -628,8 +628,8 @@
       "spot": "S1",
       "runway": "R1",
       "callsign": "F63",
-      "time": "0509",
-      "appear_time": "0509"
+      "time": "0507",
+      "appear_time": "0507"
     },
     {
       "model": "A319",
@@ -638,8 +638,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F64",
-      "time": "0515",
-      "appear_time": "0515"
+      "time": "0512",
+      "appear_time": "0512"
     },
     {
       "model": "A319",
@@ -648,8 +648,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F65",
-      "time": "0520",
-      "appear_time": "0520"
+      "time": "0517",
+      "appear_time": "0517"
     },
     {
       "model": "A319",
@@ -658,8 +658,8 @@
       "spot": "S1",
       "runway": "R1",
       "callsign": "F66",
-      "time": "0526",
-      "appear_time": "0526"
+      "time": "0521",
+      "appear_time": "0521"
     },
     {
       "model": "A319",
@@ -668,8 +668,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F67",
-      "time": "0531",
-      "appear_time": "0531"
+      "time": "0526",
+      "appear_time": "0526"
     },
     {
       "model": "A319",
@@ -678,8 +678,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F68",
-      "time": "0536",
-      "appear_time": "0536"
+      "time": "0532",
+      "appear_time": "0532"
     },
     {
       "model": "A319",
@@ -688,8 +688,8 @@
       "spot": "S1",
       "runway": "R1",
       "callsign": "F69",
-      "time": "0542",
-      "appear_time": "0542"
+      "time": "0537",
+      "appear_time": "0537"
     },
     {
       "model": "A319",
@@ -698,8 +698,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F70",
-      "time": "0547",
-      "appear_time": "0547"
+      "time": "0542",
+      "appear_time": "0542"
     },
     {
       "model": "A319",
@@ -708,8 +708,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F71",
-      "time": "0552",
-      "appear_time": "0552"
+      "time": "0546",
+      "appear_time": "0546"
     },
     {
       "model": "A319",
@@ -718,8 +718,8 @@
       "spot": "S1",
       "runway": "R1",
       "callsign": "F72",
-      "time": "0557",
-      "appear_time": "0557"
+      "time": "0550",
+      "appear_time": "0550"
     },
     {
       "model": "A319",
@@ -728,8 +728,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F73",
-      "time": "0601",
-      "appear_time": "0601"
+      "time": "0556",
+      "appear_time": "0556"
     },
     {
       "model": "A319",
@@ -738,8 +738,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F74",
-      "time": "0607",
-      "appear_time": "0607"
+      "time": "0602",
+      "appear_time": "0602"
     },
     {
       "model": "A319",
@@ -748,8 +748,8 @@
       "spot": "S1",
       "runway": "R1",
       "callsign": "F75",
-      "time": "0613",
-      "appear_time": "0613"
+      "time": "0606",
+      "appear_time": "0606"
     },
     {
       "model": "A319",
@@ -758,8 +758,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F76",
-      "time": "0617",
-      "appear_time": "0617"
+      "time": "0609",
+      "appear_time": "0609"
     },
     {
       "model": "A319",
@@ -768,8 +768,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F77",
-      "time": "0623",
-      "appear_time": "0623"
+      "time": "0615",
+      "appear_time": "0615"
     },
     {
       "model": "A319",
@@ -778,8 +778,8 @@
       "spot": "S1",
       "runway": "R1",
       "callsign": "F78",
-      "time": "0628",
-      "appear_time": "0628"
+      "time": "0620",
+      "appear_time": "0620"
     },
     {
       "model": "A319",
@@ -788,8 +788,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F79",
-      "time": "0634",
-      "appear_time": "0634"
+      "time": "0626",
+      "appear_time": "0626"
     },
     {
       "model": "A319",
@@ -798,8 +798,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F80",
-      "time": "0639",
-      "appear_time": "0639"
+      "time": "0631",
+      "appear_time": "0631"
     },
     {
       "model": "A319",
@@ -808,8 +808,8 @@
       "spot": "S1",
       "runway": "R1",
       "callsign": "F81",
-      "time": "0644",
-      "appear_time": "0644"
+      "time": "0637",
+      "appear_time": "0637"
     },
     {
       "model": "A319",
@@ -818,8 +818,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F82",
-      "time": "0649",
-      "appear_time": "0649"
+      "time": "0642",
+      "appear_time": "0642"
     },
     {
       "model": "A319",
@@ -828,8 +828,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F83",
-      "time": "0655",
-      "appear_time": "0655"
+      "time": "0648",
+      "appear_time": "0648"
     },
     {
       "model": "A319",
@@ -838,8 +838,8 @@
       "spot": "S1",
       "runway": "R1",
       "callsign": "F84",
-      "time": "0701",
-      "appear_time": "0701"
+      "time": "0653",
+      "appear_time": "0653"
     },
     {
       "model": "A319",
@@ -848,8 +848,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F85",
-      "time": "0705",
-      "appear_time": "0705"
+      "time": "0655",
+      "appear_time": "0655"
     },
     {
       "model": "A319",
@@ -858,8 +858,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F86",
-      "time": "0711",
-      "appear_time": "0711"
+      "time": "0702",
+      "appear_time": "0702"
     },
     {
       "model": "A319",
@@ -868,8 +868,8 @@
       "spot": "S1",
       "runway": "R1",
       "callsign": "F87",
-      "time": "0714",
-      "appear_time": "0714"
+      "time": "0708",
+      "appear_time": "0708"
     },
     {
       "model": "A319",
@@ -878,8 +878,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F88",
-      "time": "0720",
-      "appear_time": "0720"
+      "time": "0712",
+      "appear_time": "0712"
     },
     {
       "model": "A319",
@@ -888,8 +888,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F89",
-      "time": "0722",
-      "appear_time": "0722"
+      "time": "0716",
+      "appear_time": "0716"
     },
     {
       "model": "A319",
@@ -898,8 +898,8 @@
       "spot": "S1",
       "runway": "R1",
       "callsign": "F90",
-      "time": "0726",
-      "appear_time": "0726"
+      "time": "0720",
+      "appear_time": "0720"
     },
     {
       "model": "A319",
@@ -908,8 +908,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F91",
-      "time": "0732",
-      "appear_time": "0732"
+      "time": "0727",
+      "appear_time": "0727"
     },
     {
       "model": "A319",
@@ -918,8 +918,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F92",
-      "time": "0736",
-      "appear_time": "0736"
+      "time": "0733",
+      "appear_time": "0733"
     },
     {
       "model": "A319",
@@ -928,8 +928,8 @@
       "spot": "S1",
       "runway": "R1",
       "callsign": "F93",
-      "time": "0742",
-      "appear_time": "0742"
+      "time": "0738",
+      "appear_time": "0738"
     },
     {
       "model": "A319",
@@ -938,8 +938,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F94",
-      "time": "0748",
-      "appear_time": "0748"
+      "time": "0743",
+      "appear_time": "0743"
     },
     {
       "model": "A319",
@@ -948,8 +948,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F95",
-      "time": "0753",
-      "appear_time": "0753"
+      "time": "0747",
+      "appear_time": "0747"
     },
     {
       "model": "A319",
@@ -958,8 +958,8 @@
       "spot": "S1",
       "runway": "R1",
       "callsign": "F96",
-      "time": "0757",
-      "appear_time": "0757"
+      "time": "0752",
+      "appear_time": "0752"
     },
     {
       "model": "A319",
@@ -968,8 +968,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F97",
-      "time": "0801",
-      "appear_time": "0801"
+      "time": "0756",
+      "appear_time": "0756"
     },
     {
       "model": "A319",
@@ -978,8 +978,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F98",
-      "time": "0806",
-      "appear_time": "0806"
+      "time": "0802",
+      "appear_time": "0802"
     },
     {
       "model": "A319",
@@ -988,8 +988,8 @@
       "spot": "S1",
       "runway": "R1",
       "callsign": "F99",
-      "time": "0812",
-      "appear_time": "0812"
+      "time": "0807",
+      "appear_time": "0807"
     },
     {
       "model": "A319",
@@ -998,8 +998,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F100",
-      "time": "0817",
-      "appear_time": "0817"
+      "time": "0813",
+      "appear_time": "0813"
     },
     {
       "model": "A319",
@@ -1008,8 +1008,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F101",
-      "time": "0822",
-      "appear_time": "0822"
+      "time": "0818",
+      "appear_time": "0818"
     },
     {
       "model": "A319",
@@ -1018,8 +1018,8 @@
       "spot": "S1",
       "runway": "R1",
       "callsign": "F102",
-      "time": "0826",
-      "appear_time": "0826"
+      "time": "0824",
+      "appear_time": "0824"
     },
     {
       "model": "A319",
@@ -1038,8 +1038,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F104",
-      "time": "0835",
-      "appear_time": "0835"
+      "time": "0836",
+      "appear_time": "0836"
     },
     {
       "model": "A319",
@@ -1048,8 +1048,8 @@
       "spot": "S1",
       "runway": "R1",
       "callsign": "F105",
-      "time": "0841",
-      "appear_time": "0841"
+      "time": "0842",
+      "appear_time": "0842"
     },
     {
       "model": "A319",
@@ -1068,8 +1068,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F107",
-      "time": "0851",
-      "appear_time": "0851"
+      "time": "0849",
+      "appear_time": "0849"
     },
     {
       "model": "A319",
@@ -1088,8 +1088,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F109",
-      "time": "0902",
-      "appear_time": "0902"
+      "time": "0901",
+      "appear_time": "0901"
     },
     {
       "model": "A319",
@@ -1098,8 +1098,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F110",
-      "time": "0907",
-      "appear_time": "0907"
+      "time": "0906",
+      "appear_time": "0906"
     },
     {
       "model": "A319",
@@ -1108,8 +1108,8 @@
       "spot": "S1",
       "runway": "R1",
       "callsign": "F111",
-      "time": "0913",
-      "appear_time": "0913"
+      "time": "0909",
+      "appear_time": "0909"
     },
     {
       "model": "A319",
@@ -1118,8 +1118,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F112",
-      "time": "0920",
-      "appear_time": "0920"
+      "time": "0915",
+      "appear_time": "0915"
     },
     {
       "model": "A319",
@@ -1128,8 +1128,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F113",
-      "time": "0923",
-      "appear_time": "0923"
+      "time": "0920",
+      "appear_time": "0920"
     },
     {
       "model": "A319",
@@ -1138,8 +1138,8 @@
       "spot": "S1",
       "runway": "R1",
       "callsign": "F114",
-      "time": "0927",
-      "appear_time": "0927"
+      "time": "0924",
+      "appear_time": "0924"
     },
     {
       "model": "A319",
@@ -1148,8 +1148,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F115",
-      "time": "0934",
-      "appear_time": "0934"
+      "time": "0930",
+      "appear_time": "0930"
     },
     {
       "model": "A319",
@@ -1158,8 +1158,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F116",
-      "time": "0940",
-      "appear_time": "0940"
+      "time": "0935",
+      "appear_time": "0935"
     },
     {
       "model": "A319",
@@ -1168,8 +1168,8 @@
       "spot": "S1",
       "runway": "R1",
       "callsign": "F117",
-      "time": "0943",
-      "appear_time": "0943"
+      "time": "0941",
+      "appear_time": "0941"
     },
     {
       "model": "A319",
@@ -1178,8 +1178,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F118",
-      "time": "0948",
-      "appear_time": "0948"
+      "time": "0944",
+      "appear_time": "0944"
     },
     {
       "model": "A319",
@@ -1188,8 +1188,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F119",
-      "time": "0952",
-      "appear_time": "0952"
+      "time": "0949",
+      "appear_time": "0949"
     },
     {
       "model": "A319",
@@ -1198,8 +1198,8 @@
       "spot": "S1",
       "runway": "R1",
       "callsign": "F120",
-      "time": "0956",
-      "appear_time": "0956"
+      "time": "0955",
+      "appear_time": "0955"
     },
     {
       "model": "A319",
@@ -1208,8 +1208,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F121",
-      "time": "1001",
-      "appear_time": "1001"
+      "time": "1000",
+      "appear_time": "1000"
     },
     {
       "model": "A319",
@@ -1218,8 +1218,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F122",
-      "time": "1006",
-      "appear_time": "1006"
+      "time": "1004",
+      "appear_time": "1004"
     },
     {
       "model": "A319",
@@ -1228,8 +1228,8 @@
       "spot": "S1",
       "runway": "R1",
       "callsign": "F123",
-      "time": "1010",
-      "appear_time": "1010"
+      "time": "1007",
+      "appear_time": "1007"
     },
     {
       "model": "A319",
@@ -1238,8 +1238,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F124",
-      "time": "1015",
-      "appear_time": "1015"
+      "time": "1012",
+      "appear_time": "1012"
     },
     {
       "model": "A319",
@@ -1248,8 +1248,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F125",
-      "time": "1021",
-      "appear_time": "1021"
+      "time": "1016",
+      "appear_time": "1016"
     },
     {
       "model": "A319",
@@ -1258,8 +1258,8 @@
       "spot": "S1",
       "runway": "R1",
       "callsign": "F126",
-      "time": "1025",
-      "appear_time": "1025"
+      "time": "1020",
+      "appear_time": "1020"
     },
     {
       "model": "A319",
@@ -1268,8 +1268,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F127",
-      "time": "1030",
-      "appear_time": "1030"
+      "time": "1025",
+      "appear_time": "1025"
     },
     {
       "model": "A319",
@@ -1278,8 +1278,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F128",
-      "time": "1034",
-      "appear_time": "1034"
+      "time": "1031",
+      "appear_time": "1031"
     },
     {
       "model": "A319",
@@ -1288,8 +1288,8 @@
       "spot": "S1",
       "runway": "R1",
       "callsign": "F129",
-      "time": "1038",
-      "appear_time": "1038"
+      "time": "1036",
+      "appear_time": "1036"
     },
     {
       "model": "A319",
@@ -1298,8 +1298,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F130",
-      "time": "1043",
-      "appear_time": "1043"
+      "time": "1040",
+      "appear_time": "1040"
     },
     {
       "model": "A319",
@@ -1308,8 +1308,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F131",
-      "time": "1048",
-      "appear_time": "1048"
+      "time": "1044",
+      "appear_time": "1044"
     },
     {
       "model": "A319",
@@ -1318,8 +1318,8 @@
       "spot": "S1",
       "runway": "R1",
       "callsign": "F132",
-      "time": "1053",
-      "appear_time": "1053"
+      "time": "1049",
+      "appear_time": "1049"
     },
     {
       "model": "A319",
@@ -1328,8 +1328,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F133",
-      "time": "1059",
-      "appear_time": "1059"
+      "time": "1056",
+      "appear_time": "1056"
     },
     {
       "model": "A319",
@@ -1338,8 +1338,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F134",
-      "time": "1103",
-      "appear_time": "1103"
+      "time": "1101",
+      "appear_time": "1101"
     },
     {
       "model": "A319",
@@ -1348,8 +1348,8 @@
       "spot": "S1",
       "runway": "R1",
       "callsign": "F135",
-      "time": "1109",
-      "appear_time": "1109"
+      "time": "1108",
+      "appear_time": "1108"
     },
     {
       "model": "A319",
@@ -1358,8 +1358,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F136",
-      "time": "1115",
-      "appear_time": "1115"
+      "time": "1114",
+      "appear_time": "1114"
     },
     {
       "model": "A319",
@@ -1368,8 +1368,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F137",
-      "time": "1120",
-      "appear_time": "1120"
+      "time": "1119",
+      "appear_time": "1119"
     },
     {
       "model": "A319",
@@ -1388,8 +1388,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F139",
-      "time": "1128",
-      "appear_time": "1128"
+      "time": "1131",
+      "appear_time": "1131"
     },
     {
       "model": "A319",
@@ -1398,8 +1398,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F140",
-      "time": "1131",
-      "appear_time": "1131"
+      "time": "1134",
+      "appear_time": "1134"
     },
     {
       "model": "A319",
@@ -1408,8 +1408,8 @@
       "spot": "S1",
       "runway": "R1",
       "callsign": "F141",
-      "time": "1137",
-      "appear_time": "1137"
+      "time": "1139",
+      "appear_time": "1139"
     },
     {
       "model": "A319",
@@ -1418,8 +1418,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F142",
-      "time": "1143",
-      "appear_time": "1143"
+      "time": "1144",
+      "appear_time": "1144"
     },
     {
       "model": "A319",
@@ -1428,8 +1428,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F143",
-      "time": "1147",
-      "appear_time": "1147"
+      "time": "1151",
+      "appear_time": "1151"
     },
     {
       "model": "A319",
@@ -1438,8 +1438,8 @@
       "spot": "S1",
       "runway": "R1",
       "callsign": "F144",
-      "time": "1152",
-      "appear_time": "1152"
+      "time": "1155",
+      "appear_time": "1155"
     },
     {
       "model": "A319",
@@ -1448,8 +1448,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F145",
-      "time": "1157",
-      "appear_time": "1157"
+      "time": "1159",
+      "appear_time": "1159"
     },
     {
       "model": "A319",
@@ -1458,8 +1458,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F146",
-      "time": "1203",
-      "appear_time": "1203"
+      "time": "1204",
+      "appear_time": "1204"
     },
     {
       "model": "A319",
@@ -1468,8 +1468,8 @@
       "spot": "S1",
       "runway": "R1",
       "callsign": "F147",
-      "time": "1209",
-      "appear_time": "1209"
+      "time": "1207",
+      "appear_time": "1207"
     },
     {
       "model": "A319",
@@ -1478,8 +1478,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F148",
-      "time": "1214",
-      "appear_time": "1214"
+      "time": "1213",
+      "appear_time": "1213"
     },
     {
       "model": "A319",
@@ -1488,8 +1488,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F149",
-      "time": "1217",
-      "appear_time": "1217"
+      "time": "1220",
+      "appear_time": "1220"
     },
     {
       "model": "A319",
@@ -1498,8 +1498,8 @@
       "spot": "S1",
       "runway": "R1",
       "callsign": "F150",
-      "time": "1224",
-      "appear_time": "1224"
+      "time": "1226",
+      "appear_time": "1226"
     },
     {
       "model": "A319",
@@ -1508,8 +1508,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F151",
-      "time": "1228",
-      "appear_time": "1228"
+      "time": "1232",
+      "appear_time": "1232"
     },
     {
       "model": "A319",
@@ -1518,8 +1518,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F152",
-      "time": "1233",
-      "appear_time": "1233"
+      "time": "1236",
+      "appear_time": "1236"
     },
     {
       "model": "A319",
@@ -1528,8 +1528,8 @@
       "spot": "S1",
       "runway": "R1",
       "callsign": "F153",
-      "time": "1238",
-      "appear_time": "1238"
+      "time": "1240",
+      "appear_time": "1240"
     },
     {
       "model": "A319",
@@ -1538,8 +1538,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F154",
-      "time": "1242",
-      "appear_time": "1242"
+      "time": "1244",
+      "appear_time": "1244"
     },
     {
       "model": "A319",
@@ -1548,8 +1548,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F155",
-      "time": "1246",
-      "appear_time": "1246"
+      "time": "1251",
+      "appear_time": "1251"
     },
     {
       "model": "A319",
@@ -1558,8 +1558,8 @@
       "spot": "S1",
       "runway": "R1",
       "callsign": "F156",
-      "time": "1252",
-      "appear_time": "1252"
+      "time": "1256",
+      "appear_time": "1256"
     },
     {
       "model": "A319",
@@ -1568,8 +1568,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F157",
-      "time": "1256",
-      "appear_time": "1256"
+      "time": "1301",
+      "appear_time": "1301"
     },
     {
       "model": "A319",
@@ -1578,8 +1578,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F158",
-      "time": "1300",
-      "appear_time": "1300"
+      "time": "1307",
+      "appear_time": "1307"
     },
     {
       "model": "A319",
@@ -1588,8 +1588,8 @@
       "spot": "S1",
       "runway": "R1",
       "callsign": "F159",
-      "time": "1306",
-      "appear_time": "1306"
+      "time": "1312",
+      "appear_time": "1312"
     },
     {
       "model": "A319",
@@ -1598,8 +1598,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F160",
-      "time": "1312",
-      "appear_time": "1312"
+      "time": "1315",
+      "appear_time": "1315"
     },
     {
       "model": "A319",
@@ -1608,8 +1608,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F161",
-      "time": "1316",
-      "appear_time": "1316"
+      "time": "1321",
+      "appear_time": "1321"
     },
     {
       "model": "A319",
@@ -1618,8 +1618,8 @@
       "spot": "S1",
       "runway": "R1",
       "callsign": "F162",
-      "time": "1321",
-      "appear_time": "1321"
+      "time": "1326",
+      "appear_time": "1326"
     },
     {
       "model": "A319",
@@ -1628,8 +1628,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F163",
-      "time": "1327",
-      "appear_time": "1327"
+      "time": "1331",
+      "appear_time": "1331"
     },
     {
       "model": "A319",
@@ -1638,8 +1638,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F164",
-      "time": "1331",
-      "appear_time": "1331"
+      "time": "1337",
+      "appear_time": "1337"
     },
     {
       "model": "A319",
@@ -1648,8 +1648,8 @@
       "spot": "S1",
       "runway": "R1",
       "callsign": "F165",
-      "time": "1335",
-      "appear_time": "1335"
+      "time": "1340",
+      "appear_time": "1340"
     },
     {
       "model": "A319",
@@ -1658,8 +1658,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F166",
-      "time": "1341",
-      "appear_time": "1341"
+      "time": "1345",
+      "appear_time": "1345"
     },
     {
       "model": "A319",
@@ -1668,8 +1668,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F167",
-      "time": "1346",
-      "appear_time": "1346"
+      "time": "1351",
+      "appear_time": "1351"
     },
     {
       "model": "A319",
@@ -1678,8 +1678,8 @@
       "spot": "S1",
       "runway": "R1",
       "callsign": "F168",
-      "time": "1352",
-      "appear_time": "1352"
+      "time": "1357",
+      "appear_time": "1357"
     },
     {
       "model": "A319",
@@ -1688,8 +1688,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F169",
-      "time": "1356",
-      "appear_time": "1356"
+      "time": "1404",
+      "appear_time": "1404"
     },
     {
       "model": "A319",
@@ -1698,8 +1698,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F170",
-      "time": "1401",
-      "appear_time": "1401"
+      "time": "1409",
+      "appear_time": "1409"
     },
     {
       "model": "A319",
@@ -1708,8 +1708,8 @@
       "spot": "S1",
       "runway": "R1",
       "callsign": "F171",
-      "time": "1406",
-      "appear_time": "1406"
+      "time": "1415",
+      "appear_time": "1415"
     },
     {
       "model": "A319",
@@ -1718,8 +1718,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F172",
-      "time": "1411",
-      "appear_time": "1411"
+      "time": "1422",
+      "appear_time": "1422"
     },
     {
       "model": "A319",
@@ -1728,8 +1728,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F173",
-      "time": "1417",
-      "appear_time": "1417"
+      "time": "1426",
+      "appear_time": "1426"
     },
     {
       "model": "A319",
@@ -1738,8 +1738,8 @@
       "spot": "S1",
       "runway": "R1",
       "callsign": "F174",
-      "time": "1421",
-      "appear_time": "1421"
+      "time": "1432",
+      "appear_time": "1432"
     },
     {
       "model": "A319",
@@ -1748,8 +1748,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F175",
-      "time": "1426",
-      "appear_time": "1426"
+      "time": "1436",
+      "appear_time": "1436"
     },
     {
       "model": "A319",
@@ -1758,8 +1758,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F176",
-      "time": "1431",
-      "appear_time": "1431"
+      "time": "1441",
+      "appear_time": "1441"
     },
     {
       "model": "A319",
@@ -1768,8 +1768,8 @@
       "spot": "S1",
       "runway": "R1",
       "callsign": "F177",
-      "time": "1438",
-      "appear_time": "1438"
+      "time": "1446",
+      "appear_time": "1446"
     },
     {
       "model": "A319",
@@ -1778,8 +1778,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F178",
-      "time": "1444",
-      "appear_time": "1444"
+      "time": "1451",
+      "appear_time": "1451"
     },
     {
       "model": "A319",
@@ -1788,8 +1788,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F179",
-      "time": "1448",
-      "appear_time": "1448"
+      "time": "1457",
+      "appear_time": "1457"
     },
     {
       "model": "A319",
@@ -1798,8 +1798,8 @@
       "spot": "S1",
       "runway": "R1",
       "callsign": "F180",
-      "time": "1452",
-      "appear_time": "1452"
+      "time": "1503",
+      "appear_time": "1503"
     },
     {
       "model": "A319",
@@ -1808,8 +1808,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F181",
-      "time": "1459",
-      "appear_time": "1459"
+      "time": "1510",
+      "appear_time": "1510"
     },
     {
       "model": "A319",
@@ -1818,8 +1818,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F182",
-      "time": "1506",
-      "appear_time": "1506"
+      "time": "1514",
+      "appear_time": "1514"
     },
     {
       "model": "A319",
@@ -1828,8 +1828,8 @@
       "spot": "S1",
       "runway": "R1",
       "callsign": "F183",
-      "time": "1510",
-      "appear_time": "1510"
+      "time": "1518",
+      "appear_time": "1518"
     },
     {
       "model": "A319",
@@ -1838,8 +1838,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F184",
-      "time": "1515",
-      "appear_time": "1515"
+      "time": "1522",
+      "appear_time": "1522"
     },
     {
       "model": "A319",
@@ -1848,8 +1848,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F185",
-      "time": "1521",
-      "appear_time": "1521"
+      "time": "1527",
+      "appear_time": "1527"
     },
     {
       "model": "A319",
@@ -1858,8 +1858,8 @@
       "spot": "S1",
       "runway": "R1",
       "callsign": "F186",
-      "time": "1525",
-      "appear_time": "1525"
+      "time": "1532",
+      "appear_time": "1532"
     },
     {
       "model": "A319",
@@ -1868,8 +1868,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F187",
-      "time": "1530",
-      "appear_time": "1530"
+      "time": "1536",
+      "appear_time": "1536"
     },
     {
       "model": "A319",
@@ -1878,8 +1878,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F188",
-      "time": "1535",
-      "appear_time": "1535"
+      "time": "1542",
+      "appear_time": "1542"
     },
     {
       "model": "A319",
@@ -1888,8 +1888,8 @@
       "spot": "S1",
       "runway": "R1",
       "callsign": "F189",
-      "time": "1540",
-      "appear_time": "1540"
+      "time": "1547",
+      "appear_time": "1547"
     },
     {
       "model": "A319",
@@ -1898,8 +1898,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F190",
-      "time": "1545",
-      "appear_time": "1545"
+      "time": "1551",
+      "appear_time": "1551"
     },
     {
       "model": "A319",
@@ -1908,8 +1908,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F191",
-      "time": "1551",
-      "appear_time": "1551"
+      "time": "1555",
+      "appear_time": "1555"
     },
     {
       "model": "A319",
@@ -1918,8 +1918,8 @@
       "spot": "S1",
       "runway": "R1",
       "callsign": "F192",
-      "time": "1554",
-      "appear_time": "1554"
+      "time": "1600",
+      "appear_time": "1600"
     },
     {
       "model": "A319",
@@ -1928,8 +1928,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F193",
-      "time": "1558",
-      "appear_time": "1558"
+      "time": "1605",
+      "appear_time": "1605"
     },
     {
       "model": "A319",
@@ -1938,8 +1938,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F194",
-      "time": "1603",
-      "appear_time": "1603"
+      "time": "1609",
+      "appear_time": "1609"
     },
     {
       "model": "A319",
@@ -1948,8 +1948,8 @@
       "spot": "S1",
       "runway": "R1",
       "callsign": "F195",
-      "time": "1608",
-      "appear_time": "1608"
+      "time": "1613",
+      "appear_time": "1613"
     },
     {
       "model": "A319",
@@ -1958,8 +1958,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F196",
-      "time": "1613",
-      "appear_time": "1613"
+      "time": "1617",
+      "appear_time": "1617"
     },
     {
       "model": "A319",
@@ -1968,8 +1968,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F197",
-      "time": "1619",
-      "appear_time": "1619"
+      "time": "1625",
+      "appear_time": "1625"
     },
     {
       "model": "A319",
@@ -1978,8 +1978,8 @@
       "spot": "S1",
       "runway": "R1",
       "callsign": "F198",
-      "time": "1623",
-      "appear_time": "1623"
+      "time": "1631",
+      "appear_time": "1631"
     },
     {
       "model": "A319",
@@ -1988,8 +1988,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F199",
-      "time": "1628",
-      "appear_time": "1628"
+      "time": "1635",
+      "appear_time": "1635"
     },
     {
       "model": "A319",
@@ -1998,8 +1998,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F200",
-      "time": "1632",
-      "appear_time": "1632"
+      "time": "1641",
+      "appear_time": "1641"
     },
     {
       "model": "A319",
@@ -2008,8 +2008,8 @@
       "spot": "S1",
       "runway": "R1",
       "callsign": "F201",
-      "time": "1638",
-      "appear_time": "1638"
+      "time": "1648",
+      "appear_time": "1648"
     },
     {
       "model": "A319",
@@ -2018,8 +2018,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F202",
-      "time": "1643",
-      "appear_time": "1643"
+      "time": "1653",
+      "appear_time": "1653"
     },
     {
       "model": "A319",
@@ -2028,8 +2028,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F203",
-      "time": "1649",
-      "appear_time": "1649"
+      "time": "1656",
+      "appear_time": "1656"
     },
     {
       "model": "A319",
@@ -2038,8 +2038,8 @@
       "spot": "S1",
       "runway": "R1",
       "callsign": "F204",
-      "time": "1656",
-      "appear_time": "1656"
+      "time": "1701",
+      "appear_time": "1701"
     },
     {
       "model": "A319",
@@ -2048,8 +2048,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F205",
-      "time": "1659",
-      "appear_time": "1659"
+      "time": "1705",
+      "appear_time": "1705"
     },
     {
       "model": "A319",
@@ -2058,8 +2058,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F206",
-      "time": "1704",
-      "appear_time": "1704"
+      "time": "1711",
+      "appear_time": "1711"
     },
     {
       "model": "A319",
@@ -2068,8 +2068,8 @@
       "spot": "S1",
       "runway": "R1",
       "callsign": "F207",
-      "time": "1709",
-      "appear_time": "1709"
+      "time": "1717",
+      "appear_time": "1717"
     },
     {
       "model": "A319",
@@ -2078,8 +2078,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F208",
-      "time": "1716",
-      "appear_time": "1716"
+      "time": "1723",
+      "appear_time": "1723"
     },
     {
       "model": "A319",
@@ -2088,8 +2088,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F209",
-      "time": "1721",
-      "appear_time": "1721"
+      "time": "1728",
+      "appear_time": "1728"
     },
     {
       "model": "A319",
@@ -2098,8 +2098,8 @@
       "spot": "S1",
       "runway": "R1",
       "callsign": "F210",
-      "time": "1726",
-      "appear_time": "1726"
+      "time": "1734",
+      "appear_time": "1734"
     },
     {
       "model": "A319",
@@ -2108,8 +2108,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F211",
-      "time": "1730",
-      "appear_time": "1730"
+      "time": "1739",
+      "appear_time": "1739"
     },
     {
       "model": "A319",
@@ -2118,8 +2118,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F212",
-      "time": "1734",
-      "appear_time": "1734"
+      "time": "1745",
+      "appear_time": "1745"
     },
     {
       "model": "A319",
@@ -2128,8 +2128,8 @@
       "spot": "S1",
       "runway": "R1",
       "callsign": "F213",
-      "time": "1738",
-      "appear_time": "1738"
+      "time": "1751",
+      "appear_time": "1751"
     },
     {
       "model": "A319",
@@ -2138,8 +2138,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F214",
-      "time": "1742",
-      "appear_time": "1742"
+      "time": "1756",
+      "appear_time": "1756"
     },
     {
       "model": "A319",
@@ -2148,8 +2148,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F215",
-      "time": "1748",
-      "appear_time": "1748"
+      "time": "1803",
+      "appear_time": "1803"
     },
     {
       "model": "A319",
@@ -2158,8 +2158,8 @@
       "spot": "S1",
       "runway": "R1",
       "callsign": "F216",
-      "time": "1754",
-      "appear_time": "1754"
+      "time": "1808",
+      "appear_time": "1808"
     },
     {
       "model": "A319",
@@ -2168,36 +2168,6 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F217",
-      "time": "1758",
-      "appear_time": "1758"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "gate": "G3",
-      "spot": "S2",
-      "runway": "R1",
-      "callsign": "F218",
-      "time": "1802",
-      "appear_time": "1802"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "gate": "G1",
-      "spot": "S1",
-      "runway": "R1",
-      "callsign": "F219",
-      "time": "1806",
-      "appear_time": "1806"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "gate": "G2",
-      "spot": "S2",
-      "runway": "R1",
-      "callsign": "F220",
       "time": "1812",
       "appear_time": "1812"
     },
@@ -2207,9 +2177,39 @@
       "gate": "G3",
       "spot": "S2",
       "runway": "R1",
+      "callsign": "F218",
+      "time": "1817",
+      "appear_time": "1817"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "gate": "G1",
+      "spot": "S1",
+      "runway": "R1",
+      "callsign": "F219",
+      "time": "1823",
+      "appear_time": "1823"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "gate": "G2",
+      "spot": "S2",
+      "runway": "R1",
+      "callsign": "F220",
+      "time": "1829",
+      "appear_time": "1829"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "gate": "G3",
+      "spot": "S2",
+      "runway": "R1",
       "callsign": "F221",
-      "time": "1816",
-      "appear_time": "1816"
+      "time": "1834",
+      "appear_time": "1834"
     },
     {
       "model": "A319",
@@ -2218,8 +2218,8 @@
       "spot": "S1",
       "runway": "R1",
       "callsign": "F222",
-      "time": "1822",
-      "appear_time": "1822"
+      "time": "1839",
+      "appear_time": "1839"
     },
     {
       "model": "A319",
@@ -2228,8 +2228,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F223",
-      "time": "1826",
-      "appear_time": "1826"
+      "time": "1845",
+      "appear_time": "1845"
     },
     {
       "model": "A319",
@@ -2238,8 +2238,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F224",
-      "time": "1831",
-      "appear_time": "1831"
+      "time": "1849",
+      "appear_time": "1849"
     },
     {
       "model": "A319",
@@ -2248,8 +2248,8 @@
       "spot": "S1",
       "runway": "R1",
       "callsign": "F225",
-      "time": "1838",
-      "appear_time": "1838"
+      "time": "1856",
+      "appear_time": "1856"
     },
     {
       "model": "A319",
@@ -2258,8 +2258,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F226",
-      "time": "1842",
-      "appear_time": "1842"
+      "time": "1859",
+      "appear_time": "1859"
     },
     {
       "model": "A319",
@@ -2268,8 +2268,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F227",
-      "time": "1847",
-      "appear_time": "1847"
+      "time": "1904",
+      "appear_time": "1904"
     },
     {
       "model": "A319",
@@ -2278,8 +2278,8 @@
       "spot": "S1",
       "runway": "R1",
       "callsign": "F228",
-      "time": "1850",
-      "appear_time": "1850"
+      "time": "1909",
+      "appear_time": "1909"
     },
     {
       "model": "A319",
@@ -2288,8 +2288,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F229",
-      "time": "1855",
-      "appear_time": "1855"
+      "time": "1914",
+      "appear_time": "1914"
     },
     {
       "model": "A319",
@@ -2298,8 +2298,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F230",
-      "time": "1859",
-      "appear_time": "1859"
+      "time": "1918",
+      "appear_time": "1918"
     },
     {
       "model": "A319",
@@ -2308,8 +2308,8 @@
       "spot": "S1",
       "runway": "R1",
       "callsign": "F231",
-      "time": "1905",
-      "appear_time": "1905"
+      "time": "1923",
+      "appear_time": "1923"
     },
     {
       "model": "A319",
@@ -2318,8 +2318,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F232",
-      "time": "1911",
-      "appear_time": "1911"
+      "time": "1929",
+      "appear_time": "1929"
     },
     {
       "model": "A319",
@@ -2328,8 +2328,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F233",
-      "time": "1915",
-      "appear_time": "1915"
+      "time": "1933",
+      "appear_time": "1933"
     },
     {
       "model": "A319",
@@ -2338,8 +2338,8 @@
       "spot": "S1",
       "runway": "R1",
       "callsign": "F234",
-      "time": "1919",
-      "appear_time": "1919"
+      "time": "1937",
+      "appear_time": "1937"
     },
     {
       "model": "A319",
@@ -2348,8 +2348,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F235",
-      "time": "1924",
-      "appear_time": "1924"
+      "time": "1942",
+      "appear_time": "1942"
     },
     {
       "model": "A319",
@@ -2358,8 +2358,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F236",
-      "time": "1929",
-      "appear_time": "1929"
+      "time": "1949",
+      "appear_time": "1949"
     },
     {
       "model": "A319",
@@ -2368,8 +2368,8 @@
       "spot": "S1",
       "runway": "R1",
       "callsign": "F237",
-      "time": "1936",
-      "appear_time": "1936"
+      "time": "1954",
+      "appear_time": "1954"
     },
     {
       "model": "A319",
@@ -2378,8 +2378,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F238",
-      "time": "1941",
-      "appear_time": "1941"
+      "time": "1959",
+      "appear_time": "1959"
     },
     {
       "model": "A319",
@@ -2388,8 +2388,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F239",
-      "time": "1946",
-      "appear_time": "1946"
+      "time": "2005",
+      "appear_time": "2005"
     },
     {
       "model": "A319",
@@ -2398,8 +2398,8 @@
       "spot": "S1",
       "runway": "R1",
       "callsign": "F240",
-      "time": "1949",
-      "appear_time": "1949"
+      "time": "2010",
+      "appear_time": "2010"
     },
     {
       "model": "A319",
@@ -2408,8 +2408,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F241",
-      "time": "1954",
-      "appear_time": "1954"
+      "time": "2016",
+      "appear_time": "2016"
     },
     {
       "model": "A319",
@@ -2418,8 +2418,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F242",
-      "time": "2001",
-      "appear_time": "2001"
+      "time": "2021",
+      "appear_time": "2021"
     },
     {
       "model": "A319",
@@ -2428,8 +2428,8 @@
       "spot": "S1",
       "runway": "R1",
       "callsign": "F243",
-      "time": "2006",
-      "appear_time": "2006"
+      "time": "2026",
+      "appear_time": "2026"
     },
     {
       "model": "A319",
@@ -2438,8 +2438,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F244",
-      "time": "2009",
-      "appear_time": "2009"
+      "time": "2030",
+      "appear_time": "2030"
     },
     {
       "model": "A319",
@@ -2448,8 +2448,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F245",
-      "time": "2015",
-      "appear_time": "2015"
+      "time": "2035",
+      "appear_time": "2035"
     },
     {
       "model": "A319",
@@ -2458,8 +2458,8 @@
       "spot": "S1",
       "runway": "R1",
       "callsign": "F246",
-      "time": "2018",
-      "appear_time": "2018"
+      "time": "2039",
+      "appear_time": "2039"
     },
     {
       "model": "A319",
@@ -2468,8 +2468,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F247",
-      "time": "2023",
-      "appear_time": "2023"
+      "time": "2043",
+      "appear_time": "2043"
     },
     {
       "model": "A319",
@@ -2478,8 +2478,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F248",
-      "time": "2026",
-      "appear_time": "2026"
+      "time": "2046",
+      "appear_time": "2046"
     },
     {
       "model": "A319",
@@ -2488,8 +2488,8 @@
       "spot": "S1",
       "runway": "R1",
       "callsign": "F249",
-      "time": "2030",
-      "appear_time": "2030"
+      "time": "2050",
+      "appear_time": "2050"
     },
     {
       "model": "A319",
@@ -2498,8 +2498,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F250",
-      "time": "2033",
-      "appear_time": "2033"
+      "time": "2054",
+      "appear_time": "2054"
     },
     {
       "model": "A319",
@@ -2508,48 +2508,8 @@
       "spot": "S2",
       "runway": "R1",
       "callsign": "F251",
-      "time": "2038",
-      "appear_time": "2038"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "gate": "G1",
-      "spot": "S1",
-      "runway": "R1",
-      "callsign": "F252",
-      "time": "2044",
-      "appear_time": "2044"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "gate": "G2",
-      "spot": "S2",
-      "runway": "R1",
-      "callsign": "F253",
-      "time": "2049",
-      "appear_time": "2049"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "gate": "G3",
-      "spot": "S2",
-      "runway": "R1",
-      "callsign": "F254",
-      "time": "2054",
-      "appear_time": "2054"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "gate": "G1",
-      "spot": "S1",
-      "runway": "R1",
-      "callsign": "F255",
-      "time": "2057",
-      "appear_time": "2057"
+      "time": "2058",
+      "appear_time": "2058"
     }
   ]
 }
