@@ -47,7 +47,7 @@ If you're using Linux system without X11, add `backend : Agg` into `~/.config/ma
 
 ### Style
 
-**[IMPORTANT] Please always follow [PEP 8 -- Style Guide for Python Code](https://www.python.org/dev/peps/pep-0008/) for readability and consistency.**
+Please always follow [PEP 8 -- Style Guide for Python Code](https://www.python.org/dev/peps/pep-0008/) for readability and consistency.
 
 ### Logging
 
@@ -58,7 +58,7 @@ for each class in `__init__` like this way:
 
 ### Debug
 
-**[IMPORTANT]** Put breakpoint in this way:
+Put breakpoint in this way:
 
     import pdb; pdb.set_trace()
 
