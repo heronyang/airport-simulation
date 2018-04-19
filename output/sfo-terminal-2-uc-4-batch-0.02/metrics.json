@@ -1,9 +1,9 @@
 {
-    "conflicts": 19,
-    "makespan": 76500,
-    "avg_queue_size": 0.11929824561403508,
-    "avg_reschedule_exec_time": 0.9128226954886254,
-    "avg_n_delay": 0.03557312252964427,
-    "avg_n_scheduler_delay": 0.03557312252964427,
-    "avg_n_uncertainty_delay": 0.0
+    "conflicts": 0,
+    "makespan": 76650,
+    "avg_queue_size": 0.0,
+    "avg_reschedule_exec_time": 0.3583059901978644,
+    "avg_n_delay": 0.012169680111265648,
+    "avg_n_scheduler_delay": 0.01043115438108484,
+    "avg_n_uncertainty_delay": 0.0017385257301808068
 }

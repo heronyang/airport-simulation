@@ -172,45 +172,56 @@ class ExecutionTimeMetric():
             rst.max(), rst.min(), rst.mean()
         )
 
-class ItineraryMetric():
+class DelayMetric():
 
     def __init__(self):
-        self.itinerary = pd.DataFrame(
-            columns=["n_scheduler_delay", "n_uncertainty_delay", "time_taken"]
+        self.delay = pd.DataFrame(
+            columns=["n_scheduler_delay", "n_uncertainty_delay"]
         )
 
-    def update_on_finish(self, completed_itineraries):
-        for ci in completed_itineraries:
-            self.itinerary = self.itinerary.append(
-                {
-                    "n_scheduler_delay": ci.itinerary.n_scheduler_delay,
-                    "n_uncertainty_delay": ci.itinerary.n_uncertainty_delay,
-                    "time_taken": ci.time_taken
-                }, ignore_index=True
-            )
+    def update_on_tick(self, aircrafts, now):
 
-    @property
-    def summary(self):
+        n_scheduler_delay = len([
+            aircraft for aircraft in aircrafts
+            if aircraft.itinerary is not None and\
+            aircraft.itinerary.is_delayed_by_scheduler
+        ])
 
-        if len(self.itinerary) == 0:
-            return "Itinerary: insufficient data"
+        n_uncertainty_delay = len([
+            aircraft for aircraft in aircrafts
+            if aircraft.itinerary is not None and\
+            aircraft.itinerary.is_delayed_by_uncertainty
+        ])
 
-        return "Itinerary avg # delay: %f (scheduler: %f, uncertainty: %f)" % (
-            self.avg_n_delay, self.avg_n_scheduler_delay,
-            self.avg_n_uncertainty_delay
-        )
+        self.delay = self.delay.append({
+            "time": now,
+            "n_scheduler_delay": n_scheduler_delay,
+            "n_uncertainty_delay": n_uncertainty_delay
+        }, ignore_index = True)
 
     @property
     def avg_n_scheduler_delay(self):
-        return self.itinerary["n_scheduler_delay"].mean()
+        # Average number of delay added by the scheduler per tick
+        return self.delay["n_scheduler_delay"].mean()
 
     @property
     def avg_n_uncertainty_delay(self):
-        return self.itinerary["n_uncertainty_delay"].mean()
+        # Average number of delay added by the uncertainty module per tick
+        return self.delay["n_uncertainty_delay"].mean()
 
     @property
     def avg_n_delay(self):
         return self.avg_n_scheduler_delay + self.avg_n_uncertainty_delay
+
+    @property
+    def summary(self):
+        
+        if len(self.delay) == 0:
+            return "Delay: insufficient data"
+
+        d = self.delay.set_index("time")
+        return "Delay: top %d low %d mean %d" % (d.max(), d.min(), d.mean())
+
 
 class Analyst:
 
@@ -227,7 +238,7 @@ class Analyst:
         self.conflict_metric = ConflictMetric()
         self.gate_queue_metric = GateQueueMetric(simulation.airport.surface)
         self.execution_time_metric = ExecutionTimeMetric()
-        self.itinerary_metric = ItineraryMetric()
+        self.delay_metric = DelayMetric()
 
         self.save_airport_name()
 
@@ -244,15 +255,12 @@ class Analyst:
         self.aircraft_count_metric.update_on_tick(aircrafts, now)
         self.conflict_metric.update_on_tick(conflicts, now)
         self.gate_queue_metric.update_on_tick(airport, now)
+        self.delay_metric.update_on_tick(aircrafts, now)
 
     def observe_on_reschedule(self, schedule, simulation):
         now = simulation.now
         self.execution_time_metric.update_on_reschedule(
             simulation.last_schedule_exec_time, now)
-
-    def observe_on_finish(self, simulation):
-        self.itinerary_metric.update_on_finish(
-            simulation.completed_itineraries)
 
     def print_summary(self):
 
@@ -262,13 +270,12 @@ class Analyst:
         self.logger.debug(self.conflict_metric.summary)
         self.logger.debug(self.gate_queue_metric.summary)
         self.logger.debug(self.execution_time_metric.summary)
-        self.logger.debug(self.itinerary_metric.summary)
+        self.logger.debug(self.delay_metric.summary)
 
     def save(self):
 
         self.save_tick_summary()
         self.save_schedule_summary()
-        self.save_itinerary_summary()
         self.save_metrics()
 
         plt.close('all')
@@ -278,6 +285,7 @@ class Analyst:
         c = self.aircraft_count_metric.counter.set_index("time")
         cf = self.conflict_metric.conflict.set_index("time")
         qs = self.gate_queue_metric.gate_queue_size.set_index("time")
+        delay = self.delay_metric.delay.set_index("time")
 
         stats = c.join(
             cf,
@@ -285,6 +293,8 @@ class Analyst:
         ).join(
             qs,
             rsuffix="_queue_size"
+        ).join(
+            delay
         )
 
         with pd.option_context("display.max_rows", None):
@@ -293,6 +303,7 @@ class Analyst:
         self.save_csv("tick", stats)
         self.save_fig("conflicts", cf, "line")
         self.save_fig("gate_queue_size", qs, "line")
+        self.save_fig("delay", delay, "line")
 
     def save_schedule_summary(self):
 
@@ -305,11 +316,6 @@ class Analyst:
 
         # Writes to one csv file
         self.save_csv("schedule", rst)
-
-    def save_itinerary_summary(self):
-        iti = self.itinerary_metric.itinerary
-        iti["n_delay"] = iti["n_scheduler_delay"] + iti["n_uncertainty_delay"]
-        self.save_csv("itinerary", iti)
 
     def save_csv(self, type_name, df):
         filename = "%s%s.csv" % (get_output_dir_name(), type_name)
@@ -334,11 +340,11 @@ class Analyst:
             "avg_queue_size": self.gate_queue_metric.avg_queue_size,
             "avg_reschedule_exec_time":
             self.execution_time_metric.avg_reschedule_exec_time,
-            "avg_n_delay": self.itinerary_metric.avg_n_delay,
+            "avg_n_delay": self.delay_metric.avg_n_delay,
             "avg_n_scheduler_delay":
-            self.itinerary_metric.avg_n_scheduler_delay,
+            self.delay_metric.avg_n_scheduler_delay,
             "avg_n_uncertainty_delay":
-            self.itinerary_metric.avg_n_uncertainty_delay
+            self.delay_metric.avg_n_uncertainty_delay
         }
         with open(filename, "w") as f:
             f.write(json.dumps(response, indent=4))

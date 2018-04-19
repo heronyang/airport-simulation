@@ -1,0 +1,24 @@
+name: sfo-terminal-2-sim-rt
+airport: sfo-terminal-2
+batch: simulation.reschedule_cycle
+
+simulator:
+  # Number of simulation runs with one same setting (only works in batch mode)
+  times: 5
+
+simulation:
+  time_unit: 5
+  reschedule_cycle: "5:31:5"
+
+uncertainty:
+  # Enable or disable the uncertain in simulation
+  enabled: true
+  # Probability of an aircraft holds at node unexpectedly (depends on time_unit)
+  prob_hold: 0.2
+
+scheduler:
+  # Name of the scheduler file under the `scheduler` folder
+  name: deterministic_scheduler
+
+logger:
+  level: error

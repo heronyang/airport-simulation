@@ -10,7 +10,7 @@ uncertainty:
   # Enable or disable the uncertain in simulation
   enabled: true
   # Probability of an aircraft holds at node unexpectedly (depends on time_unit)
-  prob_hold: 0:0.1:0.01
+  prob_hold: 0:0.03:0.005
 
 scheduler:
   # Name of the scheduler file under the `scheduler` folder

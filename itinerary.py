@@ -62,11 +62,20 @@ class Itinerary:
         return len(self.targets)
 
     @property
-    def is_delayed(self):
-        if self.next_target is None:
+    def is_delayed_by_uncertainty(self):
+        if self.next_target is None or self.index <= 0:
             return False
-        return self.index in \
-                self.uncertainty_delayed_index + self.scheduler_delayed_index
+        return (self.index - 1) in self.uncertainty_delayed_index
+
+    @property
+    def is_delayed_by_scheduler(self):
+        if self.next_target is None or self.index <= 0:
+            return False
+        return (self.index - 1) in self.scheduler_delayed_index
+
+    @property
+    def is_delayed(self):
+        return self.is_delayed_by_scheduler or self.is_delayed_by_uncertainty
 
     @property
     def current_target(self):

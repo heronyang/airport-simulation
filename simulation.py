@@ -108,7 +108,6 @@ class Simulation:
         except ClockException as e:
             # Finishes
             if not Config.params["simulator"]["test_mode"]:
-                self.analyst.observe_on_finish(self.delegate)
                 self.analyst.save()
                 self.state_logger.save()
             raise e
