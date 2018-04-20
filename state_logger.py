@@ -1,8 +1,8 @@
 import os
 import json
 import logging
-from config import Config
 from utils import get_output_dir_name
+
 
 class StateLogger:
 
@@ -37,9 +37,9 @@ class StateLogger:
         itinerary_index = aircraft.itinerary.index if itinerary else None
 
         uc_delayed_index = aircraft.itinerary.uncertainty_delayed_index\
-                if itinerary else None
+            if itinerary else None
         sc_delayed_index = aircraft.itinerary.scheduler_delayed_index\
-                if itinerary else None
+            if itinerary else None
 
         return {
             "callsign": aircraft.callsign,

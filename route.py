@@ -1,5 +1,4 @@
 from link import Link
-from config import Config
 
 
 class Route:
@@ -127,7 +126,6 @@ class Route:
         for link in self.links:
             distance += link.length
         return distance
-
 
     """
     Removes all the stored links.

@@ -5,13 +5,10 @@ from copy import deepcopy
 from datetime import time
 from aircraft import Aircraft, State
 from flight import DepartureFlight
-from scheduler.deterministic_scheduler import Scheduler
 from node import Node
 from surface import RunwayNode, Spot
 from config import Config
-from utils import get_seconds_after
 from simulation import get_scheduler
-from schedule import Schedule
 from conflict import Conflict
 
 import sys

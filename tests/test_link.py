@@ -51,11 +51,9 @@ class TestLink(unittest.TestCase):
 
         link = Link("link-123", self.nodes)
         Config.params["simulation"]["close_node_link_threshold"] = 10
-        links = link.break_at(self.n1)
-        self.assertEqual(len(links), 1)
-        self.assertAlmostEqual(links[0].length, link.length, 1)
+        self.assertRaises(Exception, link.break_at, self.n1)
 
-    def test_break_at_end_node(self):
+    def test_break_at_end_node_near(self):
 
         link = Link("link-123", self.nodes)
         Config.params["simulation"]["close_node_link_threshold"] = 10

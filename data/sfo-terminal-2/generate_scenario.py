@@ -36,9 +36,10 @@ flight_template = {
 }
 
 gates = ["50", "55", "53", "52", "54A", "51A", "51B", "54B", "56B", "56A",
-    "57", "59", "58B", "58A"]
+         "57", "59", "58B", "58A"]
 
 spots = ["S2", "S3"]
+
 
 def main():
     """
@@ -69,6 +70,7 @@ def main():
 
 
 index = 1
+
 
 def generate_flight_at(time):
     global index

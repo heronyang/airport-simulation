@@ -286,13 +286,19 @@ class SurfaceFactory:
             name = node_raw["name"]
 
             if type_name == "spots":
-                nodes.append(Spot(name,
-                    {"lat": node_raw["lat"], "lng": node_raw["lng"]}
-                ))
+                nodes.append(
+                    Spot(
+                        name,
+                        {"lat": node_raw["lat"], "lng": node_raw["lng"]}
+                    )
+                )
             elif type_name == "gates":
-                nodes.append(Gate(name,
-                    {"lat": node_raw["lat"], "lng": node_raw["lng"]}
-                ))
+                nodes.append(
+                    Gate(
+                        name,
+                        {"lat": node_raw["lat"], "lng": node_raw["lng"]}
+                    )
+                )
             else:
                 raise Exception("Unknown node type")
 

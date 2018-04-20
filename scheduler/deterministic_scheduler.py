@@ -1,6 +1,3 @@
-import logging
-
-from copy import deepcopy
 from schedule import Schedule
 from config import Config
 from aircraft import State
@@ -82,12 +79,11 @@ class Scheduler(AbstractScheduler):
                 # next state
                 predict_simulation.quiet_tick()
 
-
     def resolve_conflict(self, simulation, itineraries, conflict, attempts,
                          unsolvable_conflicts, max_attempt):
 
         self.logger.info("Try to solve %s" % conflict)
-        
+
         # Solves the first conflicts, then reruns everything again.
         aircraft = self.get_aircraft_to_delay(conflict, simulation)
         if aircraft in itineraries:
@@ -104,7 +100,8 @@ class Scheduler(AbstractScheduler):
         attempts[conflict] = attempts.get(conflict, 0) + 1
         if attempts[conflict] >= max_attempt:
             self.logger.error("Found deadlock")
-            import pdb; pdb.set_trace()
+            import pdb
+            pdb.set_trace()
             # Reverse the delay
             itineraries[aircraft].restore()
             # Forget the attempts
@@ -117,7 +114,7 @@ class Scheduler(AbstractScheduler):
         sim_time = Config.params["simulation"]["time_unit"]
         tick_times = int(rs_time / sim_time) + 1
         max_attempt = \
-                Config.params["scheduler"]["max_resolve_conflict_attempt"]
+            Config.params["scheduler"]["max_resolve_conflict_attempt"]
 
         return (tick_times, max_attempt)
 
@@ -154,6 +151,7 @@ class Scheduler(AbstractScheduler):
     def reset_itineraries(self, itineraries):
         for _, itinerary in itineraries.items():
             itinerary.reset()
+
 
 class ConflictException(Exception):
     pass

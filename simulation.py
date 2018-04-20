@@ -1,4 +1,3 @@
-import sys
 import time
 import logging
 import traceback
@@ -9,14 +8,13 @@ from airport import AirportFactory
 from scenario import ScenarioFactory
 from routing_expert import RoutingExpert
 from analyst import Analyst
-from utils import get_seconds_after, get_seconds_before
+from utils import get_seconds_after
 from uncertainty import Uncertainty
 from config import Config
 from collections import deque
 from state_logger import StateLogger
 from itinerary import CompletedItinerary
 import importlib
-import numpy as np
 
 
 class Simulation:
@@ -59,7 +57,6 @@ class Simulation:
             # Sets up the state logger
             self.state_logger = StateLogger()
 
-
         # Sets up a delegate of this simulation
         self.delegate = SimulationDelegate(self)
 
@@ -84,7 +81,7 @@ class Simulation:
                 self.logger.info("Time to reschedule")
                 start = time.time()
                 self.reschedule()
-                self.last_schedule_exec_time = time.time() - start # seconds
+                self.last_schedule_exec_time = time.time() - start  # seconds
                 self.last_schedule_time = self.now
                 self.logger.info("Last schedule time is updated to %s" %
                                  self.last_schedule_time)
@@ -172,7 +169,7 @@ class Simulation:
         for flight in self.scenario.departures:
 
             # Only if the scheduled appear time is between now and next tick
-            if not (self.now <= flight.appear_time and \
+            if not (self.now <= flight.appear_time and
                     flight.appear_time < next_tick_time):
                 continue
 
@@ -286,10 +283,12 @@ class SimulationDelegate:
 
         return simulation_copy
 
+
 def get_scheduler():
     # Loads the requested scheduler
     scheduler_name = Config.params["scheduler"]["name"]
     return importlib.import_module("scheduler." + scheduler_name).Scheduler()
+
 
 class SimulationException(Exception):
     pass

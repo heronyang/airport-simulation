@@ -1,7 +1,6 @@
 import logging
 
 from copy import deepcopy
-from schedule import Schedule
 from itinerary import Itinerary
 
 

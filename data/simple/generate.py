@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 import sys
-import numpy
 import logging
 from enum import Enum
 from fastkml import kml

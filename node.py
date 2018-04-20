@@ -58,6 +58,7 @@ class Node:
                                      self.geo_pos["lat"],
                                      self.geo_pos["lng"])
 
+
 def get_middle_node(n1, n2, ratio=None):
 
     if ratio is None:

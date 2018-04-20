@@ -24,7 +24,7 @@ class RoutingExpert:
         self.links = links
         self.nodes = nodes
         self.logger.info("%d links and %d nodes are loaded" %
-                        (len(self.links), len(self.nodes)))
+                         (len(self.links), len(self.nodes)))
 
         # Builds or loads the routing table from cache
         if enable_cache:

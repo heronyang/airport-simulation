@@ -105,7 +105,7 @@ class TestRoutingExpert(unittest.TestCase):
         # Checks the gate that is near to the runway (G58B)
         gate_58B = self.airport.surface.get_node("58B")
         routeG58Bto10R = \
-                routing_expert.get_shortest_route(gate_58B, runway_start)
+            routing_expert.get_shortest_route(gate_58B, runway_start)
 
         self.assertAlmostEqual(routeG58Bto10R.distance, 8198.5613013809, 5)
         self.assertEqual(len(routeG58Bto10R.nodes), 32)
@@ -132,7 +132,7 @@ class TestRoutingExpert(unittest.TestCase):
         gate_53 = self.airport.surface.get_node("53")
 
         routeG53to10R = \
-                routing_expert.get_shortest_route(gate_53, runway_start)
+            routing_expert.get_shortest_route(gate_53, runway_start)
         self.assertAlmostEqual(routeG53to10R.distance, 10014.749180929799, 5)
         self.assertEqual(len(routeG53to10R.nodes), 39)
         self.assertEqual(len(routeG53to10R.links), 38)
@@ -164,6 +164,7 @@ class TestRoutingExpert(unittest.TestCase):
             self.assertTrue(len(route.nodes) >= 2)
             self.assertTrue(len(route.links) >= 1)
             self.assertTrue(route.distance > 0.0)
+
 
 if __name__ == '__main__':
     unittest.main()

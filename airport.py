@@ -5,8 +5,6 @@ import itertools
 from surface import SurfaceFactory
 from config import Config
 from conflict import Conflict
-from aircraft import State
-from node import get_middle_node
 
 
 class Airport:
@@ -42,7 +40,7 @@ class Airport:
                     is_applied = True
                     break
             if not is_applied:
-                raise Exception("%s not found in the airport" % r.aircraft)
+                raise Exception("%s not found in the airport" % aircraft)
 
     def add_aircraft(self, aircraft):
         self.aircrafts.append(aircraft)
@@ -70,7 +68,6 @@ class Airport:
                 continue
             __conflicts.append(Conflict((l0, l1), ap, self.simulation.now))
         return __conflicts
-
 
     def is_occupied_at(self, node):
         for aircraft in self.aircrafts:

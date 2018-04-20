@@ -1,11 +1,8 @@
 import logging
 import pandas as pd
 import json
-import os
 import matplotlib.pyplot as plt
 
-from clock import Clock
-from aircraft import State
 from utils import get_time_delta, get_output_dir_name
 from config import Config
 
@@ -116,6 +113,7 @@ class ConflictMetric():
             "Conflict: top %d low %d mean %d" % (cf.max(), cf.min(), cf.mean())
         )
 
+
 class GateQueueMetric():
 
     def __init__(self, surface):
@@ -144,6 +142,7 @@ class GateQueueMetric():
             qs.max(), qs.min(), qs.mean()
         )
 
+
 class ExecutionTimeMetric():
 
     def __init__(self):
@@ -154,7 +153,7 @@ class ExecutionTimeMetric():
     def update_on_reschedule(self, rs_exec_time, now):
         self.rs_exec_time = self.rs_exec_time.append(
             {"time": now, "rs_exec_time": rs_exec_time},
-            ignore_index = True)
+            ignore_index=True)
 
     @property
     def avg_reschedule_exec_time(self):
@@ -162,7 +161,7 @@ class ExecutionTimeMetric():
 
     @property
     def summary(self):
-        
+
         if len(self.rs_exec_time) == 0:
             return "Execution Time: insufficient data"
 
@@ -171,6 +170,7 @@ class ExecutionTimeMetric():
         return "Reschedule execution time: top %d low %d mean %d" % (
             rst.max(), rst.min(), rst.mean()
         )
+
 
 class DelayMetric():
 
@@ -183,13 +183,13 @@ class DelayMetric():
 
         n_scheduler_delay = len([
             aircraft for aircraft in aircrafts
-            if aircraft.itinerary is not None and\
+            if aircraft.itinerary is not None and
             aircraft.itinerary.is_delayed_by_scheduler
         ])
 
         n_uncertainty_delay = len([
             aircraft for aircraft in aircrafts
-            if aircraft.itinerary is not None and\
+            if aircraft.itinerary is not None and
             aircraft.itinerary.is_delayed_by_uncertainty
         ])
 
@@ -197,7 +197,7 @@ class DelayMetric():
             "time": now,
             "n_scheduler_delay": n_scheduler_delay,
             "n_uncertainty_delay": n_uncertainty_delay
-        }, ignore_index = True)
+        }, ignore_index=True)
 
     @property
     def avg_n_scheduler_delay(self):
@@ -215,7 +215,7 @@ class DelayMetric():
 
     @property
     def summary(self):
-        
+
         if len(self.delay) == 0:
             return "Delay: insufficient data"
 

@@ -1,6 +1,5 @@
 from config import Config
 from node import Node
-from utils import random_string
 from utils import str2sha1, interpolate_geo
 from id_generator import get_new_link_id
 
@@ -70,8 +69,8 @@ class Link:
     def contains_node_on_segment(self, src, dst, node):
 
         threshold = Config.params["simulation"]["close_node_link_threshold"]
-        return src.get_distance_to(node) + dst.get_distance_to(node) \
-                - src.get_distance_to(dst) < threshold
+        return (src.get_distance_to(node) + dst.get_distance_to(node) -
+                src.get_distance_to(dst)) < threshold
 
     def break_at(self, node):
 
@@ -82,7 +81,7 @@ class Link:
         if self.start.is_close_to(node) or \
            self.end.is_close_to(node):
             return [self]
-        
+
         marker = self.contains_node_at(node)
 
         # First part

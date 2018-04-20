@@ -2,14 +2,11 @@
 
 from config import Config
 from copy import deepcopy
-from clock import Clock
-from datetime import time
 from node import Node
 from itinerary import Itinerary
 
 import sys
 import unittest
-import logging
 sys.path.append('..')
 
 
@@ -32,7 +29,6 @@ class TestItinerary(unittest.TestCase):
         # Gets a copy of the itinerary
         itinerary = deepcopy(self.itinerary_template)
 
-        clock = Clock()
         self.assertFalse(itinerary.is_completed)
         self.assertEqual(itinerary.current_target, self.n1)
 
@@ -113,7 +109,7 @@ class TestItinerary(unittest.TestCase):
         itinerary.tick()
         itinerary.tick()
         itinerary.tick()
-        
+
         itinerary.reset()
         self.assertEqual(itinerary.current_target, self.n1)
         self.assertEqual(itinerary.next_target, self.n2)

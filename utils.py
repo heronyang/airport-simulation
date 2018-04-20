@@ -85,10 +85,12 @@ def get_time_delta(t1, t2):
     m2 = t2.hour * 60 * 60 + t2.minute * 60 + t2.second
     return m1 - m2
 
+
 def random_string(length):
     import string
     import random
     return ''.join(random.choice(string.ascii_letters) for m in range(length))
+
 
 def update_dict(ori_dict, new_dict):
     import collections
@@ -96,6 +98,7 @@ def update_dict(ori_dict, new_dict):
         ori_dict[key] = update_dict(ori_dict.get(key, {}), value) \
                 if isinstance(value, collections.Mapping) else value
     return ori_dict
+
 
 def get_output_dir_name():
     import os
@@ -105,11 +108,13 @@ def get_output_dir_name():
         os.makedirs(dir_name)
     return dir_name
 
+
 def get_batch_plan_name(original_name, expr_var, nth):
     if nth is None:
         return original_name + "-batch-" + str(expr_var)
     else:
         return original_name + "-" + str(nth) + "-batch-" + str(expr_var)
+
 
 def is_collinear(n1, n2, n3):
     # If the area size is near 0, then the points are on the same line

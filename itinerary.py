@@ -1,12 +1,11 @@
-import logging
 from copy import deepcopy
-from utils import str2sha1, random_string, get_time_delta
+from utils import str2sha1, get_time_delta
 
 
-"""
-Itinerary is a list of target nodes that an aircraft follows per tick.
-"""
 class Itinerary:
+    """
+    Itinerary is a list of target nodes that an aircraft follows per tick.
+    """
 
     def __init__(self, targets=[]):
 

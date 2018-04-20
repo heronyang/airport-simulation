@@ -3,7 +3,7 @@ from aircraft import Aircraft, State
 
 class Flight:
 
-    def __init__():
+    def __init__(self):
         self.aircraft = None
 
 
