@@ -8,7 +8,6 @@ from utils import get_batch_plan_name
 
 
 def save_batch_result(name, expr_var_name, expr_var_range, logs, times):
-    import pdb; pdb.set_trace()
 
     metrics_filename = "/metrics.json"
 
