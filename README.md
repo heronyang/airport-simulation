@@ -17,9 +17,15 @@ airport code).
 
 ## Install
 
-    $ pip3 install -r requirements.txt
+If you're on Ubuntu, install python/pip properly:
 
-If you're using Linux system without X11, add `backend : Agg` into `~/.config/matplotlib/matplotlibrc` to avoid X11 error.
+    $ sudo apt-get install -y python3-pip
+    $ sudo apt-get install python3-tk
+    $ echo "backend : Agg" >> ~/.config/matplotlib/matplotlibrc
+
+Then,
+
+    $ pip3 install -r requirements.txt
 
 ## Run
 

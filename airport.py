@@ -5,8 +5,6 @@ import itertools
 from surface import SurfaceFactory
 from config import Config
 from conflict import Conflict
-from aircraft import State
-from node import get_middle_node
 
 
 class Airport:

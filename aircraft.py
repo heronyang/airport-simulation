@@ -26,7 +26,6 @@ class Aircraft:
 
     def set_location(self, location):
 
-        original_location = self.location
         self.location = location
         self.logger.info("%s location changed to %s" % (self, location))
 
@@ -81,8 +80,8 @@ class Aircraft:
         if self.itinerary.next_target is None or\
            another_aircraft.itinerary.next_target is None:
             return False
-        if self.itinerary.next_target.is_close_to(
-            self.itinerary.current_target):
+        if self.itinerary\
+           .next_target.is_close_to(self.itinerary.current_target):
             return False
         if another_aircraft.itinerary.next_target.is_close_to(
             another_aircraft.itinerary.current_target):

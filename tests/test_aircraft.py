@@ -3,13 +3,11 @@
 from node import Node
 from aircraft import Aircraft, State
 from itinerary import Itinerary
-from datetime import time
 from copy import deepcopy
 from config import Config
 
 import sys
 import unittest
-import logging
 sys.path.append('..')
 
 
@@ -61,7 +59,6 @@ class TestAircraft(unittest.TestCase):
 
         aircraft.tick()
         self.assertTrue(aircraft.itinerary.is_completed)
-
 
     def test_tick_with_delay(self):
 

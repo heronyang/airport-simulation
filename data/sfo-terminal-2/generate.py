@@ -19,6 +19,7 @@ logger_handler.setLevel(logging.DEBUG)
 logger.addHandler(logger_handler)
 logger.setLevel(logging.DEBUG)
 
+
 class NameAssigner():
 
     name_pool = {}
@@ -177,7 +178,7 @@ def generate_node_data(kml_doc, layer_type, output_filename):
 
 
 def generate_link_data(kml_doc, layer_type, output_filename,
-                       aeroway_filter = None, use_ref = False):
+                       aeroway_filter=None, use_ref=False):
 
     links = []
 
@@ -202,6 +203,7 @@ def generate_link_data(kml_doc, layer_type, output_filename,
 
     export_to_json(OUTPUT_FOLDER + output_filename, links)
 
+
 def is_aeroway_matched(placemark, aeroway_filter):
 
     for i in placemark.extended_data.elements:
@@ -209,6 +211,7 @@ def is_aeroway_matched(placemark, aeroway_filter):
             return True
 
     return False
+
 
 def get_ref(placemark):
 
