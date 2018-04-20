@@ -7,13 +7,13 @@ simulator:
   times: 5
 
 simulation:
-  reschedule_cycle: 30:601:30
+  reschedule_cycle: 30:151:30
 
 uncertainty:
   # Enable or disable the uncertain in simulation
   enabled: true
   # Probability of an aircraft holds at node unexpectedly (depends on time_unit)
-  prob_hold: 0.2
+  prob_hold: 0.01
 
 scheduler:
   # Name of the scheduler file under the `scheduler` folder
