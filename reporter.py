@@ -8,6 +8,7 @@ from utils import get_batch_plan_name
 
 
 def save_batch_result(name, expr_var_name, expr_var_range, logs, times):
+    import pdb; pdb.set_trace()
 
     metrics_filename = "/metrics.json"
 
@@ -39,8 +40,10 @@ def save_batch_result(name, expr_var_name, expr_var_range, logs, times):
         metrics = pd.concat(m_metrics).set_index(expr_var_name)
         metrics = metrics.groupby(metrics.index).mean()
 
-    save_metrics(metrics, cfg.BATCH_OUTPUT_DIR + name + "/")
-    save_logs(logs, times, cfg.BATCH_OUTPUT_DIR + name + "/")
+    output_dir = cfg.BATCH_OUTPUT_DIR + name + "/"
+    setup_output_dir(output_dir)
+    save_metrics(metrics, output_dir)
+    save_logs(logs, times, output_dir)
 
 
 def __get_blank_metrics(expr_var_name):
@@ -73,7 +76,6 @@ def __append_expr_output(filename, expr_var_name, expr_var, metrics):
 
 
 def save_metrics(metrics, output_dir):
-    setup_output_dir(output_dir)
     metrics.to_csv(output_dir + "metrics.csv")
     for col in list(metrics):
         plt.clf()
@@ -95,7 +97,9 @@ def setup_output_dir(output_dir):
 
 def save_logs(logs, times, output_dir):
 
-    setup_output_dir(output_dir)
+    if logs is None:
+        print("Logs are empty")
+        return
 
     # Calculates the failture rate
     d = logs.groupby(logs["expr_var"]).sum()
@@ -117,9 +121,13 @@ def save_logs(logs, times, output_dir):
 def test():
     import numpy
     save_batch_result(
-        "simple-uc-s",
-        "uncertainty.hold_prob",
-        numpy.arange(0.0, 0.02, 0.01),
-        2,
-        None
+        "sfo-terminal-2-rt-s",
+        "simulation.reschedule_cycle",
+        numpy.arange(60.0, 151.0, 60.0),
+        None,
+        2
     )
+
+
+if __name__ == "__main__":
+    test()
