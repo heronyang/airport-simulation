@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 from config import Config as cfg
 from utils import get_batch_plan_name
 
-def save_batch_result(name, expr_var_name, expr_var_range, times):
+def save_batch_result(name, expr_var_name, expr_var_range, logs, times):
 
     metrics_filename = "/metrics.json"
 
@@ -38,6 +38,7 @@ def save_batch_result(name, expr_var_name, expr_var_range, times):
         metrics = metrics.groupby(metrics.index).mean()
 
     save_metrics(metrics, cfg.BATCH_OUTPUT_DIR + name + "/")
+    save_logs(logs, times, cfg.BATCH_OUTPUT_DIR + name + "/")
 
 def __get_blank_metrics(expr_var_name):
     return pd.DataFrame(columns=[
@@ -85,11 +86,32 @@ def setup_output_dir(output_dir):
     # Creates a brand new folder
     os.makedirs(output_dir)
 
+def save_logs(logs, times, output_dir):
+
+    setup_output_dir(output_dir)
+
+    # Calculates the failture rate
+    d = logs.groupby(logs["expr_var"]).sum()
+    d["failure_rate"] = d["failed"] / times
+    
+    # Saves to csv file
+    logs.to_csv(output_dir + "logs.csv")
+
+    # Plot the logs df
+    plt.clf()
+    plt.figure(figsize=cfg.OUTPUT_FIG_SIZE)
+    filename = output_dir + "failure_rate.png" 
+    d["failure_rate"].plot(kind="line")
+    plt.tight_layout()
+    plt.savefig(filename, dpi=cfg.OUTPUT_FIG_DPI)
+    plt.close('all')
+    
 def test():
     import numpy
     save_batch_result(
         "simple-uc-s",
         "uncertainty.hold_prob",
         numpy.arange(0.0, 0.02, 0.01),
-        2
+        2,
+        None
     )

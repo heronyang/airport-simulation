@@ -119,6 +119,7 @@ class TestItinerary(unittest.TestCase):
         self.assertEqual(itinerary.next_target, self.n2)
 
     def test_is_delayed(self):
+        # NOTE: is_delayed looks at the last target instead of the current one
 
         # Gets a copy of the itinerary
         itinerary = deepcopy(self.itinerary_template)
@@ -127,10 +128,10 @@ class TestItinerary(unittest.TestCase):
         self.assertFalse(itinerary.is_delayed)
         itinerary.add_uncertainty_delay()
         # [n1] - n1 - n2 - n3
-        self.assertTrue(itinerary.is_delayed)
+        self.assertFalse(itinerary.is_delayed)
 
         itinerary.tick()
-        self.assertFalse(itinerary.is_delayed)
+        self.assertTrue(itinerary.is_delayed)
         itinerary.add_scheduler_delay()
         # n1 - [n1] - n1 - n2 - n3
         self.assertTrue(itinerary.is_delayed)

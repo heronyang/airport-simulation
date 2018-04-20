@@ -99,7 +99,6 @@ class Aircraft:
             return State.stop
         return State.hold if self.itinerary.current_target.is_close_to(
                     self.itinerary.next_target) else State.moving
-
     @property
     def is_delayed(self):
         return self.itinerary.is_delayed if self.itinerary else False
