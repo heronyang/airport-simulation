@@ -1,26 +1,62 @@
 #!/usr/bin/env python3
+"""Simulator is the entry point for running a single simulation or a batch of
+simulations.
+
+Example:
+
+    To run a single simlation, use an experimental plan under `plans`:
+
+        $ ./simulator.py -f plans/base.yaml
+
+    To run a batch of simulations, use a batch experimental plan under
+    `bacth_plans`:
+
+        $ ./simulator.py -f batch_plans/sfo-terminal-2-uc.yaml
+
+Output:
+
+    Simulation results including output metrics, figures, and logs are stored
+    under `output` folder with a name specified in the experimental plan. For
+    batch runs, a bunch of folders under `output` are created and a folder
+    under `batch_output` is created as well for storing summary metrics and
+    figures for the batch runs.
+
+Definition:
+
+    We define a `simulation` or a `simulation run` as the simlation of a day
+    under the same parameters (this matches to a experimental plan under
+    `plans`). We also define `sample times` as the number of simulations runs
+    we execute under the same parameters for retrieving the average output
+    metrics. Then, we define a `batch run` or a `batch execution` as multiple
+    simulation runs that may or may not involve different parameters used per
+    simulation run depends on the `sample times` (this matches to a batch
+    experimental plan under `batch_plans`).
+
+"""
+
+from subprocess import call
+
 import os
+import sys
 import time
-import numpy
 import logging
-import coloredlogs
 import argparse
-import traceback
 import pandas as pd
+import numpy
+import coloredlogs
 
 from simulation import Simulation, SimulationException
 from clock import ClockException
 from config import Config as cfg
 from utils import get_output_dir_name, get_batch_plan_name
 from reporter import save_batch_result
-from subprocess import call
-
-logger = None
 
 
 def main():
+    """Main function of the simulator.
+    """
 
-    init_params()
+    __init_params()
 
     if cfg.params["batch"]:
         print("Starting the simulation in batch mode")
@@ -30,7 +66,7 @@ def main():
         run()
 
 
-def init_params():
+def __init_params():
 
     # Parses argv
     parser = argparse.ArgumentParser()
@@ -42,7 +78,7 @@ def init_params():
     cfg.load_plan(parser.parse_args().plan_filepath)
 
 
-def init_logger():
+def __init_logger():
 
     # Removes previous handler
     for handler in logging.root.handlers[:]:
@@ -59,8 +95,7 @@ def init_logger():
     try:
         level = levels[cfg.params["logger"]["level"]]
     except KeyError:
-        logger.error("Unknown logging level")
-        os._exit(1)
+        sys.exit(1)
 
     if cfg.params["logger"]["file"] or cfg.params["batch"] is not None:
         log_filename = get_output_dir_name() + "log"
@@ -81,11 +116,15 @@ def init_logger():
 
 
 def run_batch():
+    """Executes a batch run given the name of this launch, the sample times
+    value, the experimental variable name and the experimental variable value
+    range specified in the configuration.
+    """
 
     name = cfg.params["name"]
     times = cfg.params["simulator"]["times"]
     expr_var_name = cfg.params["batch"]
-    expr_var_range = get_expr_var_range(expr_var_name)
+    expr_var_range = __get_expr_var_range(expr_var_name)
 
     logs = pd.DataFrame(columns=["expr_var", "failed", "nth"])
 
@@ -96,19 +135,23 @@ def run_batch():
         if times <= 1:
             run_wrapper(expr_var_name, expr_var, name, logs, nth=None)
         else:
-            for t in range(times):
-                run_wrapper(expr_var_name, expr_var, name, logs, nth=t)
+            for nth in range(times):
+                run_wrapper(expr_var_name, expr_var, name, logs, nth=nth)
 
     save_batch_result(name, expr_var_name, expr_var_range, logs, times)
     print("Saved result")
 
 
 def run_wrapper(expr_var_name, expr_var, name, logs, nth):
+    """A wrapper for running a simulation for a batch run by setting up the
+    experimental variable, counting the number of failures, and logging the
+    execution time.
+    """
 
     print("Running simulation with %s = %f (nth = %d)"
           % (expr_var_name, expr_var, nth))
-    set_expr_var(expr_var_name, expr_var)
-    set_plan_name(name, expr_var, nth)
+    __set_expr_var(expr_var_name, expr_var)
+    __set_plan_name(name, expr_var, nth)
 
     failed = 0
     while True:
@@ -125,43 +168,48 @@ def run_wrapper(expr_var_name, expr_var, name, logs, nth):
     logs.loc[len(logs)] = [expr_var, failed, nth]
 
 
-def get_expr_var_range(expr_var_name):
+def __get_expr_var_range(expr_var_name):
 
     # Finds the string value of the experimental field
-    c = cfg.params
+    params = cfg.params
     expr_var_name_layer = expr_var_name.split(".")
-    while len(expr_var_name_layer) > 0:
-        c = c[expr_var_name_layer[0]]
+    while expr_var_name_layer:
+        params = params[expr_var_name_layer[0]]
         expr_var_name_layer = expr_var_name_layer[1:]
 
     # Parses the string representation in range
-    range_raw = c
+    range_raw = params
     (start, end, step) = range_raw.split(":")
     return numpy.arange(float(start), float(end), float(step))
 
 
-def set_expr_var(expr_var_name, expr_var):
+def __set_expr_var(expr_var_name, expr_var):
 
     # Setup the experimental variable
-    c = cfg.params
+    params = cfg.params
     expr_var_name_layer = expr_var_name.split(".")
     while len(expr_var_name_layer) > 1:
-        c = c[expr_var_name_layer[0]]
+        params = params[expr_var_name_layer[0]]
         expr_var_name_layer = expr_var_name_layer[1:]
-    c[expr_var_name_layer[0]] = expr_var
+    params[expr_var_name_layer[0]] = expr_var
 
 
-def set_plan_name(name, expr_var, nth):
+def __set_plan_name(name, expr_var, nth):
     cfg.params["name"] = get_batch_plan_name(name, expr_var, nth)
 
 
 def run():
+    """Executes a single simulation by initializing a :class:`Simulation` and
+    call the :func:`Simuation.tick()` function util the :class:`Clock` object
+    raises an :class:`ClockException` indicating the end of a day.
+    """
 
-    global logger
-    logger = init_logger()
+    logger = __init_logger()
 
     if cfg.params["simulator"]["scenario_regeneration"]:
-        regenerate_scenario()
+        logger.info("Generating scenario files")
+        __regenerate_scenario()
+        logger.info("Scenario files generated")
 
     simulation = Simulation()
 
@@ -176,23 +224,17 @@ def run():
         logger.debug("Caught keyboard interrupt, simulation exits")
     except ClockException:
         logger.debug("Simulation ends")
-    except SimulationException as e:
+    except SimulationException as exception:
         logger.error("Conflict found in the airport, abort")
-        raise e
-    except Exception as e:
-        logger.error(traceback.format_exc())
-        logger.error("Simulation exists on unexpected error")
-        os._exit(-1)
+        raise exception
 
 
-def regenerate_scenario():
-    logger.info("Generating scenario files")
+def __regenerate_scenario():
     dir_path = cfg.DATA_GENERATION_DIR_PATH % cfg.params["airport"]
     current_dir = os.getcwd()
     os.chdir(dir_path)
     call(["./generate_scenario.py"])
     os.chdir(current_dir)
-    logger.info("Scenario files generated")
 
 
 if __name__ == "__main__":
