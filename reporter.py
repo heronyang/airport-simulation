@@ -102,7 +102,7 @@ def save_logs(logs, times, output_dir):
 
     # Calculates the failture rate
     d = logs.groupby(logs["expr_var"]).sum()
-    d["failure_rate"] = d["failed"] / times
+    d["failure_rate"] = d["failed"] / (d["failed"] + times)
 
     # Saves to csv file
     logs.to_csv(output_dir + "logs.csv")
