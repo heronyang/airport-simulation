@@ -97,3 +97,4 @@ syntax:
 
     from clock import Clock
     self.logger.debug("sim time is %s", Clock.sim_time)
+# sphinxdoc-test-docs
