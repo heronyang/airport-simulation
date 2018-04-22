@@ -67,7 +67,7 @@ class TestRoutingExpert(unittest.TestCase):
         airport_code = "simple"
 
         # Sets up the airport
-        self.airport = AirportFactory.create(None, airport_code)
+        self.airport = AirportFactory.create(airport_code)
 
         # Sets up the scenario
         self.scenario = ScenarioFactory.create(airport_code,
@@ -90,7 +90,7 @@ class TestRoutingExpert(unittest.TestCase):
         airport_code = "sfo-terminal-2"
 
         # Sets up the airport
-        self.airport = AirportFactory.create(None, airport_code)
+        self.airport = AirportFactory.create(airport_code)
 
         # Sets up the scenario
         self.scenario = ScenarioFactory.create(airport_code,
@@ -116,7 +116,7 @@ class TestRoutingExpert(unittest.TestCase):
         airport_code = "sfo-terminal-2"
 
         # Sets up the airport
-        self.airport = AirportFactory.create(None, airport_code)
+        self.airport = AirportFactory.create(airport_code)
 
         # Sets up the scenario
         self.scenario = ScenarioFactory.create(airport_code,
@@ -142,7 +142,7 @@ class TestRoutingExpert(unittest.TestCase):
         airport_code = "sfo-terminal-2"
 
         # Sets up the airport
-        self.airport = AirportFactory.create(None, airport_code)
+        self.airport = AirportFactory.create(airport_code)
 
         # Sets up the scenario
         self.scenario = ScenarioFactory.create(airport_code,

@@ -27,7 +27,7 @@ class TestAirport(unittest.TestCase):
     def test_conflicts(self):
 
         simulation = self.SimulationMock()
-        airport = AirportFactory.create(simulation, "simple")
+        airport = AirportFactory.create("simple")
 
         a1 = Aircraft("A1", None, self.n1, State.stop)
         a2 = Aircraft("A2", None, self.n1, State.stop)

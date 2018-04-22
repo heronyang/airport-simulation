@@ -99,11 +99,11 @@ class Simulation:
                 self.uncertainty.inject(self)
 
             # Tick
-            self.__add_aircrafts()
+            self.add_aircrafts()
             self.airport.tick()
             if not Config.params["simulator"]["test_mode"]:
                 self.state_logger.log_on_tick(self.delegate)
-            self.__remove_aircrafts()
+            self.remove_aircrafts()
             self.clock.tick()
 
             # Abort on conflict
@@ -131,9 +131,9 @@ class Simulation:
         Turn off the logger, reschedule, and analyst.
         """
         self.logger.debug("\nPredicted Time: %s" % self.now)
-        self.__add_aircrafts()
+        self.add_aircrafts()
         self.airport.tick()
-        self.__remove_aircrafts()
+        self.remove_aircrafts()
         try:
             self.clock.tick()
         except ClockException as e:
@@ -152,7 +152,7 @@ class Simulation:
         if not Config.params["simulator"]["test_mode"]:
             self.analyst.observe_on_reschedule(schedule, self.delegate)
 
-    def __add_aircrafts(self):
+    def add_aircrafts(self):
         self.__add_aircrafts_from_queue()
         self.__add_aircrafts_from_scenario()
 
@@ -196,7 +196,7 @@ class Simulation:
                 self.airport.add_aircraft(aircraft)
                 self.logger.info("Adds %s into the airport" % flight)
 
-    def __remove_aircrafts(self):
+    def remove_aircrafts(self):
         """
         Removes departure aircrafts if they've moved to the runway.
         """
