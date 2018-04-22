@@ -148,6 +148,9 @@ class Airport:
         self.surface.set_quiet(logger)
         for aircraft in self.aircrafts:
             aircraft.set_quiet(logger)
+        for queue in self.gate_queue.values():
+            for airport in queue:
+                airport.set_quiet(logger)
 
 
 class AirportFactory:
