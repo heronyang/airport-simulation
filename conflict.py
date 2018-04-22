@@ -3,11 +3,10 @@ from utils import str2sha1
 
 class Conflict:
 
-    def __init__(self, locations, aircrafts, time):
+    def __init__(self, locations, aircrafts):
 
         self.locations = locations
         self.aircrafts = aircrafts
-        self.time = time
 
         h = []
         for aircraft in aircrafts:

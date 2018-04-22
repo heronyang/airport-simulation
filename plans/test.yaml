@@ -1,0 +1,17 @@
+---
+name: test
+airport: sfo-terminal-2
+
+simulator:
+  # Enable scenerio regeneration
+  scenario_regeneration: false
+
+simulation:
+  # Seconds between each simulation epoch
+  time_unit: 60
+
+uncertainty:
+  # Enable or disable the uncertain in simulation
+  enabled: false
+  # Probability of an aircraft holds at node unexpectedly (depends on time_unit)
+  prob_hold: 0.05

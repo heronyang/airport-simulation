@@ -13,16 +13,13 @@ class Airport:
     stopped in this airport.
     """
 
-    def __init__(self, simulation, code, surface):
+    def __init__(self, code, surface):
 
         # Setups the logger
         self.logger = logging.getLogger(__name__)
 
         # Runtime data
         self.aircrafts = []
-
-        # Pointer to the simulation
-        self.simulation = simulation
 
         # Queues for departure flights at gates
         self.gate_queue = {}
@@ -66,7 +63,7 @@ class Airport:
                 l0, l1 = ap[0].location, ap[1].location
             if not l0.is_close_to(l1):
                 continue
-            __conflicts.append(Conflict((l0, l1), ap, self.simulation.now))
+            __conflicts.append(Conflict((l0, l1), ap))
         return __conflicts
 
     def is_occupied_at(self, node):
@@ -98,7 +95,7 @@ class Airport:
 class AirportFactory:
 
     @classmethod
-    def create(self, simulation, code):
+    def create(self, code):
 
         dir_path = Config.DATA_ROOT_DIR_PATH % code
 
@@ -107,4 +104,4 @@ class AirportFactory:
             raise Exception("Surface data is missing")
 
         surface = SurfaceFactory.create(dir_path)
-        return Airport(simulation, code, surface)
+        return Airport(code, surface)

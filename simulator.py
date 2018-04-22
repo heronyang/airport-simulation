@@ -199,9 +199,9 @@ def __set_plan_name(name, expr_var, nth):
 
 
 def run():
-    """Executes a single simulation by initializing a :class:`Simulation` and
-    call the :func:`Simuation.tick()` function util the :class:`Clock` object
-    raises an :class:`ClockException` indicating the end of a day.
+    """Executes a single simulation by initializing a `Simulation` and call its
+    `tick()` function util the Clock` object raises an `ClockException`
+    indicating the end of a day.
     """
 
     logger = __init_logger()
