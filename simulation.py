@@ -8,7 +8,6 @@ import traceback
 import importlib
 
 from copy import deepcopy
-from collections import deque
 from clock import Clock, ClockException
 from airport import AirportFactory
 from scenario import ScenarioFactory
@@ -18,7 +17,6 @@ from utils import get_seconds_after
 from uncertainty import Uncertainty
 from config import Config
 from state_logger import StateLogger
-from itinerary import CompletedItinerary
 
 
 """Simulation represents a simulation day, holds both static and dynamic states
@@ -65,17 +63,11 @@ class Simulation:
             # Sets up the state logger
             self.state_logger = StateLogger()
 
-        # Sets up a delegate of this simulation
-        self.delegate = SimulationDelegate(self)
-
         # Initializes the previous schedule time
         self.last_schedule_time = None
 
         # Initializes the last execution time for rescheduling to None
         self.last_schedule_exec_time = None
-
-        # Initializes the completed itinerary array
-        self.completed_itineraries = []
 
         self.__print_stats()
 
@@ -99,11 +91,12 @@ class Simulation:
                 self.uncertainty.inject(self)
 
             # Tick
-            self.add_aircrafts()
+            self.airport.add_aircrafts(self.scenario, self.now,
+                                       self.clock.sim_time)
             self.airport.tick()
             if not Config.params["simulator"]["test_mode"]:
-                self.state_logger.log_on_tick(self.delegate)
-            self.remove_aircrafts()
+                self.state_logger.log_on_tick(self)
+            self.airport.remove_aircrafts(self.scenario)
             self.clock.tick()
 
             # Abort on conflict
@@ -112,7 +105,7 @@ class Simulation:
 
             # Observe
             if not Config.params["simulator"]["test_mode"]:
-                self.analyst.observe_on_tick(self.delegate)
+                self.analyst.observe_on_tick(self)
 
         except ClockException as e:
             # Finishes
@@ -131,9 +124,10 @@ class Simulation:
         Turn off the logger, reschedule, and analyst.
         """
         self.logger.debug("\nPredicted Time: %s" % self.now)
-        self.add_aircrafts()
+        self.airport.add_aircrafts(self.scenario, self.now,
+                                   self.clock.sim_time)
         self.airport.tick()
-        self.remove_aircrafts()
+        self.airport.remove_aircrafts(self.scenario)
         try:
             self.clock.tick()
         except ClockException as e:
@@ -147,77 +141,10 @@ class Simulation:
         return last_time is None or next_time <= self.now
 
     def __reschedule(self):
-        schedule = self.scheduler.schedule(self.delegate)
+        schedule = self.scheduler.schedule(self)
         self.airport.apply_schedule(schedule)
         if not Config.params["simulator"]["test_mode"]:
-            self.analyst.observe_on_reschedule(schedule, self.delegate)
-
-    def add_aircrafts(self):
-        self.__add_aircrafts_from_queue()
-        self.__add_aircrafts_from_scenario()
-
-    def __add_aircrafts_from_queue(self):
-
-        for gate, queue in self.airport.gate_queue.items():
-
-            if self.airport.is_occupied_at(gate) or len(queue) == 0:
-                continue
-
-            # Put the first aircraft in queue into the airport
-            aircraft = queue.popleft()
-            aircraft.set_location(gate)
-            self.airport.add_aircraft(aircraft)
-
-    def __add_aircrafts_from_scenario(self):
-
-        # NOTE: we will only focus on departures now
-        next_tick_time = get_seconds_after(self.now, self.clock.sim_time)
-
-        # For all departure flights
-        for flight in self.scenario.departures:
-
-            # Only if the scheduled appear time is between now and next tick
-            if not (self.now <= flight.appear_time and
-                    flight.appear_time < next_tick_time):
-                continue
-
-            gate, aircraft = flight.from_gate, flight.aircraft
-
-            if self.airport.is_occupied_at(gate):
-                # Adds the flight to queue
-                queue = self.airport.gate_queue.get(gate, deque())
-                queue.append(aircraft)
-                self.airport.gate_queue[gate] = queue
-                self.logger.info("Adds %s into gate queue" % flight)
-
-            else:
-                # Adds the flight to the airport
-                aircraft.set_location(gate)
-                self.airport.add_aircraft(aircraft)
-                self.logger.info("Adds %s into the airport" % flight)
-
-    def remove_aircrafts(self):
-        """
-        Removes departure aircrafts if they've moved to the runway.
-        """
-        # TODO: removal for arrival aircrafts
-
-        to_remove_aircrafts = []
-
-        for aircraft in self.airport.aircrafts:
-            flight = self.scenario.get_flight(aircraft)
-            # Deletion shouldn't be done in the fly
-            if aircraft.location.is_close_to(flight.runway.start):
-                to_remove_aircrafts.append(aircraft)
-
-        for aircraft in to_remove_aircrafts:
-            self.logger.info("Removes %s from the airport" % aircraft)
-            self.completed_itineraries.append(
-                CompletedItinerary(
-                    self.scenario.get_flight(aircraft).appear_time,
-                    self.now, aircraft.itinerary)
-            )
-            self.airport.remove_aircraft(aircraft)
+            self.analyst.observe_on_reschedule(schedule, self)
 
     @property
     def now(self):
@@ -231,6 +158,7 @@ class Simulation:
         __dict = dict(self.__dict__)
         del __dict["logger"]
         __dict["uncertainty"] = None
+        __dict["routing_expert"] = None
         return __dict
 
     def __setstate__(self, new_dict):
@@ -242,60 +170,41 @@ class Simulation:
         self.scenario.set_quiet(logger)
         self.routing_expert.set_quiet(logger)
 
+    @property
+    def copy(self, uncertainty=None):
+        # TODO: If uncertainty is not None, call inject() in quiet_tick().
+        return ClonedSimulation(self)
 
-class SimulationDelegate:
-    """
-    SimulationDelegate is used for scheduler to access simulation state without
-    breaking on-going things or creating deadlocks.
-    """
+
+class ClonedSimulation():
 
     def __init__(self, simulation):
-        self.simulation = simulation
+
+        self.clock = deepcopy(simulation.clock)
+        self.airport = deepcopy(simulation.airport)
+        self.scenario = deepcopy(simulation.scenario)
+
+        # Sets up the logger in quiet mode
+        self.logger = logging.getLogger("QUIET_MODE")
+        self.airport.set_quiet(self.logger)
+        self.scenario.set_quiet(self.logger)
+
+    def quiet_tick(self):
+        """Turn off the logger, reschedule, and analyst.
+        """
+        self.logger.debug("\nPredicted Time: %s" % self.now)
+        self.airport.add_aircrafts(self.scenario, self.now,
+                                   self.clock.sim_time)
+        self.airport.tick()
+        self.airport.remove_aircrafts(self.scenario)
+        try:
+            self.clock.tick()
+        except ClockException as e:
+            raise e
 
     @property
     def now(self):
-        return self.simulation.now
-
-    @property
-    def airport(self):
-        # TODO: should make it immutable before returning the airport state
-        return self.simulation.airport
-
-    @property
-    def scenario(self):
-        return self.simulation.scenario
-
-    @property
-    def routing_expert(self):
-        return self.simulation.routing_expert
-
-    @property
-    def last_schedule_exec_time(self):
-        return self.simulation.last_schedule_exec_time
-
-    @property
-    def completed_itineraries(self):
-        return self.simulation.completed_itineraries
-
-    @property
-    def copy(self, uncertainty=None):
-
-        # Gets a snapshot of current simulation state
-        simulation_copy = deepcopy(self.simulation)
-
-        # Replace the uncertainty module by the given one
-        simulation_copy.uncertainty = uncertainty
-
-        # Sets the simulation to quiet mode
-        simulation_copy.set_quiet(logging.getLogger("QUIET_MODE"))
-
-        return simulation_copy
-
-
-class PredictSimulation():
-
-    def __init__(self, simulation, uncertainty):
-        pass
+        return self.clock.now
 
 
 def get_scheduler():

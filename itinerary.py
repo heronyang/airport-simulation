@@ -111,29 +111,3 @@ class Itinerary:
 
     def __ne__(self, other):
         return not(self == other)
-
-
-class CompletedItinerary:
-
-    def __init__(self, start_time, end_time, itinerary):
-        self.start_time = start_time
-        self.end_time = end_time
-        self.itinerary = itinerary
-
-    @property
-    def time_taken(self):
-        return get_time_delta(self.end_time, self.start_time)
-
-    def __repr__(self):
-        return "<CompletedItinerary: %s %s to %s>" % (
-            self.itinerary, self.start_time, self.end_time
-        )
-
-    def __hash__(self):
-        return self.hash
-
-    def __eq__(self, other):
-        return self.hash == other.hash
-
-    def __ne__(self, other):
-        return not(self == other)

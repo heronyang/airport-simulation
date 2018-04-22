@@ -63,6 +63,7 @@ class TestSimulation(unittest.TestCase):
             self.assertTrue(next_flight.aircraft.location ==
                             next_flight.from_gate)
 
+    # TODO: The add/remove aircraft tests should be moved to `test_airport`.
     def test_add_aircrafts_all(self):
 
         simulation = Simulation()
@@ -108,7 +109,7 @@ class TestSimulation(unittest.TestCase):
         n_flight = len(simulation.airport.aircrafts)
 
         next_flight.aircraft.set_location(next_flight.runway.start)
-        simulation.remove_aircrafts()
+        simulation.airport.remove_aircrafts(simulation.scenario)
         self.assertEqual(len(simulation.airport.aircrafts), n_flight - 1)
 
     def test_gate_queue(self):
