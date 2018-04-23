@@ -1,5 +1,5 @@
-name: sfo-terminal-2-uc-l
-airport: sfo-terminal-2
+name: sfo-terminal-2-uc-xl
+airport: sfo-terminal-2-bk
 batch: uncertainty.prob_hold
 
 simulator:
