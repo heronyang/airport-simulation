@@ -1,0 +1,416 @@
+2018-04-22 06:32:54,918 Done
+2018-04-22 07:00:47,633 Done
+2018-04-22 07:28:56,838 Done
+2018-04-22 07:57:04,695 Done
+2018-04-22 08:24:50,192 Done
+2018-04-22 08:52:33,448 Done
+2018-04-22 09:20:36,357 Done
+2018-04-22 09:48:43,641 Done
+2018-04-22 10:16:59,949 Done
+2018-04-22 10:45:26,865 Done
+2018-04-22 11:13:21,377 Done
+2018-04-22 11:41:29,168 Done
+2018-04-22 12:09:50,763 Done
+2018-04-22 12:38:29,487 Done
+2018-04-22 13:07:07,007 Done
+2018-04-22 13:35:29,567 Done
+2018-04-22 13:50:11,728 Done
+2018-04-22 14:04:56,556 Done
+2018-04-22 14:19:30,971 Done
+2018-04-22 14:34:11,995 Done
+2018-04-22 14:48:55,494 Done
+2018-04-22 15:03:14,423 Done
+2018-04-22 15:17:39,282 Done
+2018-04-22 15:32:08,652 Done
+2018-04-22 15:46:31,842 Done
+2018-04-22 16:00:51,781 Done
+2018-04-22 16:15:09,066 Done
+2018-04-22 16:29:33,689 Done
+2018-04-22 16:43:41,082 Done
+2018-04-22 16:58:00,324 Done
+2018-04-22 17:12:19,013 Done
+2018-04-22 17:22:15,544 Done
+2018-04-22 17:32:17,416 Done
+2018-04-22 17:42:07,686 Done
+2018-04-22 17:51:58,060 Done
+2018-04-22 18:01:53,099 Done
+2018-04-22 18:11:53,960 Done
+2018-04-22 18:21:44,896 Done
+2018-04-22 18:31:36,493 Done
+2018-04-22 18:41:29,278 Done
+2018-04-22 18:51:33,437 Done
+2018-04-22 19:01:29,435 Done
+2018-04-22 19:11:23,464 Done
+2018-04-22 19:21:22,051 Done
+2018-04-22 19:31:12,944 Done
+Starting the simulation in batch mode
+Running simulation with simulation.reschedule_cycle = 30.000000 (nth = 0)
+Finished simulation with simulation.reschedule_cycle = 30.000000, time 1672.7043805122375 seconds, nth = 0
+Running simulation with simulation.reschedule_cycle = 30.000000 (nth = 1)
+Finished simulation with simulation.reschedule_cycle = 30.000000, time 1689.1495418548584 seconds, nth = 1
+Running simulation with simulation.reschedule_cycle = 30.000000 (nth = 2)
+Finished simulation with simulation.reschedule_cycle = 30.000000, time 1687.9041421413422 seconds, nth = 2
+Running simulation with simulation.reschedule_cycle = 30.000000 (nth = 3)
+Finished simulation with simulation.reschedule_cycle = 30.000000, time 1665.463472366333 seconds, nth = 3
+Running simulation with simulation.reschedule_cycle = 30.000000 (nth = 4)
+Finished simulation with simulation.reschedule_cycle = 30.000000, time 1663.244290113449 seconds, nth = 4
+Running simulation with simulation.reschedule_cycle = 30.000000 (nth = 5)
+Finished simulation with simulation.reschedule_cycle = 30.000000, time 1682.9543619155884 seconds, nth = 5
+Running simulation with simulation.reschedule_cycle = 30.000000 (nth = 6)
+Finished simulation with simulation.reschedule_cycle = 30.000000, time 1687.281762599945 seconds, nth = 6
+Running simulation with simulation.reschedule_cycle = 30.000000 (nth = 7)
+Finished simulation with simulation.reschedule_cycle = 30.000000, time 1696.3013775348663 seconds, nth = 7
+Running simulation with simulation.reschedule_cycle = 30.000000 (nth = 8)
+Finished simulation with simulation.reschedule_cycle = 30.000000, time 1706.8658032417297 seconds, nth = 8
+Running simulation with simulation.reschedule_cycle = 30.000000 (nth = 9)
+Finished simulation with simulation.reschedule_cycle = 30.000000, time 1674.5093839168549 seconds, nth = 9
+Running simulation with simulation.reschedule_cycle = 30.000000 (nth = 10)
+Finished simulation with simulation.reschedule_cycle = 30.000000, time 1687.7936856746674 seconds, nth = 10
+Running simulation with simulation.reschedule_cycle = 30.000000 (nth = 11)
+Finished simulation with simulation.reschedule_cycle = 30.000000, time 1701.5773477554321 seconds, nth = 11
+Running simulation with simulation.reschedule_cycle = 30.000000 (nth = 12)
+Finished simulation with simulation.reschedule_cycle = 30.000000, time 1718.7768340110779 seconds, nth = 12
+Running simulation with simulation.reschedule_cycle = 30.000000 (nth = 13)
+Finished simulation with simulation.reschedule_cycle = 30.000000, time 1717.5212922096252 seconds, nth = 13
+Running simulation with simulation.reschedule_cycle = 30.000000 (nth = 14)
+Finished simulation with simulation.reschedule_cycle = 30.000000, time 1702.5190331935883 seconds, nth = 14
+Running simulation with simulation.reschedule_cycle = 50.000000 (nth = 0)
+Finished simulation with simulation.reschedule_cycle = 50.000000, time 882.1434080600739 seconds, nth = 0
+Running simulation with simulation.reschedule_cycle = 50.000000 (nth = 1)
+Finished simulation with simulation.reschedule_cycle = 50.000000, time 884.830828666687 seconds, nth = 1
+Running simulation with simulation.reschedule_cycle = 50.000000 (nth = 2)
+Finished simulation with simulation.reschedule_cycle = 50.000000, time 874.4151077270508 seconds, nth = 2
+Running simulation with simulation.reschedule_cycle = 50.000000 (nth = 3)
+Finished simulation with simulation.reschedule_cycle = 50.000000, time 881.0609486103058 seconds, nth = 3
+Running simulation with simulation.reschedule_cycle = 50.000000 (nth = 4)
+Finished simulation with simulation.reschedule_cycle = 50.000000, time 883.4966840744019 seconds, nth = 4
+Running simulation with simulation.reschedule_cycle = 50.000000 (nth = 5)
+Finished simulation with simulation.reschedule_cycle = 50.000000, time 858.9374604225159 seconds, nth = 5
+Running simulation with simulation.reschedule_cycle = 50.000000 (nth = 6)
+Finished simulation with simulation.reschedule_cycle = 50.000000, time 864.8446123600006 seconds, nth = 6
+Running simulation with simulation.reschedule_cycle = 50.000000 (nth = 7)
+Finished simulation with simulation.reschedule_cycle = 50.000000, time 869.3791153430939 seconds, nth = 7
+Running simulation with simulation.reschedule_cycle = 50.000000 (nth = 8)
+Finished simulation with simulation.reschedule_cycle = 50.000000, time 863.1264636516571 seconds, nth = 8
+Running simulation with simulation.reschedule_cycle = 50.000000 (nth = 9)
+Finished simulation with simulation.reschedule_cycle = 50.000000, time 859.9510879516602 seconds, nth = 9
+Running simulation with simulation.reschedule_cycle = 50.000000 (nth = 10)
+Finished simulation with simulation.reschedule_cycle = 50.000000, time 857.3215906620026 seconds, nth = 10
+Running simulation with simulation.reschedule_cycle = 50.000000 (nth = 11)
+Finished simulation with simulation.reschedule_cycle = 50.000000, time 864.5458228588104 seconds, nth = 11
+Running simulation with simulation.reschedule_cycle = 50.000000 (nth = 12)
+Finished simulation with simulation.reschedule_cycle = 50.000000, time 847.4242906570435 seconds, nth = 12
+Running simulation with simulation.reschedule_cycle = 50.000000 (nth = 13)
+Finished simulation with simulation.reschedule_cycle = 50.000000, time 859.2709219455719 seconds, nth = 13
+Running simulation with simulation.reschedule_cycle = 50.000000 (nth = 14)
+Finished simulation with simulation.reschedule_cycle = 50.000000, time 858.6476109027863 seconds, nth = 14
+Running simulation with simulation.reschedule_cycle = 70.000000 (nth = 0)
+Finished simulation with simulation.reschedule_cycle = 70.000000, time 596.5957462787628 seconds, nth = 0
+Running simulation with simulation.reschedule_cycle = 70.000000 (nth = 1)
+Finished simulation with simulation.reschedule_cycle = 70.000000, time 601.8188288211823 seconds, nth = 1
+Running simulation with simulation.reschedule_cycle = 70.000000 (nth = 2)
+Finished simulation with simulation.reschedule_cycle = 70.000000, time 590.2453684806824 seconds, nth = 2
+Running simulation with simulation.reschedule_cycle = 70.000000 (nth = 3)
+Finished simulation with simulation.reschedule_cycle = 70.000000, time 590.442800283432 seconds, nth = 3
+Running simulation with simulation.reschedule_cycle = 70.000000 (nth = 4)
+Finished simulation with simulation.reschedule_cycle = 70.000000, time 594.9745910167694 seconds, nth = 4
+Running simulation with simulation.reschedule_cycle = 70.000000 (nth = 5)
+Finished simulation with simulation.reschedule_cycle = 70.000000, time 600.8626894950867 seconds, nth = 5
+Running simulation with simulation.reschedule_cycle = 70.000000 (nth = 6)
+Finished simulation with simulation.reschedule_cycle = 70.000000, time 590.93181848526 seconds, nth = 6
+Running simulation with simulation.reschedule_cycle = 70.000000 (nth = 7)
+Finished simulation with simulation.reschedule_cycle = 70.000000, time 591.6006121635437 seconds, nth = 7
+Running simulation with simulation.reschedule_cycle = 70.000000 (nth = 8)
+Finished simulation with simulation.reschedule_cycle = 70.000000, time 592.8274178504944 seconds, nth = 8
+Running simulation with simulation.reschedule_cycle = 70.000000 (nth = 9)
+Finished simulation with simulation.reschedule_cycle = 70.000000, time 604.1054723262787 seconds, nth = 9
+Running simulation with simulation.reschedule_cycle = 70.000000 (nth = 10)
+Finished simulation with simulation.reschedule_cycle = 70.000000, time 596.0350921154022 seconds, nth = 10
+Running simulation with simulation.reschedule_cycle = 70.000000 (nth = 11)
+Finished simulation with simulation.reschedule_cycle = 70.000000, time 593.9898328781128 seconds, nth = 11
+Running simulation with simulation.reschedule_cycle = 70.000000 (nth = 12)
+Finished simulation with simulation.reschedule_cycle = 70.000000, time 598.6370763778687 seconds, nth = 12
+Running simulation with simulation.reschedule_cycle = 70.000000 (nth = 13)
+Finished simulation with simulation.reschedule_cycle = 70.000000, time 590.8853394985199 seconds, nth = 13
+Running simulation with simulation.reschedule_cycle = 70.000000 (nth = 14)
+Finished simulation with simulation.reschedule_cycle = 70.000000, time 597.376918554306 seconds, nth = 14
+Running simulation with simulation.reschedule_cycle = 90.000000 (nth = 0)2018-04-22 19:41:10,320 Done
+2018-04-22 19:51:04,200 Done
+2018-04-22 20:01:21,818 Done
+2018-04-22 20:11:30,776 Done
+2018-04-22 20:21:31,419 Done
+2018-04-22 20:31:23,220 Done
+2018-04-22 20:41:35,199 Done
+2018-04-22 20:51:42,789 Done
+2018-04-22 21:01:49,209 Done
+2018-04-22 21:11:52,820 Done
+2018-04-22 21:13:32,465 Done
+2018-04-22 21:23:28,923 Done
+2018-04-22 21:33:21,559 Done
+2018-04-22 21:43:20,491 Done
+2018-04-22 21:53:22,065 Done
+2018-04-22 22:03:16,838 Done
+2018-04-22 22:13:27,466 Done
+2018-04-22 22:21:12,925 Done
+2018-04-22 22:28:59,734 Done
+2018-04-22 22:36:49,032 Done
+2018-04-22 22:44:33,861 Done
+2018-04-22 22:52:19,758 Done
+2018-04-22 23:00:02,772 Done
+2018-04-22 23:06:01,170 Done
+2018-04-22 23:13:44,644 Done
+2018-04-22 23:21:16,013 Done
+2018-04-22 23:29:00,741 Done
+2018-04-22 23:36:39,145 Done
+2018-04-22 23:44:16,976 Done
+2018-04-22 23:51:57,937 Done
+2018-04-22 23:59:37,098 Done
+2018-04-23 00:07:18,637 Done
+2018-04-23 00:14:57,504 Done
+2018-04-23 00:21:19,397 Done
+2018-04-23 00:27:46,533 Done
+2018-04-23 00:34:09,771 Done
+2018-04-23 00:40:32,488 Done
+2018-04-23 00:41:53,113 Done
+2018-04-23 00:48:11,908 Done
+2018-04-23 00:54:34,149 Done
+2018-04-23 01:00:58,859 Done
+2018-04-23 01:07:23,500 Done
+2018-04-23 01:13:44,303 Done
+2018-04-23 01:20:06,778 Done
+2018-04-23 01:26:30,437 Done
+2018-04-23 01:32:53,578 Done
+2018-04-23 01:39:20,459 Done
+2018-04-23 01:45:45,843 Done
+2018-04-23 01:51:07,340 Done
+
+Finished simulation with simulation.reschedule_cycle = 90.000000, time 593.8290059566498 seconds, nth = 0
+Running simulation with simulation.reschedule_cycle = 90.000000 (nth = 1)
+Finished simulation with simulation.reschedule_cycle = 90.000000, time 617.6275362968445 seconds, nth = 1
+Running simulation with simulation.reschedule_cycle = 90.000000 (nth = 2)
+Finished simulation with simulation.reschedule_cycle = 90.000000, time 608.9942562580109 seconds, nth = 2
+Running simulation with simulation.reschedule_cycle = 90.000000 (nth = 3)
+Finished simulation with simulation.reschedule_cycle = 90.000000, time 600.6500985622406 seconds, nth = 3
+Running simulation with simulation.reschedule_cycle = 90.000000 (nth = 4)
+Finished simulation with simulation.reschedule_cycle = 90.000000, time 591.7408516407013 seconds, nth = 4
+Running simulation with simulation.reschedule_cycle = 90.000000 (nth = 5)
+Finished simulation with simulation.reschedule_cycle = 90.000000, time 611.9738864898682 seconds, nth = 5
+Running simulation with simulation.reschedule_cycle = 90.000000 (nth = 6)
+Finished simulation with simulation.reschedule_cycle = 90.000000, time 607.6445724964142 seconds, nth = 6
+Running simulation with simulation.reschedule_cycle = 90.000000 (nth = 7)
+Finished simulation with simulation.reschedule_cycle = 90.000000, time 606.3788135051727 seconds, nth = 7
+Running simulation with simulation.reschedule_cycle = 90.000000 (nth = 8)
+Finished simulation with simulation.reschedule_cycle = 90.000000, time 603.5980513095856 seconds, nth = 8
+Running simulation with simulation.reschedule_cycle = 90.000000 (nth = 9)
+Conflict found, abort this simulation run
+Finished simulation with simulation.reschedule_cycle = 90.000000, time 596.4434595108032 seconds, nth = 9
+Running simulation with simulation.reschedule_cycle = 90.000000 (nth = 10)
+Finished simulation with simulation.reschedule_cycle = 90.000000, time 592.5916604995728 seconds, nth = 10
+Running simulation with simulation.reschedule_cycle = 90.000000 (nth = 11)
+Finished simulation with simulation.reschedule_cycle = 90.000000, time 598.9419322013855 seconds, nth = 11
+Running simulation with simulation.reschedule_cycle = 90.000000 (nth = 12)
+Finished simulation with simulation.reschedule_cycle = 90.000000, time 601.5523629188538 seconds, nth = 12
+Running simulation with simulation.reschedule_cycle = 90.000000 (nth = 13)
+Finished simulation with simulation.reschedule_cycle = 90.000000, time 594.8288142681122 seconds, nth = 13
+Running simulation with simulation.reschedule_cycle = 90.000000 (nth = 14)
+Finished simulation with simulation.reschedule_cycle = 90.000000, time 610.5669836997986 seconds, nth = 14
+Running simulation with simulation.reschedule_cycle = 110.000000 (nth = 0)
+Finished simulation with simulation.reschedule_cycle = 110.000000, time 465.480429649353 seconds, nth = 0
+Running simulation with simulation.reschedule_cycle = 110.000000 (nth = 1)
+Finished simulation with simulation.reschedule_cycle = 110.000000, time 466.8328731060028 seconds, nth = 1
+Running simulation with simulation.reschedule_cycle = 110.000000 (nth = 2)
+Finished simulation with simulation.reschedule_cycle = 110.000000, time 469.2904407978058 seconds, nth = 2
+Running simulation with simulation.reschedule_cycle = 110.000000 (nth = 3)
+Finished simulation with simulation.reschedule_cycle = 110.000000, time 464.7870349884033 seconds, nth = 3
+Running simulation with simulation.reschedule_cycle = 110.000000 (nth = 4)
+Finished simulation with simulation.reschedule_cycle = 110.000000, time 465.9370620250702 seconds, nth = 4
+Running simulation with simulation.reschedule_cycle = 110.000000 (nth = 5)
+Finished simulation with simulation.reschedule_cycle = 110.000000, time 463.00853872299194 seconds, nth = 5
+Running simulation with simulation.reschedule_cycle = 110.000000 (nth = 6)
+Conflict found, abort this simulation run
+Finished simulation with simulation.reschedule_cycle = 110.000000, time 463.45132756233215 seconds, nth = 6
+Running simulation with simulation.reschedule_cycle = 110.000000 (nth = 7)
+Finished simulation with simulation.reschedule_cycle = 110.000000, time 451.4124822616577 seconds, nth = 7
+Running simulation with simulation.reschedule_cycle = 110.000000 (nth = 8)
+Finished simulation with simulation.reschedule_cycle = 110.000000, time 464.73114800453186 seconds, nth = 8
+Running simulation with simulation.reschedule_cycle = 110.000000 (nth = 9)
+Finished simulation with simulation.reschedule_cycle = 110.000000, time 458.336403131485 seconds, nth = 9
+Running simulation with simulation.reschedule_cycle = 110.000000 (nth = 10)
+Finished simulation with simulation.reschedule_cycle = 110.000000, time 457.9042344093323 seconds, nth = 10
+Running simulation with simulation.reschedule_cycle = 110.000000 (nth = 11)
+Finished simulation with simulation.reschedule_cycle = 110.000000, time 460.9076180458069 seconds, nth = 11
+Running simulation with simulation.reschedule_cycle = 110.000000 (nth = 12)
+Finished simulation with simulation.reschedule_cycle = 110.000000, time 459.158917427063 seconds, nth = 12
+Running simulation with simulation.reschedule_cycle = 110.000000 (nth = 13)
+Finished simulation with simulation.reschedule_cycle = 110.000000, time 461.5281066894531 seconds, nth = 13
+Running simulation with simulation.reschedule_cycle = 110.000000 (nth = 14)
+Finished simulation with simulation.reschedule_cycle = 110.000000, time 458.9223084449768 seconds, nth = 14
+Running simulation with simulation.reschedule_cycle = 130.000000 (nth = 0)
+Finished simulation with simulation.reschedule_cycle = 130.000000, time 381.8373067378998 seconds, nth = 0
+Running simulation with simulation.reschedule_cycle = 130.000000 (nth = 1)
+Finished simulation with simulation.reschedule_cycle = 130.000000, time 387.18291664123535 seconds, nth = 1
+Running simulation with simulation.reschedule_cycle = 130.000000 (nth = 2)
+Finished simulation with simulation.reschedule_cycle = 130.000000, time 383.223402261734 seconds, nth = 2
+Running simulation with simulation.reschedule_cycle = 130.000000 (nth = 3)
+Finished simulation with simulation.reschedule_cycle = 130.000000, time 382.6906747817993 seconds, nth = 3
+Running simulation with simulation.reschedule_cycle = 130.000000 (nth = 4)
+Conflict found, abort this simulation run
+Finished simulation with simulation.reschedule_cycle = 130.000000, time 378.78555727005005 seconds, nth = 4
+Running simulation with simulation.reschedule_cycle = 130.000000 (nth = 5)
+Finished simulation with simulation.reschedule_cycle = 130.000000, time 381.5437867641449 seconds, nth = 5
+Running simulation with simulation.reschedule_cycle = 130.000000 (nth = 6)
+Finished simulation with simulation.reschedule_cycle = 130.000000, time 385.4107840061188 seconds, nth = 6
+Running simulation with simulation.reschedule_cycle = 130.000000 (nth = 7)
+Finished simulation with simulation.reschedule_cycle = 130.000000, time 384.6469535827637 seconds, nth = 7
+Running simulation with simulation.reschedule_cycle = 130.000000 (nth = 8)
+Finished simulation with simulation.reschedule_cycle = 130.000000, time 380.79632687568665 seconds, nth = 8
+Running simulation with simulation.reschedule_cycle = 130.000000 (nth = 9)
+Finished simulation with simulation.reschedule_cycle = 130.000000, time 382.41579699516296 seconds, nth = 9
+Running simulation with simulation.reschedule_cycle = 130.000000 (nth = 10)
+Finished simulation with simulation.reschedule_cycle = 130.000000, time 383.6658296585083 seconds, nth = 10
+Running simulation with simulation.reschedule_cycle = 130.000000 (nth = 11)
+Finished simulation with simulation.reschedule_cycle = 130.000000, time 383.1357316970825 seconds, nth = 11
+Running simulation with simulation.reschedule_cycle = 130.000000 (nth = 12)
+Finished simulation with simulation.reschedule_cycle = 130.000000, time 386.9001476764679 seconds, nth = 12
+Running simulation with simulation.reschedule_cycle = 130.000000 (nth = 13)
+Finished simulation with simulation.reschedule_cycle = 130.000000, time 385.41487765312195 seconds, nth = 13
+Running simulation with simulation.reschedule_cycle = 130.000000 (nth = 14)
+Conflict found, abort this simulation run
+Finished simulation with simulation.reschedule_cycle = 130.000000, time 377.3658649921417 seconds, nth = 142018-04-23 01:57:24,743 Done
+2018-04-23 02:03:48,240 Done
+2018-04-23 02:10:19,617 Done
+2018-04-23 02:16:43,293 Done
+2018-04-23 02:23:14,131 Done
+2018-04-23 02:29:37,632 Done
+2018-04-23 02:36:05,826 Done
+2018-04-23 02:42:33,917 Done
+2018-04-23 02:49:00,265 Done
+2018-04-23 02:55:32,263 Done
+2018-04-23 03:01:58,845 Done
+2018-04-23 03:08:26,212 Done
+2018-04-23 03:15:00,041 Done
+2018-04-23 03:21:32,152 Done
+2018-04-23 03:27:58,145 Done
+2018-04-23 03:34:25,708 Done
+2018-04-23 03:40:01,978 Done
+2018-04-23 03:45:26,437 Done
+2018-04-23 03:50:57,529 Done
+2018-04-23 03:56:20,701 Done
+2018-04-23 04:01:45,225 Done
+2018-04-23 04:04:12,000 Done
+2018-04-23 04:09:37,736 Done
+2018-04-23 04:15:13,947 Done
+2018-04-23 04:20:42,113 Done
+2018-04-23 04:26:07,231 Done
+2018-04-23 04:31:33,422 Done
+2018-04-23 04:37:02,765 Done
+2018-04-23 04:42:34,042 Done
+2018-04-23 04:47:53,844 Done
+2018-04-23 04:53:20,140 Done
+2018-04-23 04:58:44,368 Done
+2018-04-23 05:03:40,565 Done
+2018-04-23 05:08:39,951 Done
+2018-04-23 05:13:33,694 Done
+2018-04-23 05:18:07,456 Done
+2018-04-23 05:21:00,291 Done
+2018-04-23 05:23:50,961 Done
+2018-04-23 05:26:46,003 Done
+2018-04-23 05:29:41,903 Done
+2018-04-23 05:32:35,691 Done
+2018-04-23 05:35:25,800 Done
+2018-04-23 05:38:23,312 Done
+2018-04-23 05:41:17,529 Done
+2018-04-23 05:44:12,541 Done
+2018-04-23 05:47:07,507 Done
+
+Running simulation with simulation.reschedule_cycle = 150.000000 (nth = 0)
+Finished simulation with simulation.reschedule_cycle = 150.000000, time 383.53924441337585 seconds, nth = 0
+Running simulation with simulation.reschedule_cycle = 150.000000 (nth = 1)
+Finished simulation with simulation.reschedule_cycle = 150.000000, time 391.31273198127747 seconds, nth = 1
+Running simulation with simulation.reschedule_cycle = 150.000000 (nth = 2)
+Finished simulation with simulation.reschedule_cycle = 150.000000, time 383.73234820365906 seconds, nth = 2
+Running simulation with simulation.reschedule_cycle = 150.000000 (nth = 3)
+Finished simulation with simulation.reschedule_cycle = 150.000000, time 390.78305172920227 seconds, nth = 3
+Running simulation with simulation.reschedule_cycle = 150.000000 (nth = 4)
+Finished simulation with simulation.reschedule_cycle = 150.000000, time 383.5580713748932 seconds, nth = 4
+Running simulation with simulation.reschedule_cycle = 150.000000 (nth = 5)
+Finished simulation with simulation.reschedule_cycle = 150.000000, time 388.1326103210449 seconds, nth = 5
+Running simulation with simulation.reschedule_cycle = 150.000000 (nth = 6)
+Finished simulation with simulation.reschedule_cycle = 150.000000, time 388.1435704231262 seconds, nth = 6
+Running simulation with simulation.reschedule_cycle = 150.000000 (nth = 7)
+Finished simulation with simulation.reschedule_cycle = 150.000000, time 386.29661560058594 seconds, nth = 7
+Running simulation with simulation.reschedule_cycle = 150.000000 (nth = 8)
+Finished simulation with simulation.reschedule_cycle = 150.000000, time 391.9923071861267 seconds, nth = 8
+Running simulation with simulation.reschedule_cycle = 150.000000 (nth = 9)
+Finished simulation with simulation.reschedule_cycle = 150.000000, time 386.6384451389313 seconds, nth = 9
+Running simulation with simulation.reschedule_cycle = 150.000000 (nth = 10)
+Finished simulation with simulation.reschedule_cycle = 150.000000, time 387.3181447982788 seconds, nth = 10
+Running simulation with simulation.reschedule_cycle = 150.000000 (nth = 11)
+Finished simulation with simulation.reschedule_cycle = 150.000000, time 393.8159348964691 seconds, nth = 11
+Running simulation with simulation.reschedule_cycle = 150.000000 (nth = 12)
+Finished simulation with simulation.reschedule_cycle = 150.000000, time 392.1639268398285 seconds, nth = 12
+Running simulation with simulation.reschedule_cycle = 150.000000 (nth = 13)
+Finished simulation with simulation.reschedule_cycle = 150.000000, time 385.990031003952 seconds, nth = 13
+Running simulation with simulation.reschedule_cycle = 150.000000 (nth = 14)
+Finished simulation with simulation.reschedule_cycle = 150.000000, time 387.5616898536682 seconds, nth = 14
+Running simulation with simulation.reschedule_cycle = 170.000000 (nth = 0)
+Finished simulation with simulation.reschedule_cycle = 170.000000, time 336.25850892066956 seconds, nth = 0
+Running simulation with simulation.reschedule_cycle = 170.000000 (nth = 1)
+Finished simulation with simulation.reschedule_cycle = 170.000000, time 324.461510181427 seconds, nth = 1
+Running simulation with simulation.reschedule_cycle = 170.000000 (nth = 2)
+Finished simulation with simulation.reschedule_cycle = 170.000000, time 331.0839538574219 seconds, nth = 2
+Running simulation with simulation.reschedule_cycle = 170.000000 (nth = 3)
+Finished simulation with simulation.reschedule_cycle = 170.000000, time 323.17343616485596 seconds, nth = 3
+Running simulation with simulation.reschedule_cycle = 170.000000 (nth = 4)
+Finished simulation with simulation.reschedule_cycle = 170.000000, time 324.5144639015198 seconds, nth = 4
+Running simulation with simulation.reschedule_cycle = 170.000000 (nth = 5)
+Conflict found, abort this simulation run
+Finished simulation with simulation.reschedule_cycle = 170.000000, time 325.69751715660095 seconds, nth = 5
+Running simulation with simulation.reschedule_cycle = 170.000000 (nth = 6)
+Finished simulation with simulation.reschedule_cycle = 170.000000, time 336.2313771247864 seconds, nth = 6
+Running simulation with simulation.reschedule_cycle = 170.000000 (nth = 7)
+Finished simulation with simulation.reschedule_cycle = 170.000000, time 328.1897563934326 seconds, nth = 7
+Running simulation with simulation.reschedule_cycle = 170.000000 (nth = 8)
+Finished simulation with simulation.reschedule_cycle = 170.000000, time 325.1068820953369 seconds, nth = 8
+Running simulation with simulation.reschedule_cycle = 170.000000 (nth = 9)
+Finished simulation with simulation.reschedule_cycle = 170.000000, time 326.1410229206085 seconds, nth = 9
+Running simulation with simulation.reschedule_cycle = 170.000000 (nth = 10)
+Finished simulation with simulation.reschedule_cycle = 170.000000, time 329.36817240715027 seconds, nth = 10
+Running simulation with simulation.reschedule_cycle = 170.000000 (nth = 11)
+Finished simulation with simulation.reschedule_cycle = 170.000000, time 331.24280309677124 seconds, nth = 11
+Running simulation with simulation.reschedule_cycle = 170.000000 (nth = 12)
+Finished simulation with simulation.reschedule_cycle = 170.000000, time 319.80939507484436 seconds, nth = 12
+Running simulation with simulation.reschedule_cycle = 170.000000 (nth = 13)
+Finished simulation with simulation.reschedule_cycle = 170.000000, time 326.3488337993622 seconds, nth = 13
+Running simulation with simulation.reschedule_cycle = 170.000000 (nth = 14)
+Finished simulation with simulation.reschedule_cycle = 170.000000, time 324.16924357414246 seconds, nth = 14
+Running simulation with simulation.reschedule_cycle = 190.000000 (nth = 0)
+Finished simulation with simulation.reschedule_cycle = 190.000000, time 296.1973683834076 seconds, nth = 0
+Running simulation with simulation.reschedule_cycle = 190.000000 (nth = 1)
+Finished simulation with simulation.reschedule_cycle = 190.000000, time 299.4210662841797 seconds, nth = 1
+Running simulation with simulation.reschedule_cycle = 190.000000 (nth = 2)
+Finished simulation with simulation.reschedule_cycle = 190.000000, time 293.7393763065338 seconds, nth = 2
+Running simulation with simulation.reschedule_cycle = 190.000000 (nth = 3)
+Finished simulation with simulation.reschedule_cycle = 190.000000, time 273.78493428230286 seconds, nth = 3
+Running simulation with simulation.reschedule_cycle = 190.000000 (nth = 4)
+Finished simulation with simulation.reschedule_cycle = 190.000000, time 172.8352952003479 seconds, nth = 4
+Running simulation with simulation.reschedule_cycle = 190.000000 (nth = 5)
+Finished simulation with simulation.reschedule_cycle = 190.000000, time 170.6682858467102 seconds, nth = 5
+Running simulation with simulation.reschedule_cycle = 190.000000 (nth = 6)
+Finished simulation with simulation.reschedule_cycle = 190.000000, time 175.04025769233704 seconds, nth = 6
+Running simulation with simulation.reschedule_cycle = 190.000000 (nth = 7)
+Finished simulation with simulation.reschedule_cycle = 190.000000, time 175.89803647994995 seconds, nth = 7
+Running simulation with simulation.reschedule_cycle = 190.000000 (nth = 8)
+Finished simulation with simulation.reschedule_cycle = 190.000000, time 173.78414487838745 seconds, nth = 8
+Running simulation with simulation.reschedule_cycle = 190.000000 (nth = 9)
+Finished simulation with simulation.reschedule_cycle = 190.000000, time 170.10746455192566 seconds, nth = 9
+Running simulation with simulation.reschedule_cycle = 190.000000 (nth = 10)
+Finished simulation with simulation.reschedule_cycle = 190.000000, time 177.51086902618408 seconds, nth = 10
+Running simulation with simulation.reschedule_cycle = 190.000000 (nth = 11)
+Finished simulation with simulation.reschedule_cycle = 190.000000, time 174.21479773521423 seconds, nth = 11
+Running simulation with simulation.reschedule_cycle = 190.000000 (nth = 12)
+Finished simulation with simulation.reschedule_cycle = 190.000000, time 175.00874996185303 seconds, nth = 12
+Running simulation with simulation.reschedule_cycle = 190.000000 (nth = 13)
+Finished simulation with simulation.reschedule_cycle = 190.000000, time 174.96587538719177 seconds, nth = 13
+Running simulation with simulation.reschedule_cycle = 190.000000 (nth = 14)
+Finished simulation with simulation.reschedule_cycle = 190.000000, time 177.4792835712433 seconds, nth = 142018-04-23 05:50:04,989 Done

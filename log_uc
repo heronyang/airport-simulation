@@ -1,0 +1,545 @@
+2018-04-22 06:33:13,672 Done
+2018-04-22 06:41:13,815 Done
+2018-04-22 06:49:15,616 Done
+2018-04-22 06:57:08,383 Done
+2018-04-22 07:05:09,813 Done
+2018-04-22 07:13:03,851 Done
+2018-04-22 07:21:05,338 Done
+2018-04-22 07:29:00,919 Done
+2018-04-22 07:37:01,189 Done
+2018-04-22 07:44:55,721 Done
+2018-04-22 07:52:46,161 Done
+2018-04-22 08:00:37,410 Done
+2018-04-22 08:08:32,692 Done
+2018-04-22 08:16:29,393 Done
+2018-04-22 08:24:22,524 Done
+2018-04-22 08:32:10,692 Done
+2018-04-22 08:40:03,149 Done
+2018-04-22 08:47:46,179 Done
+2018-04-22 08:55:40,908 Done
+2018-04-22 09:03:32,112 Done
+2018-04-22 09:11:20,063 Done
+2018-04-22 09:19:09,265 Done
+2018-04-22 09:27:00,456 Done
+2018-04-22 09:34:52,214 Done
+2018-04-22 09:42:47,830 Done
+2018-04-22 09:47:43,718 Done
+2018-04-22 09:55:42,013 Done
+2018-04-22 10:03:35,874 Done
+2018-04-22 10:11:28,909 Done
+2018-04-22 10:19:20,320 Done
+2018-04-22 10:27:09,518 Done
+2018-04-22 10:34:59,548 Done
+2018-04-22 10:42:53,906 Done
+2018-04-22 10:50:49,541 Done
+2018-04-22 10:54:02,295 Done
+2018-04-22 11:01:51,307 Done
+2018-04-22 11:09:39,702 Done
+2018-04-22 11:17:42,752 Done
+2018-04-22 11:25:33,948 Done
+2018-04-22 11:33:25,064 Done
+2018-04-22 11:41:25,598 Done
+2018-04-22 11:49:23,461 Done
+2018-04-22 11:57:18,258 Done
+2018-04-22 12:05:12,502 Done
+2018-04-22 12:13:10,001 Done
+2018-04-22 12:17:43,477 Done
+2018-04-22 12:25:34,277 Done
+2018-04-22 12:33:29,193 Done
+2018-04-22 12:41:30,091 Done
+2018-04-22 12:49:30,022 Done
+2018-04-22 12:57:30,039 Done
+Starting the simulation in batch mode
+Running simulation with uncertainty.prob_hold = 0.000000 (nth = 0)
+Finished simulation with uncertainty.prob_hold = 0.000000, time 480.1368110179901 seconds, nth = 0
+Running simulation with uncertainty.prob_hold = 0.000000 (nth = 1)
+Finished simulation with uncertainty.prob_hold = 0.000000, time 481.8049273490906 seconds, nth = 1
+Running simulation with uncertainty.prob_hold = 0.000000 (nth = 2)
+Finished simulation with uncertainty.prob_hold = 0.000000, time 472.71366786956787 seconds, nth = 2
+Running simulation with uncertainty.prob_hold = 0.000000 (nth = 3)
+Finished simulation with uncertainty.prob_hold = 0.000000, time 481.47215270996094 seconds, nth = 3
+Running simulation with uncertainty.prob_hold = 0.000000 (nth = 4)
+Finished simulation with uncertainty.prob_hold = 0.000000, time 474.0444509983063 seconds, nth = 4
+Running simulation with uncertainty.prob_hold = 0.000000 (nth = 5)
+Finished simulation with uncertainty.prob_hold = 0.000000, time 481.443482875824 seconds, nth = 5
+Running simulation with uncertainty.prob_hold = 0.000000 (nth = 6)
+Finished simulation with uncertainty.prob_hold = 0.000000, time 475.5630395412445 seconds, nth = 6
+Running simulation with uncertainty.prob_hold = 0.000000 (nth = 7)
+Finished simulation with uncertainty.prob_hold = 0.000000, time 480.31777691841125 seconds, nth = 7
+Running simulation with uncertainty.prob_hold = 0.000000 (nth = 8)
+Finished simulation with uncertainty.prob_hold = 0.000000, time 474.5311131477356 seconds, nth = 8
+Running simulation with uncertainty.prob_hold = 0.000000 (nth = 9)
+Finished simulation with uncertainty.prob_hold = 0.000000, time 470.37278270721436 seconds, nth = 9
+Running simulation with uncertainty.prob_hold = 0.000000 (nth = 10)
+Finished simulation with uncertainty.prob_hold = 0.000000, time 471.3079216480255 seconds, nth = 10
+Running simulation with uncertainty.prob_hold = 0.000000 (nth = 11)
+Finished simulation with uncertainty.prob_hold = 0.000000, time 475.232213973999 seconds, nth = 11
+Running simulation with uncertainty.prob_hold = 0.000000 (nth = 12)
+Finished simulation with uncertainty.prob_hold = 0.000000, time 476.74592566490173 seconds, nth = 12
+Running simulation with uncertainty.prob_hold = 0.000000 (nth = 13)
+Finished simulation with uncertainty.prob_hold = 0.000000, time 473.0927402973175 seconds, nth = 13
+Running simulation with uncertainty.prob_hold = 0.000000 (nth = 14)
+Finished simulation with uncertainty.prob_hold = 0.000000, time 468.141539812088 seconds, nth = 14
+Running simulation with uncertainty.prob_hold = 0.010000 (nth = 0)
+Finished simulation with uncertainty.prob_hold = 0.010000, time 472.5141599178314 seconds, nth = 0
+Running simulation with uncertainty.prob_hold = 0.010000 (nth = 1)
+Finished simulation with uncertainty.prob_hold = 0.010000, time 462.9758267402649 seconds, nth = 1
+Running simulation with uncertainty.prob_hold = 0.010000 (nth = 2)
+Finished simulation with uncertainty.prob_hold = 0.010000, time 474.7688162326813 seconds, nth = 2
+Running simulation with uncertainty.prob_hold = 0.010000 (nth = 3)
+Finished simulation with uncertainty.prob_hold = 0.010000, time 471.18303656578064 seconds, nth = 3
+Running simulation with uncertainty.prob_hold = 0.010000 (nth = 4)
+Finished simulation with uncertainty.prob_hold = 0.010000, time 467.92531275749207 seconds, nth = 4
+Running simulation with uncertainty.prob_hold = 0.010000 (nth = 5)
+Finished simulation with uncertainty.prob_hold = 0.010000, time 469.25182914733887 seconds, nth = 5
+Running simulation with uncertainty.prob_hold = 0.010000 (nth = 6)
+Finished simulation with uncertainty.prob_hold = 0.010000, time 471.1319830417633 seconds, nth = 6
+Running simulation with uncertainty.prob_hold = 0.010000 (nth = 7)
+Finished simulation with uncertainty.prob_hold = 0.010000, time 471.7853443622589 seconds, nth = 7
+Running simulation with uncertainty.prob_hold = 0.010000 (nth = 8)
+Finished simulation with uncertainty.prob_hold = 0.010000, time 475.633127450943 seconds, nth = 8
+Running simulation with uncertainty.prob_hold = 0.010000 (nth = 9)
+Conflict found, abort this simulation run
+Finished simulation with uncertainty.prob_hold = 0.010000, time 478.2459261417389 seconds, nth = 9
+Running simulation with uncertainty.prob_hold = 0.010000 (nth = 10)
+Finished simulation with uncertainty.prob_hold = 0.010000, time 473.8563961982727 seconds, nth = 10
+Running simulation with uncertainty.prob_hold = 0.010000 (nth = 11)
+Finished simulation with uncertainty.prob_hold = 0.010000, time 473.05740880966187 seconds, nth = 11
+Running simulation with uncertainty.prob_hold = 0.010000 (nth = 12)
+Finished simulation with uncertainty.prob_hold = 0.010000, time 471.3795540332794 seconds, nth = 12
+Running simulation with uncertainty.prob_hold = 0.010000 (nth = 13)
+Finished simulation with uncertainty.prob_hold = 0.010000, time 469.24769139289856 seconds, nth = 13
+Running simulation with uncertainty.prob_hold = 0.010000 (nth = 14)
+Finished simulation with uncertainty.prob_hold = 0.010000, time 469.96706366539 seconds, nth = 14
+Running simulation with uncertainty.prob_hold = 0.020000 (nth = 0)
+Finished simulation with uncertainty.prob_hold = 0.020000, time 474.37086629867554 seconds, nth = 0
+Running simulation with uncertainty.prob_hold = 0.020000 (nth = 1)
+Finished simulation with uncertainty.prob_hold = 0.020000, time 475.6562237739563 seconds, nth = 1
+Running simulation with uncertainty.prob_hold = 0.020000 (nth = 2)
+Conflict found, abort this simulation run
+Finished simulation with uncertainty.prob_hold = 0.020000, time 469.0538365840912 seconds, nth = 2
+Running simulation with uncertainty.prob_hold = 0.020000 (nth = 3)
+Finished simulation with uncertainty.prob_hold = 0.020000, time 468.411381483078 seconds, nth = 3
+Running simulation with uncertainty.prob_hold = 0.020000 (nth = 4)
+Finished simulation with uncertainty.prob_hold = 0.020000, time 482.9943253993988 seconds, nth = 4
+Running simulation with uncertainty.prob_hold = 0.020000 (nth = 5)
+Finished simulation with uncertainty.prob_hold = 0.020000, time 471.20812225341797 seconds, nth = 5
+Running simulation with uncertainty.prob_hold = 0.020000 (nth = 6)
+Finished simulation with uncertainty.prob_hold = 0.020000, time 471.15126490592957 seconds, nth = 6
+Running simulation with uncertainty.prob_hold = 0.020000 (nth = 7)
+Finished simulation with uncertainty.prob_hold = 0.020000, time 480.4728190898895 seconds, nth = 7
+Running simulation with uncertainty.prob_hold = 0.020000 (nth = 8)
+Finished simulation with uncertainty.prob_hold = 0.020000, time 477.92504262924194 seconds, nth = 8
+Running simulation with uncertainty.prob_hold = 0.020000 (nth = 9)
+Finished simulation with uncertainty.prob_hold = 0.020000, time 474.79159474372864 seconds, nth = 9
+Running simulation with uncertainty.prob_hold = 0.020000 (nth = 10)
+Finished simulation with uncertainty.prob_hold = 0.020000, time 474.2347490787506 seconds, nth = 10
+Running simulation with uncertainty.prob_hold = 0.020000 (nth = 11)
+Finished simulation with uncertainty.prob_hold = 0.020000, time 477.4972839355469 seconds, nth = 11
+Running simulation with uncertainty.prob_hold = 0.020000 (nth = 12)
+Conflict found, abort this simulation run
+Finished simulation with uncertainty.prob_hold = 0.020000, time 470.74877858161926 seconds, nth = 12
+Running simulation with uncertainty.prob_hold = 0.020000 (nth = 13)
+Finished simulation with uncertainty.prob_hold = 0.020000, time 474.9172468185425 seconds, nth = 13
+Running simulation with uncertainty.prob_hold = 0.020000 (nth = 14)
+Finished simulation with uncertainty.prob_hold = 0.020000, time 480.94185423851013 seconds, nth = 14
+Running simulation with uncertainty.prob_hold = 0.030000 (nth = 0)
+Finished simulation with uncertainty.prob_hold = 0.030000, time 479.9306387901306 seconds, nth = 0
+Running simulation with uncertainty.prob_hold = 0.030000 (nth = 1)
+Finished simulation with uncertainty.prob_hold = 0.030000, time 480.0154039859772 seconds, nth = 1
+Running simulation with uncertainty.prob_hold = 0.030000 (nth = 2)
+Finished simulation with uncertainty.prob_hold = 0.030000, time 477.13883328437805 seconds, nth = 2
+Running simulation with uncertainty.prob_hold = 0.030000 (nth = 3)2018-04-22 13:05:27,231 Done
+2018-04-22 13:13:19,591 Done
+2018-04-22 13:21:16,957 Done
+2018-04-22 13:26:02,807 Done
+2018-04-22 13:33:52,848 Done
+2018-04-22 13:41:54,027 Done
+2018-04-22 13:49:46,226 Done
+2018-04-22 13:57:36,033 Done
+2018-04-22 14:05:31,546 Done
+2018-04-22 14:13:24,344 Done
+2018-04-22 14:21:29,836 Done
+2018-04-22 14:29:16,983 Done
+2018-04-22 14:37:17,453 Done
+2018-04-22 14:45:09,215 Done
+2018-04-22 14:52:54,102 Done
+2018-04-22 15:00:45,499 Done
+2018-04-22 15:08:25,670 Done
+2018-04-22 15:16:12,447 Done
+2018-04-22 15:16:29,042 Done
+2018-04-22 15:24:03,063 Done
+2018-04-22 15:28:54,297 Done
+2018-04-22 15:33:12,255 Done
+2018-04-22 15:40:53,996 Done
+2018-04-22 15:48:35,618 Done
+2018-04-22 15:56:25,853 Done
+2018-04-22 16:04:18,411 Done
+2018-04-22 16:12:07,134 Done
+2018-04-22 16:19:57,761 Done
+2018-04-22 16:27:46,189 Done
+2018-04-22 16:35:25,877 Done
+2018-04-22 16:43:09,280 Done
+2018-04-22 16:51:02,046 Done
+2018-04-22 16:58:48,244 Done
+2018-04-22 17:06:42,393 Done
+2018-04-22 17:14:26,985 Done
+2018-04-22 17:22:12,002 Done
+2018-04-22 17:29:51,259 Done
+2018-04-22 17:37:36,530 Done
+2018-04-22 17:45:19,450 Done
+2018-04-22 17:52:58,109 Done
+2018-04-22 18:00:37,079 Done
+2018-04-22 18:08:20,694 Done
+2018-04-22 18:16:15,554 Done
+2018-04-22 18:24:03,167 Done
+2018-04-22 18:31:54,012 Done
+2018-04-22 18:39:41,021 Done
+2018-04-22 18:47:23,664 Done
+2018-04-22 18:55:10,169 Done
+2018-04-22 19:02:57,706 Done
+2018-04-22 19:10:43,386 Done
+2018-04-22 19:18:34,225 Done
+2018-04-22 19:21:16,468 Done
+2018-04-22 19:29:05,779 Done
+
+Finished simulation with uncertainty.prob_hold = 0.030000, time 472.3476252555847 seconds, nth = 3
+Running simulation with uncertainty.prob_hold = 0.030000 (nth = 4)
+Finished simulation with uncertainty.prob_hold = 0.030000, time 477.3726315498352 seconds, nth = 4
+Running simulation with uncertainty.prob_hold = 0.030000 (nth = 5)
+Conflict found, abort this simulation run
+Finished simulation with uncertainty.prob_hold = 0.030000, time 470.03227138519287 seconds, nth = 5
+Running simulation with uncertainty.prob_hold = 0.030000 (nth = 6)
+Finished simulation with uncertainty.prob_hold = 0.030000, time 481.1829688549042 seconds, nth = 6
+Running simulation with uncertainty.prob_hold = 0.030000 (nth = 7)
+Finished simulation with uncertainty.prob_hold = 0.030000, time 472.2023401260376 seconds, nth = 7
+Running simulation with uncertainty.prob_hold = 0.030000 (nth = 8)
+Finished simulation with uncertainty.prob_hold = 0.030000, time 469.8026268482208 seconds, nth = 8
+Running simulation with uncertainty.prob_hold = 0.030000 (nth = 9)
+Finished simulation with uncertainty.prob_hold = 0.030000, time 475.51237058639526 seconds, nth = 9
+Running simulation with uncertainty.prob_hold = 0.030000 (nth = 10)
+Finished simulation with uncertainty.prob_hold = 0.030000, time 472.83421540260315 seconds, nth = 10
+Running simulation with uncertainty.prob_hold = 0.030000 (nth = 11)
+Finished simulation with uncertainty.prob_hold = 0.030000, time 485.5063827037811 seconds, nth = 11
+Running simulation with uncertainty.prob_hold = 0.030000 (nth = 12)
+Finished simulation with uncertainty.prob_hold = 0.030000, time 467.07797741889954 seconds, nth = 12
+Running simulation with uncertainty.prob_hold = 0.030000 (nth = 13)
+Finished simulation with uncertainty.prob_hold = 0.030000, time 480.5299210548401 seconds, nth = 13
+Running simulation with uncertainty.prob_hold = 0.030000 (nth = 14)
+Finished simulation with uncertainty.prob_hold = 0.030000, time 471.75449109077454 seconds, nth = 14
+Running simulation with uncertainty.prob_hold = 0.040000 (nth = 0)
+Finished simulation with uncertainty.prob_hold = 0.040000, time 464.8994975090027 seconds, nth = 0
+Running simulation with uncertainty.prob_hold = 0.040000 (nth = 1)
+Finished simulation with uncertainty.prob_hold = 0.040000, time 471.32925820350647 seconds, nth = 1
+Running simulation with uncertainty.prob_hold = 0.040000 (nth = 2)
+Finished simulation with uncertainty.prob_hold = 0.040000, time 460.16937589645386 seconds, nth = 2
+Running simulation with uncertainty.prob_hold = 0.040000 (nth = 3)
+Finished simulation with uncertainty.prob_hold = 0.040000, time 466.82709288597107 seconds, nth = 3
+Running simulation with uncertainty.prob_hold = 0.040000 (nth = 4)
+Conflict found, abort this simulation run
+Finished simulation with uncertainty.prob_hold = 0.040000, time 453.9698419570923 seconds, nth = 4
+Running simulation with uncertainty.prob_hold = 0.040000 (nth = 5)
+Conflict found, abort this simulation run
+Conflict found, abort this simulation run
+Finished simulation with uncertainty.prob_hold = 0.040000, time 461.70904207229614 seconds, nth = 5
+Running simulation with uncertainty.prob_hold = 0.040000 (nth = 6)
+Finished simulation with uncertainty.prob_hold = 0.040000, time 461.6169488430023 seconds, nth = 6
+Running simulation with uncertainty.prob_hold = 0.040000 (nth = 7)
+Finished simulation with uncertainty.prob_hold = 0.040000, time 470.2292251586914 seconds, nth = 7
+Running simulation with uncertainty.prob_hold = 0.040000 (nth = 8)
+Finished simulation with uncertainty.prob_hold = 0.040000, time 472.58726954460144 seconds, nth = 8
+Running simulation with uncertainty.prob_hold = 0.040000 (nth = 9)
+Finished simulation with uncertainty.prob_hold = 0.040000, time 468.6668655872345 seconds, nth = 9
+Running simulation with uncertainty.prob_hold = 0.040000 (nth = 10)
+Finished simulation with uncertainty.prob_hold = 0.040000, time 470.6312589645386 seconds, nth = 10
+Running simulation with uncertainty.prob_hold = 0.040000 (nth = 11)
+Finished simulation with uncertainty.prob_hold = 0.040000, time 468.4492642879486 seconds, nth = 11
+Running simulation with uncertainty.prob_hold = 0.040000 (nth = 12)
+Finished simulation with uncertainty.prob_hold = 0.040000, time 459.71520233154297 seconds, nth = 12
+Running simulation with uncertainty.prob_hold = 0.040000 (nth = 13)
+Finished simulation with uncertainty.prob_hold = 0.040000, time 463.3459165096283 seconds, nth = 13
+Running simulation with uncertainty.prob_hold = 0.040000 (nth = 14)
+Finished simulation with uncertainty.prob_hold = 0.040000, time 472.7628345489502 seconds, nth = 14
+Running simulation with uncertainty.prob_hold = 0.050000 (nth = 0)
+Finished simulation with uncertainty.prob_hold = 0.050000, time 466.2054305076599 seconds, nth = 0
+Running simulation with uncertainty.prob_hold = 0.050000 (nth = 1)
+Finished simulation with uncertainty.prob_hold = 0.050000, time 474.14492774009705 seconds, nth = 1
+Running simulation with uncertainty.prob_hold = 0.050000 (nth = 2)
+Finished simulation with uncertainty.prob_hold = 0.050000, time 464.63093423843384 seconds, nth = 2
+Running simulation with uncertainty.prob_hold = 0.050000 (nth = 3)
+Finished simulation with uncertainty.prob_hold = 0.050000, time 464.9781651496887 seconds, nth = 3
+Running simulation with uncertainty.prob_hold = 0.050000 (nth = 4)
+Finished simulation with uncertainty.prob_hold = 0.050000, time 459.2646427154541 seconds, nth = 4
+Running simulation with uncertainty.prob_hold = 0.050000 (nth = 5)
+Finished simulation with uncertainty.prob_hold = 0.050000, time 465.2968623638153 seconds, nth = 5
+Running simulation with uncertainty.prob_hold = 0.050000 (nth = 6)
+Finished simulation with uncertainty.prob_hold = 0.050000, time 462.8735134601593 seconds, nth = 6
+Running simulation with uncertainty.prob_hold = 0.050000 (nth = 7)
+Finished simulation with uncertainty.prob_hold = 0.050000, time 458.6736521720886 seconds, nth = 7
+Running simulation with uncertainty.prob_hold = 0.050000 (nth = 8)
+Finished simulation with uncertainty.prob_hold = 0.050000, time 458.9489860534668 seconds, nth = 8
+Running simulation with uncertainty.prob_hold = 0.050000 (nth = 9)
+Finished simulation with uncertainty.prob_hold = 0.050000, time 463.66787672042847 seconds, nth = 9
+Running simulation with uncertainty.prob_hold = 0.050000 (nth = 10)
+Finished simulation with uncertainty.prob_hold = 0.050000, time 474.8271813392639 seconds, nth = 10
+Running simulation with uncertainty.prob_hold = 0.050000 (nth = 11)
+Finished simulation with uncertainty.prob_hold = 0.050000, time 467.58372926712036 seconds, nth = 11
+Running simulation with uncertainty.prob_hold = 0.050000 (nth = 12)
+Finished simulation with uncertainty.prob_hold = 0.050000, time 470.89898777008057 seconds, nth = 12
+Running simulation with uncertainty.prob_hold = 0.050000 (nth = 13)
+Finished simulation with uncertainty.prob_hold = 0.050000, time 466.9981486797333 seconds, nth = 13
+Running simulation with uncertainty.prob_hold = 0.050000 (nth = 14)
+Finished simulation with uncertainty.prob_hold = 0.050000, time 462.6574935913086 seconds, nth = 14
+Running simulation with uncertainty.prob_hold = 0.060000 (nth = 0)
+Finished simulation with uncertainty.prob_hold = 0.060000, time 466.4999256134033 seconds, nth = 0
+Running simulation with uncertainty.prob_hold = 0.060000 (nth = 1)
+Finished simulation with uncertainty.prob_hold = 0.060000, time 467.5317952632904 seconds, nth = 1
+Running simulation with uncertainty.prob_hold = 0.060000 (nth = 2)
+Finished simulation with uncertainty.prob_hold = 0.060000, time 465.64515590667725 seconds, nth = 2
+Running simulation with uncertainty.prob_hold = 0.060000 (nth = 3)
+Finished simulation with uncertainty.prob_hold = 0.060000, time 470.85687232017517 seconds, nth = 3
+Running simulation with uncertainty.prob_hold = 0.060000 (nth = 4)
+Conflict found, abort this simulation run
+Finished simulation with uncertainty.prob_hold = 0.060000, time 469.2640006542206 seconds, nth = 4
+Running simulation with uncertainty.prob_hold = 0.060000 (nth = 5)
+Finished simulation with uncertainty.prob_hold = 0.060000, time 462.32763147354126 seconds, nth = 5
+Running simulation with uncertainty.prob_hold = 0.060000 (nth = 6)2018-04-22 19:36:48,059 Done
+2018-04-22 19:44:37,563 Done
+2018-04-22 19:52:20,880 Done
+2018-04-22 20:00:10,867 Done
+2018-04-22 20:08:01,358 Done
+2018-04-22 20:15:48,370 Done
+2018-04-22 20:23:30,101 Done
+2018-04-22 20:28:47,088 Done
+2018-04-22 20:29:37,164 Done
+2018-04-22 20:37:22,551 Done
+2018-04-22 20:45:06,977 Done
+2018-04-22 20:52:44,585 Done
+2018-04-22 21:00:27,679 Done
+2018-04-22 21:08:10,921 Done
+2018-04-22 21:15:58,596 Done
+2018-04-22 21:23:42,289 Done
+2018-04-22 21:31:30,761 Done
+2018-04-22 21:39:19,870 Done
+2018-04-22 21:47:03,521 Done
+2018-04-22 21:54:48,367 Done
+2018-04-22 22:00:33,458 Done
+2018-04-22 22:08:19,584 Done
+2018-04-22 22:15:59,735 Done
+2018-04-22 22:23:45,929 Done
+2018-04-22 22:31:34,189 Done
+2018-04-22 22:39:30,083 Done
+2018-04-22 22:47:19,424 Done
+2018-04-22 22:54:57,137 Done
+2018-04-22 23:02:38,000 Done
+2018-04-22 23:10:23,435 Done
+2018-04-22 23:18:13,614 Done
+2018-04-22 23:25:53,053 Done
+2018-04-22 23:27:08,381 Done
+2018-04-22 23:28:56,017 Done
+2018-04-22 23:36:39,172 Done
+2018-04-22 23:42:50,395 Done
+2018-04-22 23:43:38,491 Done
+2018-04-22 23:51:22,560 Done
+2018-04-22 23:59:04,611 Done
+2018-04-22 23:59:19,080 Done
+2018-04-23 00:07:08,519 Done
+2018-04-23 00:07:41,885 Done
+2018-04-23 00:15:32,460 Done
+2018-04-23 00:19:19,634 Done
+2018-04-23 00:27:06,364 Done
+2018-04-23 00:34:51,349 Done
+2018-04-23 00:42:42,371 Done
+2018-04-23 00:50:24,479 Done
+2018-04-23 00:58:10,397 Done
+2018-04-23 01:05:52,247 Done
+2018-04-23 01:13:35,250 Done
+2018-04-23 01:21:16,844 Done
+2018-04-23 01:29:04,039 Done
+2018-04-23 01:36:48,792 Done
+2018-04-23 01:44:40,957 Done
+2018-04-23 01:52:30,953 Done
+2018-04-23 02:00:17,931 Done
+
+Finished simulation with uncertainty.prob_hold = 0.060000, time 469.45250487327576 seconds, nth = 6
+Running simulation with uncertainty.prob_hold = 0.060000 (nth = 7)
+Finished simulation with uncertainty.prob_hold = 0.060000, time 463.35733246803284 seconds, nth = 7
+Running simulation with uncertainty.prob_hold = 0.060000 (nth = 8)
+Finished simulation with uncertainty.prob_hold = 0.060000, time 469.9395966529846 seconds, nth = 8
+Running simulation with uncertainty.prob_hold = 0.060000 (nth = 9)
+Finished simulation with uncertainty.prob_hold = 0.060000, time 470.5286786556244 seconds, nth = 9
+Running simulation with uncertainty.prob_hold = 0.060000 (nth = 10)
+Finished simulation with uncertainty.prob_hold = 0.060000, time 466.96303963661194 seconds, nth = 10
+Running simulation with uncertainty.prob_hold = 0.060000 (nth = 11)
+Finished simulation with uncertainty.prob_hold = 0.060000, time 461.7884352207184 seconds, nth = 11
+Running simulation with uncertainty.prob_hold = 0.060000 (nth = 12)
+Conflict found, abort this simulation run
+Conflict found, abort this simulation run
+Finished simulation with uncertainty.prob_hold = 0.060000, time 465.3230209350586 seconds, nth = 12
+Running simulation with uncertainty.prob_hold = 0.060000 (nth = 13)
+Finished simulation with uncertainty.prob_hold = 0.060000, time 464.4233183860779 seconds, nth = 13
+Running simulation with uncertainty.prob_hold = 0.060000 (nth = 14)
+Finished simulation with uncertainty.prob_hold = 0.060000, time 457.6228246688843 seconds, nth = 14
+Running simulation with uncertainty.prob_hold = 0.070000 (nth = 0)
+Finished simulation with uncertainty.prob_hold = 0.070000, time 463.08220052719116 seconds, nth = 0
+Running simulation with uncertainty.prob_hold = 0.070000 (nth = 1)
+Finished simulation with uncertainty.prob_hold = 0.070000, time 463.29816937446594 seconds, nth = 1
+Running simulation with uncertainty.prob_hold = 0.070000 (nth = 2)
+Finished simulation with uncertainty.prob_hold = 0.070000, time 467.6203715801239 seconds, nth = 2
+Running simulation with uncertainty.prob_hold = 0.070000 (nth = 3)
+Finished simulation with uncertainty.prob_hold = 0.070000, time 463.6893880367279 seconds, nth = 3
+Running simulation with uncertainty.prob_hold = 0.070000 (nth = 4)
+Finished simulation with uncertainty.prob_hold = 0.070000, time 468.5035800933838 seconds, nth = 4
+Running simulation with uncertainty.prob_hold = 0.070000 (nth = 5)
+Finished simulation with uncertainty.prob_hold = 0.070000, time 469.0837070941925 seconds, nth = 5
+Running simulation with uncertainty.prob_hold = 0.070000 (nth = 6)
+Finished simulation with uncertainty.prob_hold = 0.070000, time 463.6962378025055 seconds, nth = 6
+Running simulation with uncertainty.prob_hold = 0.070000 (nth = 7)
+Finished simulation with uncertainty.prob_hold = 0.070000, time 464.7935199737549 seconds, nth = 7
+Running simulation with uncertainty.prob_hold = 0.070000 (nth = 8)
+Conflict found, abort this simulation run
+Finished simulation with uncertainty.prob_hold = 0.070000, time 466.0765850543976 seconds, nth = 8
+Running simulation with uncertainty.prob_hold = 0.070000 (nth = 9)
+Finished simulation with uncertainty.prob_hold = 0.070000, time 460.15606117248535 seconds, nth = 9
+Running simulation with uncertainty.prob_hold = 0.070000 (nth = 10)
+Finished simulation with uncertainty.prob_hold = 0.070000, time 466.1856224536896 seconds, nth = 10
+Running simulation with uncertainty.prob_hold = 0.070000 (nth = 11)
+Finished simulation with uncertainty.prob_hold = 0.070000, time 468.3146994113922 seconds, nth = 11
+Running simulation with uncertainty.prob_hold = 0.070000 (nth = 12)
+Finished simulation with uncertainty.prob_hold = 0.070000, time 475.8426582813263 seconds, nth = 12
+Running simulation with uncertainty.prob_hold = 0.070000 (nth = 13)
+Finished simulation with uncertainty.prob_hold = 0.070000, time 469.39101004600525 seconds, nth = 13
+Running simulation with uncertainty.prob_hold = 0.070000 (nth = 14)
+Finished simulation with uncertainty.prob_hold = 0.070000, time 457.66266918182373 seconds, nth = 14
+Running simulation with uncertainty.prob_hold = 0.080000 (nth = 0)
+Finished simulation with uncertainty.prob_hold = 0.080000, time 460.90391755104065 seconds, nth = 0
+Running simulation with uncertainty.prob_hold = 0.080000 (nth = 1)
+Finished simulation with uncertainty.prob_hold = 0.080000, time 465.3668460845947 seconds, nth = 1
+Running simulation with uncertainty.prob_hold = 0.080000 (nth = 2)
+Finished simulation with uncertainty.prob_hold = 0.080000, time 470.20616340637207 seconds, nth = 2
+Running simulation with uncertainty.prob_hold = 0.080000 (nth = 3)
+Finished simulation with uncertainty.prob_hold = 0.080000, time 459.41081190109253 seconds, nth = 3
+Running simulation with uncertainty.prob_hold = 0.080000 (nth = 4)
+Conflict found, abort this simulation run
+Conflict found, abort this simulation run
+Finished simulation with uncertainty.prob_hold = 0.080000, time 463.1644093990326 seconds, nth = 4
+Running simulation with uncertainty.prob_hold = 0.080000 (nth = 5)
+Conflict found, abort this simulation run
+Conflict found, abort this simulation run
+Finished simulation with uncertainty.prob_hold = 0.080000, time 464.0555410385132 seconds, nth = 5
+Running simulation with uncertainty.prob_hold = 0.080000 (nth = 6)
+Finished simulation with uncertainty.prob_hold = 0.080000, time 462.05070209503174 seconds, nth = 6
+Running simulation with uncertainty.prob_hold = 0.080000 (nth = 7)
+Conflict found, abort this simulation run
+Finished simulation with uncertainty.prob_hold = 0.080000, time 469.45264863967896 seconds, nth = 7
+Running simulation with uncertainty.prob_hold = 0.080000 (nth = 8)
+Conflict found, abort this simulation run
+Finished simulation with uncertainty.prob_hold = 0.080000, time 470.5698432922363 seconds, nth = 8
+Running simulation with uncertainty.prob_hold = 0.080000 (nth = 9)
+Conflict found, abort this simulation run
+Finished simulation with uncertainty.prob_hold = 0.080000, time 466.7212815284729 seconds, nth = 9
+Running simulation with uncertainty.prob_hold = 0.080000 (nth = 10)
+Finished simulation with uncertainty.prob_hold = 0.080000, time 464.9957814216614 seconds, nth = 10
+Running simulation with uncertainty.prob_hold = 0.080000 (nth = 11)
+Finished simulation with uncertainty.prob_hold = 0.080000, time 470.96905493736267 seconds, nth = 11
+Running simulation with uncertainty.prob_hold = 0.080000 (nth = 12)
+Finished simulation with uncertainty.prob_hold = 0.080000, time 462.0918810367584 seconds, nth = 12
+Running simulation with uncertainty.prob_hold = 0.080000 (nth = 13)
+Finished simulation with uncertainty.prob_hold = 0.080000, time 465.924462556839 seconds, nth = 13
+Running simulation with uncertainty.prob_hold = 0.080000 (nth = 14)
+Finished simulation with uncertainty.prob_hold = 0.080000, time 461.84676146507263 seconds, nth = 14
+Running simulation with uncertainty.prob_hold = 0.090000 (nth = 0)
+Finished simulation with uncertainty.prob_hold = 0.090000, time 463.0505220890045 seconds, nth = 0
+Running simulation with uncertainty.prob_hold = 0.090000 (nth = 1)
+Finished simulation with uncertainty.prob_hold = 0.090000, time 461.5913784503937 seconds, nth = 1
+Running simulation with uncertainty.prob_hold = 0.090000 (nth = 2)
+Finished simulation with uncertainty.prob_hold = 0.090000, time 467.19472193717957 seconds, nth = 2
+Running simulation with uncertainty.prob_hold = 0.090000 (nth = 3)
+Finished simulation with uncertainty.prob_hold = 0.090000, time 464.75828766822815 seconds, nth = 3
+Running simulation with uncertainty.prob_hold = 0.090000 (nth = 4)
+Finished simulation with uncertainty.prob_hold = 0.090000, time 472.1621661186218 seconds, nth = 4
+Running simulation with uncertainty.prob_hold = 0.090000 (nth = 5)
+Finished simulation with uncertainty.prob_hold = 0.090000, time 469.94457626342773 seconds, nth = 5
+Running simulation with uncertainty.prob_hold = 0.090000 (nth = 6)
+Finished simulation with uncertainty.prob_hold = 0.090000, time 466.9625315666199 seconds, nth = 6
+Running simulation with uncertainty.prob_hold = 0.090000 (nth = 7)
+Finished simulation with uncertainty.prob_hold = 0.090000, time 462.2753977775574 seconds, nth = 72018-04-23 02:08:00,143 Done
+2018-04-23 02:15:48,057 Done
+2018-04-23 02:22:14,728 Done
+2018-04-23 02:29:59,189 Done
+2018-04-23 02:37:40,757 Done
+2018-04-23 02:45:30,005 Done
+2018-04-23 02:53:13,079 Done
+2018-04-23 03:01:04,926 Done
+2018-04-23 03:08:42,732 Done
+2018-04-23 03:16:30,545 Done
+2018-04-23 03:24:14,659 Done
+2018-04-23 03:31:53,322 Done
+2018-04-23 03:39:37,007 Done
+2018-04-23 03:47:26,526 Done
+2018-04-23 03:55:16,372 Done
+2018-04-23 04:03:06,535 Done
+2018-04-23 04:10:50,170 Done
+2018-04-23 04:18:30,321 Done
+2018-04-23 04:19:10,568 Done
+2018-04-23 04:26:52,190 Done
+2018-04-23 04:34:38,008 Done
+2018-04-23 04:42:16,614 Done
+2018-04-23 04:46:32,414 Done
+2018-04-23 04:54:22,543 Done
+2018-04-23 04:54:34,308 Done
+2018-04-23 04:56:36,814 Done
+2018-04-23 05:04:27,091 Done
+2018-04-23 05:09:46,042 Done
+
+Running simulation with uncertainty.prob_hold = 0.090000 (nth = 8)
+Finished simulation with uncertainty.prob_hold = 0.090000, time 467.85957527160645 seconds, nth = 8
+Running simulation with uncertainty.prob_hold = 0.090000 (nth = 9)
+Conflict found, abort this simulation run
+Finished simulation with uncertainty.prob_hold = 0.090000, time 464.48812341690063 seconds, nth = 9
+Running simulation with uncertainty.prob_hold = 0.090000 (nth = 10)
+Finished simulation with uncertainty.prob_hold = 0.090000, time 461.55980467796326 seconds, nth = 10
+Running simulation with uncertainty.prob_hold = 0.090000 (nth = 11)
+Finished simulation with uncertainty.prob_hold = 0.090000, time 469.1882781982422 seconds, nth = 11
+Running simulation with uncertainty.prob_hold = 0.090000 (nth = 12)
+Finished simulation with uncertainty.prob_hold = 0.090000, time 463.0792667865753 seconds, nth = 12
+Running simulation with uncertainty.prob_hold = 0.090000 (nth = 13)
+Finished simulation with uncertainty.prob_hold = 0.090000, time 471.8394386768341 seconds, nth = 13
+Running simulation with uncertainty.prob_hold = 0.090000 (nth = 14)
+Finished simulation with uncertainty.prob_hold = 0.090000, time 457.86327505111694 seconds, nth = 14
+Running simulation with uncertainty.prob_hold = 0.100000 (nth = 0)
+Finished simulation with uncertainty.prob_hold = 0.100000, time 467.8053729534149 seconds, nth = 0
+Running simulation with uncertainty.prob_hold = 0.100000 (nth = 1)
+Finished simulation with uncertainty.prob_hold = 0.100000, time 464.0567271709442 seconds, nth = 1
+Running simulation with uncertainty.prob_hold = 0.100000 (nth = 2)
+Finished simulation with uncertainty.prob_hold = 0.100000, time 458.67862248420715 seconds, nth = 2
+Running simulation with uncertainty.prob_hold = 0.100000 (nth = 3)
+Finished simulation with uncertainty.prob_hold = 0.100000, time 463.7264726161957 seconds, nth = 3
+Running simulation with uncertainty.prob_hold = 0.100000 (nth = 4)
+Finished simulation with uncertainty.prob_hold = 0.100000, time 469.5180206298828 seconds, nth = 4
+Running simulation with uncertainty.prob_hold = 0.100000 (nth = 5)
+Finished simulation with uncertainty.prob_hold = 0.100000, time 469.8320972919464 seconds, nth = 5
+Running simulation with uncertainty.prob_hold = 0.100000 (nth = 6)
+Finished simulation with uncertainty.prob_hold = 0.100000, time 470.12437105178833 seconds, nth = 6
+Running simulation with uncertainty.prob_hold = 0.100000 (nth = 7)
+Finished simulation with uncertainty.prob_hold = 0.100000, time 463.6327774524689 seconds, nth = 7
+Running simulation with uncertainty.prob_hold = 0.100000 (nth = 8)
+Finished simulation with uncertainty.prob_hold = 0.100000, time 460.1410617828369 seconds, nth = 8
+Running simulation with uncertainty.prob_hold = 0.100000 (nth = 9)
+Conflict found, abort this simulation run
+Finished simulation with uncertainty.prob_hold = 0.100000, time 461.6230080127716 seconds, nth = 9
+Running simulation with uncertainty.prob_hold = 0.100000 (nth = 10)
+Finished simulation with uncertainty.prob_hold = 0.100000, time 465.86587166786194 seconds, nth = 10
+Running simulation with uncertainty.prob_hold = 0.100000 (nth = 11)
+Finished simulation with uncertainty.prob_hold = 0.100000, time 458.59613823890686 seconds, nth = 11
+Running simulation with uncertainty.prob_hold = 0.100000 (nth = 12)
+Conflict found, abort this simulation run
+Finished simulation with uncertainty.prob_hold = 0.100000, time 470.16480565071106 seconds, nth = 12
+Running simulation with uncertainty.prob_hold = 0.100000 (nth = 13)
+Conflict found, abort this simulation run
+Conflict found, abort this simulation run
+Finished simulation with uncertainty.prob_hold = 0.100000, time 470.28215050697327 seconds, nth = 13
+Running simulation with uncertainty.prob_hold = 0.100000 (nth = 14)
+Conflict found, abort this simulation run
+Finished simulation with uncertainty.prob_hold = 0.100000, time 461.7831344604492 seconds, nth = 14
+Saved result
