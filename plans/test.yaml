@@ -1,0 +1,63 @@
+---
+name: test
+airport: sfo-terminal-2
+
+simulator:
+  # Enable scenerio regeneration
+  scenario_regeneration: false
+
+simulation:
+  # Seconds between each simulation epoch
+  time_unit: 60
+  # Seconds between each reschedule
+  reschedule_cycle: 300
+
+uncertainty:
+  # Enable or disable the uncertain in simulation
+  enabled: false
+  # Probability of an aircraft holds at node unexpectedly (depends on time_unit)
+  prob_hold: 0.05
+
+# $ ls -l output/test
+# total 35360
+# -rw-r--r--  1 heron  staff        14 Apr 22 10:18 airport.txt
+# -rw-r--r--  1 heron  staff     22854 Apr 22 10:21 conflicts.png
+# -rw-r--r--  1 heron  staff     59500 Apr 22 10:21 delay.png
+# -rw-r--r--  1 heron  staff     26105 Apr 22 10:21 gate_queue_size.png
+# -rw-r--r--  1 heron  staff       267 Apr 22 10:21 metrics.json
+# -rw-r--r--  1 heron  staff      8108 Apr 22 10:21 schedule.csv
+# -rw-r--r--  1 heron  staff    109789 Apr 22 10:21 schedule_execution_time.png
+# -rw-r--r--  1 heron  staff  17145614 Apr 22 10:21 states.json
+# -rw-r--r--  1 heron  staff     27337 Apr 22 10:21 tick.csv
+#
+# total 35360
+# -rw-r--r--  1 heron  staff        14 Apr 22 13:57 airport.txt
+# -rw-r--r--  1 heron  staff     22854 Apr 22 14:00 conflicts.png
+# -rw-r--r--  1 heron  staff     59500 Apr 22 14:00 delay.png
+# -rw-r--r--  1 heron  staff     26105 Apr 22 14:00 gate_queue_size.png
+# -rw-r--r--  1 heron  staff       266 Apr 22 14:00 metrics.json
+# -rw-r--r--  1 heron  staff      8096 Apr 22 14:00 schedule.csv
+# -rw-r--r--  1 heron  staff    108105 Apr 22 14:00 schedule_execution_time.png
+# -rw-r--r--  1 heron  staff  17145614 Apr 22 14:00 states.json
+# -rw-r--r--  1 heron  staff     27337 Apr 22 14:00 tick.csv
+#
+# total 35376
+# -rw-r--r--  1 heron  staff        14 Apr 22 14:01 airport.txt
+# -rw-r--r--  1 heron  staff     22854 Apr 22 14:02 conflicts.png
+# -rw-r--r--  1 heron  staff     59500 Apr 22 14:02 delay.png
+# -rw-r--r--  1 heron  staff     26105 Apr 22 14:02 gate_queue_size.png
+# -rw-r--r--  1 heron  staff       267 Apr 22 14:02 metrics.json
+# -rw-r--r--  1 heron  staff      8263 Apr 22 14:02 schedule.csv
+# -rw-r--r--  1 heron  staff    104922 Apr 22 14:02 schedule_execution_time.png
+# -rw-r--r--  1 heron  staff  17145614 Apr 22 14:02 states.json
+# -rw-r--r--  1 heron  staff     27337 Apr 22 14:02 tick.csv
+#
+# -rw-r--r--  1 heron  staff        14 Apr 22 14:08 airport.txt
+# -rw-r--r--  1 heron  staff     22854 Apr 22 14:09 conflicts.png
+# -rw-r--r--  1 heron  staff     59500 Apr 22 14:09 delay.png
+# -rw-r--r--  1 heron  staff     26105 Apr 22 14:09 gate_queue_size.png
+# -rw-r--r--  1 heron  staff       268 Apr 22 14:09 metrics.json
+# -rw-r--r--  1 heron  staff      8240 Apr 22 14:09 schedule.csv
+# -rw-r--r--  1 heron  staff    105407 Apr 22 14:09 schedule_execution_time.png
+# -rw-r--r--  1 heron  staff  17145614 Apr 22 14:09 states.json
+# -rw-r--r--  1 heron  staff     27337 Apr 22 14:09 tick.csv

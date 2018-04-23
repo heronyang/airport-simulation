@@ -68,7 +68,7 @@ class TestScheduler(unittest.TestCase):
         @property
         def conflicts(self):
             if self.aircraft1.location == self.aircraft2.location:
-                return [Conflict(None, [self.aircraft1, self.aircraft2], None)]
+                return [Conflict(None, [self.aircraft1, self.aircraft2])]
             return []
 
         @property
@@ -81,7 +81,7 @@ class TestScheduler(unittest.TestCase):
                 return []
             if self.aircraft1.itinerary.next_target == \
                self.aircraft2.itinerary.next_target:
-                return [Conflict(None, [self.aircraft1, self.aircraft2], None)]
+                return [Conflict(None, [self.aircraft1, self.aircraft2])]
             return []
 
     class RunwayMock():

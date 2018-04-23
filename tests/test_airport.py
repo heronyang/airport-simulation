@@ -27,15 +27,15 @@ class TestAirport(unittest.TestCase):
     def test_conflicts(self):
 
         simulation = self.SimulationMock()
-        airport = AirportFactory.create(simulation, "simple")
+        airport = AirportFactory.create("simple")
 
         a1 = Aircraft("A1", None, self.n1, State.stop)
         a2 = Aircraft("A2", None, self.n1, State.stop)
         a3 = Aircraft("A3", None, self.n2, State.stop)
 
-        airport.add_aircraft(a1)
-        airport.add_aircraft(a2)
-        airport.add_aircraft(a3)
+        airport.aircrafts.append(a1)
+        airport.aircrafts.append(a2)
+        airport.aircrafts.append(a3)
 
         # Get only one conflict
         self.assertEqual(len(airport.conflicts), 1)
@@ -49,7 +49,7 @@ class TestAirport(unittest.TestCase):
 
         # Add one far aircraft to the same spot
         a4 = Aircraft("A4", None, self.n1, State.stop)
-        airport.add_aircraft(a4)
+        airport.aircrafts.append(a4)
 
         # Test if the third aircraft shown in conflict correctly
         self.assertEqual(len(airport.conflicts), 3)

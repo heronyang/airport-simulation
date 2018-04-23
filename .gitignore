@@ -116,3 +116,4 @@ cache/
 states.json
 log
 .todo
+*.swp

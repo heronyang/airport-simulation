@@ -1,7 +1,7 @@
 import logging
-import pandas as pd
 import json
 import matplotlib.pyplot as plt
+import pandas as pd
 
 from utils import get_time_delta, get_output_dir_name
 from config import Config
@@ -40,7 +40,7 @@ class MakespanMetric():
 
     def update_on_tick(self, aircrafts, now):
 
-        if len(aircrafts) == 0:
+        if not aircrafts:
             return
 
         if self.aircraft_first_time is None:
@@ -69,21 +69,18 @@ class MakespanMetric():
 class AircraftCountMetric():
 
     def __init__(self):
-
-        self.counter = pd.DataFrame(columns=["time", "count"])
+        self.counter = pd.DataFrame(columns=["count"])
 
     def update_on_tick(self, aircrafts, now):
-
-        self.counter = self.counter.append(
-            {"time": now, "count": len(aircrafts)}, ignore_index=True)
+        self.counter.set_value(now, "count", len(aircrafts))
 
     @property
     def summary(self):
 
-        if len(self.counter) == 0:
+        if not self.counter:
             return "Aircraft count: insufficient data"
 
-        c = self.counter.set_index("time")
+        c = self.counter
         return ("Aircraft count: top %d low %d mean %d remaining %d" %
                 (c.max(), c.min(), c.mean(), c.iloc[-1]))
 
@@ -91,12 +88,10 @@ class AircraftCountMetric():
 class ConflictMetric():
 
     def __init__(self):
-        self.conflict = pd.DataFrame(columns=["time", "count"])
+        self.conflict = pd.DataFrame(columns=["count"])
 
     def update_on_tick(self, conflicts, now):
-        self.conflict = self.conflict.append(
-            {"time": now, "count": len(conflicts)}, ignore_index=True
-        )
+        self.conflict.set_value(now, "count", len(conflicts))
 
     @property
     def conflicts(self):
@@ -108,7 +103,7 @@ class ConflictMetric():
         if len(self.conflict) == 0:
             return "Conflict: insufficient data"
 
-        cf = self.conflict.set_index("time")
+        cf = self.conflict
         return (
             "Conflict: top %d low %d mean %d" % (cf.max(), cf.min(), cf.mean())
         )
@@ -117,14 +112,11 @@ class ConflictMetric():
 class GateQueueMetric():
 
     def __init__(self, surface):
-        self.gate_queue_size = pd.DataFrame(columns=["time", "size"])
-        self.n_gates = len(surface.gates)
+        self.gate_queue_size = pd.DataFrame(columns=["size"])
 
     def update_on_tick(self, airport, now):
-        s = sum([len(q) for q in airport.gate_queue.values()])
-        self.gate_queue_size = self.gate_queue_size.append(
-            {"time": now, "size": s}, ignore_index=True
-        )
+        self.gate_queue_size.set_value(
+            now, "size", sum([len(q) for q in airport.gate_queue.values()]))
 
     @property
     def avg_queue_size(self):
@@ -136,7 +128,7 @@ class GateQueueMetric():
         if len(self.gate_queue_size) == 0:
             return "Gate Queue: insufficient data"
 
-        qs = self.gate_queue_size.set_index("time")
+        qs = self.gate_queue_size
 
         return "Gate Queue: top %d low %d mean %d" % (
             qs.max(), qs.min(), qs.mean()
@@ -147,13 +139,10 @@ class ExecutionTimeMetric():
 
     def __init__(self):
         # Reschedule execution time
-        self.rs_exec_time = pd.DataFrame(
-            columns=["time", "rs_exec_time"])
+        self.rs_exec_time = pd.DataFrame(columns=["rs_exec_time"])
 
     def update_on_reschedule(self, rs_exec_time, now):
-        self.rs_exec_time = self.rs_exec_time.append(
-            {"time": now, "rs_exec_time": rs_exec_time},
-            ignore_index=True)
+        self.rs_exec_time.set_value(now, "rs_exec_time", rs_exec_time)
 
     @property
     def avg_reschedule_exec_time(self):
@@ -165,7 +154,7 @@ class ExecutionTimeMetric():
         if len(self.rs_exec_time) == 0:
             return "Execution Time: insufficient data"
 
-        rst = self.rs_exec_time.set_index("time")
+        rst = self.rs_exec_time
 
         return "Reschedule execution time: top %d low %d mean %d" % (
             rst.max(), rst.min(), rst.mean()
@@ -193,11 +182,8 @@ class DelayMetric():
             aircraft.itinerary.is_delayed_by_uncertainty
         ])
 
-        self.delay = self.delay.append({
-            "time": now,
-            "n_scheduler_delay": n_scheduler_delay,
-            "n_uncertainty_delay": n_uncertainty_delay
-        }, ignore_index=True)
+        self.delay.set_value(now, "n_scheduler_delay", n_scheduler_delay)
+        self.delay.set_value(now, "n_uncertainty_delay", n_uncertainty_delay)
 
     @property
     def avg_n_scheduler_delay(self):
@@ -219,7 +205,7 @@ class DelayMetric():
         if len(self.delay) == 0:
             return "Delay: insufficient data"
 
-        d = self.delay.set_index("time")
+        d = self.delay
         return "Delay: top %d low %d mean %d" % (d.max(), d.min(), d.mean())
 
 
@@ -282,10 +268,10 @@ class Analyst:
 
     def save_tick_summary(self):
 
-        c = self.aircraft_count_metric.counter.set_index("time")
-        cf = self.conflict_metric.conflict.set_index("time")
-        qs = self.gate_queue_metric.gate_queue_size.set_index("time")
-        delay = self.delay_metric.delay.set_index("time")
+        c = self.aircraft_count_metric.counter
+        cf = self.conflict_metric.conflict
+        qs = self.gate_queue_metric.gate_queue_size
+        delay = self.delay_metric.delay
 
         stats = c.join(
             cf,
@@ -308,7 +294,7 @@ class Analyst:
     def save_schedule_summary(self):
 
         # Execution time
-        rst = self.execution_time_metric.rs_exec_time.set_index("time")
+        rst = self.execution_time_metric.rs_exec_time
         with pd.option_context("display.max_rows", None):
             self.logger.debug("\n" + str(rst))
 

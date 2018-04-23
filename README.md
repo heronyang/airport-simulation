@@ -49,6 +49,10 @@ Install dependencies:
 
     $ ./visualization/server.py
 
+## Documentation
+
+    $ pydoc <python-file-name-without-.py>
+
 ## Developer Guidelines
 
 ### Style
