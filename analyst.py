@@ -1,7 +1,7 @@
 import logging
-import pandas as pd
 import json
 import matplotlib.pyplot as plt
+import pandas as pd
 
 from utils import get_time_delta, get_output_dir_name
 from config import Config
@@ -40,7 +40,7 @@ class MakespanMetric():
 
     def update_on_tick(self, aircrafts, now):
 
-        if len(aircrafts) == 0:
+        if not aircrafts:
             return
 
         if self.aircraft_first_time is None:
@@ -77,7 +77,7 @@ class AircraftCountMetric():
     @property
     def summary(self):
 
-        if len(self.counter) == 0:
+        if not self.counter:
             return "Aircraft count: insufficient data"
 
         c = self.counter
