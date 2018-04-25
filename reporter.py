@@ -117,6 +117,13 @@ def save_logs(logs, times, output_dir):
     plt.close('all')
 
 
+def save_failed_num(name, expr_var, nth, failed):
+    filename = cfg.OUTPUT_DIR + get_batch_plan_name(name, expr_var, nth)\
+            + "/failed"
+    with open(filename, "w") as fout:
+        fout.write(str(failed))
+
+
 def test():
     import numpy
     save_batch_result(
