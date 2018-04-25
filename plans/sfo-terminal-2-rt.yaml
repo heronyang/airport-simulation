@@ -1,0 +1,10 @@
+---
+name: sfo-terminal-2-rt
+airport: sfo-terminal-2
+
+simulation:
+  reschedule_cycle: 30
+
+uncertainty:
+  enabled: true
+  prob_hold: 0.05

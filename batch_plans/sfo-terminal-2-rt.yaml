@@ -1,4 +1,5 @@
-name: sfo-terminal-2-rt-xxl
+---
+name: sfo-terminal-2-rt
 airport: sfo-terminal-2
 batch: simulation.reschedule_cycle
 
@@ -7,7 +8,7 @@ simulator:
   times: 30
 
 simulation:
-  reschedule_cycle: 120:901:60
+  reschedule_cycle: 30:391:60
 
 uncertainty:
   # Enable or disable the uncertain in simulation
