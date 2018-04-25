@@ -143,7 +143,8 @@ class TestSimulation(unittest.TestCase):
             simulation.tick()
 
         # f1 should be in the airport, f2 is in the gate queue
-        self.assertEqual(len(simulation.airport.aircrafts), 1)
+        self.assertTrue(f1.aircraft in simulation.airport.aircrafts)
+        self.assertFalse(f2.aircraft in simulation.airport.aircrafts)
         self.assertEqual(len(simulation.airport.gate_queue[f1.from_gate]), 1)
         self.assertTrue(f2.aircraft in
                         simulation.airport.gate_queue[f1.from_gate])
