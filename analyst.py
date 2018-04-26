@@ -75,6 +75,10 @@ class AircraftCountMetric():
         self.counter.set_value(now, "count", len(aircrafts))
 
     @property
+    def n_aircrafts(self):
+        return self.counter["count"].sum()
+
+    @property
     def summary(self):
 
         if not self.counter:
@@ -186,18 +190,18 @@ class DelayMetric():
         self.delay.set_value(now, "n_uncertainty_delay", n_uncertainty_delay)
 
     @property
-    def avg_n_scheduler_delay(self):
+    def n_scheduler_delay(self):
         # Average number of delay added by the scheduler per tick
-        return self.delay["n_scheduler_delay"].mean()
+        return self.delay["n_scheduler_delay"].sum()
 
     @property
-    def avg_n_uncertainty_delay(self):
+    def n_uncertainty_delay(self):
         # Average number of delay added by the uncertainty module per tick
-        return self.delay["n_uncertainty_delay"].mean()
+        return self.delay["n_uncertainty_delay"].sum()
 
     @property
-    def avg_n_delay(self):
-        return self.avg_n_scheduler_delay + self.avg_n_uncertainty_delay
+    def n_delay(self):
+        return self.n_scheduler_delay + self.n_uncertainty_delay
 
     @property
     def summary(self):
@@ -321,16 +325,17 @@ class Analyst:
         """
         filename = "%smetrics.json" % get_output_dir_name()
         response = {
+            "activate_aircrafts": self.aircraft_count_metric.n_aircrafts,
             "conflicts": self.conflict_metric.conflicts,
             "makespan": self.makespan_metric.makespan,
             "avg_queue_size": self.gate_queue_metric.avg_queue_size,
             "avg_reschedule_exec_time":
             self.execution_time_metric.avg_reschedule_exec_time,
-            "avg_n_delay": self.delay_metric.avg_n_delay,
-            "avg_n_scheduler_delay":
-            self.delay_metric.avg_n_scheduler_delay,
-            "avg_n_uncertainty_delay":
-            self.delay_metric.avg_n_uncertainty_delay
+            "n_delay": self.delay_metric.n_delay,
+            "n_scheduler_delay":
+            self.delay_metric.n_scheduler_delay,
+            "n_uncertainty_delay":
+            self.delay_metric.n_uncertainty_delay
         }
         with open(filename, "w") as f:
             f.write(json.dumps(response, indent=4))
