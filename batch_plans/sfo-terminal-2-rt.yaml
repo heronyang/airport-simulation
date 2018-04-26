@@ -1,14 +1,15 @@
 ---
+# Takes: 6093.12s
 name: sfo-terminal-2-rt
 airport: sfo-terminal-2
 batch: simulation.reschedule_cycle
 
 simulator:
   # Number of simulation runs with one same setting (only works in batch mode)
-  times: 30
+  times: 20
 
 simulation:
-  reschedule_cycle: 30:391:60
+  reschedule_cycle: 60:421:60
 
 uncertainty:
   # Enable or disable the uncertain in simulation
