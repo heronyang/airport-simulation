@@ -120,11 +120,18 @@ def save_logs(logs, times, output_dir):
 def test():
     import numpy
     save_batch_result(
-        "sfo-terminal-2-rt-s",
+        "sfo-terminal-2-rt-xxl",
         "simulation.reschedule_cycle",
-        numpy.arange(60.0, 151.0, 60.0),
+        numpy.arange(120.0, 781.0, 60.0),
         None,
-        2
+        30
+    )
+    save_batch_result(
+        "sfo-terminal-2-uc-xxl",
+        "uncertainty.prob_hold",
+        numpy.arange(0.0, 0.081, 0.01),
+        None,
+        30
     )
 
 
