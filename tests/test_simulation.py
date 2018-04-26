@@ -136,7 +136,8 @@ class TestSimulation(unittest.TestCase):
         while simulation.now <= f1.appear_time:
             simulation.tick()
 
-        self.assertEqual(len(simulation.airport.aircrafts), 1)
+        self.assertTrue(f1.aircraft in simulation.airport.aircrafts)
+        self.assertFalse(f2.aircraft in simulation.airport.aircrafts)
 
         # Tick til the time the second flight appears
         while simulation.now <= f2.appear_time:
