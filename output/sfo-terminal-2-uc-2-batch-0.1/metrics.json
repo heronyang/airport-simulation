@@ -1,0 +1,9 @@
+{
+    "conflicts": 0,
+    "makespan": 33570,
+    "avg_n_delay": 0.03680555555555556,
+    "avg_n_scheduler_delay": 0.022222222222222223,
+    "avg_n_uncertainty_delay": 0.014583333333333334,
+    "avg_queue_size": 0.004861111111111111,
+    "avg_reschedule_exec_time": 0.0964328830952764
+}
