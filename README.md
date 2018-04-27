@@ -53,11 +53,37 @@ Install dependencies:
 
     $ pydoc <python-file-name-without-.py>
 
+## Experiment Flow
+
+The following steps are suggested for lauching an successful experiment
+systematically.
+
+1. Compose and launch a single plan to find out (a) the upper bound of the
+   value of the experimental variable and (b) the execution time for a single
+   run.
+
+    $ time ./simulator.py -f plans/<upper-bound-to-try>.yaml
+
+2. Use the visualization tool on the single plans you launched in step one to
+   see if things are working as expected. For example, you should check if the
+   aircrafts are busy enough in order to retrieve a meaningful plot.
+
+    $ ./visualiztion/server.py
+
+3. By using the execution time and upper bound information we collected from
+   the previous steps we can then lanuch a batch run with
+   `try_until_success: False`. The execution time of this batch run should be
+   able to estimated.
+
+4. By using the execution time and failure rate information from the previous
+   steps, we can then launch a batch run with `try_until_success: True` to
+   obtain meaningful final results.
+
 ## Developer Guidelines
 
 ### Style
 
-Please always follow [PEP 8 -- Style Guide for Python Code](https://www.python.org/dev/peps/pep-0008/) for readability and consistency.
+Please ALWAYS follow [PEP 8 -- Style Guide for Python Code](https://www.python.org/dev/peps/pep-0008/) for readability and consistency.
 
 ### Logging
 
@@ -97,3 +123,13 @@ syntax:
 
     from clock import Clock
     self.logger.debug("sim time is %s", Clock.sim_time)
+
+### Profile
+
+To speedup the simulation, we can apply some profiling technique to locate the
+slow code. Add `@profile` decorator at the beginning of the function you want to
+profile, then do following commands to obtain a report of the execution time of
+each line within the function.
+
+    $ kernprof -l ./simulator -f <my-plan>.yaml
+    $ python -m line_profiler simulator.py.lprof
