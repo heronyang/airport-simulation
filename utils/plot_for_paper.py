@@ -2,13 +2,15 @@
 import pylab
 import pandas as pd
 
-CSV_FILE = "../batch_output/sfo-terminal-2-uc-xxl-partial/metrics.csv"
-# INDEX = "simulation.reschedule_cycle"
-INDEX = "uncertainty.prob_hold"
+ROOT_DIR = "../batch_output/sfo-terminal-2-rt-xxl/"
+METRICS_CSV = ROOT_DIR + "metrics.csv"
+FAILED_CSV = ROOT_DIR + "logs.csv"
+INDEX = "simulation.reschedule_cycle"
+# INDEX = "uncertainty.prob_hold"
 
 def main():
 
-    data = pd.read_csv(CSV_FILE).set_index(INDEX)
+    data = pd.read_csv(METRICS_CSV).set_index(INDEX)
 
     # Plot delay
     pylab.plot(data["avg_n_delay"], '-.', label="Total Delay")
@@ -30,6 +32,15 @@ def main():
                label="Schedule Execution Time")
     pylab.legend()
     pylab.savefig("schedule_exec_time.png")
+    pylab.clf()
+
+    # Plot failure
+    failed = pd.read_csv(FAILED_CSV)[["expr_var", "failed"]]
+    failed_mean_count = failed.groupby("expr_var").agg(["mean", "count"])
+    pylab.plot(failed_mean_count["failed"]["mean"], "-", label="Average early "
+               + "termination runs\nbefore one successful simulation")
+    pylab.legend()
+    pylab.savefig("failure.png")
     pylab.clf()
 
 
