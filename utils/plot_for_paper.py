@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # coding: utf-8
 import pylab
 import pandas as pd
@@ -7,6 +8,8 @@ METRICS_CSV = ROOT_DIR + "metrics.csv"
 FAILED_CSV = ROOT_DIR + "logs.csv"
 INDEX = "simulation.reschedule_cycle"
 # INDEX = "uncertainty.prob_hold"
+TIMES = 30
+
 
 def main():
 
@@ -37,8 +40,8 @@ def main():
     # Plot failure
     failed = pd.read_csv(FAILED_CSV)[["expr_var", "failed"]]
     failed_mean_count = failed.groupby("expr_var").agg(["mean", "count"])
-    pylab.plot(failed_mean_count["failed"]["mean"], "-", label="Average early "
-               + "termination runs\nbefore one successful simulation")
+    pylab.plot(failed_mean_count["failed"]["mean"], "-", label="Portion of the"
+               + " early-terminated simulations")
     pylab.legend()
     pylab.savefig("failure.png")
     pylab.clf()

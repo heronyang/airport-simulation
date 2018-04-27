@@ -1,0 +1,22 @@
+---
+# Uncertainty test that doesn't try until success
+name: sfo-terminal-2-uc-failed
+airport: sfo-terminal-2-cloned
+batch: uncertainty.prob_hold
+
+simulator:
+  times: 30
+  try_until_success: false
+
+simulation:
+  reschedule_cycle: 120
+
+uncertainty:
+  enabled: true
+  prob_hold: 0:0.251:0.02
+
+scheduler:
+  name: deterministic_scheduler
+
+logger:
+  level: error

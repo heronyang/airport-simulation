@@ -1,0 +1,3 @@
+uncertainty.prob_hold,conflicts,makespan,avg_queue_size,avg_reschedule_exec_time,n_delay,n_scheduler_delay,n_uncertainty_delay
+0.1,0.0,32340.0,0.0,0.03235231601428189,35.0,18.0,17.0
+0.11,0.0,32520.0,0.0,0.03875400229748909,39.0,9.0,30.0

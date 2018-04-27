@@ -11,33 +11,20 @@ def save_batch_result(name, expr_var_name, expr_var_range, logs, times):
 
     metrics_filename = "/metrics.json"
 
-    if times < 2:
+    m_metrics = [__get_blank_metrics(expr_var_name) for _ in range(times)]
 
-        # Reads and merges the metrics
-        metrics = __get_blank_metrics(expr_var_name)
-
-        for expr_var in expr_var_range:
-            filename = cfg.OUTPUT_DIR + \
-                    get_batch_plan_name(name, expr_var, None) +\
-                    metrics_filename
-            metrics = __append_expr_output(
-                filename, expr_var_name, expr_var, metrics)
-
-        # Saves the metrics onto disk
-        metrics = metrics.set_index(expr_var_name)
-
-    else:
-
-        m_metrics = [__get_blank_metrics(expr_var_name) for _ in range(times)]
-
-        for expr_var in expr_var_range:
-            for nth in range(times):
-                filename = cfg.OUTPUT_DIR + get_batch_plan_name(
-                    name, expr_var, nth) + metrics_filename
+    for expr_var in expr_var_range:
+        for nth in range(times):
+            filename = cfg.OUTPUT_DIR + get_batch_plan_name(
+                name, expr_var, nth) + metrics_filename
+            try:
                 m_metrics[nth] = __append_expr_output(
                     filename, expr_var_name, expr_var, m_metrics[nth])
-        metrics = pd.concat(m_metrics).set_index(expr_var_name)
-        metrics = metrics.groupby(metrics.index).mean()
+            except FileNotFoundError:
+                print("Skipped loading %s for report" % filename)
+
+    metrics = pd.concat(m_metrics).set_index(expr_var_name)
+    metrics = metrics.groupby(metrics.index).mean()
 
     output_dir = cfg.BATCH_OUTPUT_DIR + name + "/"
     setup_output_dir(output_dir)

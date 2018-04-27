@@ -132,11 +132,8 @@ def run_batch():
         raise Exception("Invalid configuration on expr_var_range")
 
     for expr_var in expr_var_range:
-        if times <= 1:
-            run_wrapper(expr_var_name, expr_var, name, logs, nth=None)
-        else:
-            for nth in range(times):
-                run_wrapper(expr_var_name, expr_var, name, logs, nth=nth)
+        for nth in range(times):
+            run_wrapper(expr_var_name, expr_var, name, logs, nth=nth)
 
     save_batch_result(name, expr_var_name, expr_var_range, logs, times)
     print("Saved result")
@@ -162,6 +159,9 @@ def run_wrapper(expr_var_name, expr_var, name, logs, nth):
             failed += 1
             save_failed_num(name, expr_var, nth, failed)
             print("Conflict found, abort this simulation run")
+            if not cfg.params["simulator"]["try_until_success"]:
+                print("Gave up trying nth = %d" % nth)
+                break
         else:
             print("Finished simulation with %s = %f, time %s seconds, nth = %d"
                   % (expr_var_name, expr_var, time.time() - start, nth))

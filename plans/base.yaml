@@ -12,6 +12,9 @@ simulator:
   scenario_regeneration: true
   # Number of simulation runs with one same setting (only works in batch mode)
   times: 1
+  # Enable the simulator continue to try until it reaches the required `times`
+  # (only works in batch mode)
+  try_until_success: true
 
 simulation:
   # Seconds between each simulation epoch
