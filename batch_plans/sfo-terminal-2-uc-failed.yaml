@@ -9,7 +9,7 @@ simulator:
   try_until_success: false
 
 simulation:
-  reschedule_cycle: 120
+  reschedule_cycle: 150
 
 uncertainty:
   enabled: true
