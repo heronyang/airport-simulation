@@ -13,12 +13,12 @@ from utils import export_to_json, create_output_folder
 
 OUTPUT_FOLDER = "./build/"
 
-TIGHTNESS_TIME_MEAN = 300  # seconds
+TIGHTNESS_TIME_MEAN = 180  # seconds
 TIGHTNESS_TIME_DEVIATION = 60  # seconds
 APPEAR_BEFORE = 0  # seconds
 
 # We stop adding flights before the day ends in order to measure maxspan
-END_TIME = 21 * 60 * 60  # seconds
+END_TIME = 9 * 60 * 60  # seconds
 
 # Setups logger
 logger = logging.getLogger(__name__)

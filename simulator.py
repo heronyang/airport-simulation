@@ -49,7 +49,7 @@ from simulation import Simulation, SimulationException
 from clock import ClockException
 from config import Config as cfg
 from utils import get_output_dir_name, get_batch_plan_name
-from reporter import save_batch_result
+from reporter import save_batch_result, save_failed_num
 
 
 def main():
@@ -160,11 +160,13 @@ def run_wrapper(expr_var_name, expr_var, name, logs, nth):
             run()
         except SimulationException:
             failed += 1
+            save_failed_num(name, expr_var, nth, failed)
             print("Conflict found, abort this simulation run")
         else:
             print("Finished simulation with %s = %f, time %s seconds, nth = %d"
                   % (expr_var_name, expr_var, time.time() - start, nth))
             break
+    save_failed_num(name, expr_var, nth, failed)
     logs.loc[len(logs)] = [expr_var, failed, nth]
 
 

@@ -26,6 +26,8 @@ simulation:
   cache: true
   # Separation requirement in feets between two aircrafts
   separation: 50
+  # End time of a day
+  end_time: "12:00"
 
 uncertainty:
   # Enable or disable the uncertain in simulation

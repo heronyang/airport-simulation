@@ -20,3 +20,10 @@ XL Experiments run the plots we planned to put into the paper. However, we found
 
 - `sfo-terminal-2-rt-xl/`
 - `sfo-terminal-2-uc-xl/`
+
+## Refined Experiment: Times: 20
+
+Scenario: 00:00 - 09:00, mean 180 sec, deviation 30 sec
+
+- `sfo-terminal-2-uc`: 0, 0.01, 0.02, ..., 0.15 (rt = 120)
+- `sfo-terminal-2-rt`: 30, 90, ... 390 (uc = 0.05)

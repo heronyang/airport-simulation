@@ -52,9 +52,9 @@ def __get_blank_metrics(expr_var_name):
         "makespan",
         "avg_queue_size",
         "avg_reschedule_exec_time",
-        "avg_n_delay",
-        "avg_n_scheduler_delay",
-        "avg_n_uncertainty_delay"
+        "n_delay",
+        "n_scheduler_delay",
+        "n_uncertainty_delay"
     ])
 
 
@@ -67,9 +67,9 @@ def __append_expr_output(filename, expr_var_name, expr_var, metrics):
             "makespan": d["makespan"],
             "avg_queue_size": d["avg_queue_size"],
             "avg_reschedule_exec_time": d["avg_reschedule_exec_time"],
-            "avg_n_delay": d["avg_n_delay"],
-            "avg_n_scheduler_delay": d["avg_n_scheduler_delay"],
-            "avg_n_uncertainty_delay": d["avg_n_uncertainty_delay"]
+            "n_delay": d["n_delay"],
+            "n_scheduler_delay": d["n_scheduler_delay"],
+            "n_uncertainty_delay": d["n_uncertainty_delay"]
         }, ignore_index=True)
     return metrics
 
@@ -117,14 +117,28 @@ def save_logs(logs, times, output_dir):
     plt.close('all')
 
 
+def save_failed_num(name, expr_var, nth, failed):
+    filename = cfg.OUTPUT_DIR + get_batch_plan_name(name, expr_var, nth)\
+            + "/failed"
+    with open(filename, "w") as fout:
+        fout.write(str(failed))
+
+
 def test():
     import numpy
     save_batch_result(
-        "sfo-terminal-2-rt-s",
+        "sfo-terminal-2-rt-xxl",
         "simulation.reschedule_cycle",
-        numpy.arange(60.0, 151.0, 60.0),
+        numpy.arange(120.0, 781.0, 60.0),
         None,
-        2
+        30
+    )
+    save_batch_result(
+        "sfo-terminal-2-uc-xxl",
+        "uncertainty.prob_hold",
+        numpy.arange(0.0, 0.081, 0.01),
+        None,
+        30
     )
 
 
