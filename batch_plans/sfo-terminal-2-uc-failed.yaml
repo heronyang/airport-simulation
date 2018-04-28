@@ -9,13 +9,15 @@
 # - TIGHTNESS_TIME_MEAN = 90
 # - TIGHTNESS_TIME_DEVIATION = 30
 # - END_TIME = 9 * 60 * 60
+#
+# Original: 7300.28s
 
 name: sfo-terminal-2-uc-failed
 airport: sfo-terminal-2-cloned
 batch: uncertainty.prob_hold
 
 simulator:
-  times: 20
+  times: 30
   try_until_success: false
 
 simulation:
@@ -23,7 +25,7 @@ simulation:
 
 uncertainty:
   enabled: true
-  prob_hold: 0:0.021:0.004
+  prob_hold: 0:0.031:0.003
 
 scheduler:
   name: deterministic_scheduler
