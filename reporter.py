@@ -35,6 +35,7 @@ def save_batch_result(name, expr_var_name, expr_var_range, logs, times):
 def __get_blank_metrics(expr_var_name):
     return pd.DataFrame(columns=[
         expr_var_name,
+        "avg_active_aircrafts",
         "conflicts",
         "makespan",
         "avg_queue_size",
@@ -50,6 +51,7 @@ def __append_expr_output(filename, expr_var_name, expr_var, metrics):
         d = json.load(f)
         metrics = metrics.append({
             expr_var_name: expr_var,
+            "avg_active_aircrafts": d["avg_active_aircrafts"],
             "conflicts": d["conflicts"],
             "makespan": d["makespan"],
             "avg_queue_size": d["avg_queue_size"],
@@ -89,7 +91,7 @@ def save_logs(logs, times, output_dir):
 
     # Calculates the failture rate
     d = logs.groupby(logs["expr_var"]).sum()
-    d["failure_rate"] = d["failed"] / (d["failed"] + times)
+    d["failure_rate"] = d["failed"] / times
 
     # Saves to csv file
     logs.to_csv(output_dir + "logs.csv")

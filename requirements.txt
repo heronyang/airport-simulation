@@ -8,3 +8,4 @@ pandas==0.20.3
 coloredlogs==9.0
 Flask==0.12.2
 matplotlib==2.2.2
+line-profiler==2.1.2
