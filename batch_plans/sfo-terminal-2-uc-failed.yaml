@@ -9,8 +9,6 @@
 # - TIGHTNESS_TIME_MEAN = 90
 # - TIGHTNESS_TIME_DEVIATION = 30
 # - END_TIME = 9 * 60 * 60
-#
-# Original: 7300.28s
 
 name: sfo-terminal-2-uc-failed
 airport: sfo-terminal-2-cloned
