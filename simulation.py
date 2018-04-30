@@ -88,13 +88,14 @@ class Simulation:
                 self.logger.info("Last schedule time is updated to %s" %
                                  self.last_schedule_time)
 
+            # Adds aircrafts
+            self.airport.add_aircrafts(self.scenario, self.now,
+                                       self.clock.sim_time)
+
             # Injects uncertainties
             if self.uncertainty:
                 self.uncertainty.inject(self)
 
-            # Adds aircrafts
-            self.airport.add_aircrafts(self.scenario, self.now,
-                                       self.clock.sim_time)
             # Ticks
             self.airport.tick()
             if not Config.params["simulator"]["test_mode"]:
