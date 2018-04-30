@@ -10,4 +10,4 @@ simulation:
 
 uncertainty:
   enabled: true
-  prob_hold: 0.2
+  prob_hold: 0.08
