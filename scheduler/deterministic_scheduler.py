@@ -5,6 +5,12 @@ from scheduler.abstract_scheduler import AbstractScheduler
 
 
 class Scheduler(AbstractScheduler):
+    """The deterministic scheduler scheduler implements the `Abstractscheduler`
+    by offering `scheduler(simulation)`. The scheduler first generates a list
+    of itinerary ignoring any conflict then it resolves the conflicts by
+    cloning the simulation and ticking on the cloned simulation. Conflicts are
+    resolved by adding delays on one of the aircrafts.
+    """
 
     def schedule(self, simulation):
 
@@ -14,6 +20,10 @@ class Scheduler(AbstractScheduler):
         # Assigns route per aircraft without any separation constraint
         for aircraft in simulation.airport.aircrafts:
 
+            # NOTE: Itinerary objects are newly created the reference of these
+            # object will be used in other objects; however, be ware that the
+            # object will be shared instead of being cloned in the later
+            # phases.
             itinerary = self.schedule_aircraft(aircraft, simulation)
             itineraries[aircraft] = itinerary
 
@@ -43,6 +53,13 @@ class Scheduler(AbstractScheduler):
                 Schedule(itineraries, 0, 0))
 
             for i in range(tick_times):
+
+                # Adds aircrafts
+                predict_simulation.pre_tick()
+
+                # Check if all aircrafts has an itinerary, if not, assign one
+                self.schedule_new_aircrafts(simulation, predict_simulation,
+                                            itineraries)
 
                 # Gets conflict in current state
                 conflict = self.get_conflict_to_solve(
@@ -77,7 +94,20 @@ class Scheduler(AbstractScheduler):
 
                 # After dealing with the conflicts in current state, tick to
                 # next state
-                predict_simulation.quiet_tick()
+                predict_simulation.tick()
+                predict_simulation.post_tick()
+
+    def schedule_new_aircrafts(self, simulation, predict_simulation,
+                               itineraries):
+
+        for aircraft in predict_simulation.airport.aircrafts:
+            if not aircraft.itinerary:
+                # Gets a new itinerary of this new aircraft
+                itinerary = self.schedule_aircraft(aircraft, simulation)
+                # Assigns this itinerary to this aircraft
+                aircraft.set_itinerary(itinerary)
+                # Store a copy of the itinerary
+                itineraries[aircraft] = itinerary
 
     def resolve_conflict(self, simulation, itineraries, conflict, attempts,
                          unsolvable_conflicts, max_attempt):

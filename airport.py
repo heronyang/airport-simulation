@@ -26,24 +26,47 @@ class Airport:
         # Queues for departure flights at gates
         self.gate_queue = {}
 
+        # Itinerary cache object for future flights
+        self.itinerary_cache = {}
+
         # Static data
         self.code = code
         self.surface = surface
 
     def apply_schedule(self, schedule):
+
+        # Clean up the cache (previous states)
+        self.itinerary_cache = {}
+
+        # Apply the itinerary onto the aircrafts one by one
         for aircraft, itinerary in schedule.itineraries.items():
+
             is_applied = False
+
             for airport_aircraft in self.aircrafts:
                 if airport_aircraft == aircraft:
                     airport_aircraft.set_itinerary(itinerary)
                     is_applied = True
                     break
+
+            # If the aircraft is not found, we cache the itinerary for it
             if not is_applied:
-                raise Exception("%s not found in the airport" % aircraft)
+                self.logger.debug("%s hasn't found yet, we will cache its "
+                                  "itinerary" % aircraft)
+                self.itinerary_cache[aircraft] = itinerary
 
     def add_aircrafts(self, scenario, now, sim_time):
         self.__add_aircrafts_from_queue()
         self.__add_aircrafts_from_scenario(scenario, now, sim_time)
+
+    def add_aircraft(self, aircraft):
+        self.aircrafts.append(aircraft)
+
+        if aircraft in self.itinerary_cache:
+            itinerary = self.itinerary_cache[aircraft]
+            aircraft.set_itinerary(itinerary)
+            self.logger.debug("Applied %s on %s from itinerary cache" %
+                        (itinerary, aircraft))
 
     def __add_aircrafts_from_queue(self):
 
@@ -55,7 +78,7 @@ class Airport:
             # Put the first aircraft in queue into the airport
             aircraft = queue.popleft()
             aircraft.set_location(gate)
-            self.aircrafts.append(aircraft)
+            self.add_aircraft(aircraft)
 
     def __add_aircrafts_from_scenario(self, scenario, now, sim_time):
 
@@ -82,7 +105,7 @@ class Airport:
             else:
                 # Adds the flight to the airport
                 aircraft.set_location(gate)
-                self.aircrafts.append(aircraft)
+                self.add_aircraft(aircraft)
                 self.logger.info("Adds %s into the airport" % flight)
 
     def remove_aircrafts(self, scenario):

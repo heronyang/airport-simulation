@@ -1,6 +1,7 @@
 """`Simulation` represents an airport simulation of a day on the given
-parameters. `SimulationDelegate` is designed to be an immutable delegate of a
-simultion that can be used for other objects to observe the simulation states.
+parameters. `ClonedSimulation` is designed to be an immutable delegate of a
+simultion that can be used for other objects to observe or predict the
+simulation states.
 """
 import time
 import logging
@@ -19,9 +20,9 @@ from config import Config
 from state_logger import StateLogger
 
 
-"""Simulation represents a simulation day, holds both static and dynamic states
-of the current airport, and implements `tick()` and `quiet_tick()` functions
-for the caller to simulation to the next state.
+"""Simulation, representing a simulation day, holds both static and dynamic
+states of the current airport, and implements `tick()` functions for the caller
+to simulation to the next state.
 """
 class Simulation:
 
@@ -76,6 +77,7 @@ class Simulation:
         self.logger.debug("\nCurrent Time: %s" % self.now)
 
         try:
+
             # Reschedule happens before the tick
             if self.__is_time_to_reschedule():
                 self.logger.info("Time to reschedule")
@@ -90,48 +92,40 @@ class Simulation:
             if self.uncertainty:
                 self.uncertainty.inject(self)
 
-            # Tick
+            # Adds aircrafts
             self.airport.add_aircrafts(self.scenario, self.now,
                                        self.clock.sim_time)
+            # Ticks
             self.airport.tick()
             if not Config.params["simulator"]["test_mode"]:
                 self.state_logger.log_on_tick(self)
-            self.airport.remove_aircrafts(self.scenario)
             self.clock.tick()
 
+            # Removes aircrafts
+            self.airport.remove_aircrafts(self.scenario)
+
             # Abort on conflict
-            if len(self.airport.conflicts) > 0:
+            conflicts = self.airport.conflicts
+            if conflicts:
+                for conflict in conflicts:
+                    self.logger.error("Found %s", conflict)
                 raise SimulationException("Conflict found")
 
             # Observe
             if not Config.params["simulator"]["test_mode"]:
                 self.analyst.observe_on_tick(self)
 
-        except ClockException as e:
+        except ClockException as error:
             # Finishes
             if not Config.params["simulator"]["test_mode"]:
                 self.analyst.save()
                 self.state_logger.save()
-            raise e
-        except SimulationException as e:
-            raise e
-        except Exception as e:
+            raise error
+        except SimulationException as error:
+            raise error
+        except Exception as error:
             self.logger.error(traceback.format_exc())
-            raise e
-
-    def quiet_tick(self):
-        """
-        Turn off the logger, reschedule, and analyst.
-        """
-        self.logger.debug("\nPredicted Time: %s" % self.now)
-        self.airport.add_aircrafts(self.scenario, self.now,
-                                   self.clock.sim_time)
-        self.airport.tick()
-        self.airport.remove_aircrafts(self.scenario)
-        try:
-            self.clock.tick()
-        except ClockException as e:
-            raise e
+            raise error
 
     def __is_time_to_reschedule(self):
         reschedule_cycle = Config.params["simulation"]["reschedule_cycle"]
@@ -148,6 +142,8 @@ class Simulation:
 
     @property
     def now(self):
+        """Return the current time of the simulation.
+        """
         return self.clock.now
 
     def __print_stats(self):
@@ -165,18 +161,29 @@ class Simulation:
         self.__dict__.update(new_dict)
 
     def set_quiet(self, logger):
+        """Sets the simulation and its subclass to quiet mode where the logger
+        doesn't print that many stuff.
+        """
         self.logger = logger
         self.airport.set_quiet(logger)
         self.scenario.set_quiet(logger)
         self.routing_expert.set_quiet(logger)
 
     @property
-    def copy(self, uncertainty=None):
-        # TODO: If uncertainty is not None, call inject() in quiet_tick().
+    def copy(self):
+        """Obtains a immutable copy of this simulation.
+        """
+        # TODO: If uncertainty is not None, call inject() in tick().
         return ClonedSimulation(self)
 
 
 class ClonedSimulation():
+    """ClonedSimulation is a copy of a `Simulation` object; however, it shares
+    objects with the source `Simulation` object on immutable data objects in
+    order to avoid the overhead in copying.
+    The `tick()` function is divided into `pre_tick`, `tick`, and `post_tick`
+    to allow the called (mainly the scheduler) to inject operations in between.
+    """
 
     def __init__(self, simulation):
 
@@ -189,18 +196,22 @@ class ClonedSimulation():
         self.airport.set_quiet(self.logger)
         self.scenario.set_quiet(self.logger)
 
-    def quiet_tick(self):
+    def pre_tick(self):
+        self.airport.add_aircrafts(self.scenario, self.now,
+                                   self.clock.sim_time)
+
+    def tick(self):
         """Turn off the logger, reschedule, and analyst.
         """
         self.logger.debug("\nPredicted Time: %s" % self.now)
-        self.airport.add_aircrafts(self.scenario, self.now,
-                                   self.clock.sim_time)
         self.airport.tick()
-        self.airport.remove_aircrafts(self.scenario)
         try:
             self.clock.tick()
         except ClockException as e:
             raise e
+
+    def post_tick(self):
+        self.airport.remove_aircrafts(self.scenario)
 
     @property
     def now(self):
