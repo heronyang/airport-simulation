@@ -15,7 +15,7 @@ airport: sfo-terminal-2-cloned
 batch: uncertainty.prob_hold
 
 simulator:
-  times: 20
+  times: 30
   try_until_success: false
 
 simulation:
