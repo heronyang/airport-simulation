@@ -1,0 +1,34 @@
+---
+# Uncertainty Experiment (Not Trying Until Success)
+#
+# In this experiment, we expect to see an increasing failure rate. We will use
+# the result to learn what upper bound to set for the test where we try until
+# success.
+#
+# Scenario
+# - TIGHTNESS_TIME_MEAN = 90
+# - TIGHTNESS_TIME_DEVIATION = 30
+# - END_TIME = 9 * 60 * 60
+#
+# Uncertainty delay: Gate and Spot Position
+
+name: sfo-terminal-2-uc-failed-spot
+airport: sfo-terminal-2-cloned
+batch: uncertainty.prob_hold
+
+simulator:
+  times: 30
+  try_until_success: false
+
+simulation:
+  reschedule_cycle: 150
+
+uncertainty:
+  enabled: true
+  prob_hold: 0:0.101:0.01
+
+scheduler:
+  name: deterministic_scheduler
+
+logger:
+  level: error
