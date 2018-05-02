@@ -14,7 +14,7 @@ from utils import export_to_json, create_output_folder
 
 OUTPUT_FOLDER = "./build/"
 
-TIGHTNESS_TIME_MEAN = 180  # seconds
+TIGHTNESS_TIME_MEAN = 90  # seconds
 TIGHTNESS_TIME_DEVIATION = 30  # seconds
 APPEAR_BEFORE = 0  # seconds
 

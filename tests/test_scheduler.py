@@ -61,7 +61,7 @@ class TestScheduler(unittest.TestCase):
             self.aircraft1.logger = logger
             self.aircraft2.logger = logger
 
-        def quiet_tick(self):
+        def tick(self):
             self.aircraft1.tick()
             self.aircraft2.tick()
 
@@ -170,9 +170,15 @@ class TestScheduler(unittest.TestCase):
         def remove_aircrafts(self):
             pass
 
-        def quiet_tick(self):
+        def pre_tick(self):
+            pass
+
+        def tick(self):
             self.clock.tick()
-            self.airport.quiet_tick()
+            self.airport.tick()
+
+        def post_tick(self):
+            pass
 
         @property
         def now(self):

@@ -2,9 +2,12 @@
 name: sfo-terminal-2-uc
 airport: sfo-terminal-2
 
+simulator:
+  scenario_regeneration: false
+
 simulation:
-  reschedule_cycle: 120
+  reschedule_cycle: 150
 
 uncertainty:
   enabled: true
-  prob_hold: 0.12
+  prob_hold: 0.08

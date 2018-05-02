@@ -1,0 +1,12 @@
+---
+name: sfo-terminal-2-long-rt
+airport: sfo-terminal-2
+
+simulator:
+  scenario_regeneration: false
+
+uncertainty:
+  enabled: false
+
+simulation:
+  reschedule_cycle: 300

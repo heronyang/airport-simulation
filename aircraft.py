@@ -58,7 +58,7 @@ class Aircraft:
             self.logger.debug("%s: No itinerary to add delay", self)
             return
         delay_added_at = self.itinerary.add_scheduler_delay()
-        self.logger.debug("%s: Delay added at %s by uncertainty" %
+        self.logger.debug("%s: Delay added at %s by scheduler" %
                           (self, delay_added_at))
 
     def tick(self):

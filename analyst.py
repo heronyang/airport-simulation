@@ -75,8 +75,8 @@ class AircraftCountMetric():
         self.counter.set_value(now, "count", len(aircrafts))
 
     @property
-    def n_aircrafts(self):
-        return self.counter["count"].sum()
+    def avg_n_aircrafts(self):
+        return self.counter["count"].mean()
 
     @property
     def summary(self):
@@ -325,7 +325,7 @@ class Analyst:
         """
         filename = "%smetrics.json" % get_output_dir_name()
         response = {
-            "activate_aircrafts": self.aircraft_count_metric.n_aircrafts,
+            "avg_active_aircrafts": self.aircraft_count_metric.avg_n_aircrafts,
             "conflicts": self.conflict_metric.conflicts,
             "makespan": self.makespan_metric.makespan,
             "avg_queue_size": self.gate_queue_metric.avg_queue_size,

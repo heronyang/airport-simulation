@@ -1,0 +1,17 @@
+---
+# This plan is used for testing whether the simulator can count the failure rate
+# correctly if we don't try until success.
+name: simple-uc-failed
+airport: simple
+batch: uncertainty.prob_hold
+
+simulator:
+  times: 2
+  try_until_success: false
+
+uncertainty:
+  enabled: true
+  prob_hold: 0.1:0.111:0.01
+
+scheduler:
+  name: deterministic_scheduler

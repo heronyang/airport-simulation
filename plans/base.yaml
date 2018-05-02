@@ -12,6 +12,9 @@ simulator:
   scenario_regeneration: true
   # Number of simulation runs with one same setting (only works in batch mode)
   times: 1
+  # Enable the simulator continue to try until it reaches the required `times`
+  # (only works in batch mode)
+  try_until_success: true
 
 simulation:
   # Seconds between each simulation epoch
@@ -26,8 +29,9 @@ simulation:
   cache: true
   # Separation requirement in feets between two aircrafts
   separation: 50
-  # End time of a day
-  end_time: "12:00"
+  # End time of a day (it's okay if we don't finish scheduling all the
+  # aircrafts if we're not using the makespan metric)
+  end_time: "9:00"
 
 uncertainty:
   # Enable or disable the uncertain in simulation
