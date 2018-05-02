@@ -19,7 +19,14 @@ const QUICK_NEXT_PREV_TIMES = 120;
 function initMap() {
 	map = new google.maps.Map(document.getElementById("map"), {
 		center: {lat: 0, lng: 0},
-		zoom: ZOOM_GLOBAL
+		zoom: ZOOM_GLOBAL,
+        styles:[
+            {
+              featureType: "all",
+              elementType: "labels",
+              stylers: [{visibility: "off"}]
+            },
+        ]
 	});
 }
 
@@ -27,7 +34,14 @@ function resetMap(lat, lng, zoom) {
     var pos = new google.maps.LatLng(lat, lng);
     map.setOptions({
         center: pos,
-        zoom: zoom
+        zoom: zoom,
+        styles:[
+            {
+              featureType: "all",
+              elementType: "labels",
+              stylers: [{visibility: "off"}]
+            },
+        ]
     });
 }
 
