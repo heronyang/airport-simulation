@@ -18,8 +18,8 @@ simulation:
   reschedule_cycle: 30:151:30
 
 uncertainty:
-  enabled: true
-  prob_hold: 0.02
+  enabled: false
+  prob_hold: 0.00
 
 scheduler:
   name: deterministic_scheduler
