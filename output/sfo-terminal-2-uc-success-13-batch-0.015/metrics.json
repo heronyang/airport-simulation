@@ -1,10 +1,10 @@
 {
-    "n_uncertainty_delay": 3,
-    "avg_queue_size": 0.000925925925925926,
+    "avg_reschedule_exec_time": 0.5100390877834586,
+    "avg_active_aircrafts": 10.88425925925926,
+    "avg_queue_size": 0.001851851851851852,
+    "n_uncertainty_delay": 5,
+    "n_delay": 341,
     "conflicts": 0,
-    "avg_reschedule_exec_time": 0.41832594982413357,
-    "n_delay": 270,
     "makespan": 32370,
-    "n_scheduler_delay": 267,
-    "avg_active_aircrafts": 10.705555555555556
+    "n_scheduler_delay": 336
 }

@@ -1,6 +1,6 @@
 import random
 import logging
-from surface import Gate
+from surface import Spot
 
 
 class Uncertainty:
@@ -13,13 +13,13 @@ class Uncertainty:
 
         for aircraft in simulation.airport.aircrafts:
 
-            # For each aircraft at Gate, there's a possibility it holds at the
+            # For each aircraft at Spot, there's a possibility it holds at the
             # node for some random amount of time.
 
             if not self.happens_with_prob(self.prob_hold):
                 continue
 
-            if type(aircraft.location) is not Gate:
+            if type(aircraft.location) is not Spot:
                 continue
 
             if aircraft.itinerary is not None:
