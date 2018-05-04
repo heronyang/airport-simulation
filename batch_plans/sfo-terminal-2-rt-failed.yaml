@@ -11,11 +11,11 @@ airport: sfo-terminal-2-cloned
 batch: simulation.reschedule_cycle
 
 simulator:
-  times: 20
+  times: 100
   try_until_success: false
 
 simulation:
-  reschedule_cycle: 60:541:60
+  reschedule_cycle: 60:601:60
 
 uncertainty:
   enabled: true

@@ -11,11 +11,11 @@
 # - END_TIME = 9 * 60 * 60
 
 name: sfo-terminal-2-uc-failed
-airport: sfo-terminal-2-cloned
+airport: sfo-terminal-2
 batch: uncertainty.prob_hold
 
 simulator:
-  times: 30
+  times: 100
   try_until_success: false
 
 simulation:
