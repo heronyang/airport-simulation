@@ -21,6 +21,7 @@ If you're on Ubuntu:
 
     $ sudo apt-get update
     $ sudo apt-get install -y python3-pip
+    $ mkdir -p ~/.config/matplotlib/
     $ echo "backend : Agg" >> ~/.config/matplotlib/matplotlibrc
 
 Install dependencies:
@@ -52,6 +53,13 @@ Install dependencies:
 ## Documentation
 
     $ pydoc <python-file-name-without-.py>
+
+## Virtual Env Execution
+
+    $ python3.6 -m venv env
+    $ source env/bin/activate
+    $ python3.6 -m pip -r requirements.txt
+    $ python3.6 simulator.py -f plans/base.yaml
 
 ## Experiment Flow
 
