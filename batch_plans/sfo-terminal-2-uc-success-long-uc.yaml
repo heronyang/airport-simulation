@@ -6,7 +6,7 @@
 # - TIGHTNESS_TIME_DEVIATION = 30
 # - END_TIME = 9 * 60 * 60
 
-name: sfo-terminal-2-uc-success
+name: sfo-terminal-2-uc-success-long-uc
 airport: sfo-terminal-2
 batch: uncertainty.prob_hold
 
