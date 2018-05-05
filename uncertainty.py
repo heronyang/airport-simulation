@@ -1,5 +1,6 @@
 import random
 import logging
+from config import Config
 from surface import Gate, Spot
 
 
@@ -24,8 +25,10 @@ class Uncertainty:
                 continue
 
             if aircraft.itinerary is not None:
-                aircraft.add_uncertainty_delay()
-                self.logger.info("%s added delay" % aircraft)
+                ticks_hold = Config.params["uncertainty"]["ticks_hold"]
+                for _ in range(ticks_hold):
+                    aircraft.add_uncertainty_delay()
+                self.logger.info("%s added %d delay" % (aircraft, ticks_hold))
 
     def happens_with_prob(self, prob):
         return random.random() < prob

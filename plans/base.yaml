@@ -38,6 +38,8 @@ uncertainty:
   enabled: false
   # Probability of an aircraft holds at node unexpectedly (depends on time_unit)
   prob_hold: 0.2
+  # Number of ticks of each delay added
+  ticks_hold: 5
 
 scheduler:
   # Name of the scheduler file under the `scheduler` folder

@@ -1,0 +1,28 @@
+---
+# Uncertainty Experiment (Trying Until Success)
+#
+# Scenario
+# - TIGHTNESS_TIME_MEAN = 90
+# - TIGHTNESS_TIME_DEVIATION = 30
+# - END_TIME = 9 * 60 * 60
+
+name: sfo-terminal-2-uc-success
+airport: sfo-terminal-2
+batch: uncertainty.prob_hold
+
+simulator:
+  times: 10
+  try_until_success: true
+
+simulation:
+  reschedule_cycle: 150
+
+uncertainty:
+  enabled: true
+  prob_hold: 0:0.041:0.005
+
+scheduler:
+  name: deterministic_scheduler
+
+logger:
+  level: error
