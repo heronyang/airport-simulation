@@ -1,6 +1,6 @@
 import random
 import logging
-from surface import Gate
+from surface import Gate, Spot
 
 
 class Uncertainty:
@@ -19,7 +19,8 @@ class Uncertainty:
             if not self.happens_with_prob(self.prob_hold):
                 continue
 
-            if type(aircraft.location) is not Gate:
+            if type(aircraft.location) is not Gate and\
+               type(aircraft.location) is not Spot:
                 continue
 
             if aircraft.itinerary is not None:

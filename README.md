@@ -58,7 +58,7 @@ Install dependencies:
 
     $ python3.6 -m venv env
     $ source env/bin/activate
-    $ python3.6 -m pip -r requirements.txt
+    $ python3.6 -m pip -r install requirements.txt
     $ python3.6 simulator.py -f plans/base.yaml
 
 ## Experiment Flow
