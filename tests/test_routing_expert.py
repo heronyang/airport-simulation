@@ -3,7 +3,7 @@
 from node import Node
 from link import Link
 from routing_expert import RoutingExpert
-from airport import AirportFactory
+from airport import Airport
 from scenario import ScenarioFactory
 
 import sys
@@ -67,7 +67,7 @@ class TestRoutingExpert(unittest.TestCase):
         airport_code = "simple"
 
         # Sets up the airport
-        self.airport = AirportFactory.create(airport_code)
+        self.airport = Airport.create(airport_code)
 
         # Sets up the scenario
         self.scenario = ScenarioFactory.create(airport_code,
@@ -90,7 +90,7 @@ class TestRoutingExpert(unittest.TestCase):
         airport_code = "sfo-terminal-2"
 
         # Sets up the airport
-        self.airport = AirportFactory.create(airport_code)
+        self.airport = Airport.create(airport_code)
 
         # Sets up the scenario
         self.scenario = ScenarioFactory.create(airport_code,
@@ -116,7 +116,7 @@ class TestRoutingExpert(unittest.TestCase):
         airport_code = "sfo-terminal-2"
 
         # Sets up the airport
-        self.airport = AirportFactory.create(airport_code)
+        self.airport = Airport.create(airport_code)
 
         # Sets up the scenario
         self.scenario = ScenarioFactory.create(airport_code,
@@ -142,7 +142,7 @@ class TestRoutingExpert(unittest.TestCase):
         airport_code = "sfo-terminal-2"
 
         # Sets up the airport
-        self.airport = AirportFactory.create(airport_code)
+        self.airport = Airport.create(airport_code)
 
         # Sets up the scenario
         self.scenario = ScenarioFactory.create(airport_code,

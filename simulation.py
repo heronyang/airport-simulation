@@ -10,7 +10,7 @@ import importlib
 
 from copy import deepcopy
 from clock import Clock, ClockException
-from airport import AirportFactory
+from airport import Airport
 from scenario import ScenarioFactory
 from routing_expert import RoutingExpert
 from analyst import Analyst
@@ -38,7 +38,7 @@ class Simulation:
 
         # Sets up the airport
         airport_name = params["airport"]
-        self.airport = AirportFactory.create(airport_name)
+        self.airport = Airport.create(airport_name)
 
         # Sets up the scenario
         self.scenario = ScenarioFactory.create(

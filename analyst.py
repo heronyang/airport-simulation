@@ -218,7 +218,7 @@ class Analyst:
     def __init__(self, simulation):
 
         self.logger = logging.getLogger(__name__)
-        self.airport_name = simulation.airport.code
+        self.airport_name = simulation.airport.name
 
         sim_time = simulation.clock.sim_time
 

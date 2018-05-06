@@ -4,27 +4,27 @@ simulations.
 
 Example:
 
-    To run a single simlation, use an experimental plan under `plans`:
+    To run a single simlation, use an experimental plan under folder `plans`:
 
         $ ./simulator.py -f plans/base.yaml
 
-    To run a batch of simulations, use a batch experimental plan under
-    `bacth_plans`:
+    To run a batch of simulations, use a batch experimental plan under folder
+    `batch_plans`:
 
         $ ./simulator.py -f batch_plans/sfo-terminal-2-uc.yaml
 
 Output:
 
     Simulation results including output metrics, figures, and logs are stored
-    under `output` folder with a name specified in the experimental plan. For
+    under `output` folder with the name specified in the experimental plan. For
     batch runs, a bunch of folders under `output` are created and a folder
-    under `batch_output` is created as well for storing summary metrics and
-    figures for the batch runs.
+    under `batch_output` is created as well for storing summerized metrics and
+    figures of the batch runs.
 
 Definition:
 
     We define a `simulation` or a `simulation run` as the simlation of a day
-    under the same parameters (this matches to a experimental plan under
+    under the same parameters (this matches to an experimental plan under
     `plans`). We also define `sample times` as the number of simulations runs
     we execute under the same parameters for retrieving the average output
     metrics. Then, we define a `batch run` or a `batch execution` as multiple
@@ -53,8 +53,7 @@ from reporter import save_batch_result, save_failed_num
 
 
 def main():
-    """Main function of the simulator.
-    """
+    """Main function of the simulator."""
 
     __init_params()
 
