@@ -1,22 +1,20 @@
 ---
-# Uncertainty Experiment (Not Trying Until Success)
+# Uncertainty Experiment (Trying Until Success)
 #
-# In this experiment, we expect to see an increasing failure rate. We will use
-# the result to learn what upper bound to set for the test where we try until
-# success.
+# long delays, short reschedule cycle
 #
 # Scenario
 # - TIGHTNESS_TIME_MEAN = 90
 # - TIGHTNESS_TIME_DEVIATION = 30
 # - END_TIME = 9 * 60 * 60
 
-name: sfo-terminal-2-uc-failed
-airport: sfo-terminal-2-cloned
+name: sfo-terminal-2-uc-success-long-uc-2
+airport: sfo-terminal-2
 batch: uncertainty.prob_hold
 
 simulator:
   times: 5
-  try_until_success: false
+  try_until_success: true
 
 simulation:
   reschedule_cycle: 30
