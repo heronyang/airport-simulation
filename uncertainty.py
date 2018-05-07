@@ -20,8 +20,16 @@ class Uncertainty:
             if not self.happens_with_prob(self.prob_hold):
                 continue
 
+            """
             if type(aircraft.location) is not Gate and\
                type(aircraft.location) is not Spot:
+                continue
+            """
+
+            # Uncertainty delays are added at the runway start
+            flight = simulation.scenario.get_flight(aircraft)
+            runway_start = flight.runway.start
+            if not aircraft.location.is_close_to(runway_start):
                 continue
 
             if aircraft.itinerary is not None:
