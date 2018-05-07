@@ -1,40 +1,44 @@
+"""`Cache` offers put/get inferface for a simple key-value store on disk."""
 import os
 import pickle
 import logging
 
 CACHE_DIR = "./cache/"
-logger = logging.getLogger(__name__)
+LOGGER = logging.getLogger(__name__)
 
 
 def put(key, obj):
-    logger.debug("Putting a new cache with key %s" % key)
+    """Puts a key value pair into the store."""
+    LOGGER.debug("Putting a new cache with key %s", key)
     if not os.path.exists(CACHE_DIR):
         os.makedirs(CACHE_DIR)
-    with open(CACHE_DIR + key + ".pkl", 'wb') as f:
-        pickle.dump(obj, f, pickle.HIGHEST_PROTOCOL)
+    with open(CACHE_DIR + key + ".pkl", 'wb') as fout:
+        pickle.dump(obj, fout, pickle.HIGHEST_PROTOCOL)
 
 
 def get(key):
-    logger.debug("Getting a cache with key %s" % key)
+    """Gets the value stored using the given key."""
+    LOGGER.debug("Getting a cache with key %s", key)
     try:
-        with open(CACHE_DIR + key + ".pkl", 'rb') as f:
-            return pickle.load(f)
+        with open(CACHE_DIR + key + ".pkl", 'rb') as fout:
+            return pickle.load(fout)
     except Exception:
-        logger.debug("No cache file found")
+        LOGGER.debug("No cache file found")
         return None
 
 
-def hash(links, nodes):
+def get_hash(links, nodes):
+    """Gets the hash value of the given links and nodes."""
 
     import hashlib
 
-    h = 0.0
+    __hash = 0.0
     for link in links:
-        h += link.__hash__()
-        h += link.__hash__()
+        __hash += link.__hash__()
+        __hash += link.__hash__()
 
     for node in nodes:
-        h += node.__hash__()
-        h += node.__hash__()
+        __hash += node.__hash__()
+        __hash += node.__hash__()
 
-    return hashlib.md5(('%d' % h).encode('utf-8')).hexdigest()
+    return hashlib.md5(('%d' % __hash).encode('utf-8')).hexdigest()

@@ -34,7 +34,7 @@ class RoutingExpert:
 
     def build_or_load_routes(self):
 
-        hash_key = cache.hash(self.links, self.nodes)
+        hash_key = cache.get_hash(self.links, self.nodes)
         cached = cache.get(hash_key)
 
         if cached:

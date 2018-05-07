@@ -1,4 +1,5 @@
-"""Airport represents both the static and dynamic surface states of an airport.
+"""`Airport` represents both the static and dynamic surface states of an
+airport.
 """
 import os
 import logging
@@ -12,7 +13,7 @@ from utils import get_seconds_after
 
 
 class Airport:
-    """Airport contains the surface and all the aircrafts currently moving or
+    """`Airport` contains the surface and all the aircrafts currently moving or
     stopped in this airport.
     """
 

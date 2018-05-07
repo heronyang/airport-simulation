@@ -1,26 +1,39 @@
+"""`Config` extends `MetaConfig` and it reads configurations from a given yaml
+file. A default yaml is also provided so the user only has to specify the
+parameters that are different from the default one.
+"""
 import yaml
 from utils import update_dict
 
+BASE_LINE_EXPERIMENT_PLAN_FILEPATH = "./plans/base.yaml"
+
 
 class MetaConfig(type):
-
-    BASE_LINE_EXPERIMENT_PLAN_FILEPATH = "./plans/base.yaml"
+    """`MetaConfig` is a generic configuration class that offers `params`
+    dictionary of all configurations and `load_plan` for loading configurations
+    from a yaml file.
+    """
 
     @property
-    def params(self):
+    def params(cls):
+        """Returns a dictionary of the configuration parameters."""
         # Lazy initialization with base-line configurations
-        if getattr(self, "_params", None) is None:
-            with open(MetaConfig.BASE_LINE_EXPERIMENT_PLAN_FILEPATH) as f:
-                    self._params = yaml.load(f)
-        return self._params
+        if getattr(cls, "_params", None) is None:
+            with open(MetaConfig.BASE_LINE_EXPERIMENT_PLAN_FILEPATH) as fout:
+                cls._params = yaml.load(fout)
+        return cls._params
 
-    def load_plan(self, config_filepath):
-        with open(config_filepath) as f:
-            new_params = yaml.load(f)
-            update_dict(self.params, new_params)
+    def load_plan(cls, config_filepath):
+        """Loads a plan from file."""
+        with open(config_filepath) as fout:
+            new_params = yaml.load(fout)
+            update_dict(cls.params, new_params)
 
 
 class Config(metaclass=MetaConfig):
+    """`Config` extends `MetaConfig` by adding constant variables that used by
+    the simulation.
+    """
 
     LOG_FORMAT = "[%(name)s.%(funcName)s:%(lineno)d] %(message)s"
     DATA_ROOT_DIR_PATH = "./data/%s/build/"

@@ -139,7 +139,7 @@ class Simulation:
         schedule = self.scheduler.schedule(self)
         self.airport.apply_schedule(schedule)
         if not Config.params["simulator"]["test_mode"]:
-            self.analyst.observe_on_reschedule(schedule, self)
+            self.analyst.observe_on_reschedule(self)
 
     @property
     def now(self):

@@ -40,7 +40,7 @@ class Surface:
 
         # Loads all_nodes from cache if exists
         if cache_enabled:
-            hash_key = cache.hash([], self.nodes)
+            hash_key = cache.get_hash([], self.nodes)
             cached = cache.get(hash_key)
             if cached:
                 self.runways, self.taxiways, self.pushback_ways = cached
