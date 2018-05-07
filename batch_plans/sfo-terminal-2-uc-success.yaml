@@ -11,7 +11,7 @@ airport: sfo-terminal-2
 batch: uncertainty.prob_hold
 
 simulator:
-  times: 3
+  times: 1
   try_until_success: true
 
 simulation:
@@ -19,7 +19,7 @@ simulation:
 
 uncertainty:
   enabled: true
-  prob_hold: 0:0.8:0.1
+  prob_hold: 0:0.301:0.05
 
 scheduler:
   name: deterministic_scheduler
