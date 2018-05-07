@@ -19,7 +19,7 @@ class MetaConfig(type):
         """Returns a dictionary of the configuration parameters."""
         # Lazy initialization with base-line configurations
         if getattr(cls, "_params", None) is None:
-            with open(MetaConfig.BASE_LINE_EXPERIMENT_PLAN_FILEPATH) as fout:
+            with open(BASE_LINE_EXPERIMENT_PLAN_FILEPATH) as fout:
                 cls._params = yaml.load(fout)
         return cls._params
 

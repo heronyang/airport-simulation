@@ -47,7 +47,6 @@ class Aircraft:
 
     def set_itinerary(self, itinerary):
         """Sets the itinerary of this aircraft."""
-
         self.itinerary = itinerary
         self.logger.debug("%s: Roger, %s received.", self, itinerary)
 

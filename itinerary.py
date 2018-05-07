@@ -28,10 +28,11 @@ class Itinerary:
         self.targets.insert(self.index, self.targets[self.index])
         return self.targets[self.index]
 
-    def add_uncertainty_delay(self):
-        self.__update_delayed_index(self.index)
-        self.uncertainty_delayed_index.append(self.index)
-        return self.__add_delay()
+    def add_uncertainty_delay(self, n=1):
+        for _ in range(n):
+            self.__update_delayed_index(self.index)
+            self.uncertainty_delayed_index.append(self.index)
+            self.__add_delay()
 
     def add_scheduler_delay(self):
         self.__update_delayed_index(self.index)
@@ -67,6 +68,10 @@ class Itinerary:
         return (self.index - 1) in self.uncertainty_delayed_index
 
     @property
+    def is_delayed_by_uncertainty_now(self):
+        return self.index in self.uncertainty_delayed_index
+
+    @property
     def is_delayed_by_scheduler(self):
         if self.next_target is None or self.index <= 0:
             return False
@@ -99,6 +104,11 @@ class Itinerary:
     @property
     def n_uncertainty_delay(self):
         return len(self.uncertainty_delayed_index)
+
+    @property
+    def n_future_uncertainty_delay(self):
+        return len([i for i in self.uncertainty_delayed_index
+                    if i >= self.index])
 
     def __repr__(self):
         return "<Itinerary: %d target>" % len(self.targets)
