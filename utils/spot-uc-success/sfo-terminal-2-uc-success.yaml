@@ -1,0 +1,24 @@
+---
+# Uncertainty Experiment
+# (Trying Until Success)
+
+name: sfo-terminal-2-uc-success
+airport: sfo-terminal-2
+batch: uncertainty.prob_hold
+
+simulator:
+  times: 10
+  try_until_success: true
+
+simulation:
+  reschedule_cycle: 30
+
+uncertainty:
+  enabled: true
+  prob_hold: 0:0.301:0.05
+
+scheduler:
+  name: deterministic_scheduler
+
+logger:
+  level: error
