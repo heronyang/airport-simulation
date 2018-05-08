@@ -3,7 +3,7 @@
 import pylab
 import pandas as pd
 
-ROOT_DIR = "../batch_output/sfo-terminal-2-uc-failed/"
+ROOT_DIR = "../batch_output/sfo-terminal-2-uc-success/"
 METRICS_CSV = ROOT_DIR + "metrics.csv"
 FAILED_CSV = ROOT_DIR + "logs.csv"
 # INDEX = "simulation.reschedule_cycle"
