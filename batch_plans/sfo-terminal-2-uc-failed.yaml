@@ -1,10 +1,6 @@
 ---
-# Uncertainty Experiment (Not Trying Until Success)
-#
-# Scenario
-# - TIGHTNESS_TIME_MEAN = 90
-# - TIGHTNESS_TIME_DEVIATION = 30
-# - END_TIME = 9 * 60 * 60
+# Uncertainty Experiment
+# (Not Trying Until Success)
 
 name: sfo-terminal-2-uc-failed
 airport: sfo-terminal-2
@@ -15,11 +11,11 @@ simulator:
   try_until_success: false
 
 simulation:
-  reschedule_cycle: 90
+  reschedule_cycle: 60
 
 uncertainty:
   enabled: true
-  prob_hold: 0:0.101:0.01
+  prob_hold: 0:0.0101:0.001
 
 scheduler:
   name: deterministic_scheduler

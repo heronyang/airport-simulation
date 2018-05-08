@@ -1,10 +1,6 @@
 ---
-# Uncertainty Experiment (Trying Until Success)
-#
-# Scenario
-# - TIGHTNESS_TIME_MEAN = 90
-# - TIGHTNESS_TIME_DEVIATION = 30
-# - END_TIME = 9 * 60 * 60
+# Uncertainty Experiment
+# (Trying Until Success)
 
 name: sfo-terminal-2-uc-success
 airport: sfo-terminal-2
