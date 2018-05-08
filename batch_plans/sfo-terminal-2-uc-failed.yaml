@@ -15,7 +15,7 @@ simulation:
 
 uncertainty:
   enabled: true
-  prob_hold: 0:0.0101:0.001
+  prob_hold: 0:0.0501:0.005
 
 scheduler:
   name: deterministic_scheduler
