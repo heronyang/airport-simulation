@@ -2,6 +2,8 @@
 
 [![Build Status](https://travis-ci.org/heronyang/airport-simulation.svg?branch=master)](https://travis-ci.org/heronyang/airport-simulation)
 
+![Demo](doc/independent-study/figure/demo.gif)
+
 ## About
 
 ASSET2 is a generic airport simulation tool for research purpose. It is designed to support multiple airports, to test and to evaulate customized schedulers.
