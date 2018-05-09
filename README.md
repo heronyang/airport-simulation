@@ -73,6 +73,10 @@ project folder.
 
 ## Developer Guidelines
 
+### Sequential Diagram
+
+![](doc/independent-study/figure/flow.png)
+
 ### Experiment Flow
 
 The following steps are suggested for lauching an successful experiment
