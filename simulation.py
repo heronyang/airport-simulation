@@ -20,11 +20,11 @@ from config import Config
 from state_logger import StateLogger
 
 
-"""Simulation, representing a simulation day, holds both static and dynamic
-states of the current airport, and implements `tick()` functions for the caller
-to simulation to the next state.
-"""
 class Simulation:
+    """Simulation, representing a simulation day, holds both static and dynamic
+    states of the current airport, and implements `tick()` functions for the
+    caller to simulation to the next state.
+    """
 
     def __init__(self):
 

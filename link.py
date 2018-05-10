@@ -1,17 +1,20 @@
+"""Class file for `Link`."""
 from config import Config
-from node import Node
-from utils import str2sha1, interpolate_geo
+from utils import str2sha1
 from id_generator import get_new_link_id
 
 
 class Link:
+    """`Link` is one of the most important class in our link-node model which
+    is represent a link composed by a list of nodes.
+    """
 
     def __init__(self, name, nodes):
 
         if len(nodes) < 2:
             raise Exception("Less than two nodes were given")
 
-        if name is None or len(name) == 0:
+        if name is None or not name:
             name = "l-id-" + str(get_new_link_id())
 
         self.name = name
@@ -20,6 +23,7 @@ class Link:
 
     @property
     def length(self):
+        """Returns the physical length of this link in feets."""
         length = 0.0
         for i in range(1, len(self.nodes)):
             from_node = self.nodes[i - 1]
@@ -29,35 +33,28 @@ class Link:
 
     @property
     def start(self):
+        """Returns the start node of this link."""
         return self.nodes[0]
 
     @property
     def end(self):
+        """Returns the end node of this link."""
         return self.nodes[len(self.nodes) - 1]
 
     @property
     def reverse(self):
-        """
-        Reverses the node orders, which means the start and end are switched.
+        """Reverses the node orders, which means the start and end are switched.
         """
         return Link(self.name, self.nodes[::-1])
 
-    def get_node_from_start(self, distance):
-
-        if distance >= self.length:
-            # Queried distance is longer than the link
-            return self.end
-
-        ratio = distance / self.length
-        geo_pos = interpolate_geo(self.start, self.end, ratio)
-        return Node(0, "LINK-INTERMEDIATE-POINT", geo_pos)
-
     def contains_node(self, node):
+        """Returns true if this link contains a given `node`."""
         if self.start.is_close_to(node) or self.end.is_close_to(node):
             return False
         return self.contains_node_at(node) is not None
 
     def contains_node_at(self, node):
+        """Returns the index of the given node in this link."""
 
         for i in range(len(self.nodes) - 1):
             src, dst = self.nodes[i], self.nodes[i + 1]
@@ -66,20 +63,25 @@ class Link:
 
         return None
 
-    def contains_node_on_segment(self, src, dst, node):
+    @classmethod
+    def contains_node_on_segment(cls, src, dst, node):
+        """Returns true of a given node in contained by this link between `src`
+        and `dst`.
+        """
 
         threshold = Config.params["simulation"]["close_node_link_threshold"]
         return (src.get_distance_to(node) + dst.get_distance_to(node) -
                 src.get_distance_to(dst)) < threshold
 
     def break_at(self, node):
+        """Breaks this link into two links at a given `node`. An expection is
+        raised if the node isn't be contained by this link.
+        """
 
         if not self.contains_node(node):
             raise Exception("%s is not on %s" % (node, self))
-            return
 
-        if self.start.is_close_to(node) or \
-           self.end.is_close_to(node):
+        if self.start.is_close_to(node) or self.end.is_close_to(node):
             return [self]
 
         marker = self.contains_node_at(node)
@@ -105,7 +107,7 @@ class Link:
         return self.hash == other.hash
 
     def __ne__(self, other):
-        return not(self == other)
+        return not self == other
 
     def __repr__(self):
         return "<Link: " + self.name + ">"

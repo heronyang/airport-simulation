@@ -1,18 +1,27 @@
+"""`Flight` is extended by `ArrivalFlight` and `DepartureFlight` to cover all
+posible flight that is planned before the simulation started.
+"""
 from aircraft import Aircraft, State
 
 
 class Flight:
+    """`Flight` is the parent class for the `ArrivalFlight` and
+    `DepartureFlight`.
+    """
 
-    def __init__(self):
-        self.aircraft = None
+    def __init__(self, aircraft):
+        self.aircraft = aircraft
 
 
 class ArrivalFlight(Flight):
+    """`ArrivalFlight` represents an arrival flight where its expected arrival
+    time, runway, spot position, and gate are assigned.
+    """
 
     def __init__(self, callsign, model, from_airport, to_gate,
                  spot, runway, arrival_time, appear_time):
 
-        self.aircraft = Aircraft(callsign, model, None, State.flying)
+        super().__init__(Aircraft(callsign, model, None, State.flying))
         self.from_airport = from_airport
         self.to_gate = to_gate
         self.spot = spot
@@ -26,10 +35,13 @@ class ArrivalFlight(Flight):
 
 
 class DepartureFlight(Flight):
+    """`DepartureFlight` represents a depature flight where its expected
+    departure time, gate, spot position, and runway are assigned.
+    """
 
     def __init__(self, callsign, model, to_airport, from_gate,
                  spot, runway, departure_time, appear_time):
-        self.aircraft = Aircraft(callsign, model, None, State.stop)
+        super().__init__(Aircraft(callsign, model, None, State.stop))
         self.to_airport = to_airport
         self.from_gate = from_gate
         self.spot = spot
