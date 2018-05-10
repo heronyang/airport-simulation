@@ -7,9 +7,9 @@ const FLIGT_HOLD_ICON_URL = "/image/flight-hold.png";
 const GATE_ICON_URL = "http://maps.google.com/mapfiles/ms/icons/blue-dot.png";
 const SPOT_ICON_URL = "http://maps.google.com/mapfiles/ms/icons/green-dot.png";
 
-const PUSHBACK_WAY_COLOR = "#0000FF";   // blue
-const TAXIWAY_COLOR = "#00FF00";    // green
-const RUNWAY_COLOR = "#FF0000";    // red
+const PUSHBACK_WAY_COLOR = "#3F88C5";   // blue
+const TAXIWAY_COLOR = "#136F63";    // green
+const RUNWAY_COLOR = "#D00000";    // red
 
 const ZOOM_GLOBAL = 2;
 const ZOOM_AIRPORT = 17;

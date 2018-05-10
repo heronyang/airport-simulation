@@ -6,8 +6,8 @@ simulator:
   scenario_regeneration: false
 
 simulation:
-  reschedule_cycle: 150
+  reschedule_cycle: 30
 
 uncertainty:
   enabled: true
-  prob_hold: 0.08
+  prob_hold: 0.3

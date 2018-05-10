@@ -37,13 +37,19 @@ uncertainty:
   # Enable or disable the uncertain in simulation
   enabled: false
   # Probability of an aircraft holds at node unexpectedly (depends on time_unit)
-  prob_hold: 0.2
+  prob_hold: 0.05
+  # Number of ticks of each delay added
+  ticks_hold: 5
+  # Enable or disable uncertainty at gate
+  at_gate: false
+  # Enable or disable uncertainty at spot position
+  at_spot: true
+  # Enable or disable uncertainty at runway start
+  at_runway: false
 
 scheduler:
   # Name of the scheduler file under the `scheduler` folder
   name: deterministic_scheduler
-  # Velocity of an moving aircraft used for distance calculation (ft/sec)
-  aircraft_velocity: 5
   # Maximum number of attempts on trying to resolve a conflict
   max_resolve_conflict_attempt: 10
 

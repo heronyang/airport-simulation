@@ -1,9 +1,8 @@
-from link import Link
+"""Class file for `Route`."""
 
 
 class Route:
-    """
-    Route represents a long path composed with a start node, an end node, and
+    """Route represents a long path composed with a start node, an end node, and
     the links in between. A route can be imcompleted (start and end nodes are
     set but the links are being added incrementally), and we can call
     `is_completed` function to see if this route is connected from start to
@@ -21,10 +20,13 @@ class Route:
         self.__nodes = []   # nodes are calculated lazily
 
     def update_link(self, link):
+        """Clears all the states stored and update the route with a given link.
+        """
         self.reset_links()
         self.__add_link(link)
 
     def add_links(self, links):
+        """Adds a list of links in this route."""
         for link in links:
             self.__add_link(link)
 
@@ -33,27 +35,17 @@ class Route:
         last_node = self.last_attempted_node
 
         # If the last_node is not the same as the start of the new link, raise
-        # exception
+        # an exception
         if not last_node.is_close_to(link.start):
             raise Exception("New link start node doesn't match with the "
                             "last node")
         self.links.append(link)
-        self.reset_cache()
-
-    def prepend(self, node):
-        if node == self.start:
-            return
-        link = Link("PREPEND_LINK", [node, self.start])
-        self.links.insert(0, link)
-        self.start = node
-        self.reset_cache()
+        self.__reset_cache()
 
     @property
     def nodes(self):
-        """
-        Returns all nodes among this route.
-        """
-        if len(self.__nodes) > 0:
+        """Returns all nodes among this route."""
+        if self.__nodes:
             return self.__nodes
 
         nodes = [self.start]
@@ -64,22 +56,20 @@ class Route:
         self.__nodes = nodes
         return self.__nodes
 
-    """
-    Gets the last node that we can reach from the start node. Returns None if
-    there's no link in this route.
-    """
     @property
     def last_attempted_node(self):
-        if len(self.links) == 0:
+        """Returns the last node that we can reach from the start node. Returns
+        None if there's no link in this route.
+        """
+        if not self.links:
             return self.start
         return self.links[len(self.links) - 1].end
 
-    """
-    Returns true if the whole route is connected properly with different links
-    from start to end.
-    """
     @property
     def is_completed(self):
+        """ Returns true if the whole route is connected properly with
+        different links from start to end.
+        """
 
         if self.__is_completed:
             return self.__is_completed
@@ -108,12 +98,11 @@ class Route:
 
         return end_of_prev_link.is_close_to(self.end)
 
-    """
-    Gets the whole distance of this route, raises exception if the route is not
-    completed yet.
-    """
     @property
     def distance(self):
+        """Gets the whole distance of this route, raises exception if the
+        route is not completed yet.
+        """
         if self.__distance:
             return self.__distance
         self.__distance = self.__get_distance()
@@ -127,14 +116,12 @@ class Route:
             distance += link.length
         return distance
 
-    """
-    Removes all the stored links.
-    """
     def reset_links(self):
+        """Removes all the stored links."""
         self.links = []
-        self.reset_cache()
+        self.__reset_cache()
 
-    def reset_cache(self):
+    def __reset_cache(self):
         self.__distance = None
         self.__is_completed = None
         self.__nodes = []
@@ -144,8 +131,9 @@ class Route:
 
     @property
     def description(self):
-        s = "distance: %f\n" % self.distance
+        """Returns a description of this route."""
+        des = "distance: %f\n" % self.distance
         for link in self.links:
-            s += "> link: %s to %s, distance: %f\n" % \
+            des += "> link: %s to %s, distance: %f\n" % \
                     (link.start, link.end, link.length)
-        return s
+        return des

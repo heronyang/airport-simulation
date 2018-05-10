@@ -3,8 +3,8 @@
 from node import Node
 from link import Link
 from routing_expert import RoutingExpert
-from airport import AirportFactory
-from scenario import ScenarioFactory
+from airport import Airport
+from scenario import Scenario
 
 import sys
 import unittest
@@ -67,10 +67,10 @@ class TestRoutingExpert(unittest.TestCase):
         airport_code = "simple"
 
         # Sets up the airport
-        self.airport = AirportFactory.create(airport_code)
+        self.airport = Airport.create(airport_code)
 
         # Sets up the scenario
-        self.scenario = ScenarioFactory.create(airport_code,
+        self.scenario = Scenario.create(airport_code,
                                                self.airport.surface)
 
         links = self.airport.surface.links
@@ -90,10 +90,10 @@ class TestRoutingExpert(unittest.TestCase):
         airport_code = "sfo-terminal-2"
 
         # Sets up the airport
-        self.airport = AirportFactory.create(airport_code)
+        self.airport = Airport.create(airport_code)
 
         # Sets up the scenario
-        self.scenario = ScenarioFactory.create(airport_code,
+        self.scenario = Scenario.create(airport_code,
                                                self.airport.surface)
 
         links = self.airport.surface.links
@@ -116,10 +116,10 @@ class TestRoutingExpert(unittest.TestCase):
         airport_code = "sfo-terminal-2"
 
         # Sets up the airport
-        self.airport = AirportFactory.create(airport_code)
+        self.airport = Airport.create(airport_code)
 
         # Sets up the scenario
-        self.scenario = ScenarioFactory.create(airport_code,
+        self.scenario = Scenario.create(airport_code,
                                                self.airport.surface)
 
         links = self.airport.surface.links
@@ -142,10 +142,10 @@ class TestRoutingExpert(unittest.TestCase):
         airport_code = "sfo-terminal-2"
 
         # Sets up the airport
-        self.airport = AirportFactory.create(airport_code)
+        self.airport = Airport.create(airport_code)
 
         # Sets up the scenario
-        self.scenario = ScenarioFactory.create(airport_code,
+        self.scenario = Scenario.create(airport_code,
                                                self.airport.surface)
 
         links = self.airport.surface.links

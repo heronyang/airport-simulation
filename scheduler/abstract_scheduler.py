@@ -1,3 +1,4 @@
+"""Class file for the deterministic `AbstractScheduler`."""
 import logging
 
 from copy import deepcopy
@@ -5,28 +6,37 @@ from itinerary import Itinerary
 
 
 class AbstractScheduler:
+    """Parent class for different schedulers to extend."""
 
     def __init__(self):
         self.logger = logging.getLogger(__name__)
 
     def schedule(self, simulation):
+        """Schedule the aircraft within a simulation."""
         raise NotImplementedError("Schedule function should be overrided.")
 
-    def schedule_aircraft(self, aircraft, simulation):
+    @classmethod
+    def schedule_aircraft(cls, aircraft, simulation):
+        """Schedule a single aircraft."""
 
         # Retrieves the route from the routing export
-        # NOTE: At the time an aircraft appears is the planned departure time,
-        # so we don't have to add delays at gate for waiting until depature.
         flight = simulation.scenario.get_flight(aircraft)
         src, dst = aircraft.location, flight.runway.start
         route = simulation.routing_expert.get_shortest_route(src, dst)
 
-        return Itinerary(deepcopy(route.nodes))
+        itinerary = Itinerary(deepcopy(route.nodes))
+
+        # Aggregates the uncertainty delay in previous itinerary if found
+        if aircraft.itinerary:
+            n_uncertainty_delay = aircraft.itinerary.n_future_uncertainty_delay
+            itinerary.add_uncertainty_delay(n_uncertainty_delay)
+
+        return itinerary
 
     def __getstate__(self):
-        d = dict(self.__dict__)
-        del d["logger"]
-        return d
+        attrs = dict(self.__dict__)
+        del attrs["logger"]
+        return attrs
 
-    def __setstate__(self, d):
-        self.__dict__.update(d)
+    def __setstate__(self, attrs):
+        self.__dict__.update(attrs)

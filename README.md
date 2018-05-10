@@ -2,9 +2,15 @@
 
 [![Build Status](https://travis-ci.org/heronyang/airport-simulation.svg?branch=master)](https://travis-ci.org/heronyang/airport-simulation)
 
+![Demo](doc/independent-study/figure/demo.gif)
+
 ## About
 
-ASSET2 is built for Carnegie Mellon University MSIT Practicum Project, "NASA: Optimization of Airport Surface Planning and Scheduling" in 2017 Fall semester. The team is formed by CMU students and sponsored by NASA Ames Research Center. Please check out following materials for more information.
+ASSET2 is a generic airport simulation tool for research purpose. It is designed to support multiple airports, to test and to evaulate customized schedulers.
+
+> This tool is built for Carnegie Mellon University MSIT Practicum Project and Master Independent Study sponsored by the NASA Ames Research Center.
+
+Please check out following materials for more information.
 
 - [Video](https://www.youtube.com/watch?v=zpHWQc2RBQ0)
 - [Slides](doc/practicum/report/slides.pdf)
@@ -32,36 +38,46 @@ Install dependencies:
 
     $ python3 simulator.py -f plans/base.yaml
 
-## Batch Run
+### Batch Run
 
     $ python3 simulator.py -f batch_plans/simple-uc.yaml
 
-## Run Tests
+### Execution under Virtual Environtment
+
+If you don't want to install the dependencies for the whole system, you may
+want to use the virtual environment where we install dependencies under this
+project folder.
+
+    $ python3 -m venv env # create a new virtual environment
+    $ source env/bin/activate # activate the virtual environment
+    $ python3 -m pip -r install requirements.txt # install dependencies locally
+    $ python3 simulator.py -f plans/base.yaml # execute the simulation
+
+## Tests
 
     $ python3 -m unittest discover tests    # all tests
     $ python3 -m unittest tests/test_scheduler.py   # single test
 
-## Check Style
+### Check Style
 
     $ pycodestyle --show-pep8 --show-source .
-    $ find . -iname "*.py" | xargs pylint    # haven't implemented
+    $ ls -1 *py scheduler/*py | xargs pylint # optional but recommended
 
 ## Visiualization
 
-    $ ./visualization/server.py
+    $ python3 visualization/server.py
 
 ## Documentation
 
     $ pydoc <python-file-name-without-.py>
 
-## Virtual Env Execution
+## Developer Guidelines
 
-    $ python3.6 -m venv env
-    $ source env/bin/activate
-    $ python3.6 -m pip -r requirements.txt
-    $ python3.6 simulator.py -f plans/base.yaml
+### Sequential Diagram
 
-## Experiment Flow
+![sequential diagram](doc/independent-study/figure/flow.png)
+
+### Experiment Flow
 
 The following steps are suggested for lauching an successful experiment
 systematically.
@@ -70,13 +86,17 @@ systematically.
    value of the experimental variable and (b) the execution time for a single
    run.
 
+    ```
     $ time ./simulator.py -f plans/<upper-bound-to-try>.yaml
+    ```
 
 2. Use the visualization tool on the single plans you launched in step one to
    see if things are working as expected. For example, you should check if the
    aircrafts are busy enough in order to retrieve a meaningful plot.
 
+   ```
     $ ./visualiztion/server.py
+   ```
 
 3. By using the execution time and upper bound information we collected from
    the previous steps we can then lanuch a batch run with
@@ -86,8 +106,6 @@ systematically.
 4. By using the execution time and failure rate information from the previous
    steps, we can then launch a batch run with `try_until_success: True` to
    obtain meaningful final results.
-
-## Developer Guidelines
 
 ### Style
 
@@ -139,5 +157,5 @@ slow code. Add `@profile` decorator at the beginning of the function you want to
 profile, then do following commands to obtain a report of the execution time of
 each line within the function.
 
-    $ kernprof -l ./simulator -f <my-plan>.yaml
-    $ python -m line_profiler simulator.py.lprof
+    $ kernprof -l ./simulator -f <your_plan>.yaml
+    $ python3 -m line_profiler simulator.py.lprof

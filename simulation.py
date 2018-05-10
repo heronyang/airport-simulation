@@ -10,8 +10,8 @@ import importlib
 
 from copy import deepcopy
 from clock import Clock, ClockException
-from airport import AirportFactory
-from scenario import ScenarioFactory
+from airport import Airport
+from scenario import Scenario
 from routing_expert import RoutingExpert
 from analyst import Analyst
 from utils import get_seconds_after
@@ -20,11 +20,11 @@ from config import Config
 from state_logger import StateLogger
 
 
-"""Simulation, representing a simulation day, holds both static and dynamic
-states of the current airport, and implements `tick()` functions for the caller
-to simulation to the next state.
-"""
 class Simulation:
+    """Simulation, representing a simulation day, holds both static and dynamic
+    states of the current airport, and implements `tick()` functions for the
+    caller to simulation to the next state.
+    """
 
     def __init__(self):
 
@@ -38,10 +38,10 @@ class Simulation:
 
         # Sets up the airport
         airport_name = params["airport"]
-        self.airport = AirportFactory.create(airport_name)
+        self.airport = Airport.create(airport_name)
 
         # Sets up the scenario
-        self.scenario = ScenarioFactory.create(
+        self.scenario = Scenario.create(
             airport_name, self.airport.surface)
 
         # Sets up the routing expert monitoring the airport surface
@@ -73,8 +73,9 @@ class Simulation:
         self.__print_stats()
 
     def tick(self):
+        """Moves the states of this simulation to the next state."""
 
-        self.logger.debug("\nCurrent Time: %s" % self.now)
+        self.logger.debug("\nCurrent Time: %s", self.now)
 
         try:
 
@@ -85,7 +86,7 @@ class Simulation:
                 self.__reschedule()
                 self.last_schedule_exec_time = time.time() - start  # seconds
                 self.last_schedule_time = self.now
-                self.logger.info("Last schedule time is updated to %s" %
+                self.logger.info("Last schedule time is updated to %s",
                                  self.last_schedule_time)
 
             # Adds aircrafts
@@ -120,7 +121,6 @@ class Simulation:
             # Finishes
             if not Config.params["simulator"]["test_mode"]:
                 self.analyst.save()
-                self.state_logger.save()
             raise error
         except SimulationException as error:
             raise error
@@ -139,12 +139,11 @@ class Simulation:
         schedule = self.scheduler.schedule(self)
         self.airport.apply_schedule(schedule)
         if not Config.params["simulator"]["test_mode"]:
-            self.analyst.observe_on_reschedule(schedule, self)
+            self.analyst.observe_on_reschedule(self)
 
     @property
     def now(self):
-        """Return the current time of the simulation.
-        """
+        """Return the current time of the simulation."""
         return self.clock.now
 
     def __print_stats(self):
@@ -172,9 +171,8 @@ class Simulation:
 
     @property
     def copy(self):
-        """Obtains a immutable copy of this simulation.
-        """
-        # TODO: If uncertainty is not None, call inject() in tick().
+        """Obtains a immutable copy of this simulation."""
+        # NOTE: If uncertainty is not None, call inject() in tick().
         return ClonedSimulation(self)
 
 
@@ -198,32 +196,35 @@ class ClonedSimulation():
         self.scenario.set_quiet(self.logger)
 
     def pre_tick(self):
+        """Adds aircrafts before a tick."""
         self.airport.add_aircrafts(self.scenario, self.now,
                                    self.clock.sim_time)
 
     def tick(self):
-        """Turn off the logger, reschedule, and analyst.
-        """
-        self.logger.debug("\nPredicted Time: %s" % self.now)
+        """Turn off the logger, reschedule, and analyst."""
+        self.logger.debug("\nPredicted Time: %s", self.now)
         self.airport.tick()
         try:
             self.clock.tick()
-        except ClockException as e:
-            raise e
+        except ClockException as error:
+            raise error
 
     def post_tick(self):
+        """Removes aircrafts after a tick."""
         self.airport.remove_aircrafts(self.scenario)
 
     @property
     def now(self):
+        """Returns simulated time of now."""
         return self.clock.now
 
 
 def get_scheduler():
-    # Loads the requested scheduler
+    """Loads the requested scheduler."""
     scheduler_name = Config.params["scheduler"]["name"]
     return importlib.import_module("scheduler." + scheduler_name).Scheduler()
 
 
 class SimulationException(Exception):
+    """Extends `Exception` for the simulation errors."""
     pass

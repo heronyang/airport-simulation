@@ -2,7 +2,7 @@
 
 import datetime
 from node import Node
-from airport import AirportFactory
+from airport import Airport
 from aircraft import Aircraft, State
 from config import Config
 
@@ -27,7 +27,7 @@ class TestAirport(unittest.TestCase):
     def test_conflicts(self):
 
         simulation = self.SimulationMock()
-        airport = AirportFactory.create("simple")
+        airport = Airport.create("simple")
 
         a1 = Aircraft("A1", None, self.n1, State.stop)
         a2 = Aircraft("A2", None, self.n1, State.stop)

@@ -1,3 +1,4 @@
+"""Class file for `StateLogger`."""
 import os
 import json
 import logging
@@ -5,6 +6,11 @@ from utils import get_output_dir_name
 
 
 class StateLogger:
+    """`StateLogger` logs the airport states in each tick, parses them into a
+    generic file format (JSON) and will be used for visualization. The logs are
+    saved to file on the fly; therefore, the logs are still valid even the
+    simulation are terminated early.
+    """
 
     def __init__(self):
 
@@ -17,23 +23,24 @@ class StateLogger:
             pass
 
     def log_on_tick(self, simulation):
+        """Logs the simulation states on tick."""
 
         aircrafts = [
-            self.parse_aircraft(aircraft)
+            self.__parse_aircraft(aircraft)
             for aircraft in simulation.airport.aircrafts
         ]
 
         state = {
-            "time": self.parse_time(simulation.now),
+            "time": self.__parse_time(simulation.now),
             "aircrafts": aircrafts
         }
 
-        with open(self.output_filename, "a") as f:
-            f.write(json.dumps(state) + "\n")
+        with open(self.output_filename, "a") as fout:
+            fout.write(json.dumps(state) + "\n")
 
-    def parse_aircraft(self, aircraft):
+    def __parse_aircraft(self, aircraft):
 
-        itinerary = self.parse_itinerary(aircraft.itinerary)
+        itinerary = self.__parse_itinerary(aircraft.itinerary)
         itinerary_index = aircraft.itinerary.index if itinerary else None
 
         uc_delayed_index = aircraft.itinerary.uncertainty_delayed_index\
@@ -52,7 +59,8 @@ class StateLogger:
             "scheduler_delayed_index": sc_delayed_index
         }
 
-    def parse_itinerary(self, itinerary):
+    @classmethod
+    def __parse_itinerary(cls, itinerary):
         return [
             {
                 "node_name": target.name,
@@ -61,20 +69,19 @@ class StateLogger:
             for target in itinerary.targets
         ] if itinerary is not None else None
 
-    def parse_time(self, time):
+    @classmethod
+    def __parse_time(cls, time):
         return "%02d:%02d:%02d" % (time.hour, time.minute, time.second)
-
-    def save(self):
-        self.logger.info("States had been saved to %s" % self.output_filename)
 
     @property
     def output_filename(self):
+        """Gets the output filename of json file storing all the states."""
         return get_output_dir_name() + "states.json"
 
     def __getstate__(self):
-        d = dict(self.__dict__)
-        del d["logger"]
-        return d
+        attrs = dict(self.__dict__)
+        del attrs["logger"]
+        return attrs
 
-    def __setstate__(self, d):
-        self.__dict__.update(d)
+    def __setstate__(self, attrs):
+        self.__dict__.update(attrs)

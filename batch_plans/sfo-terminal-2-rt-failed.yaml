@@ -1,25 +1,21 @@
 ---
-# Reschedule Experiment (Not Trying Until Success)
-#
-# Scenario
-# - TIGHTNESS_TIME_MEAN = 90
-# - TIGHTNESS_TIME_DEVIATION = 30
-# - END_TIME = 9 * 60 * 60
+# Reschedule Time Experiment
+# (Not Trying Until Success)
 
 name: sfo-terminal-2-rt-failed
 airport: sfo-terminal-2-cloned
 batch: simulation.reschedule_cycle
 
 simulator:
-  times: 20
+  times: 30
   try_until_success: false
 
 simulation:
-  reschedule_cycle: 60:541:60
+  reschedule_cycle: 60:901:60
 
 uncertainty:
   enabled: true
-  prob_hold: 0.02
+  prob_hold: 0.01
 
 scheduler:
   name: deterministic_scheduler
