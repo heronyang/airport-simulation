@@ -1,3 +1,4 @@
+"""Class file for `Uncertainty`."""
 import random
 import logging
 from config import Config
@@ -5,12 +6,21 @@ from surface import Gate, Spot
 
 
 class Uncertainty:
+    """`Uncertainty` is the uncertainty module of the simulation while it's
+    used to inject uncertainty delays into a simulation.
+    """
 
     def __init__(self, prob_hold):
         self.logger = logging.getLogger(__name__)
         self.prob_hold = prob_hold
 
     def inject(self, simulation):
+        """Injects uncertainty to the given simulation. We iterate the active
+        aircrafts in the simulation, with `prob_hold` probability, we injects
+        an aircraft `ticks_hold` amount of delays if it's located at the
+        place(s) we specified. All the static parameters are specified in the
+        configuration of this simulation run.
+        """
 
         def __is_gate(aircraft):
             return (
@@ -34,7 +44,7 @@ class Uncertainty:
 
             # For each aircraft at Gate, there's a possibility it holds at the
             # node for some random amount of time.
-            if not self.happens_with_prob(self.prob_hold):
+            if not self.__happens_with_prob(self.prob_hold):
                 continue
 
             # If it's already be delayed, we don't inject delay again.
@@ -55,5 +65,6 @@ class Uncertainty:
                     aircraft.add_uncertainty_delay()
                 self.logger.info("%s added %d delay", aircraft, ticks_hold)
 
-    def happens_with_prob(self, prob):
+    @classmethod
+    def __happens_with_prob(cls, prob):
         return random.random() < prob

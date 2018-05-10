@@ -1,4 +1,8 @@
+"""Class file for `Scheduler`."""
+
+
 class Schedule:
+    """`Schedule` contains itineraries for each aircraft."""
 
     def __init__(self, itineraries, n_delay_added, n_unsolvable_conflicts):
         self.itineraries = itineraries

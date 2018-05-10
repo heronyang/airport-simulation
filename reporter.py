@@ -1,3 +1,6 @@
+"""Reporter provides helper functions for saving the final results of the batch
+simulation runs into csv files or plots.
+"""
 import os
 import shutil
 import json
@@ -8,6 +11,13 @@ from utils import get_batch_plan_name
 
 
 def save_batch_result(name, expr_var_name, expr_var_range, logs, times):
+    """Saves the batch result into files.
+    Parameters:
+        expr_var_name: the name of the experimental variable
+        expr_var_range: the value range of the experimental variable
+        logs: the number of failures stored in a dataframe
+        times: the number of sample per setting
+    """
 
     metrics_filename = "/metrics.json"
 
@@ -27,9 +37,9 @@ def save_batch_result(name, expr_var_name, expr_var_range, logs, times):
     metrics = metrics.groupby(metrics.index).mean()
 
     output_dir = cfg.BATCH_OUTPUT_DIR + name + "/"
-    setup_output_dir(output_dir)
-    save_metrics(metrics, output_dir)
-    save_logs(logs, times, output_dir)
+    __setup_output_dir(output_dir)
+    __save_metrics(metrics, output_dir)
+    __save_logs(logs, times, output_dir)
 
 
 def __get_blank_metrics(expr_var_name):
@@ -47,23 +57,23 @@ def __get_blank_metrics(expr_var_name):
 
 
 def __append_expr_output(filename, expr_var_name, expr_var, metrics):
-    with open(filename) as f:
-        d = json.load(f)
+    with open(filename) as fin:
+        table = json.load(fin)
         metrics = metrics.append({
             expr_var_name: expr_var,
-            "avg_active_aircrafts": d["avg_active_aircrafts"],
-            "conflicts": d["conflicts"],
-            "makespan": d["makespan"],
-            "avg_queue_size": d["avg_queue_size"],
-            "avg_reschedule_exec_time": d["avg_reschedule_exec_time"],
-            "n_delay": d["n_delay"],
-            "n_scheduler_delay": d["n_scheduler_delay"],
-            "n_uncertainty_delay": d["n_uncertainty_delay"]
+            "avg_active_aircrafts": table["avg_active_aircrafts"],
+            "conflicts": table["conflicts"],
+            "makespan": table["makespan"],
+            "avg_queue_size": table["avg_queue_size"],
+            "avg_reschedule_exec_time": table["avg_reschedule_exec_time"],
+            "n_delay": table["n_delay"],
+            "n_scheduler_delay": table["n_scheduler_delay"],
+            "n_uncertainty_delay": table["n_uncertainty_delay"]
         }, ignore_index=True)
     return metrics
 
 
-def save_metrics(metrics, output_dir):
+def __save_metrics(metrics, output_dir):
     metrics.to_csv(output_dir + "metrics.csv")
     for col in list(metrics):
         plt.clf()
@@ -75,7 +85,7 @@ def save_metrics(metrics, output_dir):
     plt.close('all')
 
 
-def setup_output_dir(output_dir):
+def __setup_output_dir(output_dir):
     # Removes the folder if it's already exists
     if os.path.exists(output_dir):
         shutil.rmtree(output_dir)
@@ -83,37 +93,39 @@ def setup_output_dir(output_dir):
     os.makedirs(output_dir)
 
 
-def save_logs(logs, times, output_dir):
+def __save_logs(logs, times, output_dir):
 
     if logs is None:
         print("Logs are empty")
         return
 
-    # Calculates the failture rate
-    d = logs.groupby(logs["expr_var"]).sum()
-    d["failure_rate"] = d["failed"] / times
+    # Calculates the failure rate
+    table = logs.groupby(logs["expr_var"]).sum()
+    table["failure_rate"] = table["failed"] / times
 
     # Saves to csv file
     logs.to_csv(output_dir + "logs.csv")
 
-    # Plot the logs df
+    # Plot the logs table
     plt.clf()
     plt.figure(figsize=cfg.OUTPUT_FIG_SIZE)
     filename = output_dir + "failure_rate.png"
-    d["failure_rate"].plot(kind="line")
+    table["failure_rate"].plot(kind="line")
     plt.tight_layout()
     plt.savefig(filename, dpi=cfg.OUTPUT_FIG_DPI)
     plt.close('all')
 
 
 def save_failed_num(name, expr_var, nth, failed):
-    filename = cfg.OUTPUT_DIR + get_batch_plan_name(name, expr_var, nth)\
-            + "/failed"
+    """Saves the number of failed simulation runs into a file."""
+    filename = cfg.OUTPUT_DIR +\
+        get_batch_plan_name(name, expr_var, nth) + "/failed"
     with open(filename, "w") as fout:
         fout.write(str(failed))
 
 
 def test():
+    """Test code for generating the report manually."""
     import numpy
     save_batch_result(
         "sfo-terminal-2-rt-xxl",

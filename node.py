@@ -15,7 +15,7 @@ class Node:
         if not is_valid_geo_pos(geo_pos):
             raise Exception("Invalid geo position")
 
-        if name is None or len(name) == 0:
+        if name is None or not name:
             name = "n-id-" + str(get_new_node_id())
 
         self.name = name

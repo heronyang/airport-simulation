@@ -1,3 +1,4 @@
+"""Class file for `Scenario`."""
 import os
 import json
 import logging
@@ -8,11 +9,10 @@ from config import Config
 
 
 class Scenario:
-    """
-    Scenario contains a list of arrival flights and a list of depature flights.
-    The flight information is designed for read-only and shall only be updated
-    when we decided to change delay some certain flights. It's like the
-    scenario we see on the screens in the airports.
+    """Scenario contains a list of arrival flights and a list of depature
+    flights.  The flight information is designed for read-only and shall only
+    be updated when we decided to change delay some certain flights. It's like
+    the scenario we see on the screens in the airports.
     """
 
     def __init__(self, arrivals, departures):
@@ -22,9 +22,9 @@ class Scenario:
 
         self.arrivals = arrivals
         self.departures = departures
-        self.build_lookup_table()
+        self.__build_lookup_table()
 
-    def build_lookup_table(self):
+    def __build_lookup_table(self):
         self.flight_table = {}
         for flight in self.arrivals + self.departures:
             self.flight_table[flight.aircraft] = flight
@@ -34,9 +34,11 @@ class Scenario:
         return "<Scenario: " + str(n_flights) + " flights>"
 
     def get_flight(self, aircraft):
+        """Gets a flight of a given aircraft."""
         return self.flight_table[aircraft]
 
     def print_stats(self):
+        """Prints the statistics of this scenario."""
 
         # Prints arrival flights
         self.logger.debug("Scenario: arrival flights loaded")
@@ -49,58 +51,59 @@ class Scenario:
             self.logger.debug(flight)
 
     def __getstate__(self):
-        d = dict(self.__dict__)
-        del d["logger"]
-        return d
+        atts = dict(self.__dict__)
+        del atts["logger"]
+        return atts
 
-    def __setstate__(self, d):
-        self.__dict__.update(d)
+    def __setstate__(self, atts):
+        self.__dict__.update(atts)
 
     def set_quiet(self, logger):
+        """Sets this object into quiet mode where less logs are printed."""
         self.logger = logger
         for flight in self.departures:
             flight.aircraft.set_quiet(logger)
 
-
-class ScenarioFactory:
-
     @classmethod
-    def create(self, name, surface):
+    def create(cls, name, surface):
+        """Generates a scenario using the gvien name of the airport and the
+        surface data.
+        """
 
         # Loads file if it exists; otherwise, raises error
         dir_path = Config.DATA_ROOT_DIR_PATH % name
         file_path = dir_path + "scenario.json"
         if not os.path.exists(file_path):
             raise Exception("Scenario file not found")
-        with open(dir_path + "scenario.json") as f:
-            scenario_raw = json.load(f)
+        with open(dir_path + "scenario.json") as fin:
+            scenario_raw = json.load(fin)
 
         # Parse arrival flights into the array
         arrivals = []
-        for af in scenario_raw["arrivals"]:
+        for arrival in scenario_raw["arrivals"]:
             arrivals.append(ArrivalFlight(
-                af["callsign"],
-                af["model"],
-                af["airport"],
-                surface.get_node(af["gate"]),
-                surface.get_node(af["spot"]),
-                surface.get_link(af["runway"]),
-                str2time(af["time"]),
-                str2time(af["appear_time"])
+                arrival["callsign"],
+                arrival["model"],
+                arrival["airport"],
+                surface.get_node(arrival["gate"]),
+                surface.get_node(arrival["spot"]),
+                surface.get_link(arrival["runway"]),
+                str2time(arrival["time"]),
+                str2time(arrival["appear_time"])
             ))
 
         # Parse departure flights into the array
         departures = []
-        for df in scenario_raw["departures"]:
+        for departure in scenario_raw["departures"]:
             departures.append(DepartureFlight(
-                df["callsign"],
-                df["model"],
-                df["airport"],
-                surface.get_node(df["gate"]),
-                surface.get_node(df["spot"]),
-                surface.get_link(df["runway"]),
-                str2time(df["time"]),
-                str2time(df["appear_time"])
+                departure["callsign"],
+                departure["model"],
+                departure["airport"],
+                surface.get_node(departure["gate"]),
+                surface.get_node(departure["spot"]),
+                surface.get_link(departure["runway"]),
+                str2time(departure["time"]),
+                str2time(departure["appear_time"])
             ))
 
         return Scenario(arrivals, departures)
