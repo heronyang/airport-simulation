@@ -1,4 +1,4 @@
-"""Class file for `Scheduler`."""
+"""Class file for `Schedule`."""
 
 
 class Schedule:

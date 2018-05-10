@@ -61,7 +61,7 @@ project folder.
 ### Check Style
 
     $ pycodestyle --show-pep8 --show-source .
-    $ find . -iname "*.py" | xargs pylint    # haven't implemented
+    $ ls -1 *py scheduler/*py | xargs pylint # optional but recommended
 
 ## Visiualization
 

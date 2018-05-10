@@ -22,7 +22,7 @@ def get(key):
     try:
         with open(CACHE_DIR + key + ".pkl", 'rb') as fout:
             return pickle.load(fout)
-    except Exception:
+    except FileNotFoundError:
         LOGGER.debug("No cache file found")
         return None
 

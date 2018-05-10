@@ -1,3 +1,4 @@
+"""Class file for the deterministic `AbstractScheduler`."""
 import logging
 
 from copy import deepcopy
@@ -5,14 +6,18 @@ from itinerary import Itinerary
 
 
 class AbstractScheduler:
+    """Parent class for different schedulers to extend."""
 
     def __init__(self):
         self.logger = logging.getLogger(__name__)
 
     def schedule(self, simulation):
+        """Schedule the aircraft within a simulation."""
         raise NotImplementedError("Schedule function should be overrided.")
 
-    def schedule_aircraft(self, aircraft, simulation):
+    @classmethod
+    def schedule_aircraft(cls, aircraft, simulation):
+        """Schedule a single aircraft."""
 
         # Retrieves the route from the routing export
         flight = simulation.scenario.get_flight(aircraft)
