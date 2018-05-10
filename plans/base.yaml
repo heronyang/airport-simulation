@@ -50,8 +50,6 @@ uncertainty:
 scheduler:
   # Name of the scheduler file under the `scheduler` folder
   name: deterministic_scheduler
-  # Velocity of an moving aircraft used for distance calculation (ft/sec)
-  aircraft_velocity: 5
   # Maximum number of attempts on trying to resolve a conflict
   max_resolve_conflict_attempt: 10
 

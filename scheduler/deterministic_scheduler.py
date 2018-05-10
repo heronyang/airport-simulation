@@ -154,7 +154,7 @@ class Scheduler(AbstractScheduler):
     def __get_conflict_to_solve(cls, conflicts, unsolvable_conflicts):
 
         while True:
-            if conflicts:
+            if not conflicts:
                 return None
             if conflicts[0] in unsolvable_conflicts:
                 conflicts = conflicts[1:]
