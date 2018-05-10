@@ -75,7 +75,7 @@ project folder.
 
 ### Sequential Diagram
 
-![](doc/independent-study/figure/flow.png)
+![sequential diagram](doc/independent-study/figure/flow.png)
 
 ### Experiment Flow
 
