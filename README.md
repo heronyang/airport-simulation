@@ -10,7 +10,7 @@ ASSET2 is a generic airport simulation tool for research purpose. It is designed
 
 > This tool is built for Carnegie Mellon University MSIT Practicum Project and Master Independent Study sponsored by the NASA Ames Research Center.
 
-Please check out [our paper]() for more information.
+Please check out [our paper](https://raw.githubusercontent.com/heronyang/airport-simulation/doc/analaysing-effect-uncertainty.pdf) for more information.
 
 ## Prepare airport data
 
