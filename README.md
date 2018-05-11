@@ -6,11 +6,9 @@
 
 ## About
 
-ASSET2 is a generic airport simulation tool for research purpose. It is designed to support multiple airports, to test and to evaulate customized schedulers.
+ASSET2 is a generic airport simulation tool for research purpose. It is designed to support multiple airports, to test and to evaulate customized schedulers. Please check out [our paper](https://github.com/heronyang/airport-simulation/raw/master/doc/analaysing-effect-uncertainty.pdf) for more information.
 
 > This tool is built for Carnegie Mellon University MSIT Practicum Project and Master Independent Study sponsored by the NASA Ames Research Center.
-
-Please check out [our paper](https://raw.githubusercontent.com/heronyang/airport-simulation/doc/analaysing-effect-uncertainty.pdf) for more information.
 
 ## Prepare airport data
 
