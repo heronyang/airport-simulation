@@ -4,6 +4,7 @@ simulation runs into csv files or plots.
 import os
 import shutil
 import json
+import pylab
 import pandas as pd
 import matplotlib.pyplot as plt
 from config import Config as cfg
@@ -39,7 +40,7 @@ def save_batch_result(name, expr_var_name, expr_var_range, logs, times):
     output_dir = cfg.BATCH_OUTPUT_DIR + name + "/"
     __setup_output_dir(output_dir)
     __save_metrics(metrics, output_dir)
-    __save_logs(logs, times, output_dir)
+    __save_logs(logs, output_dir)
 
 
 def __get_blank_metrics(expr_var_name):
@@ -73,7 +74,7 @@ def __append_expr_output(filename, expr_var_name, expr_var, metrics):
     return metrics
 
 
-def __save_metrics(metrics, output_dir):
+def __save_metrics_bk(metrics, output_dir):
     metrics.to_csv(output_dir + "metrics.csv")
     for col in list(metrics):
         plt.clf()
@@ -85,6 +86,36 @@ def __save_metrics(metrics, output_dir):
     plt.close('all')
 
 
+def __save_metrics(metrics, output_dir):
+
+    # Saves to a CSV file
+    metrics.to_csv(output_dir + "metrics.csv")
+
+    # Saves plots
+
+    # Plot delay
+    pylab.plot(metrics["n_delay"], '-.', label="Total Delay")
+    pylab.plot(metrics["n_scheduler_delay"], '--', label="Scheduler Delay")
+    pylab.plot(metrics["n_uncertainty_delay"], ':',
+               label="Uncertainty Delay")
+    pylab.legend()
+    pylab.savefig(output_dir + "delay.png")
+    pylab.clf()
+
+    # Plot queue size
+    pylab.plot(metrics["avg_queue_size"], '-', label="Queue Size")
+    pylab.legend()
+    pylab.savefig(output_dir + "queue_size.png")
+    pylab.clf()
+
+    # Plot schedule execution time
+    pylab.plot(metrics["avg_reschedule_exec_time"], '-',
+               label="Schedule Execution Time")
+    pylab.legend()
+    pylab.savefig(output_dir + "schedule_exec_time.png")
+    pylab.clf()
+
+
 def __setup_output_dir(output_dir):
     # Removes the folder if it's already exists
     if os.path.exists(output_dir):
@@ -93,27 +124,23 @@ def __setup_output_dir(output_dir):
     os.makedirs(output_dir)
 
 
-def __save_logs(logs, times, output_dir):
+def __save_logs(logs, output_dir):
 
     if logs is None:
         print("Logs are empty")
         return
 
-    # Calculates the failure rate
-    table = logs.groupby(logs["expr_var"]).sum()
-    table["failure_rate"] = table["failed"] / times
-
     # Saves to csv file
     logs.to_csv(output_dir + "logs.csv")
 
-    # Plot the logs table
-    plt.clf()
-    plt.figure(figsize=cfg.OUTPUT_FIG_SIZE)
-    filename = output_dir + "failure_rate.png"
-    table["failure_rate"].plot(kind="line")
-    plt.tight_layout()
-    plt.savefig(filename, dpi=cfg.OUTPUT_FIG_DPI)
-    plt.close('all')
+    # Saves the plot
+    failed = logs[["expr_var", "failed"]]
+    failed_mean_count = failed.groupby("expr_var").agg(["mean", "count"])
+    pylab.plot(failed_mean_count["failed"]["mean"], "-", label="Portion of the"
+               + " early-terminated simulations")
+    pylab.legend()
+    pylab.savefig(output_dir + "failure.png")
+    pylab.clf()
 
 
 def save_failed_num(name, expr_var, nth, failed):
@@ -122,26 +149,3 @@ def save_failed_num(name, expr_var, nth, failed):
         get_batch_plan_name(name, expr_var, nth) + "/failed"
     with open(filename, "w") as fout:
         fout.write(str(failed))
-
-
-def test():
-    """Test code for generating the report manually."""
-    import numpy
-    save_batch_result(
-        "sfo-terminal-2-rt-xxl",
-        "simulation.reschedule_cycle",
-        numpy.arange(120.0, 781.0, 60.0),
-        None,
-        30
-    )
-    save_batch_result(
-        "sfo-terminal-2-uc-xxl",
-        "uncertainty.prob_hold",
-        numpy.arange(0.0, 0.081, 0.01),
-        None,
-        30
-    )
-
-
-if __name__ == "__main__":
-    test()
