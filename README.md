@@ -10,16 +10,11 @@ ASSET2 is a generic airport simulation tool for research purpose. It is designed
 
 > This tool is built for Carnegie Mellon University MSIT Practicum Project and Master Independent Study sponsored by the NASA Ames Research Center.
 
-Please check out following materials for more information.
-
-- [Video](https://www.youtube.com/watch?v=zpHWQc2RBQ0)
-- [Slides](doc/practicum/report/slides.pdf)
-- [One Pager](doc/practicum/report/one-pager.pdf), [Paper report](doc/practicum/report/report.pdf)
+Please check out [our paper]() for more information.
 
 ## Prepare airport data
 
-Place airport related data under `data` folder like `data/sfo/build/` (use IATA
-airport code).
+Place airport related data under `data` folder like `data/sfo-terminal-2/build/` (use IATA airport code).
 
 ## Install
 

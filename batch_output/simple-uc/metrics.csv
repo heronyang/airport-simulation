@@ -1,4 +1,4 @@
-uncertainty.prob_hold,conflicts,makespan,avg_queue_size,avg_reschedule_exec_time,n_delay,n_scheduler_delay,n_uncertainty_delay
-0.0,0.0,32520.0,0.0,0.03135450935629417,4.0,4.0,0.0
-0.01,0.0,32460.0,0.0006944444444444445,0.038671979333032805,16.5,13.0,3.5
-0.02,0.0,32430.0,0.0,0.03442176371231717,13.0,9.0,4.0
+uncertainty.prob_hold,avg_active_aircrafts,conflicts,makespan,avg_queue_size,avg_reschedule_exec_time,n_delay,n_scheduler_delay,n_uncertainty_delay
+0.0,0.7546296296296297,0.0,-32370.0,0.0,0.0326526040924526,10.0,10.0,0.0
+0.01,0.7060185185185186,0.0,-25230.0,0.0,0.040720228368908054,6.0,6.0,0.0
+0.02,0.7282407407407407,0.0,-28815.0,0.0,0.0370947406194467,7.0,7.0,0.0
