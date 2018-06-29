@@ -1,0 +1,99 @@
+{
+  "scenario_time": 1329853394,
+  "tmi": [
+    {"MERIL": 
+      {
+        "tmi": null,
+        "model": "MD82",
+        "takeoff": 1329853011
+      }
+    },
+    {"JACAL":
+      {
+        "tmi": 300,
+        "model": "A319",
+        "takeoff": 1329853011
+      }
+    },
+    {"BUCKL": 
+      {
+        "tmi": null,
+        "model": null,
+        "takeoff": null
+      }
+    },
+    {"DEBIE": 
+      {
+        "tmi": 240
+      }
+    },
+    {"GANTS":
+      {
+        "model": "B752",
+        "takeoff": 1329853011
+      }
+    }
+  ],
+  "runway": [
+    {"18R": 
+      { 
+        "landing": { "model": "B752", "time": 1329853011 }
+      }
+    },
+    {"18C":
+      {
+        "takeoff": { "model": "CRJ2", "time": 1329853132 },
+        "landing": { "model": "MD81", "time": 1329853012 },
+        "crossing": { "model": "B738", "time": 1329853392 }
+      }
+    },
+    {"23": 
+      {
+        "takeoff": { "model": null, "time": null },
+        "landing": { "model": "B752", "time": 1329853013 },
+        "crossing": { "model": "E145", "time": 1329853393 }
+      }
+    },
+    {"18L": 
+      {
+        "takeoff": { "model": null, "time": null },
+        "landing": { "model": null, "time": null }
+      }
+    }
+  ],
+  "aircraft": [
+    {
+      "callsign": "AWE1786",
+      "operation": "departure",
+      "model": "B752",
+      "fix": "MERIL",
+      "time": 1329853394,
+      "location": [0,0],
+      "gate": "B12",
+      "runway": "18L",
+      "request": ["S8", "18L"]
+    },
+    {
+      "callsign": "AWE1349",
+      "operation": "arrival",
+      "model": "A319",
+      "time": 1329853512,
+      "location": [null,null],
+      "gate": "B16",
+      "runway": "18R",
+      "request": ["18C", "S4", "B16"]      
+    },
+    {
+      "callsign": "AAL4296",
+      "operation": "departure",
+      "model": "MD82",
+      "fix": "JACAL",
+      "time": 1329854000,
+      "location": [0,0],
+      "gate": "A10",
+      "runway": "18C",
+      "request": ["S2", "18C"]      
+    }
+  ]
+}
+
