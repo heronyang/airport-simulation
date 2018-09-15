@@ -117,3 +117,10 @@ states.json
 log
 .todo
 *.swp
+
+### JetBrains template
+.idea
+
+### Output
+output
+batch_output

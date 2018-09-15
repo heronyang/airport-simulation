@@ -6,61 +6,64 @@
 
 ## About
 
-ASSET2 is a generic airport simulation tool for research purpose. It is designed to support multiple airports, to test and to evaulate customized schedulers. Please check out [our paper](https://github.com/heronyang/airport-simulation/raw/master/doc/analaysing-effect-uncertainty.pdf) for more information.
+ASSET2 is a generic airport simulation tool for research purpose. It is designed to support multiple airports, to test and to evaluate customized schedulers. Please check out [our paper](https://github.com/heronyang/airport-simulation/raw/master/doc/analaysing-effect-uncertainty.pdf) for more information.
 
 > This tool is built for Carnegie Mellon University MSIT Practicum Project and Master Independent Study sponsored by the NASA Ames Research Center.
 
-## Prepare airport data
+
+## How to Run
+
+> **Please note that the code runs in Python 3.** 
+>
+> **Please avoid Python>=3.7.0** because it breaks the legacy Cython, which one of the dependencies line-profiler depends on. The issue has not been [fixed](https://github.com/rkern/line_profiler/issues) at the moment. Try to install a lower version instead.
+
+### Prepare Airport Data
 
 Place airport related data under `data` folder like `data/sfo-terminal-2/build/` (use IATA airport code).
 
-## Install
-
-If you're on Ubuntu:
+### First-Time Installation
+**If you're on Ubuntu:**
 
     $ sudo apt-get update
     $ sudo apt-get install -y python3-pip
     $ mkdir -p ~/.config/matplotlib/
     $ echo "backend : Agg" >> ~/.config/matplotlib/matplotlibrc
 
-Install dependencies:
+**Set-up Virtual Environment (highly recommended):**
 
-    $ pip3 install -r requirements.txt
+ - If you are using IntelliJ or any other JetBrain IDE, see [this link](https://www.jetbrains.com/help/idea/creating-virtual-environment.html) (recommended).
 
-## Run
+ - If you are using commend line:
 
-    $ python3 simulator.py -f plans/base.yaml
+        $ {path/to/python3} -m venv venv # create a new virtual environment
+        $ source venv/bin/activate # activate the virtual environment
+        $ pip -r install requirements.txt # install dependencies locally
+        $ python simulator.py -f plans/base.yaml # execute the simulation
 
-### Batch Run
+**Install dependencies:**
 
-    $ python3 simulator.py -f batch_plans/simple-uc.yaml
+    $ pip install -r requirements.txt
 
-### Execution under Virtual Environtment
+### Run
 
-If you don't want to install the dependencies for the whole system, you may
-want to use the virtual environment where we install dependencies under this
-project folder.
+    $ python simulator.py -f plans/base.yaml
+    $ python simulator.py -f batch_plans/simple-uc.yaml # Batch Run
 
-    $ python3 -m venv env # create a new virtual environment
-    $ source env/bin/activate # activate the virtual environment
-    $ python3 -m pip -r install requirements.txt # install dependencies locally
-    $ python3 simulator.py -f plans/base.yaml # execute the simulation
+### Visualization
 
-## Tests
+    $ python visualization/server.py
 
-    $ python3 -m unittest discover tests    # all tests
-    $ python3 -m unittest tests/test_scheduler.py   # single test
+### Tests
+
+    $ python -m unittest discover tests    # all tests
+    $ python -m unittest tests/test_scheduler.py   # single test
 
 ### Check Style
 
     $ pycodestyle --show-pep8 --show-source .
     $ ls -1 *py scheduler/*py | xargs pylint # optional but recommended
 
-## Visiualization
-
-    $ python3 visualization/server.py
-
-## Documentation
+### Documentation
 
     $ pydoc <python-file-name-without-.py>
 
