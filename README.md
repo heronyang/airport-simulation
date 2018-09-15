@@ -1,6 +1,6 @@
 # ASSET2 - Airport Surface Simulator and Evaluation Tool 2
 
-[![Build Status](https://travis-ci.org/heronyang/airport-simulation.svg?branch=master)](https://travis-ci.org/heronyang/airport-simulation)
+[![Build Status](https://travis-ci.com/nasa-airport/airport-simulation.svg?branch=master)](https://travis-ci.com/nasa-airport/airport-simulation)
 
 ![Demo](doc/independent-study/figure/demo.gif)
 
