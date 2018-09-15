@@ -24,48 +24,59 @@ Place airport related data under `data` folder like `data/sfo-terminal-2/build/`
 ### First-Time Installation
 **If you're on Ubuntu:**
 
-    $ sudo apt-get update
-    $ sudo apt-get install -y python3-pip
-    $ mkdir -p ~/.config/matplotlib/
-    $ echo "backend : Agg" >> ~/.config/matplotlib/matplotlibrc
+```sh
+$ sudo apt-get update
+$ sudo apt-get install -y python3-pip
+$ mkdir -p ~/.config/matplotlib/
+$ echo "backend : Agg" >> ~/.config/matplotlib/matplotlibrc
+```
 
 **Set-up Virtual Environment (highly recommended):**
 
  - If you are using IntelliJ or any other JetBrain IDE, see [this link](https://www.jetbrains.com/help/idea/creating-virtual-environment.html) (recommended).
 
  - If you are using commend line:
-
-        $ {path/to/python3} -m venv venv # create a new virtual environment
-        $ source venv/bin/activate # activate the virtual environment
-        $ pip -r install requirements.txt # install dependencies locally
-        $ python simulator.py -f plans/base.yaml # execute the simulation
+ 
+    ```sh
+    $ {path/to/python3} -m venv venv # create a new virtual environment
+    $ source venv/bin/activate # activate the virtual environment
+    $ pip -r install requirements.txt # install dependencies locally
+    $ python simulator.py -f plans/base.yaml # execute the simulation
+    ```
 
 **Install dependencies:**
 
-    $ pip install -r requirements.txt
+```sh
+$ pip install -r requirements.txt
+```
 
 ### Run
-
-    $ python simulator.py -f plans/base.yaml
-    $ python simulator.py -f batch_plans/simple-uc.yaml # Batch Run
+```sh
+$ python simulator.py -f plans/base.yaml
+$ python simulator.py -f batch_plans/simple-uc.yaml # Batch Run
+```
 
 ### Visualization
-
-    $ python visualization/server.py
+```sh
+$ python visualization/server.py
+```
 
 ### Tests
-
-    $ python -m unittest discover tests    # all tests
-    $ python -m unittest tests/test_scheduler.py   # single test
+```sh
+$ python -m unittest discover tests    # all tests
+$ python -m unittest tests/test_scheduler.py   # single test
+```
 
 ### Check Style
-
-    $ pycodestyle --show-pep8 --show-source .
-    $ ls -1 *py scheduler/*py | xargs pylint # optional but recommended
+```sh
+$ pycodestyle --show-pep8 --show-source .
+$ ls -1 *py scheduler/*py | xargs pylint # optional but recommended
+```
 
 ### Documentation
-
-    $ pydoc <python-file-name-without-.py>
+```sh
+$ pydoc <python-file-name-without-.py>
+```
 
 ## Developer Guidelines
 
