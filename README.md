@@ -2,11 +2,12 @@
 
 [![Build Status](https://travis-ci.com/nasa-airport/airport-simulation.svg?branch=master)](https://travis-ci.com/nasa-airport/airport-simulation)
 
-![Demo](doc/independent-study/figure/demo.gif)
+![demo](https://user-images.githubusercontent.com/7262715/45591580-ef937f80-b90b-11e8-9c15-a596be0bd283.gif)
+
 
 ## About
 
-ASSET2 is a generic airport simulation tool for research purpose. It is designed to support multiple airports, to test and to evaluate customized schedulers. Please check out [our paper](https://github.com/heronyang/airport-simulation/raw/master/doc/analaysing-effect-uncertainty.pdf) for more information.
+ASSET2 is a generic airport simulation tool for research purpose. It is designed to support multiple airports, to test and to evaluate customized schedulers. Please check out [our paper](https://drive.google.com/file/d/0B8ck8iyI0dnfSEtUSDl3SjBiYXgwdXpOWERvaWMzZ1NtV3A0/view?usp=sharing) for more information.
 
 > This tool is built for Carnegie Mellon University MSIT Practicum Project and Master Independent Study sponsored by the NASA Ames Research Center.
 
@@ -82,7 +83,8 @@ $ pydoc <python-file-name-without-.py>
 
 ### Sequential Diagram
 
-![sequential diagram](doc/independent-study/figure/flow.png)
+![image](https://user-images.githubusercontent.com/7262715/45591601-63358c80-b90c-11e8-809c-54c3446258fa.png)
+
 
 ### Experiment Flow
 
