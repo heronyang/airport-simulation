@@ -8,7 +8,7 @@ simulator:
   pause_time: 0
   # Enable for test mode
   test_mode: false
-  # Enable scenerio regeneration
+  # Enable scenario regeneration
   scenario_regeneration: true
   # Number of simulation runs with one same setting (only works in batch mode)
   times: 1
@@ -21,16 +21,16 @@ simulation:
   time_unit: 30
   # Seconds between each reschedule
   reschedule_cycle: 120
-  # Feets required between two nodes (otherwise, we seem two nodes as the same)
+  # Feet required between two nodes (otherwise, we see two nodes as the same)
   close_node_threshold: 30
-  # Feets required when calculating whether a node is belong a link
+  # Feet required when calculating whether a node belongs to a link
   close_node_link_threshold: 20
   # Enable or disable cache for shortest routes
   cache: true
-  # Separation requirement in feets between two aircrafts
+  # Separation requirement in feet between two aircraft
   separation: 50
   # End time of a day (it's okay if we don't finish scheduling all the
-  # aircrafts if we're not using the makespan metric)
+  # aircraft if we're not using the makespan metric)
   end_time: "9:00"
 
 uncertainty:

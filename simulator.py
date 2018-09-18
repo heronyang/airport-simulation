@@ -4,7 +4,7 @@ simulations.
 
 Example:
 
-    To run a single simlation, use an experimental plan under folder `plans`:
+    To run a single simulation, use an experimental plan under folder `plans`:
 
         $ ./simulator.py -f plans/base.yaml
 
@@ -18,12 +18,12 @@ Output:
     Simulation results including output metrics, figures, and logs are stored
     under `output` folder with the name specified in the experimental plan. For
     batch runs, a bunch of folders under `output` are created and a folder
-    under `batch_output` is created as well for storing summerized metrics and
+    under `batch_output` is created as well for storing summarized metrics and
     figures of the batch runs.
 
 Definition:
 
-    We define a `simulation` or a `simulation run` as the simlation of a day
+    We define a `simulation` or a `simulation run` as the simulation of a day
     under the same parameters (this matches to an experimental plan under
     `plans`). We also define `sample times` as the number of simulations runs
     we execute under the same parameters for retrieving the average output
@@ -66,7 +66,6 @@ def main():
 
 
 def __init_params():
-
     # Parses argv
     parser = argparse.ArgumentParser()
     parser.add_argument("-f", "--plan-filepath",
@@ -78,7 +77,6 @@ def __init_params():
 
 
 def __init_logger():
-
     # Removes previous handler
     for handler in logging.root.handlers[:]:
         logging.root.removeHandler(handler)
@@ -170,7 +168,6 @@ def run_wrapper(expr_var_name, expr_var, name, logs, nth):
 
 
 def __get_expr_var_range(expr_var_name):
-
     # Finds the string value of the experimental field
     params = cfg.params
     expr_var_name_layer = expr_var_name.split(".")
@@ -185,7 +182,6 @@ def __get_expr_var_range(expr_var_name):
 
 
 def __set_expr_var(expr_var_name, expr_var):
-
     # Setup the experimental variable
     params = cfg.params
     expr_var_name_layer = expr_var_name.split(".")
