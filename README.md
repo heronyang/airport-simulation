@@ -70,7 +70,7 @@ $ python -m unittest tests/test_scheduler.py   # single test
 
 ### Check Style
 ```sh
-$ pycodestyle --show-pep8 --show-source .
+$ pycodestyle --show-pep8 --show-source --exclude=venv .
 $ ls -1 *py scheduler/*py | xargs pylint # optional but recommended
 ```
 

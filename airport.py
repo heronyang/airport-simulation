@@ -98,8 +98,7 @@ class Airport:
         for flight in scenario.departures:
 
             # Only if the scheduled appear time is between now and next tick
-            if not (now <= flight.appear_time and
-                    flight.appear_time < next_tick_time):
+            if not (now <= flight.appear_time < next_tick_time):
                 continue
 
             gate, aircraft = flight.from_gate, flight.aircraft
