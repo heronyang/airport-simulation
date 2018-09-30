@@ -8,7 +8,7 @@
       "callsign": "F1",
       "time": "0000",
       "appear_time": "0000",
-      "gate": "52",
+      "gate": "55",
       "spot": "S3"
     },
     {
@@ -18,46 +18,46 @@
       "callsign": "F2",
       "time": "0001",
       "appear_time": "0001",
-      "gate": "51A",
-      "spot": "S3"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F3",
-      "time": "0002",
-      "appear_time": "0002",
-      "gate": "54B",
+      "gate": "52",
       "spot": "S2"
     },
     {
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
-      "callsign": "F4",
-      "time": "0002",
-      "appear_time": "0002",
-      "gate": "56B",
+      "callsign": "F3",
+      "time": "0003",
+      "appear_time": "0003",
+      "gate": "54A",
       "spot": "S3"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F4",
+      "time": "0005",
+      "appear_time": "0005",
+      "gate": "53",
+      "spot": "S2"
     },
     {
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F5",
-      "time": "0003",
-      "appear_time": "0003",
-      "gate": "57",
-      "spot": "S3"
+      "time": "0007",
+      "appear_time": "0007",
+      "gate": "55",
+      "spot": "S2"
     },
     {
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F6",
-      "time": "0005",
-      "appear_time": "0005",
+      "time": "0009",
+      "appear_time": "0009",
       "gate": "54A",
       "spot": "S2"
     },
@@ -66,9 +66,9 @@
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F7",
-      "time": "0007",
-      "appear_time": "0007",
-      "gate": "51A",
+      "time": "0010",
+      "appear_time": "0010",
+      "gate": "50",
       "spot": "S2"
     },
     {
@@ -76,46 +76,16 @@
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F8",
-      "time": "0008",
-      "appear_time": "0008",
-      "gate": "52",
-      "spot": "S2"
+      "time": "0013",
+      "appear_time": "0013",
+      "gate": "58B",
+      "spot": "S3"
     },
     {
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F9",
-      "time": "0009",
-      "appear_time": "0009",
-      "gate": "54B",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F10",
-      "time": "0011",
-      "appear_time": "0011",
-      "gate": "54B",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F11",
-      "time": "0013",
-      "appear_time": "0013",
-      "gate": "58B",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F12",
       "time": "0014",
       "appear_time": "0014",
       "gate": "52",
@@ -125,189 +95,19 @@
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
-      "callsign": "F13",
-      "time": "0016",
-      "appear_time": "0016",
-      "gate": "58B",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F14",
+      "callsign": "F10",
       "time": "0017",
       "appear_time": "0017",
-      "gate": "58A",
-      "spot": "S3"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F15",
-      "time": "0019",
-      "appear_time": "0019",
-      "gate": "58A",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F16",
-      "time": "0020",
-      "appear_time": "0020",
       "gate": "51B",
-      "spot": "S3"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F17",
-      "time": "0021",
-      "appear_time": "0021",
-      "gate": "58B",
-      "spot": "S3"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F18",
-      "time": "0022",
-      "appear_time": "0022",
-      "gate": "53",
-      "spot": "S3"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F19",
-      "time": "0024",
-      "appear_time": "0024",
-      "gate": "53",
       "spot": "S2"
     },
     {
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
-      "callsign": "F20",
-      "time": "0025",
-      "appear_time": "0025",
-      "gate": "54B",
-      "spot": "S3"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F21",
-      "time": "0027",
-      "appear_time": "0027",
-      "gate": "50",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F22",
-      "time": "0028",
-      "appear_time": "0028",
-      "gate": "56A",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F23",
-      "time": "0031",
-      "appear_time": "0031",
-      "gate": "51A",
-      "spot": "S3"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F24",
-      "time": "0032",
-      "appear_time": "0032",
-      "gate": "54B",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F25",
-      "time": "0034",
-      "appear_time": "0034",
-      "gate": "59",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F26",
-      "time": "0035",
-      "appear_time": "0035",
-      "gate": "52",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F27",
-      "time": "0036",
-      "appear_time": "0036",
-      "gate": "58B",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F28",
-      "time": "0037",
-      "appear_time": "0037",
-      "gate": "57",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F29",
-      "time": "0039",
-      "appear_time": "0039",
-      "gate": "51B",
-      "spot": "S3"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F30",
-      "time": "0040",
-      "appear_time": "0040",
-      "gate": "54A",
-      "spot": "S3"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F31",
-      "time": "0042",
-      "appear_time": "0042",
+      "callsign": "F11",
+      "time": "0018",
+      "appear_time": "0018",
       "gate": "55",
       "spot": "S3"
     },
@@ -315,9 +115,169 @@
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
-      "callsign": "F32",
-      "time": "0044",
-      "appear_time": "0044",
+      "callsign": "F12",
+      "time": "0020",
+      "appear_time": "0020",
+      "gate": "51A",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F13",
+      "time": "0021",
+      "appear_time": "0021",
+      "gate": "56B",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F14",
+      "time": "0023",
+      "appear_time": "0023",
+      "gate": "57",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F15",
+      "time": "0025",
+      "appear_time": "0025",
+      "gate": "53",
+      "spot": "S3"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F16",
+      "time": "0026",
+      "appear_time": "0026",
+      "gate": "54B",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F17",
+      "time": "0027",
+      "appear_time": "0027",
+      "gate": "51B",
+      "spot": "S3"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F18",
+      "time": "0029",
+      "appear_time": "0029",
+      "gate": "59",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F19",
+      "time": "0030",
+      "appear_time": "0030",
+      "gate": "56A",
+      "spot": "S3"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F20",
+      "time": "0033",
+      "appear_time": "0033",
+      "gate": "55",
+      "spot": "S3"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F21",
+      "time": "0033",
+      "appear_time": "0033",
+      "gate": "51A",
+      "spot": "S3"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F22",
+      "time": "0035",
+      "appear_time": "0035",
+      "gate": "58B",
+      "spot": "S3"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F23",
+      "time": "0036",
+      "appear_time": "0036",
+      "gate": "54B",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F24",
+      "time": "0038",
+      "appear_time": "0038",
+      "gate": "56B",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F25",
+      "time": "0040",
+      "appear_time": "0040",
+      "gate": "54B",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F26",
+      "time": "0041",
+      "appear_time": "0041",
+      "gate": "56B",
+      "spot": "S3"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F27",
+      "time": "0043",
+      "appear_time": "0043",
+      "gate": "56A",
+      "spot": "S3"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F28",
+      "time": "0045",
+      "appear_time": "0045",
       "gate": "52",
       "spot": "S3"
     },
@@ -325,9 +285,49 @@
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
-      "callsign": "F33",
+      "callsign": "F29",
       "time": "0046",
       "appear_time": "0046",
+      "gate": "54B",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F30",
+      "time": "0047",
+      "appear_time": "0047",
+      "gate": "58B",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F31",
+      "time": "0049",
+      "appear_time": "0049",
+      "gate": "54A",
+      "spot": "S3"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F32",
+      "time": "0051",
+      "appear_time": "0051",
+      "gate": "53",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F33",
+      "time": "0052",
+      "appear_time": "0052",
       "gate": "51A",
       "spot": "S2"
     },
@@ -336,19 +336,19 @@
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F34",
-      "time": "0047",
-      "appear_time": "0047",
-      "gate": "55",
-      "spot": "S2"
+      "time": "0054",
+      "appear_time": "0054",
+      "gate": "53",
+      "spot": "S3"
     },
     {
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F35",
-      "time": "0048",
-      "appear_time": "0048",
-      "gate": "53",
+      "time": "0055",
+      "appear_time": "0055",
+      "gate": "50",
       "spot": "S2"
     },
     {
@@ -356,19 +356,19 @@
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F36",
-      "time": "0050",
-      "appear_time": "0050",
-      "gate": "54B",
-      "spot": "S3"
+      "time": "0057",
+      "appear_time": "0057",
+      "gate": "51A",
+      "spot": "S2"
     },
     {
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F37",
-      "time": "0052",
-      "appear_time": "0052",
-      "gate": "57",
+      "time": "0058",
+      "appear_time": "0058",
+      "gate": "51B",
       "spot": "S2"
     },
     {
@@ -376,8 +376,28 @@
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F38",
-      "time": "0054",
-      "appear_time": "0054",
+      "time": "0059",
+      "appear_time": "0059",
+      "gate": "53",
+      "spot": "S3"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F39",
+      "time": "0101",
+      "appear_time": "0101",
+      "gate": "54A",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F40",
+      "time": "0103",
+      "appear_time": "0103",
       "gate": "59",
       "spot": "S2"
     },
@@ -385,39 +405,19 @@
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
-      "callsign": "F39",
-      "time": "0055",
-      "appear_time": "0055",
-      "gate": "50",
-      "spot": "S3"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F40",
-      "time": "0055",
-      "appear_time": "0055",
-      "gate": "54B",
-      "spot": "S3"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
       "callsign": "F41",
-      "time": "0058",
-      "appear_time": "0058",
-      "gate": "50",
-      "spot": "S2"
+      "time": "0103",
+      "appear_time": "0103",
+      "gate": "59",
+      "spot": "S3"
     },
     {
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F42",
-      "time": "0100",
-      "appear_time": "0100",
+      "time": "0106",
+      "appear_time": "0106",
       "gate": "54B",
       "spot": "S2"
     },
@@ -426,9 +426,9 @@
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F43",
-      "time": "0102",
-      "appear_time": "0102",
-      "gate": "58A",
+      "time": "0107",
+      "appear_time": "0107",
+      "gate": "54B",
       "spot": "S3"
     },
     {
@@ -436,28 +436,8 @@
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F44",
-      "time": "0104",
-      "appear_time": "0104",
-      "gate": "59",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F45",
-      "time": "0105",
-      "appear_time": "0105",
-      "gate": "59",
-      "spot": "S3"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F46",
-      "time": "0107",
-      "appear_time": "0107",
+      "time": "0109",
+      "appear_time": "0109",
       "gate": "55",
       "spot": "S2"
     },
@@ -465,20 +445,40 @@
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
+      "callsign": "F45",
+      "time": "0110",
+      "appear_time": "0110",
+      "gate": "56A",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F46",
+      "time": "0112",
+      "appear_time": "0112",
+      "gate": "50",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
       "callsign": "F47",
-      "time": "0109",
-      "appear_time": "0109",
-      "gate": "53",
-      "spot": "S3"
+      "time": "0112",
+      "appear_time": "0112",
+      "gate": "58A",
+      "spot": "S2"
     },
     {
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F48",
-      "time": "0109",
-      "appear_time": "0109",
-      "gate": "51B",
+      "time": "0114",
+      "appear_time": "0114",
+      "gate": "58B",
       "spot": "S2"
     },
     {
@@ -486,9 +486,9 @@
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F49",
-      "time": "0111",
-      "appear_time": "0111",
-      "gate": "54A",
+      "time": "0115",
+      "appear_time": "0115",
+      "gate": "52",
       "spot": "S3"
     },
     {
@@ -496,8 +496,8 @@
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F50",
-      "time": "0114",
-      "appear_time": "0114",
+      "time": "0116",
+      "appear_time": "0116",
       "gate": "56A",
       "spot": "S3"
     },
@@ -506,9 +506,9 @@
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F51",
-      "time": "0116",
-      "appear_time": "0116",
-      "gate": "55",
+      "time": "0117",
+      "appear_time": "0117",
+      "gate": "58B",
       "spot": "S2"
     },
     {
@@ -516,9 +516,9 @@
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F52",
-      "time": "0118",
-      "appear_time": "0118",
-      "gate": "57",
+      "time": "0119",
+      "appear_time": "0119",
+      "gate": "54A",
       "spot": "S2"
     },
     {
@@ -526,9 +526,9 @@
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F53",
-      "time": "0119",
-      "appear_time": "0119",
-      "gate": "54B",
+      "time": "0121",
+      "appear_time": "0121",
+      "gate": "52",
       "spot": "S3"
     },
     {
@@ -536,38 +536,18 @@
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F54",
-      "time": "0121",
-      "appear_time": "0121",
-      "gate": "58A",
-      "spot": "S3"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F55",
-      "time": "0122",
-      "appear_time": "0122",
-      "gate": "56A",
-      "spot": "S3"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F56",
-      "time": "0124",
-      "appear_time": "0124",
-      "gate": "50",
+      "time": "0123",
+      "appear_time": "0123",
+      "gate": "59",
       "spot": "S2"
     },
     {
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
-      "callsign": "F57",
-      "time": "0125",
-      "appear_time": "0125",
+      "callsign": "F55",
+      "time": "0124",
+      "appear_time": "0124",
       "gate": "57",
       "spot": "S2"
     },
@@ -575,10 +555,30 @@
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
+      "callsign": "F56",
+      "time": "0125",
+      "appear_time": "0125",
+      "gate": "58A",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F57",
+      "time": "0126",
+      "appear_time": "0126",
+      "gate": "54A",
+      "spot": "S3"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
       "callsign": "F58",
-      "time": "0127",
-      "appear_time": "0127",
-      "gate": "56A",
+      "time": "0128",
+      "appear_time": "0128",
+      "gate": "54A",
       "spot": "S2"
     },
     {
@@ -586,49 +586,49 @@
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F59",
-      "time": "0128",
-      "appear_time": "0128",
-      "gate": "50",
-      "spot": "S3"
+      "time": "0130",
+      "appear_time": "0130",
+      "gate": "56B",
+      "spot": "S2"
     },
     {
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F60",
-      "time": "0130",
-      "appear_time": "0130",
-      "gate": "51A",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F61",
       "time": "0131",
       "appear_time": "0131",
-      "gate": "50",
+      "gate": "53",
       "spot": "S3"
     },
     {
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
-      "callsign": "F62",
+      "callsign": "F61",
       "time": "0132",
       "appear_time": "0132",
-      "gate": "51B",
+      "gate": "55",
       "spot": "S2"
     },
     {
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
+      "callsign": "F62",
+      "time": "0135",
+      "appear_time": "0135",
+      "gate": "59",
+      "spot": "S3"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
       "callsign": "F63",
-      "time": "0134",
-      "appear_time": "0134",
-      "gate": "54B",
+      "time": "0136",
+      "appear_time": "0136",
+      "gate": "55",
       "spot": "S2"
     },
     {
@@ -636,20 +636,20 @@
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F64",
-      "time": "0136",
-      "appear_time": "0136",
-      "gate": "58B",
-      "spot": "S3"
+      "time": "0137",
+      "appear_time": "0137",
+      "gate": "53",
+      "spot": "S2"
     },
     {
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F65",
-      "time": "0138",
-      "appear_time": "0138",
-      "gate": "58B",
-      "spot": "S3"
+      "time": "0139",
+      "appear_time": "0139",
+      "gate": "51B",
+      "spot": "S2"
     },
     {
       "model": "A319",
@@ -658,7 +658,7 @@
       "callsign": "F66",
       "time": "0140",
       "appear_time": "0140",
-      "gate": "56A",
+      "gate": "58B",
       "spot": "S2"
     },
     {
@@ -666,19 +666,19 @@
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F67",
-      "time": "0142",
-      "appear_time": "0142",
-      "gate": "56B",
-      "spot": "S3"
+      "time": "0143",
+      "appear_time": "0143",
+      "gate": "51B",
+      "spot": "S2"
     },
     {
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F68",
-      "time": "0143",
-      "appear_time": "0143",
-      "gate": "54A",
+      "time": "0144",
+      "appear_time": "0144",
+      "gate": "52",
       "spot": "S3"
     },
     {
@@ -688,8 +688,8 @@
       "callsign": "F69",
       "time": "0145",
       "appear_time": "0145",
-      "gate": "50",
-      "spot": "S3"
+      "gate": "58A",
+      "spot": "S2"
     },
     {
       "model": "A319",
@@ -698,7 +698,7 @@
       "callsign": "F70",
       "time": "0146",
       "appear_time": "0146",
-      "gate": "58A",
+      "gate": "51A",
       "spot": "S2"
     },
     {
@@ -706,19 +706,19 @@
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F71",
-      "time": "0148",
-      "appear_time": "0148",
-      "gate": "50",
-      "spot": "S3"
+      "time": "0147",
+      "appear_time": "0147",
+      "gate": "54B",
+      "spot": "S2"
     },
     {
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F72",
-      "time": "0149",
-      "appear_time": "0149",
-      "gate": "52",
+      "time": "0148",
+      "appear_time": "0148",
+      "gate": "51B",
       "spot": "S2"
     },
     {
@@ -726,20 +726,20 @@
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F73",
-      "time": "0151",
-      "appear_time": "0151",
-      "gate": "58A",
-      "spot": "S3"
+      "time": "0150",
+      "appear_time": "0150",
+      "gate": "52",
+      "spot": "S2"
     },
     {
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F74",
-      "time": "0153",
-      "appear_time": "0153",
-      "gate": "53",
-      "spot": "S3"
+      "time": "0151",
+      "appear_time": "0151",
+      "gate": "58A",
+      "spot": "S2"
     },
     {
       "model": "A319",
@@ -748,17 +748,17 @@
       "callsign": "F75",
       "time": "0154",
       "appear_time": "0154",
-      "gate": "53",
-      "spot": "S2"
+      "gate": "57",
+      "spot": "S3"
     },
     {
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F76",
-      "time": "0157",
-      "appear_time": "0157",
-      "gate": "56B",
+      "time": "0155",
+      "appear_time": "0155",
+      "gate": "54B",
       "spot": "S2"
     },
     {
@@ -766,19 +766,19 @@
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F77",
-      "time": "0159",
-      "appear_time": "0159",
-      "gate": "51A",
-      "spot": "S3"
+      "time": "0157",
+      "appear_time": "0157",
+      "gate": "58A",
+      "spot": "S2"
     },
     {
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F78",
-      "time": "0200",
-      "appear_time": "0200",
-      "gate": "58B",
+      "time": "0159",
+      "appear_time": "0159",
+      "gate": "56B",
       "spot": "S3"
     },
     {
@@ -786,9 +786,9 @@
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F79",
-      "time": "0201",
-      "appear_time": "0201",
-      "gate": "57",
+      "time": "0200",
+      "appear_time": "0200",
+      "gate": "54A",
       "spot": "S3"
     },
     {
@@ -798,8 +798,8 @@
       "callsign": "F80",
       "time": "0201",
       "appear_time": "0201",
-      "gate": "54B",
-      "spot": "S3"
+      "gate": "56A",
+      "spot": "S2"
     },
     {
       "model": "A319",
@@ -808,8 +808,8 @@
       "callsign": "F81",
       "time": "0202",
       "appear_time": "0202",
-      "gate": "54A",
-      "spot": "S2"
+      "gate": "59",
+      "spot": "S3"
     },
     {
       "model": "A319",
@@ -818,7 +818,7 @@
       "callsign": "F82",
       "time": "0204",
       "appear_time": "0204",
-      "gate": "52",
+      "gate": "50",
       "spot": "S3"
     },
     {
@@ -826,8 +826,8 @@
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F83",
-      "time": "0206",
-      "appear_time": "0206",
+      "time": "0205",
+      "appear_time": "0205",
       "gate": "56A",
       "spot": "S2"
     },
@@ -838,8 +838,8 @@
       "callsign": "F84",
       "time": "0207",
       "appear_time": "0207",
-      "gate": "50",
-      "spot": "S3"
+      "gate": "53",
+      "spot": "S2"
     },
     {
       "model": "A319",
@@ -848,26 +848,26 @@
       "callsign": "F85",
       "time": "0209",
       "appear_time": "0209",
-      "gate": "55",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F86",
-      "time": "0209",
-      "appear_time": "0209",
-      "gate": "59",
+      "gate": "54B",
       "spot": "S3"
     },
     {
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
+      "callsign": "F86",
+      "time": "0210",
+      "appear_time": "0210",
+      "gate": "54A",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
       "callsign": "F87",
-      "time": "0211",
-      "appear_time": "0211",
+      "time": "0212",
+      "appear_time": "0212",
       "gate": "59",
       "spot": "S2"
     },
@@ -876,9 +876,9 @@
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F88",
-      "time": "0212",
-      "appear_time": "0212",
-      "gate": "57",
+      "time": "0215",
+      "appear_time": "0215",
+      "gate": "53",
       "spot": "S3"
     },
     {
@@ -886,78 +886,18 @@
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F89",
-      "time": "0213",
-      "appear_time": "0213",
-      "gate": "51B",
-      "spot": "S2"
+      "time": "0216",
+      "appear_time": "0216",
+      "gate": "56B",
+      "spot": "S3"
     },
     {
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F90",
-      "time": "0215",
-      "appear_time": "0215",
-      "gate": "58B",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F91",
-      "time": "0216",
-      "appear_time": "0216",
-      "gate": "50",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F92",
       "time": "0217",
       "appear_time": "0217",
-      "gate": "59",
-      "spot": "S3"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F93",
-      "time": "0218",
-      "appear_time": "0218",
-      "gate": "57",
-      "spot": "S3"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F94",
-      "time": "0221",
-      "appear_time": "0221",
-      "gate": "56A",
-      "spot": "S3"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F95",
-      "time": "0222",
-      "appear_time": "0222",
-      "gate": "56B",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F96",
-      "time": "0223",
-      "appear_time": "0223",
       "gate": "55",
       "spot": "S3"
     },
@@ -965,29 +905,19 @@
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
-      "callsign": "F97",
-      "time": "0225",
-      "appear_time": "0225",
-      "gate": "53",
-      "spot": "S2"
+      "callsign": "F91",
+      "time": "0219",
+      "appear_time": "0219",
+      "gate": "54A",
+      "spot": "S3"
     },
     {
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
-      "callsign": "F98",
-      "time": "0226",
-      "appear_time": "0226",
-      "gate": "51B",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F99",
-      "time": "0228",
-      "appear_time": "0228",
+      "callsign": "F92",
+      "time": "0221",
+      "appear_time": "0221",
       "gate": "51A",
       "spot": "S2"
     },
@@ -995,49 +925,9 @@
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
-      "callsign": "F100",
-      "time": "0229",
-      "appear_time": "0229",
-      "gate": "54A",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F101",
-      "time": "0230",
-      "appear_time": "0230",
-      "gate": "57",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F102",
-      "time": "0232",
-      "appear_time": "0232",
-      "gate": "51B",
-      "spot": "S3"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F103",
-      "time": "0234",
-      "appear_time": "0234",
-      "gate": "53",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F104",
-      "time": "0236",
-      "appear_time": "0236",
+      "callsign": "F93",
+      "time": "0222",
+      "appear_time": "0222",
       "gate": "54A",
       "spot": "S3"
     },
@@ -1045,79 +935,9 @@
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
-      "callsign": "F105",
-      "time": "0238",
-      "appear_time": "0238",
-      "gate": "56A",
-      "spot": "S3"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F106",
-      "time": "0239",
-      "appear_time": "0239",
-      "gate": "53",
-      "spot": "S3"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F107",
-      "time": "0240",
-      "appear_time": "0240",
-      "gate": "59",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F108",
-      "time": "0241",
-      "appear_time": "0241",
-      "gate": "53",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F109",
-      "time": "0242",
-      "appear_time": "0242",
-      "gate": "58A",
-      "spot": "S3"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F110",
-      "time": "0243",
-      "appear_time": "0243",
-      "gate": "58A",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F111",
-      "time": "0245",
-      "appear_time": "0245",
-      "gate": "59",
-      "spot": "S3"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F112",
-      "time": "0246",
-      "appear_time": "0246",
+      "callsign": "F94",
+      "time": "0223",
+      "appear_time": "0223",
       "gate": "54A",
       "spot": "S2"
     },
@@ -1125,19 +945,29 @@
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
-      "callsign": "F113",
-      "time": "0249",
-      "appear_time": "0249",
-      "gate": "56A",
+      "callsign": "F95",
+      "time": "0224",
+      "appear_time": "0224",
+      "gate": "58B",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F96",
+      "time": "0226",
+      "appear_time": "0226",
+      "gate": "54A",
       "spot": "S3"
     },
     {
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
-      "callsign": "F114",
-      "time": "0251",
-      "appear_time": "0251",
+      "callsign": "F97",
+      "time": "0228",
+      "appear_time": "0228",
       "gate": "55",
       "spot": "S2"
     },
@@ -1145,20 +975,190 @@
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
-      "callsign": "F115",
-      "time": "0253",
-      "appear_time": "0253",
-      "gate": "56B",
+      "callsign": "F98",
+      "time": "0230",
+      "appear_time": "0230",
+      "gate": "54A",
       "spot": "S2"
     },
     {
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
-      "callsign": "F116",
+      "callsign": "F99",
+      "time": "0231",
+      "appear_time": "0231",
+      "gate": "54A",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F100",
+      "time": "0233",
+      "appear_time": "0233",
+      "gate": "58B",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F101",
+      "time": "0234",
+      "appear_time": "0234",
+      "gate": "51B",
+      "spot": "S3"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F102",
+      "time": "0235",
+      "appear_time": "0235",
+      "gate": "51A",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F103",
+      "time": "0237",
+      "appear_time": "0237",
+      "gate": "51B",
+      "spot": "S3"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F104",
+      "time": "0239",
+      "appear_time": "0239",
+      "gate": "50",
+      "spot": "S3"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F105",
+      "time": "0240",
+      "appear_time": "0240",
+      "gate": "58A",
+      "spot": "S3"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F106",
+      "time": "0242",
+      "appear_time": "0242",
+      "gate": "52",
+      "spot": "S3"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F107",
+      "time": "0244",
+      "appear_time": "0244",
+      "gate": "53",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F108",
+      "time": "0245",
+      "appear_time": "0245",
+      "gate": "58A",
+      "spot": "S3"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F109",
+      "time": "0247",
+      "appear_time": "0247",
+      "gate": "58A",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F110",
+      "time": "0248",
+      "appear_time": "0248",
+      "gate": "52",
+      "spot": "S3"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F111",
+      "time": "0249",
+      "appear_time": "0249",
+      "gate": "53",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F112",
+      "time": "0251",
+      "appear_time": "0251",
+      "gate": "58A",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F113",
+      "time": "0253",
+      "appear_time": "0253",
+      "gate": "50",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F114",
       "time": "0254",
       "appear_time": "0254",
-      "gate": "56A",
+      "gate": "54B",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F115",
+      "time": "0255",
+      "appear_time": "0255",
+      "gate": "54B",
+      "spot": "S3"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F116",
+      "time": "0256",
+      "appear_time": "0256",
+      "gate": "57",
       "spot": "S3"
     },
     {
@@ -1166,19 +1166,19 @@
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F117",
-      "time": "0255",
-      "appear_time": "0255",
-      "gate": "51B",
-      "spot": "S2"
+      "time": "0257",
+      "appear_time": "0257",
+      "gate": "51A",
+      "spot": "S3"
     },
     {
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F118",
-      "time": "0257",
-      "appear_time": "0257",
-      "gate": "54A",
+      "time": "0258",
+      "appear_time": "0258",
+      "gate": "55",
       "spot": "S3"
     },
     {
@@ -1186,20 +1186,20 @@
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F119",
-      "time": "0258",
-      "appear_time": "0258",
-      "gate": "59",
-      "spot": "S3"
+      "time": "0259",
+      "appear_time": "0259",
+      "gate": "51A",
+      "spot": "S2"
     },
     {
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F120",
-      "time": "0259",
-      "appear_time": "0259",
-      "gate": "54B",
-      "spot": "S3"
+      "time": "0300",
+      "appear_time": "0300",
+      "gate": "51B",
+      "spot": "S2"
     },
     {
       "model": "A319",
@@ -1208,7 +1208,7 @@
       "callsign": "F121",
       "time": "0300",
       "appear_time": "0300",
-      "gate": "58B",
+      "gate": "59",
       "spot": "S3"
     },
     {
@@ -1218,26 +1218,6 @@
       "callsign": "F122",
       "time": "0301",
       "appear_time": "0301",
-      "gate": "54B",
-      "spot": "S3"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F123",
-      "time": "0304",
-      "appear_time": "0304",
-      "gate": "54A",
-      "spot": "S3"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F124",
-      "time": "0305",
-      "appear_time": "0305",
       "gate": "53",
       "spot": "S3"
     },
@@ -1245,11 +1225,31 @@
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
-      "callsign": "F125",
-      "time": "0307",
-      "appear_time": "0307",
+      "callsign": "F123",
+      "time": "0302",
+      "appear_time": "0302",
+      "gate": "51A",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F124",
+      "time": "0304",
+      "appear_time": "0304",
       "gate": "55",
       "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F125",
+      "time": "0306",
+      "appear_time": "0306",
+      "gate": "55",
+      "spot": "S3"
     },
     {
       "model": "A319",
@@ -1258,7 +1258,7 @@
       "callsign": "F126",
       "time": "0308",
       "appear_time": "0308",
-      "gate": "56B",
+      "gate": "57",
       "spot": "S3"
     },
     {
@@ -1266,9 +1266,9 @@
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F127",
-      "time": "0310",
-      "appear_time": "0310",
-      "gate": "56A",
+      "time": "0309",
+      "appear_time": "0309",
+      "gate": "54A",
       "spot": "S2"
     },
     {
@@ -1276,9 +1276,9 @@
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F128",
-      "time": "0312",
-      "appear_time": "0312",
-      "gate": "53",
+      "time": "0311",
+      "appear_time": "0311",
+      "gate": "56A",
       "spot": "S2"
     },
     {
@@ -1286,9 +1286,9 @@
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F129",
-      "time": "0312",
-      "appear_time": "0312",
-      "gate": "58A",
+      "time": "0313",
+      "appear_time": "0313",
+      "gate": "51A",
       "spot": "S3"
     },
     {
@@ -1296,38 +1296,18 @@
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F130",
-      "time": "0314",
-      "appear_time": "0314",
-      "gate": "51B",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F131",
       "time": "0315",
       "appear_time": "0315",
-      "gate": "52",
+      "gate": "57",
       "spot": "S3"
     },
     {
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
-      "callsign": "F132",
+      "callsign": "F131",
       "time": "0317",
       "appear_time": "0317",
-      "gate": "57",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F133",
-      "time": "0318",
-      "appear_time": "0318",
       "gate": "54A",
       "spot": "S2"
     },
@@ -1335,39 +1315,29 @@
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
-      "callsign": "F134",
+      "callsign": "F132",
       "time": "0319",
       "appear_time": "0319",
-      "gate": "58A",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F135",
-      "time": "0321",
-      "appear_time": "0321",
-      "gate": "58A",
+      "gate": "50",
       "spot": "S3"
     },
     {
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
-      "callsign": "F136",
-      "time": "0323",
-      "appear_time": "0323",
-      "gate": "51A",
-      "spot": "S2"
+      "callsign": "F133",
+      "time": "0320",
+      "appear_time": "0320",
+      "gate": "50",
+      "spot": "S3"
     },
     {
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
-      "callsign": "F137",
-      "time": "0324",
-      "appear_time": "0324",
+      "callsign": "F134",
+      "time": "0321",
+      "appear_time": "0321",
       "gate": "59",
       "spot": "S3"
     },
@@ -1375,10 +1345,40 @@
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
-      "callsign": "F138",
+      "callsign": "F135",
+      "time": "0323",
+      "appear_time": "0323",
+      "gate": "50",
+      "spot": "S3"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F136",
+      "time": "0325",
+      "appear_time": "0325",
+      "gate": "54B",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F137",
       "time": "0327",
       "appear_time": "0327",
-      "gate": "54A",
+      "gate": "52",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F138",
+      "time": "0329",
+      "appear_time": "0329",
+      "gate": "56A",
       "spot": "S2"
     },
     {
@@ -1388,8 +1388,8 @@
       "callsign": "F139",
       "time": "0329",
       "appear_time": "0329",
-      "gate": "54B",
-      "spot": "S2"
+      "gate": "51A",
+      "spot": "S3"
     },
     {
       "model": "A319",
@@ -1398,7 +1398,7 @@
       "callsign": "F140",
       "time": "0330",
       "appear_time": "0330",
-      "gate": "51A",
+      "gate": "57",
       "spot": "S2"
     },
     {
@@ -1406,9 +1406,9 @@
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F141",
-      "time": "0332",
-      "appear_time": "0332",
-      "gate": "58B",
+      "time": "0331",
+      "appear_time": "0331",
+      "gate": "55",
       "spot": "S3"
     },
     {
@@ -1416,19 +1416,19 @@
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F142",
-      "time": "0334",
-      "appear_time": "0334",
-      "gate": "50",
-      "spot": "S3"
+      "time": "0331",
+      "appear_time": "0331",
+      "gate": "57",
+      "spot": "S2"
     },
     {
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F143",
-      "time": "0336",
-      "appear_time": "0336",
-      "gate": "56A",
+      "time": "0333",
+      "appear_time": "0333",
+      "gate": "57",
       "spot": "S3"
     },
     {
@@ -1436,28 +1436,28 @@
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F144",
-      "time": "0337",
-      "appear_time": "0337",
-      "gate": "54B",
-      "spot": "S2"
+      "time": "0335",
+      "appear_time": "0335",
+      "gate": "59",
+      "spot": "S3"
     },
     {
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F145",
-      "time": "0338",
-      "appear_time": "0338",
-      "gate": "56A",
-      "spot": "S2"
+      "time": "0337",
+      "appear_time": "0337",
+      "gate": "51B",
+      "spot": "S3"
     },
     {
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F146",
-      "time": "0340",
-      "appear_time": "0340",
+      "time": "0338",
+      "appear_time": "0338",
       "gate": "52",
       "spot": "S3"
     },
@@ -1466,6 +1466,26 @@
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F147",
+      "time": "0340",
+      "appear_time": "0340",
+      "gate": "58A",
+      "spot": "S3"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F148",
+      "time": "0341",
+      "appear_time": "0341",
+      "gate": "51A",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F149",
       "time": "0342",
       "appear_time": "0342",
       "gate": "58B",
@@ -1475,30 +1495,10 @@
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
-      "callsign": "F148",
+      "callsign": "F150",
       "time": "0344",
       "appear_time": "0344",
-      "gate": "58B",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F149",
-      "time": "0346",
-      "appear_time": "0346",
-      "gate": "56A",
-      "spot": "S3"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F150",
-      "time": "0347",
-      "appear_time": "0347",
-      "gate": "51B",
+      "gate": "54B",
       "spot": "S2"
     },
     {
@@ -1506,9 +1506,9 @@
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F151",
-      "time": "0349",
-      "appear_time": "0349",
-      "gate": "58A",
+      "time": "0345",
+      "appear_time": "0345",
+      "gate": "54B",
       "spot": "S3"
     },
     {
@@ -1516,19 +1516,19 @@
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F152",
-      "time": "0351",
-      "appear_time": "0351",
-      "gate": "55",
-      "spot": "S2"
+      "time": "0346",
+      "appear_time": "0346",
+      "gate": "51B",
+      "spot": "S3"
     },
     {
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F153",
-      "time": "0352",
-      "appear_time": "0352",
-      "gate": "52",
+      "time": "0348",
+      "appear_time": "0348",
+      "gate": "56B",
       "spot": "S3"
     },
     {
@@ -1536,9 +1536,9 @@
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F154",
-      "time": "0354",
-      "appear_time": "0354",
-      "gate": "58A",
+      "time": "0350",
+      "appear_time": "0350",
+      "gate": "56A",
       "spot": "S3"
     },
     {
@@ -1546,19 +1546,19 @@
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F155",
-      "time": "0356",
-      "appear_time": "0356",
-      "gate": "57",
-      "spot": "S2"
+      "time": "0351",
+      "appear_time": "0351",
+      "gate": "54A",
+      "spot": "S3"
     },
     {
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F156",
-      "time": "0357",
-      "appear_time": "0357",
-      "gate": "54A",
+      "time": "0353",
+      "appear_time": "0353",
+      "gate": "56A",
       "spot": "S3"
     },
     {
@@ -1566,19 +1566,19 @@
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F157",
-      "time": "0358",
-      "appear_time": "0358",
+      "time": "0355",
+      "appear_time": "0355",
       "gate": "58A",
-      "spot": "S3"
+      "spot": "S2"
     },
     {
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F158",
-      "time": "0400",
-      "appear_time": "0400",
-      "gate": "54A",
+      "time": "0355",
+      "appear_time": "0355",
+      "gate": "58A",
       "spot": "S3"
     },
     {
@@ -1586,9 +1586,9 @@
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F159",
-      "time": "0401",
-      "appear_time": "0401",
-      "gate": "57",
+      "time": "0356",
+      "appear_time": "0356",
+      "gate": "58B",
       "spot": "S2"
     },
     {
@@ -1596,39 +1596,39 @@
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F160",
-      "time": "0402",
-      "appear_time": "0402",
-      "gate": "59",
-      "spot": "S3"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F161",
-      "time": "0404",
-      "appear_time": "0404",
-      "gate": "55",
+      "time": "0357",
+      "appear_time": "0357",
+      "gate": "53",
       "spot": "S2"
     },
     {
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
-      "callsign": "F162",
-      "time": "0406",
-      "appear_time": "0406",
-      "gate": "58A",
+      "callsign": "F161",
+      "time": "0358",
+      "appear_time": "0358",
+      "gate": "51B",
       "spot": "S3"
     },
     {
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
+      "callsign": "F162",
+      "time": "0359",
+      "appear_time": "0359",
+      "gate": "58B",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
       "callsign": "F163",
-      "time": "0407",
-      "appear_time": "0407",
-      "gate": "59",
+      "time": "0400",
+      "appear_time": "0400",
+      "gate": "52",
       "spot": "S2"
     },
     {
@@ -1636,8 +1636,8 @@
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F164",
-      "time": "0408",
-      "appear_time": "0408",
+      "time": "0401",
+      "appear_time": "0401",
       "gate": "54B",
       "spot": "S2"
     },
@@ -1646,19 +1646,19 @@
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F165",
-      "time": "0410",
-      "appear_time": "0410",
-      "gate": "54A",
-      "spot": "S2"
+      "time": "0402",
+      "appear_time": "0402",
+      "gate": "53",
+      "spot": "S3"
     },
     {
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F166",
-      "time": "0412",
-      "appear_time": "0412",
-      "gate": "54A",
+      "time": "0404",
+      "appear_time": "0404",
+      "gate": "51A",
       "spot": "S3"
     },
     {
@@ -1666,9 +1666,9 @@
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F167",
-      "time": "0414",
-      "appear_time": "0414",
-      "gate": "50",
+      "time": "0406",
+      "appear_time": "0406",
+      "gate": "58A",
       "spot": "S2"
     },
     {
@@ -1676,9 +1676,9 @@
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F168",
-      "time": "0416",
-      "appear_time": "0416",
-      "gate": "58B",
+      "time": "0407",
+      "appear_time": "0407",
+      "gate": "58A",
       "spot": "S3"
     },
     {
@@ -1686,9 +1686,9 @@
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F169",
-      "time": "0417",
-      "appear_time": "0417",
-      "gate": "57",
+      "time": "0408",
+      "appear_time": "0408",
+      "gate": "51A",
       "spot": "S3"
     },
     {
@@ -1696,19 +1696,19 @@
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F170",
-      "time": "0420",
-      "appear_time": "0420",
+      "time": "0410",
+      "appear_time": "0410",
       "gate": "51B",
-      "spot": "S3"
+      "spot": "S2"
     },
     {
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F171",
-      "time": "0421",
-      "appear_time": "0421",
-      "gate": "54B",
+      "time": "0411",
+      "appear_time": "0411",
+      "gate": "58B",
       "spot": "S3"
     },
     {
@@ -1716,9 +1716,9 @@
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F172",
-      "time": "0422",
-      "appear_time": "0422",
-      "gate": "55",
+      "time": "0413",
+      "appear_time": "0413",
+      "gate": "52",
       "spot": "S3"
     },
     {
@@ -1726,8 +1726,8 @@
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F173",
-      "time": "0424",
-      "appear_time": "0424",
+      "time": "0414",
+      "appear_time": "0414",
       "gate": "56B",
       "spot": "S3"
     },
@@ -1736,8 +1736,48 @@
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F174",
-      "time": "0425",
-      "appear_time": "0425",
+      "time": "0414",
+      "appear_time": "0414",
+      "gate": "54B",
+      "spot": "S3"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F175",
+      "time": "0415",
+      "appear_time": "0415",
+      "gate": "58B",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F176",
+      "time": "0417",
+      "appear_time": "0417",
+      "gate": "53",
+      "spot": "S3"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F177",
+      "time": "0419",
+      "appear_time": "0419",
+      "gate": "51A",
+      "spot": "S3"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F178",
+      "time": "0420",
+      "appear_time": "0420",
       "gate": "55",
       "spot": "S2"
     },
@@ -1745,7 +1785,37 @@
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
-      "callsign": "F175",
+      "callsign": "F179",
+      "time": "0421",
+      "appear_time": "0421",
+      "gate": "58A",
+      "spot": "S3"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F180",
+      "time": "0423",
+      "appear_time": "0423",
+      "gate": "50",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F181",
+      "time": "0425",
+      "appear_time": "0425",
+      "gate": "54A",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F182",
       "time": "0426",
       "appear_time": "0426",
       "gate": "54A",
@@ -1755,80 +1825,10 @@
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
-      "callsign": "F176",
-      "time": "0428",
-      "appear_time": "0428",
-      "gate": "59",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F177",
-      "time": "0429",
-      "appear_time": "0429",
-      "gate": "52",
-      "spot": "S3"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F178",
-      "time": "0430",
-      "appear_time": "0430",
-      "gate": "55",
-      "spot": "S3"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F179",
-      "time": "0432",
-      "appear_time": "0432",
-      "gate": "51A",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F180",
-      "time": "0433",
-      "appear_time": "0433",
-      "gate": "52",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F181",
-      "time": "0435",
-      "appear_time": "0435",
-      "gate": "57",
-      "spot": "S3"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F182",
-      "time": "0435",
-      "appear_time": "0435",
-      "gate": "54B",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
       "callsign": "F183",
-      "time": "0437",
-      "appear_time": "0437",
-      "gate": "50",
+      "time": "0427",
+      "appear_time": "0427",
+      "gate": "58A",
       "spot": "S2"
     },
     {
@@ -1836,9 +1836,9 @@
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F184",
-      "time": "0439",
-      "appear_time": "0439",
-      "gate": "56A",
+      "time": "0429",
+      "appear_time": "0429",
+      "gate": "54A",
       "spot": "S3"
     },
     {
@@ -1846,19 +1846,19 @@
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F185",
-      "time": "0440",
-      "appear_time": "0440",
-      "gate": "54B",
-      "spot": "S2"
+      "time": "0430",
+      "appear_time": "0430",
+      "gate": "54A",
+      "spot": "S3"
     },
     {
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F186",
-      "time": "0440",
-      "appear_time": "0440",
-      "gate": "50",
+      "time": "0432",
+      "appear_time": "0432",
+      "gate": "53",
       "spot": "S2"
     },
     {
@@ -1866,29 +1866,29 @@
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F187",
-      "time": "0441",
-      "appear_time": "0441",
-      "gate": "51B",
-      "spot": "S2"
+      "time": "0433",
+      "appear_time": "0433",
+      "gate": "54A",
+      "spot": "S3"
     },
     {
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F188",
-      "time": "0443",
-      "appear_time": "0443",
-      "gate": "59",
-      "spot": "S2"
+      "time": "0434",
+      "appear_time": "0434",
+      "gate": "53",
+      "spot": "S3"
     },
     {
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F189",
-      "time": "0445",
-      "appear_time": "0445",
-      "gate": "54B",
+      "time": "0436",
+      "appear_time": "0436",
+      "gate": "54A",
       "spot": "S2"
     },
     {
@@ -1896,29 +1896,29 @@
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F190",
-      "time": "0446",
-      "appear_time": "0446",
-      "gate": "51A",
-      "spot": "S3"
+      "time": "0437",
+      "appear_time": "0437",
+      "gate": "51B",
+      "spot": "S2"
     },
     {
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F191",
-      "time": "0447",
-      "appear_time": "0447",
-      "gate": "58A",
-      "spot": "S3"
+      "time": "0438",
+      "appear_time": "0438",
+      "gate": "59",
+      "spot": "S2"
     },
     {
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F192",
-      "time": "0448",
-      "appear_time": "0448",
-      "gate": "58A",
+      "time": "0440",
+      "appear_time": "0440",
+      "gate": "54A",
       "spot": "S2"
     },
     {
@@ -1926,16 +1926,86 @@
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F193",
-      "time": "0450",
-      "appear_time": "0450",
-      "gate": "56A",
-      "spot": "S3"
+      "time": "0441",
+      "appear_time": "0441",
+      "gate": "54A",
+      "spot": "S2"
     },
     {
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F194",
+      "time": "0443",
+      "appear_time": "0443",
+      "gate": "53",
+      "spot": "S3"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F195",
+      "time": "0444",
+      "appear_time": "0444",
+      "gate": "52",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F196",
+      "time": "0445",
+      "appear_time": "0445",
+      "gate": "52",
+      "spot": "S3"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F197",
+      "time": "0447",
+      "appear_time": "0447",
+      "gate": "52",
+      "spot": "S3"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F198",
+      "time": "0448",
+      "appear_time": "0448",
+      "gate": "55",
+      "spot": "S3"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F199",
+      "time": "0449",
+      "appear_time": "0449",
+      "gate": "52",
+      "spot": "S3"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F200",
+      "time": "0450",
+      "appear_time": "0450",
+      "gate": "50",
+      "spot": "S3"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F201",
       "time": "0451",
       "appear_time": "0451",
       "gate": "54A",
@@ -1945,80 +2015,10 @@
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
-      "callsign": "F195",
-      "time": "0453",
-      "appear_time": "0453",
-      "gate": "54B",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F196",
-      "time": "0456",
-      "appear_time": "0456",
-      "gate": "57",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F197",
-      "time": "0458",
-      "appear_time": "0458",
-      "gate": "50",
-      "spot": "S3"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F198",
-      "time": "0459",
-      "appear_time": "0459",
-      "gate": "51B",
-      "spot": "S3"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F199",
-      "time": "0501",
-      "appear_time": "0501",
-      "gate": "54B",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F200",
-      "time": "0503",
-      "appear_time": "0503",
-      "gate": "54A",
-      "spot": "S3"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F201",
-      "time": "0504",
-      "appear_time": "0504",
-      "gate": "58A",
-      "spot": "S3"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
       "callsign": "F202",
-      "time": "0506",
-      "appear_time": "0506",
-      "gate": "52",
+      "time": "0452",
+      "appear_time": "0452",
+      "gate": "56B",
       "spot": "S3"
     },
     {
@@ -2026,19 +2026,19 @@
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F203",
-      "time": "0507",
-      "appear_time": "0507",
-      "gate": "53",
-      "spot": "S2"
+      "time": "0454",
+      "appear_time": "0454",
+      "gate": "52",
+      "spot": "S3"
     },
     {
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F204",
-      "time": "0508",
-      "appear_time": "0508",
-      "gate": "54A",
+      "time": "0457",
+      "appear_time": "0457",
+      "gate": "53",
       "spot": "S3"
     },
     {
@@ -2046,8 +2046,8 @@
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F205",
-      "time": "0510",
-      "appear_time": "0510",
+      "time": "0459",
+      "appear_time": "0459",
       "gate": "58A",
       "spot": "S2"
     },
@@ -2056,9 +2056,9 @@
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F206",
-      "time": "0511",
-      "appear_time": "0511",
-      "gate": "50",
+      "time": "0500",
+      "appear_time": "0500",
+      "gate": "58A",
       "spot": "S3"
     },
     {
@@ -2066,9 +2066,9 @@
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F207",
-      "time": "0513",
-      "appear_time": "0513",
-      "gate": "56A",
+      "time": "0501",
+      "appear_time": "0501",
+      "gate": "58B",
       "spot": "S2"
     },
     {
@@ -2076,28 +2076,8 @@
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F208",
-      "time": "0516",
-      "appear_time": "0516",
-      "gate": "56B",
-      "spot": "S3"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F209",
-      "time": "0517",
-      "appear_time": "0517",
-      "gate": "56B",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F210",
-      "time": "0518",
-      "appear_time": "0518",
+      "time": "0503",
+      "appear_time": "0503",
       "gate": "54B",
       "spot": "S2"
     },
@@ -2105,10 +2085,30 @@
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
+      "callsign": "F209",
+      "time": "0504",
+      "appear_time": "0504",
+      "gate": "56B",
+      "spot": "S3"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F210",
+      "time": "0506",
+      "appear_time": "0506",
+      "gate": "54B",
+      "spot": "S3"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
       "callsign": "F211",
-      "time": "0520",
-      "appear_time": "0520",
-      "gate": "51B",
+      "time": "0507",
+      "appear_time": "0507",
+      "gate": "58B",
       "spot": "S3"
     },
     {
@@ -2116,19 +2116,19 @@
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F212",
-      "time": "0521",
-      "appear_time": "0521",
-      "gate": "59",
-      "spot": "S3"
+      "time": "0510",
+      "appear_time": "0510",
+      "gate": "54A",
+      "spot": "S2"
     },
     {
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F213",
-      "time": "0522",
-      "appear_time": "0522",
-      "gate": "54B",
+      "time": "0510",
+      "appear_time": "0510",
+      "gate": "56A",
       "spot": "S2"
     },
     {
@@ -2136,9 +2136,9 @@
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F214",
-      "time": "0523",
-      "appear_time": "0523",
-      "gate": "51A",
+      "time": "0510",
+      "appear_time": "0510",
+      "gate": "56B",
       "spot": "S2"
     },
     {
@@ -2146,6 +2146,106 @@
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F215",
+      "time": "0512",
+      "appear_time": "0512",
+      "gate": "54B",
+      "spot": "S3"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F216",
+      "time": "0513",
+      "appear_time": "0513",
+      "gate": "58A",
+      "spot": "S3"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F217",
+      "time": "0514",
+      "appear_time": "0514",
+      "gate": "55",
+      "spot": "S3"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F218",
+      "time": "0515",
+      "appear_time": "0515",
+      "gate": "58A",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F219",
+      "time": "0516",
+      "appear_time": "0516",
+      "gate": "56A",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F220",
+      "time": "0519",
+      "appear_time": "0519",
+      "gate": "51A",
+      "spot": "S3"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F221",
+      "time": "0521",
+      "appear_time": "0521",
+      "gate": "53",
+      "spot": "S3"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F222",
+      "time": "0522",
+      "appear_time": "0522",
+      "gate": "53",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F223",
+      "time": "0523",
+      "appear_time": "0523",
+      "gate": "53",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F224",
+      "time": "0524",
+      "appear_time": "0524",
+      "gate": "50",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F225",
       "time": "0526",
       "appear_time": "0526",
       "gate": "56B",
@@ -2155,110 +2255,10 @@
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
-      "callsign": "F216",
-      "time": "0527",
-      "appear_time": "0527",
-      "gate": "54A",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F217",
-      "time": "0529",
-      "appear_time": "0529",
-      "gate": "59",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F218",
-      "time": "0530",
-      "appear_time": "0530",
-      "gate": "56B",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F219",
-      "time": "0532",
-      "appear_time": "0532",
-      "gate": "50",
-      "spot": "S3"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F220",
-      "time": "0534",
-      "appear_time": "0534",
-      "gate": "57",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F221",
-      "time": "0536",
-      "appear_time": "0536",
-      "gate": "56A",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F222",
-      "time": "0537",
-      "appear_time": "0537",
-      "gate": "51B",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F223",
-      "time": "0539",
-      "appear_time": "0539",
-      "gate": "51A",
-      "spot": "S3"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F224",
-      "time": "0541",
-      "appear_time": "0541",
-      "gate": "50",
-      "spot": "S3"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F225",
-      "time": "0542",
-      "appear_time": "0542",
-      "gate": "54A",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
       "callsign": "F226",
-      "time": "0543",
-      "appear_time": "0543",
-      "gate": "51B",
+      "time": "0528",
+      "appear_time": "0528",
+      "gate": "58A",
       "spot": "S2"
     },
     {
@@ -2266,18 +2266,18 @@
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F227",
-      "time": "0544",
-      "appear_time": "0544",
+      "time": "0529",
+      "appear_time": "0529",
       "gate": "56B",
-      "spot": "S2"
+      "spot": "S3"
     },
     {
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F228",
-      "time": "0546",
-      "appear_time": "0546",
+      "time": "0530",
+      "appear_time": "0530",
       "gate": "54B",
       "spot": "S3"
     },
@@ -2286,29 +2286,29 @@
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F229",
-      "time": "0548",
-      "appear_time": "0548",
-      "gate": "54B",
-      "spot": "S3"
+      "time": "0531",
+      "appear_time": "0531",
+      "gate": "59",
+      "spot": "S2"
     },
     {
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F230",
-      "time": "0549",
-      "appear_time": "0549",
-      "gate": "51B",
-      "spot": "S3"
+      "time": "0532",
+      "appear_time": "0532",
+      "gate": "59",
+      "spot": "S2"
     },
     {
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F231",
-      "time": "0551",
-      "appear_time": "0551",
-      "gate": "54A",
+      "time": "0533",
+      "appear_time": "0533",
+      "gate": "51B",
       "spot": "S3"
     },
     {
@@ -2316,19 +2316,19 @@
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F232",
-      "time": "0553",
-      "appear_time": "0553",
-      "gate": "50",
-      "spot": "S3"
+      "time": "0535",
+      "appear_time": "0535",
+      "gate": "54A",
+      "spot": "S2"
     },
     {
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F233",
-      "time": "0554",
-      "appear_time": "0554",
-      "gate": "55",
+      "time": "0537",
+      "appear_time": "0537",
+      "gate": "58B",
       "spot": "S3"
     },
     {
@@ -2336,29 +2336,29 @@
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F234",
-      "time": "0556",
-      "appear_time": "0556",
-      "gate": "51A",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F235",
-      "time": "0558",
-      "appear_time": "0558",
-      "gate": "58A",
+      "time": "0538",
+      "appear_time": "0538",
+      "gate": "55",
       "spot": "S3"
     },
     {
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
+      "callsign": "F235",
+      "time": "0540",
+      "appear_time": "0540",
+      "gate": "50",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
       "callsign": "F236",
-      "time": "0559",
-      "appear_time": "0559",
-      "gate": "58B",
+      "time": "0541",
+      "appear_time": "0541",
+      "gate": "56A",
       "spot": "S3"
     },
     {
@@ -2366,59 +2366,59 @@
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F237",
-      "time": "0601",
-      "appear_time": "0601",
-      "gate": "56A",
-      "spot": "S2"
+      "time": "0543",
+      "appear_time": "0543",
+      "gate": "51B",
+      "spot": "S3"
     },
     {
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F238",
-      "time": "0602",
-      "appear_time": "0602",
-      "gate": "52",
-      "spot": "S3"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F239",
-      "time": "0604",
-      "appear_time": "0604",
-      "gate": "54B",
-      "spot": "S3"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F240",
-      "time": "0605",
-      "appear_time": "0605",
-      "gate": "58B",
+      "time": "0545",
+      "appear_time": "0545",
+      "gate": "50",
       "spot": "S2"
     },
     {
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
-      "callsign": "F241",
-      "time": "0606",
-      "appear_time": "0606",
-      "gate": "56B",
+      "callsign": "F239",
+      "time": "0547",
+      "appear_time": "0547",
+      "gate": "51A",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F240",
+      "time": "0548",
+      "appear_time": "0548",
+      "gate": "50",
       "spot": "S3"
     },
     {
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
+      "callsign": "F241",
+      "time": "0550",
+      "appear_time": "0550",
+      "gate": "57",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
       "callsign": "F242",
-      "time": "0608",
-      "appear_time": "0608",
-      "gate": "54A",
+      "time": "0551",
+      "appear_time": "0551",
+      "gate": "55",
       "spot": "S2"
     },
     {
@@ -2426,9 +2426,9 @@
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F243",
-      "time": "0610",
-      "appear_time": "0610",
-      "gate": "55",
+      "time": "0553",
+      "appear_time": "0553",
+      "gate": "51A",
       "spot": "S2"
     },
     {
@@ -2436,29 +2436,29 @@
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F244",
-      "time": "0611",
-      "appear_time": "0611",
-      "gate": "50",
-      "spot": "S3"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F245",
-      "time": "0613",
-      "appear_time": "0613",
-      "gate": "52",
+      "time": "0554",
+      "appear_time": "0554",
+      "gate": "54A",
       "spot": "S2"
     },
     {
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
+      "callsign": "F245",
+      "time": "0556",
+      "appear_time": "0556",
+      "gate": "56A",
+      "spot": "S3"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
       "callsign": "F246",
-      "time": "0614",
-      "appear_time": "0614",
-      "gate": "58A",
+      "time": "0557",
+      "appear_time": "0557",
+      "gate": "54B",
       "spot": "S2"
     },
     {
@@ -2466,29 +2466,29 @@
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F247",
-      "time": "0616",
-      "appear_time": "0616",
-      "gate": "51B",
-      "spot": "S3"
+      "time": "0559",
+      "appear_time": "0559",
+      "gate": "54B",
+      "spot": "S2"
     },
     {
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F248",
-      "time": "0618",
-      "appear_time": "0618",
-      "gate": "57",
-      "spot": "S3"
+      "time": "0601",
+      "appear_time": "0601",
+      "gate": "55",
+      "spot": "S2"
     },
     {
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F249",
-      "time": "0619",
-      "appear_time": "0619",
-      "gate": "58A",
+      "time": "0603",
+      "appear_time": "0603",
+      "gate": "57",
       "spot": "S2"
     },
     {
@@ -2496,29 +2496,29 @@
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F250",
-      "time": "0619",
-      "appear_time": "0619",
-      "gate": "53",
-      "spot": "S2"
+      "time": "0605",
+      "appear_time": "0605",
+      "gate": "56B",
+      "spot": "S3"
     },
     {
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F251",
-      "time": "0621",
-      "appear_time": "0621",
-      "gate": "56A",
-      "spot": "S2"
+      "time": "0606",
+      "appear_time": "0606",
+      "gate": "54B",
+      "spot": "S3"
     },
     {
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F252",
-      "time": "0623",
-      "appear_time": "0623",
-      "gate": "55",
+      "time": "0607",
+      "appear_time": "0607",
+      "gate": "54B",
       "spot": "S2"
     },
     {
@@ -2526,9 +2526,9 @@
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F253",
-      "time": "0625",
-      "appear_time": "0625",
-      "gate": "59",
+      "time": "0609",
+      "appear_time": "0609",
+      "gate": "52",
       "spot": "S3"
     },
     {
@@ -2536,288 +2536,18 @@
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F254",
-      "time": "0627",
-      "appear_time": "0627",
-      "gate": "57",
-      "spot": "S2"
+      "time": "0610",
+      "appear_time": "0610",
+      "gate": "53",
+      "spot": "S3"
     },
     {
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F255",
-      "time": "0628",
-      "appear_time": "0628",
-      "gate": "57",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F256",
-      "time": "0629",
-      "appear_time": "0629",
-      "gate": "51A",
-      "spot": "S3"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F257",
-      "time": "0631",
-      "appear_time": "0631",
-      "gate": "56B",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F258",
-      "time": "0632",
-      "appear_time": "0632",
-      "gate": "54A",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F259",
-      "time": "0633",
-      "appear_time": "0633",
-      "gate": "51A",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F260",
-      "time": "0634",
-      "appear_time": "0634",
-      "gate": "51A",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F261",
-      "time": "0635",
-      "appear_time": "0635",
-      "gate": "58B",
-      "spot": "S3"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F262",
-      "time": "0636",
-      "appear_time": "0636",
-      "gate": "53",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F263",
-      "time": "0636",
-      "appear_time": "0636",
-      "gate": "51A",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F264",
-      "time": "0639",
-      "appear_time": "0639",
-      "gate": "59",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F265",
-      "time": "0641",
-      "appear_time": "0641",
-      "gate": "56B",
-      "spot": "S3"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F266",
-      "time": "0642",
-      "appear_time": "0642",
-      "gate": "55",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F267",
-      "time": "0643",
-      "appear_time": "0643",
-      "gate": "56A",
-      "spot": "S3"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F268",
-      "time": "0645",
-      "appear_time": "0645",
-      "gate": "56A",
-      "spot": "S3"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F269",
-      "time": "0647",
-      "appear_time": "0647",
-      "gate": "56A",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F270",
-      "time": "0649",
-      "appear_time": "0649",
-      "gate": "54B",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F271",
-      "time": "0650",
-      "appear_time": "0650",
-      "gate": "51B",
-      "spot": "S3"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F272",
-      "time": "0652",
-      "appear_time": "0652",
-      "gate": "56B",
-      "spot": "S3"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F273",
-      "time": "0654",
-      "appear_time": "0654",
-      "gate": "54A",
-      "spot": "S3"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F274",
-      "time": "0655",
-      "appear_time": "0655",
-      "gate": "51A",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F275",
-      "time": "0658",
-      "appear_time": "0658",
-      "gate": "56A",
-      "spot": "S3"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F276",
-      "time": "0700",
-      "appear_time": "0700",
-      "gate": "51A",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F277",
-      "time": "0702",
-      "appear_time": "0702",
-      "gate": "58A",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F278",
-      "time": "0703",
-      "appear_time": "0703",
-      "gate": "54A",
-      "spot": "S3"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F279",
-      "time": "0705",
-      "appear_time": "0705",
-      "gate": "51A",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F280",
-      "time": "0707",
-      "appear_time": "0707",
-      "gate": "51B",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F281",
-      "time": "0710",
-      "appear_time": "0710",
-      "gate": "55",
-      "spot": "S3"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F282",
-      "time": "0711",
-      "appear_time": "0711",
+      "time": "0612",
+      "appear_time": "0612",
       "gate": "50",
       "spot": "S3"
     },
@@ -2825,29 +2555,19 @@
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
-      "callsign": "F283",
-      "time": "0712",
-      "appear_time": "0712",
-      "gate": "57",
+      "callsign": "F256",
+      "time": "0614",
+      "appear_time": "0614",
+      "gate": "51B",
       "spot": "S2"
     },
     {
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
-      "callsign": "F284",
-      "time": "0713",
-      "appear_time": "0713",
-      "gate": "51A",
-      "spot": "S3"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F285",
-      "time": "0715",
-      "appear_time": "0715",
+      "callsign": "F257",
+      "time": "0615",
+      "appear_time": "0615",
       "gate": "56A",
       "spot": "S3"
     },
@@ -2855,20 +2575,300 @@
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
-      "callsign": "F286",
-      "time": "0716",
-      "appear_time": "0716",
-      "gate": "59",
+      "callsign": "F258",
+      "time": "0617",
+      "appear_time": "0617",
+      "gate": "53",
       "spot": "S3"
     },
     {
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
-      "callsign": "F287",
-      "time": "0717",
-      "appear_time": "0717",
+      "callsign": "F259",
+      "time": "0619",
+      "appear_time": "0619",
+      "gate": "52",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F260",
+      "time": "0620",
+      "appear_time": "0620",
+      "gate": "58A",
+      "spot": "S3"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F261",
+      "time": "0620",
+      "appear_time": "0620",
+      "gate": "55",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F262",
+      "time": "0622",
+      "appear_time": "0622",
+      "gate": "52",
+      "spot": "S3"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F263",
+      "time": "0623",
+      "appear_time": "0623",
+      "gate": "52",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F264",
+      "time": "0624",
+      "appear_time": "0624",
+      "gate": "50",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F265",
+      "time": "0625",
+      "appear_time": "0625",
+      "gate": "55",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F266",
+      "time": "0627",
+      "appear_time": "0627",
       "gate": "54B",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F267",
+      "time": "0628",
+      "appear_time": "0628",
+      "gate": "53",
+      "spot": "S3"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F268",
+      "time": "0629",
+      "appear_time": "0629",
+      "gate": "55",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F269",
+      "time": "0630",
+      "appear_time": "0630",
+      "gate": "59",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F270",
+      "time": "0631",
+      "appear_time": "0631",
+      "gate": "51A",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F271",
+      "time": "0632",
+      "appear_time": "0632",
+      "gate": "50",
+      "spot": "S3"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F272",
+      "time": "0633",
+      "appear_time": "0633",
+      "gate": "56A",
+      "spot": "S3"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F273",
+      "time": "0634",
+      "appear_time": "0634",
+      "gate": "51A",
+      "spot": "S3"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F274",
+      "time": "0636",
+      "appear_time": "0636",
+      "gate": "51A",
+      "spot": "S3"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F275",
+      "time": "0637",
+      "appear_time": "0637",
+      "gate": "53",
+      "spot": "S3"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F276",
+      "time": "0639",
+      "appear_time": "0639",
+      "gate": "54B",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F277",
+      "time": "0640",
+      "appear_time": "0640",
+      "gate": "53",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F278",
+      "time": "0641",
+      "appear_time": "0641",
+      "gate": "51B",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F279",
+      "time": "0642",
+      "appear_time": "0642",
+      "gate": "52",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F280",
+      "time": "0644",
+      "appear_time": "0644",
+      "gate": "57",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F281",
+      "time": "0645",
+      "appear_time": "0645",
+      "gate": "54B",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F282",
+      "time": "0646",
+      "appear_time": "0646",
+      "gate": "54A",
+      "spot": "S3"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F283",
+      "time": "0647",
+      "appear_time": "0647",
+      "gate": "59",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F284",
+      "time": "0649",
+      "appear_time": "0649",
+      "gate": "51B",
+      "spot": "S3"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F285",
+      "time": "0651",
+      "appear_time": "0651",
+      "gate": "55",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F286",
+      "time": "0653",
+      "appear_time": "0653",
+      "gate": "51B",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F287",
+      "time": "0655",
+      "appear_time": "0655",
+      "gate": "59",
       "spot": "S2"
     },
     {
@@ -2876,9 +2876,9 @@
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F288",
-      "time": "0718",
-      "appear_time": "0718",
-      "gate": "58B",
+      "time": "0656",
+      "appear_time": "0656",
+      "gate": "53",
       "spot": "S3"
     },
     {
@@ -2886,19 +2886,19 @@
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F289",
-      "time": "0720",
-      "appear_time": "0720",
+      "time": "0657",
+      "appear_time": "0657",
       "gate": "59",
-      "spot": "S2"
+      "spot": "S3"
     },
     {
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F290",
-      "time": "0722",
-      "appear_time": "0722",
-      "gate": "54B",
+      "time": "0658",
+      "appear_time": "0658",
+      "gate": "50",
       "spot": "S2"
     },
     {
@@ -2906,16 +2906,196 @@
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F291",
-      "time": "0723",
-      "appear_time": "0723",
-      "gate": "55",
-      "spot": "S3"
+      "time": "0658",
+      "appear_time": "0658",
+      "gate": "51A",
+      "spot": "S2"
     },
     {
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F292",
+      "time": "0659",
+      "appear_time": "0659",
+      "gate": "51A",
+      "spot": "S3"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F293",
+      "time": "0700",
+      "appear_time": "0700",
+      "gate": "59",
+      "spot": "S3"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F294",
+      "time": "0701",
+      "appear_time": "0701",
+      "gate": "50",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F295",
+      "time": "0702",
+      "appear_time": "0702",
+      "gate": "58A",
+      "spot": "S3"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F296",
+      "time": "0704",
+      "appear_time": "0704",
+      "gate": "56A",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F297",
+      "time": "0705",
+      "appear_time": "0705",
+      "gate": "52",
+      "spot": "S3"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F298",
+      "time": "0707",
+      "appear_time": "0707",
+      "gate": "52",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F299",
+      "time": "0708",
+      "appear_time": "0708",
+      "gate": "51B",
+      "spot": "S3"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F300",
+      "time": "0709",
+      "appear_time": "0709",
+      "gate": "56B",
+      "spot": "S3"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F301",
+      "time": "0710",
+      "appear_time": "0710",
+      "gate": "58A",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F302",
+      "time": "0712",
+      "appear_time": "0712",
+      "gate": "54B",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F303",
+      "time": "0713",
+      "appear_time": "0713",
+      "gate": "56B",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F304",
+      "time": "0715",
+      "appear_time": "0715",
+      "gate": "53",
+      "spot": "S3"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F305",
+      "time": "0716",
+      "appear_time": "0716",
+      "gate": "59",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F306",
+      "time": "0717",
+      "appear_time": "0717",
+      "gate": "56B",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F307",
+      "time": "0719",
+      "appear_time": "0719",
+      "gate": "50",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F308",
+      "time": "0721",
+      "appear_time": "0721",
+      "gate": "54B",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F309",
+      "time": "0722",
+      "appear_time": "0722",
+      "gate": "56A",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F310",
       "time": "0724",
       "appear_time": "0724",
       "gate": "54B",
@@ -2925,57 +3105,67 @@
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
-      "callsign": "F293",
+      "callsign": "F311",
       "time": "0726",
       "appear_time": "0726",
-      "gate": "58B",
+      "gate": "57",
       "spot": "S3"
     },
     {
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
-      "callsign": "F294",
-      "time": "0728",
-      "appear_time": "0728",
-      "gate": "53",
-      "spot": "S2"
+      "callsign": "F312",
+      "time": "0727",
+      "appear_time": "0727",
+      "gate": "57",
+      "spot": "S3"
     },
     {
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
-      "callsign": "F295",
+      "callsign": "F313",
+      "time": "0729",
+      "appear_time": "0729",
+      "gate": "59",
+      "spot": "S3"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F314",
       "time": "0730",
       "appear_time": "0730",
-      "gate": "58B",
+      "gate": "56A",
       "spot": "S3"
     },
     {
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
-      "callsign": "F296",
-      "time": "0731",
-      "appear_time": "0731",
-      "gate": "58A",
+      "callsign": "F315",
+      "time": "0732",
+      "appear_time": "0732",
+      "gate": "59",
       "spot": "S2"
     },
     {
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
-      "callsign": "F297",
+      "callsign": "F316",
       "time": "0733",
       "appear_time": "0733",
       "gate": "56B",
-      "spot": "S3"
+      "spot": "S2"
     },
     {
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
-      "callsign": "F298",
+      "callsign": "F317",
       "time": "0735",
       "appear_time": "0735",
       "gate": "57",
@@ -2985,210 +3175,20 @@
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
-      "callsign": "F299",
-      "time": "0737",
-      "appear_time": "0737",
-      "gate": "59",
-      "spot": "S3"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F300",
-      "time": "0739",
-      "appear_time": "0739",
-      "gate": "51A",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F301",
-      "time": "0740",
-      "appear_time": "0740",
-      "gate": "50",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F302",
-      "time": "0742",
-      "appear_time": "0742",
-      "gate": "51B",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F303",
-      "time": "0743",
-      "appear_time": "0743",
-      "gate": "59",
-      "spot": "S3"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F304",
-      "time": "0744",
-      "appear_time": "0744",
-      "gate": "51A",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F305",
-      "time": "0744",
-      "appear_time": "0744",
-      "gate": "51A",
-      "spot": "S3"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F306",
-      "time": "0747",
-      "appear_time": "0747",
-      "gate": "58B",
-      "spot": "S3"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F307",
-      "time": "0749",
-      "appear_time": "0749",
-      "gate": "56B",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F308",
-      "time": "0750",
-      "appear_time": "0750",
-      "gate": "58A",
-      "spot": "S3"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F309",
-      "time": "0751",
-      "appear_time": "0751",
-      "gate": "55",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F310",
-      "time": "0752",
-      "appear_time": "0752",
-      "gate": "54B",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F311",
-      "time": "0753",
-      "appear_time": "0753",
-      "gate": "52",
-      "spot": "S3"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F312",
-      "time": "0754",
-      "appear_time": "0754",
-      "gate": "58B",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F313",
-      "time": "0755",
-      "appear_time": "0755",
-      "gate": "51A",
-      "spot": "S3"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F314",
-      "time": "0756",
-      "appear_time": "0756",
-      "gate": "56B",
-      "spot": "S3"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F315",
-      "time": "0758",
-      "appear_time": "0758",
-      "gate": "51A",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F316",
-      "time": "0759",
-      "appear_time": "0759",
-      "gate": "55",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F317",
-      "time": "0800",
-      "appear_time": "0800",
-      "gate": "56A",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
       "callsign": "F318",
-      "time": "0801",
-      "appear_time": "0801",
-      "gate": "56B",
-      "spot": "S2"
+      "time": "0736",
+      "appear_time": "0736",
+      "gate": "59",
+      "spot": "S3"
     },
     {
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F319",
-      "time": "0803",
-      "appear_time": "0803",
-      "gate": "56B",
+      "time": "0738",
+      "appear_time": "0738",
+      "gate": "51A",
       "spot": "S2"
     },
     {
@@ -3196,9 +3196,9 @@
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F320",
-      "time": "0805",
-      "appear_time": "0805",
-      "gate": "51B",
+      "time": "0740",
+      "appear_time": "0740",
+      "gate": "51A",
       "spot": "S2"
     },
     {
@@ -3206,8 +3206,8 @@
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F321",
-      "time": "0806",
-      "appear_time": "0806",
+      "time": "0741",
+      "appear_time": "0741",
       "gate": "50",
       "spot": "S3"
     },
@@ -3216,158 +3216,8 @@
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F322",
-      "time": "0808",
-      "appear_time": "0808",
-      "gate": "59",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F323",
-      "time": "0809",
-      "appear_time": "0809",
-      "gate": "50",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F324",
-      "time": "0810",
-      "appear_time": "0810",
-      "gate": "59",
-      "spot": "S3"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F325",
-      "time": "0811",
-      "appear_time": "0811",
-      "gate": "51A",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F326",
-      "time": "0811",
-      "appear_time": "0811",
-      "gate": "55",
-      "spot": "S3"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F327",
-      "time": "0813",
-      "appear_time": "0813",
-      "gate": "57",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F328",
-      "time": "0814",
-      "appear_time": "0814",
-      "gate": "53",
-      "spot": "S3"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F329",
-      "time": "0815",
-      "appear_time": "0815",
-      "gate": "57",
-      "spot": "S3"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F330",
-      "time": "0817",
-      "appear_time": "0817",
-      "gate": "51A",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F331",
-      "time": "0819",
-      "appear_time": "0819",
-      "gate": "58B",
-      "spot": "S3"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F332",
-      "time": "0820",
-      "appear_time": "0820",
-      "gate": "57",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F333",
-      "time": "0821",
-      "appear_time": "0821",
-      "gate": "57",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F334",
-      "time": "0822",
-      "appear_time": "0822",
-      "gate": "56A",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F335",
-      "time": "0824",
-      "appear_time": "0824",
-      "gate": "59",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F336",
-      "time": "0826",
-      "appear_time": "0826",
-      "gate": "53",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F337",
-      "time": "0827",
-      "appear_time": "0827",
+      "time": "0742",
+      "appear_time": "0742",
       "gate": "56B",
       "spot": "S2"
     },
@@ -3375,9 +3225,39 @@
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
-      "callsign": "F338",
-      "time": "0829",
-      "appear_time": "0829",
+      "callsign": "F323",
+      "time": "0745",
+      "appear_time": "0745",
+      "gate": "55",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F324",
+      "time": "0747",
+      "appear_time": "0747",
+      "gate": "54B",
+      "spot": "S3"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F325",
+      "time": "0748",
+      "appear_time": "0748",
+      "gate": "52",
+      "spot": "S3"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F326",
+      "time": "0749",
+      "appear_time": "0749",
       "gate": "50",
       "spot": "S3"
     },
@@ -3385,10 +3265,130 @@
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
-      "callsign": "F339",
-      "time": "0831",
-      "appear_time": "0831",
+      "callsign": "F327",
+      "time": "0751",
+      "appear_time": "0751",
+      "gate": "52",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F328",
+      "time": "0753",
+      "appear_time": "0753",
+      "gate": "54B",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F329",
+      "time": "0754",
+      "appear_time": "0754",
+      "gate": "50",
+      "spot": "S3"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F330",
+      "time": "0755",
+      "appear_time": "0755",
+      "gate": "51B",
+      "spot": "S3"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F331",
+      "time": "0756",
+      "appear_time": "0756",
+      "gate": "58A",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F332",
+      "time": "0758",
+      "appear_time": "0758",
+      "gate": "58A",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F333",
+      "time": "0801",
+      "appear_time": "0801",
+      "gate": "58A",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F334",
+      "time": "0803",
+      "appear_time": "0803",
+      "gate": "55",
+      "spot": "S3"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F335",
+      "time": "0805",
+      "appear_time": "0805",
       "gate": "51A",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F336",
+      "time": "0807",
+      "appear_time": "0807",
+      "gate": "57",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F337",
+      "time": "0809",
+      "appear_time": "0809",
+      "gate": "51B",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F338",
+      "time": "0810",
+      "appear_time": "0810",
+      "gate": "57",
+      "spot": "S3"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F339",
+      "time": "0813",
+      "appear_time": "0813",
+      "gate": "54B",
       "spot": "S3"
     },
     {
@@ -3396,6 +3396,126 @@
       "airport": "SJC",
       "runway": "10R/28L",
       "callsign": "F340",
+      "time": "0814",
+      "appear_time": "0814",
+      "gate": "51B",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F341",
+      "time": "0816",
+      "appear_time": "0816",
+      "gate": "51A",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F342",
+      "time": "0817",
+      "appear_time": "0817",
+      "gate": "57",
+      "spot": "S3"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F343",
+      "time": "0818",
+      "appear_time": "0818",
+      "gate": "54A",
+      "spot": "S3"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F344",
+      "time": "0819",
+      "appear_time": "0819",
+      "gate": "50",
+      "spot": "S3"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F345",
+      "time": "0820",
+      "appear_time": "0820",
+      "gate": "54A",
+      "spot": "S3"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F346",
+      "time": "0822",
+      "appear_time": "0822",
+      "gate": "51A",
+      "spot": "S3"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F347",
+      "time": "0823",
+      "appear_time": "0823",
+      "gate": "55",
+      "spot": "S3"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F348",
+      "time": "0825",
+      "appear_time": "0825",
+      "gate": "56A",
+      "spot": "S3"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F349",
+      "time": "0827",
+      "appear_time": "0827",
+      "gate": "56B",
+      "spot": "S3"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F350",
+      "time": "0829",
+      "appear_time": "0829",
+      "gate": "56A",
+      "spot": "S3"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F351",
+      "time": "0831",
+      "appear_time": "0831",
+      "gate": "56B",
+      "spot": "S3"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F352",
       "time": "0832",
       "appear_time": "0832",
       "gate": "54A",
@@ -3405,47 +3525,37 @@
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
-      "callsign": "F341",
+      "callsign": "F353",
       "time": "0834",
       "appear_time": "0834",
-      "gate": "56A",
-      "spot": "S3"
+      "gate": "59",
+      "spot": "S2"
     },
     {
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
-      "callsign": "F342",
+      "callsign": "F354",
       "time": "0836",
       "appear_time": "0836",
-      "gate": "52",
+      "gate": "58A",
       "spot": "S3"
     },
     {
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
-      "callsign": "F343",
-      "time": "0838",
-      "appear_time": "0838",
-      "gate": "59",
-      "spot": "S3"
+      "callsign": "F355",
+      "time": "0839",
+      "appear_time": "0839",
+      "gate": "56B",
+      "spot": "S2"
     },
     {
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
-      "callsign": "F344",
-      "time": "0840",
-      "appear_time": "0840",
-      "gate": "57",
-      "spot": "S3"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F345",
+      "callsign": "F356",
       "time": "0841",
       "appear_time": "0841",
       "gate": "53",
@@ -3455,69 +3565,9 @@
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
-      "callsign": "F346",
+      "callsign": "F357",
       "time": "0842",
       "appear_time": "0842",
-      "gate": "50",
-      "spot": "S3"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F347",
-      "time": "0845",
-      "appear_time": "0845",
-      "gate": "53",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F348",
-      "time": "0846",
-      "appear_time": "0846",
-      "gate": "52",
-      "spot": "S3"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F349",
-      "time": "0847",
-      "appear_time": "0847",
-      "gate": "54B",
-      "spot": "S3"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F350",
-      "time": "0848",
-      "appear_time": "0848",
-      "gate": "54B",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F351",
-      "time": "0849",
-      "appear_time": "0849",
-      "gate": "51A",
-      "spot": "S3"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F352",
-      "time": "0851",
-      "appear_time": "0851",
       "gate": "59",
       "spot": "S3"
     },
@@ -3525,41 +3575,121 @@
       "model": "A319",
       "airport": "SJC",
       "runway": "10R/28L",
-      "callsign": "F353",
-      "time": "0853",
-      "appear_time": "0853",
-      "gate": "57",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F354",
-      "time": "0855",
-      "appear_time": "0855",
-      "gate": "54A",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F355",
-      "time": "0857",
-      "appear_time": "0857",
-      "gate": "57",
-      "spot": "S2"
-    },
-    {
-      "model": "A319",
-      "airport": "SJC",
-      "runway": "10R/28L",
-      "callsign": "F356",
-      "time": "0859",
-      "appear_time": "0859",
+      "callsign": "F358",
+      "time": "0844",
+      "appear_time": "0844",
       "gate": "57",
       "spot": "S3"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F359",
+      "time": "0844",
+      "appear_time": "0844",
+      "gate": "56A",
+      "spot": "S3"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F360",
+      "time": "0846",
+      "appear_time": "0846",
+      "gate": "51A",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F361",
+      "time": "0847",
+      "appear_time": "0847",
+      "gate": "59",
+      "spot": "S3"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F362",
+      "time": "0849",
+      "appear_time": "0849",
+      "gate": "51A",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F363",
+      "time": "0850",
+      "appear_time": "0850",
+      "gate": "53",
+      "spot": "S3"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F364",
+      "time": "0851",
+      "appear_time": "0851",
+      "gate": "52",
+      "spot": "S3"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F365",
+      "time": "0853",
+      "appear_time": "0853",
+      "gate": "51B",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F366",
+      "time": "0855",
+      "appear_time": "0855",
+      "gate": "58A",
+      "spot": "S3"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F367",
+      "time": "0857",
+      "appear_time": "0857",
+      "gate": "56B",
+      "spot": "S2"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F368",
+      "time": "0858",
+      "appear_time": "0858",
+      "gate": "51A",
+      "spot": "S3"
+    },
+    {
+      "model": "A319",
+      "airport": "SJC",
+      "runway": "10R/28L",
+      "callsign": "F369",
+      "time": "0859",
+      "appear_time": "0859",
+      "gate": "54A",
+      "spot": "S2"
     }
   ]
 }
