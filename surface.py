@@ -50,14 +50,15 @@ class Surface:
                 return
 
         # Retrieve all nodes and links
-        all_nodes = self.nodes
+        all_nodes = self.spots + []
 
         for link in self.links:
             all_nodes.append(link.start)
             all_nodes.append(link.end)
 
-        while self.__break_next_link(all_nodes):
-            pass
+        index = 0
+        while index < len(all_nodes):
+            index = self.__break_next_link(all_nodes, index)
 
         self.logger.info("Done breaking links")
 
@@ -66,17 +67,12 @@ class Surface:
             to_cache = [self.runways, self.taxiways, self.pushback_ways]
             cache.put(hash_key, to_cache)
 
-    def __break_next_link(self, all_nodes):
+    def __break_next_link(self, all_nodes, index):
 
-        for node in all_nodes:
+        for i in range(index, len(all_nodes)):
+            node = all_nodes[i]
 
-            # Runways
-            for runway in self.runways:
-                if runway.contains_node(node):
-                    self.logger.info("Break found at %s on %s", node, runway)
-                    self.runways.remove(runway)
-                    self.runways += runway.break_at(node)
-                    return True
+            # TODO: Not splitting runways. Should take arrivals into consideration.
 
             # Taxiway
             for taxiway in self.taxiways:
@@ -84,7 +80,7 @@ class Surface:
                     self.logger.info("Break found at %s on %s", node, taxiway)
                     self.taxiways.remove(taxiway)
                     self.taxiways += taxiway.break_at(node)
-                    return True
+                    return i
 
             # Pushback ways
             for pushback_way in self.pushback_ways:
@@ -93,9 +89,9 @@ class Surface:
                     self.pushback_ways += pushback_way.break_at(node)
                     self.logger.info("Break found at %s on %s",
                                      node, pushback_way)
-                    return True
+                    return i
 
-        return False
+        return len(all_nodes)
 
     def __repr__(self):
         return "<Surface>"
