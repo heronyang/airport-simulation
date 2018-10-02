@@ -5,5 +5,10 @@ python:
   - "3.6"
 install:
   - pip install -r requirements.txt
+before_script:
+  - cd data/simple
+  - python generate.py
+  - python generate_scenario.py
+  - cd ../..
 script:
   - travis_wait python -m unittest discover tests
