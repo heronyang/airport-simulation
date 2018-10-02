@@ -51,12 +51,8 @@ class RoutingExpert:
             # Builds the routes
             self.__build_routes()
             cache.put(hash_key, self.routing_table)
-            exit(0)  # TODO: debug
 
     def __build_routes(self):
-        import time  # TODO: debug
-        start = time.time()  # TODO: debug
-
         self.logger.debug("Starts building routes, # nodes: %d # links: %d",
                           len(self.nodes), len(self.links))
         self.__init_adjacent_map()
@@ -75,10 +71,7 @@ class RoutingExpert:
         self.__finds_shortest_route_spfa()
 
         # Prints result
-        self.print_route()  # TODO: debug
-
-        end = time.time()  # TODO: debug
-        print("Time elapsed:", end - start)  # TODO: debug
+        self.print_route()
 
     def __init_adjacent_map(self):
         # Initializes the adjacency map
@@ -123,10 +116,11 @@ class RoutingExpert:
                     continue
                 self.routing_table[r][n] = Route(n, r, [])
 
-            queue = [r]
+            candidates = CandidateNeighbors(r)
 
-            while queue:
-                u = queue.pop(0)
+            while candidates.length:
+                u = candidates.pop()
+
                 for v in self.adjacency_map[u]:
                     new_distance = self.routing_table[r][u].distance + self.adjacency_map[u][v].length \
                         if r != u else self.adjacency_map[u][v].length
@@ -140,8 +134,9 @@ class RoutingExpert:
                         self.logger.debug("%s -> %s -> %s is shorter than "
                                           "%s -> %s", v, u, r, v, r)
 
-                        if v not in queue:
-                            queue.append(v)
+                        if not candidates.has(v):
+                            candidates.push(v)
+                            candidates.re_order(self.routing_table[r])
 
             for node in self.nodes:
                 # r is in the routing table; some nodes could be unreachable
@@ -186,3 +181,55 @@ class RoutingExpert:
     def set_quiet(self, logger):
         """Sets this object into quiet mode where less logs are printed."""
         self.logger = logger
+
+
+class CandidateNeighbor:
+    def __init__(self, node):
+        self.node = node
+        self.next = None
+        self.prev = None
+
+
+class CandidateNeighbors:
+    def __init__(self, node):
+        self.tail = self.head = CandidateNeighbor(node)
+        self.set = {node}
+
+    def pop(self):
+        if not self.head:
+            return None
+
+        node, self.head = self.head.node, self.head.next
+        if self.head:
+            self.head.prev = None
+        else:
+            self.tail = None
+
+        self.set.remove(node)
+
+        return node
+
+    def push(self, node):
+        self.set.add(node)
+
+        if self.tail:
+            self.tail.next = CandidateNeighbor(node)
+            self.tail.next.prev = self.tail
+            self.tail = self.tail.next
+        else:
+            self.tail = self.head = CandidateNeighbor(node)
+
+    def has(self, node):
+        return node in self.set
+
+    @property
+    def length(self):
+        return len(self.set)
+
+    def re_order(self, routes):
+        if routes[self.tail.node].distance < routes[self.head.node].distance:
+            front, self.head = self.head.node, self.head.next
+            if self.head:
+                self.head.prev = None
+
+            self.push(front)
