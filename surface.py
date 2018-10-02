@@ -87,7 +87,7 @@ class Surface:
                     self.taxiways.remove(taxiway)
                     self.taxiways += taxiway.break_at(node)
                     return i
-l
+
             # Pushback ways
             for pushback_way in self.pushback_ways:
                 if pushback_way.contains_node(node):
