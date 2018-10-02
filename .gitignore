@@ -117,6 +117,7 @@ states.json
 log
 .todo
 *.swp
+data/*/build
 
 ### JetBrains template
 .idea

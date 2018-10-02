@@ -5,6 +5,7 @@ from link import Link
 from routing_expert import RoutingExpert
 from airport import Airport
 from scenario import Scenario
+from surface import RunwayNode, Runway
 
 import sys
 import unittest
@@ -22,7 +23,7 @@ class TestRoutingExpert(unittest.TestCase):
     GEO_MIDDLE_SOUTH = {"lat": 47.722000, "lng": -122.079057}
 
     G1 = Node("G1", GEO_WEST)
-    S1 = Node("S1", GEO_EAST)
+    S1 = RunwayNode(GEO_EAST)
     L1 = Link("L1", [
         Node("L1_start", GEO_WEST),
         Node("L1_middle", GEO_MIDDLE_NORTH),
@@ -34,7 +35,11 @@ class TestRoutingExpert(unittest.TestCase):
         Node("L2_end", GEO_EAST)
     ])
 
-    links = [L1, L2]
+    L3 = Runway("Runway", [
+        S1, S1
+    ])
+
+    links = [L1, L2, L3]
     nodes = [G1, S1]
 
     def test_overlapped_link(self):

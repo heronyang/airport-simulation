@@ -31,6 +31,8 @@ class Surface:
         self.corners = corners
         self.image_filepath = image_filepath
 
+        self.break_nodes = set([])
+
     def break_links(self):
         """ One node that connects to a link in the middle is not connected;
         therefore, break_links is used for cutting at the middle point and
@@ -50,41 +52,41 @@ class Surface:
                 return
 
         # Retrieve all nodes and links
-        all_nodes = self.nodes
+        all_nodes = self.spots + []
 
         for link in self.links:
             all_nodes.append(link.start)
             all_nodes.append(link.end)
+            self.__add_break_node(link.start)
+            self.__add_break_node(link.end)
 
-        while self.__break_next_link(all_nodes):
-            pass
+        index = 0
+        while index < len(all_nodes):
+            index = self.__break_next_link(all_nodes, index)
 
         self.logger.info("Done breaking links")
+        self.__get_break_nodes()
 
         # Stores the result into cache for future usages
         if cache_enabled:
             to_cache = [self.runways, self.taxiways, self.pushback_ways]
             cache.put(hash_key, to_cache)
 
-    def __break_next_link(self, all_nodes):
+    def __break_next_link(self, all_nodes, index):
 
-        for node in all_nodes:
+        for i in range(index, len(all_nodes)):
+            node = all_nodes[i]
 
-            # Runways
-            for runway in self.runways:
-                if runway.contains_node(node):
-                    self.logger.info("Break found at %s on %s", node, runway)
-                    self.runways.remove(runway)
-                    self.runways += runway.break_at(node)
-                    return True
+            # TODO: Not splitting runways. Should take arrivals into consideration.
 
             # Taxiway
             for taxiway in self.taxiways:
                 if taxiway.contains_node(node):
                     self.logger.info("Break found at %s on %s", node, taxiway)
+                    self.__add_break_node(node)
                     self.taxiways.remove(taxiway)
                     self.taxiways += taxiway.break_at(node)
-                    return True
+                    return i
 
             # Pushback ways
             for pushback_way in self.pushback_ways:
@@ -93,9 +95,41 @@ class Surface:
                     self.pushback_ways += pushback_way.break_at(node)
                     self.logger.info("Break found at %s on %s",
                                      node, pushback_way)
-                    return True
+                    self.__add_break_node(node)
+                    return i
 
-        return False
+        return len(all_nodes)
+
+    def __add_break_node(self, node):
+        lat, lng = node.geo_pos["lat"], node.geo_pos["lng"]
+        self.break_nodes.add(
+            """
+            <Placemark>
+                <name>{lng},{lat}</name>
+                <Point>
+                  <coordinates>
+                    {lng},{lat}
+                  </coordinates>
+                </Point>
+            </Placemark>
+            """.format(lat=lat, lng=lng))
+
+    def __get_break_nodes(self):
+        break_nodes_kml = """
+        <?xml version="1.0" encoding="UTF-8"?>
+        <kml xmlns="http://www.opengis.net/kml/2.2">
+          <Document>
+            <name>Break Nodes</name>
+            <description/>
+            <Folder>
+              <name>Break Node (Debug)</name>
+              {nodes}
+            </Folder>
+          </Document>
+        </kml>
+        """.format(nodes="".join(self.break_nodes))
+
+        return break_nodes_kml
 
     def __repr__(self):
         return "<Surface>"
