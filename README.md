@@ -41,7 +41,7 @@ $ echo "backend : Agg" >> ~/.config/matplotlib/matplotlibrc
     ```sh
     $ {path/to/python3} -m venv venv # create a new virtual environment
     $ source venv/bin/activate # activate the virtual environment
-    $ pip -r install requirements.txt # install dependencies locally
+    $ pip install -r requirements.txt # install dependencies locally
     $ python simulator.py -f plans/base.yaml # execute the simulation
     ```
 
