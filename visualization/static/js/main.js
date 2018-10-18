@@ -1,5 +1,5 @@
 /* Map */
-var map;
+let mapView;
 
 const FLIGT_ICON_URL = "/image/flight.png";
 const FLIGT_MOVING_ICON_URL = "/image/flight-moving.png";
@@ -17,32 +17,7 @@ const ZOOM_AIRPORT = 17;
 const QUICK_NEXT_PREV_TIMES = 120;
 
 function initMap() {
-	map = new google.maps.Map(document.getElementById("map"), {
-		center: {lat: 0, lng: 0},
-		zoom: ZOOM_GLOBAL,
-        styles:[
-            {
-              featureType: "all",
-              elementType: "labels",
-              stylers: [{visibility: "off"}]
-            },
-        ]
-	});
-}
-
-function resetMap(lat, lng, zoom) {
-    var pos = new google.maps.LatLng(lat, lng);
-    map.setOptions({
-        center: pos,
-        zoom: zoom,
-        styles:[
-            {
-              featureType: "all",
-              elementType: "labels",
-              stylers: [{visibility: "off"}]
-            },
-        ]
-    });
+    mapView = new MapView(document.getElementById("map"));
 }
 
 function getParams() {
@@ -58,76 +33,33 @@ function getParams() {
     return params;
 }
 
-function drawNode(lat, lng, icon_url, label, content, is_center) {
-
-	var infowindow = new google.maps.InfoWindow({
-		content: content
-	});
-
-    if (is_center != undefined) {
-        var image = {
-            url: icon_url,
-            // This marker is 20 pixels wide by 32 pixels high.
-            size: new google.maps.Size(36, 36),
-            // The origin for this image is (0, 0).
-            origin: new google.maps.Point(0, 0),
-            // The anchor for this image is the base of the flagpole at (0, 32).
-            anchor: new google.maps.Point(18, 18)
-        };
-    } else {
-        var image = icon_url;
-    }
-
-    var marker = new google.maps.Marker({
-        position: {lat: lat, lng: lng},
-        map: map,
-        label: label,
-        icon: image
-    });
-
-	marker.addListener("click", function() {
-		infowindow.open(map, marker);
-	});
-
-    return marker;
-
-}
-
-function drawLink(nodes, color) {
-    link = new google.maps.Polyline({
-        path: nodes,
-        strokeColor: color,
-    });
-    link.setMap(map);
-}
-
 /* UI Callbacks */
-$("#auto").click(function(e) {
+$("#auto").click(function (e) {
     console.log("auto");
     e.preventDefault();
     toggleAutoRun();
 });
 
-$("#prev").click(function(e) {
+$("#prev").click(function (e) {
     e.preventDefault();
     prevState();
 });
 
-$("#next").click(function(e) {
+$("#next").click(function (e) {
     e.preventDefault();
     nextState();
 });
 
-$("#prev-prev").click(function(e) {
+$("#prev-prev").click(function (e) {
     e.preventDefault();
-    for (var i=0; i < QUICK_NEXT_PREV_TIMES; i++) {
+    for (var i = 0; i < QUICK_NEXT_PREV_TIMES; i++) {
         prevState();
     }
 });
 
-$("#next-next").click(function(e) {
+$("#next-next").click(function (e) {
     e.preventDefault();
-    for (var i=0; i < QUICK_NEXT_PREV_TIMES; i++) {
+    for (var i = 0; i < QUICK_NEXT_PREV_TIMES; i++) {
         nextState();
     }
 });
@@ -140,7 +72,7 @@ function loadPlans(plans) {
         dropdown.append('<a class="dropdown-item option-plan" href="#">' +
             plan + '</a>');
     }
-    $(".option-plan").click(function(e) {
+    $(".option-plan").click(function (e) {
         e.preventDefault();
         window.location.href = "?plan=" + e.target.text;
     });
@@ -173,18 +105,18 @@ function showError(message) {
 
 /* API Adapter Functions */
 function getPlans(callback) {
-    $.get("/plans", function(data) {
+    $.get("/plans", function (data) {
         callback(JSON.parse(data));
-    }).fail(function(jqXHR, textStatus) {
+    }).fail(function (jqXHR, textStatus) {
         showError(jqXHR.responseText);
     });
 }
 
 function getExprData(plan, callback) {
     const url = "/expr_data?plan=" + plan;
-    $.get(url, function(data) {
+    $.get(url, function (data) {
         callback(JSON.parse(data));
-    }).fail(function(jqXHR, textStatus) {
+    }).fail(function (jqXHR, textStatus) {
         showError(jqXHR.responseText);
     });
 }
@@ -192,6 +124,7 @@ function getExprData(plan, callback) {
 /* Controllers */
 var autoRunWorker = null;
 var pauseTime = 500;
+
 function toggleAutoRun() {
 
     if (autoRunWorker) {
@@ -199,16 +132,16 @@ function toggleAutoRun() {
         setAutoRunShow(false);
         autoRunWorker = null;
     } else {
-		autoRunWorker = window.setInterval(function() {
+        autoRunWorker = window.setInterval(function () {
             nextState();
-		}, pauseTime);
+        }, pauseTime);
         setAutoRunShow(true);
     }
 
 }
 
 /* Main */
-$("document").ready(function(){
+$("document").ready(function () {
     loadOptions();
     const params = getParams();
     if ("plan" in params) {
@@ -219,14 +152,15 @@ $("document").ready(function(){
 });
 
 function loadOptions() {
-    getPlans(function(plans) {
+    getPlans(function (plans) {
         loadPlans(plans)
     });
 }
 
 var expr_data = null;
+
 function loadExprData(plan) {
-    getExprData(plan, function(data) {
+    getExprData(plan, function (data) {
         expr_data = data;
         setAirportCenter();
         drawSurfaceData();
@@ -236,39 +170,39 @@ function loadExprData(plan) {
 
 function setAirportCenter() {
     var center = expr_data["surface"]["airport_center"];
-    resetMap(center["lat"], center["lng"], ZOOM_AIRPORT);
+    mapView.init(center["lat"], center["lng"], ZOOM_AIRPORT);
 }
 
 function drawSurfaceData() {
 
     // Gate
     for (let gate of expr_data["surface"]["gates"]) {
-		var name = "GATE: " + gate["name"];
-        drawNode(gate["lat"], gate["lng"], GATE_ICON_URL, "", name);
+        var name = "GATE: " + gate["name"];
+        mapView.__drawNode(gate["lat"], gate["lng"], GATE_ICON_URL, "", name);
     }
 
     // Spot
     for (let spot of expr_data["surface"]["spots"]) {
-		var name = "SPOT POSITION: " + spot["name"];
-        drawNode(spot["lat"], spot["lng"], SPOT_ICON_URL, "", name);
+        var name = "SPOT POSITION: " + spot["name"];
+        mapView.__drawNode(spot["lat"], spot["lng"], SPOT_ICON_URL, "", name);
     }
 
     // Pushback way
     for (let pushback_way of expr_data["surface"]["pushback_ways"]) {
-		var name = "PUSHBACK WAY: " + pushback_way["name"];
-        drawLink(parseNodes(pushback_way["nodes"]), PUSHBACK_WAY_COLOR);
+        var name = "PUSHBACK WAY: " + pushback_way["name"];
+        mapView.__drawLink(parseNodes(pushback_way["nodes"]), PUSHBACK_WAY_COLOR);
     }
 
     // Taxiway
     for (let taxiway of expr_data["surface"]["taxiways"]) {
-		var name = "PUSHBACK WAY: " + taxiway["name"];
-        drawLink(parseNodes(taxiway["nodes"]), TAXIWAY_COLOR);
+        var name = "PUSHBACK WAY: " + taxiway["name"];
+        mapView.__drawLink(parseNodes(taxiway["nodes"]), TAXIWAY_COLOR);
     }
 
     // Runway
     for (let runway of expr_data["surface"]["runways"]) {
-		var name = "PUSHBACK WAY: " + runway["name"];
-        drawLink(parseNodes(runway["nodes"]), RUNWAY_COLOR);
+        var name = "PUSHBACK WAY: " + runway["name"];
+        mapView.__drawLink(parseNodes(runway["nodes"]), RUNWAY_COLOR);
     }
 
 }
@@ -283,6 +217,7 @@ function parseNodes(rawNodes) {
 
 /* State */
 var state_index = 0;
+
 function nextState() {
     state_index = (state_index + 1) % expr_data["state"].length;
     updateState();
@@ -297,13 +232,14 @@ function prevState() {
 }
 
 var aircrafts = [];
+
 function updateState() {
 
     // Clean previous state
-	for (var i = 0; i < aircrafts.length; i++) {
-		aircrafts[i].setMap(null);
-	}
-	aircrafts = [];
+    for (var i = 0; i < aircrafts.length; i++) {
+        aircrafts[i].setMap(null);
+    }
+    aircrafts = [];
 
     // Current time
     const state = expr_data["state"][state_index];
@@ -311,7 +247,7 @@ function updateState() {
 
     // Aircrafts
     for (let aircraft of expr_data["state"][state_index]["aircrafts"]) {
-        aircrafts.push(drawNode(
+        aircrafts.push(mapView.__drawNode(
             aircraft["location"]["lat"], aircraft["location"]["lng"],
             getAircraftIconUrl(aircraft),
             aircraft["callsign"],
