@@ -167,17 +167,16 @@ function setAirportCenter() {
 }
 
 function drawSurfaceData() {
-
     // Gate
     for (let gate of expr_data["surface"]["gates"]) {
         const name = "GATE: " + gate["name"];
-        mapView.__drawNode(gate["lat"], gate["lng"], GATE_ICON_URL, "", name, true);
+        mapView.drawGate(gate["lat"], gate["lng"], name);
     }
 
     // Spot
     for (let spot of expr_data["surface"]["spots"]) {
         const name = "SPOT POSITION: " + spot["name"];
-        mapView.__drawNode(spot["lat"], spot["lng"], SPOT_ICON_URL, "", name, true);
+        mapView.drawSpot(spot["lat"], spot["lng"], name);
     }
 
     // Runway
@@ -220,31 +219,21 @@ function prevState() {
     updateState();
 }
 
-var aircrafts = [];
-
 function updateState() {
-
-    // Clean previous state
-    for (var i = 0; i < aircrafts.length; i++) {
-        aircrafts[i].setMap(null);
-    }
-    aircrafts = [];
-
     // Current time
     const state = expr_data["state"][state_index];
     setCurrentTime(state["time"]);
 
-    // Aircrafts
+    let allAircraft = [];
     for (let aircraft of expr_data["state"][state_index]["aircrafts"]) {
-        aircrafts.push(mapView.__drawNode(
-            aircraft["location"]["lat"], aircraft["location"]["lng"],
-            getAircraftIconUrl(aircraft),
-            aircraft["callsign"],
-            parseAircraftContent(aircraft),
-            true
-        ));
+        allAircraft.push({
+            lat: aircraft["location"]["lat"],
+            lng: aircraft["location"]["lng"],
+            status: "moving", // TODO
+            name: aircraft["callsign"]
+        });
     }
-
+    mapView.updateAllAircraft(allAircraft);
 }
 
 function parseAircraftContent(aircraft) {
@@ -286,18 +275,4 @@ function getTargetClassName(current_index, index) {
         return "current-target";
     }
     return "future-target";
-}
-
-function getAircraftIconUrl(aircraft) {
-
-    if (aircraft["state"] == "stop") {
-        return FLIGT_ICON_URL;
-    }
-
-    if (aircraft["is_delayed"]) {
-        return FLIGT_HOLD_ICON_URL;
-    }
-
-    return FLIGT_MOVING_ICON_URL;
-
 }

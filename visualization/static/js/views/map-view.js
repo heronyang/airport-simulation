@@ -102,8 +102,13 @@ class MapView {
         this.runways = [];
         this.pushbackways = [];
         this.taxiways = [];
+        this.aircraft = new Map();
+        this.gates = [];
+        this.spots = [];
 
         this.map.addListener('zoom_changed', this.__zoomChangeHandler.bind(this));
+
+        initMarkerAnimate();
     }
 
     init(lat = DEFAULT_LAT, lng = DEFAULT_LAT, zoom = DEFAULT_ZOOM) {
@@ -139,25 +144,20 @@ class MapView {
         this.pushbackways.push(link);
     }
 
-    __drawNode(lat, lng, icon_url, label, content, is_center) {
+    __drawNode(lat, lng, icon_url, label, content) {
         const infowindow = new google.maps.InfoWindow({
             content: content
         });
 
-        let image;
-        if (is_center !== undefined) {
-            image = {
-                url: icon_url,
-                // This marker is 20 pixels wide by 32 pixels high.
-                size: new google.maps.Size(24, 24),
-                // The origin for this image is (0, 0).
-                origin: new google.maps.Point(0, 0),
-                // The anchor for this image is the base of the flagpole at (0, 32).
-                anchor: new google.maps.Point(12, 12)
-            };
-        } else {
-            image = icon_url;
-        }
+        let image = {
+            url: icon_url,
+            // This marker is 20 pixels wide by 32 pixels high.
+            size: new google.maps.Size(24, 24),
+            // The origin for this image is (0, 0).
+            origin: new google.maps.Point(0, 0),
+            // The anchor for this image is the base of the flagpole at (0, 32).
+            anchor: new google.maps.Point(12, 12)
+        };
 
         const marker = new google.maps.Marker({
             position: {lat: lat, lng: lng},
@@ -174,16 +174,59 @@ class MapView {
         return marker;
     }
 
-    drawAircraft() {
+    drawAircraft(lat, lng, state, name, content) {
+        let iconUrl;
+        switch (state) {
+            case "stop":
+                iconUrl = "/image/aircraft.png";
+                break;
+            case "delayed":
+                iconUrl = "/image/aircraft.png";
+                break;
+            default:
+                // moving
+                iconUrl = "/image/aircraft.png";
+                break;
+        }
 
+        return this.__drawNode(lat, lng, iconUrl, name, content);
     }
 
-    drawGate() {
-
+    drawGate(lat, lng, name) {
+        const iconUrl = "/image/gate.svg";
+        const gate = this.__drawNode(lat, lng, iconUrl, null, name);
+        this.gates.push(gate);
     }
 
-    drawSpot() {
+    drawSpot(lat, lng, name) {
+        const iconUrl = "/image/spot.png";
+        this.__drawNode(lat, lng, iconUrl, null, name);
+    }
 
+    updateAllAircraft(allAircraft) {
+        let newAircraftSet = new Map();
+
+        for (let each of allAircraft) {
+            if (this.aircraft.has(each.name)) {
+                const aircraft = this.aircraft.get(each.name);
+                aircraft.animateTo(new google.maps.LatLng(each.lat, each.lng), {
+                    easing: "linear",
+                    duration: 500
+                });
+                newAircraftSet.set(each.name, aircraft);
+                this.aircraft.delete(each.name);
+            } else {
+                const aircraft = this.drawAircraft(each.lat, each.lng, each.state, each.name, "");
+                newAircraftSet.set(each.name, aircraft);
+            }
+        }
+
+        // Clean previous state
+        this.aircraft.forEach(v => {
+            v.setMap(null);
+        });
+
+        this.aircraft = newAircraftSet;
     }
 
     __zoomChangeHandler() {
