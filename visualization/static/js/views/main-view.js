@@ -1,11 +1,11 @@
 /* Map */
 let mapView;
 
-const FLIGT_ICON_URL = "/image/flight.png";
-const FLIGT_MOVING_ICON_URL = "/image/flight-moving.png";
-const FLIGT_HOLD_ICON_URL = "/image/flight-hold.png";
-const GATE_ICON_URL = "http://maps.google.com/mapfiles/ms/icons/blue-dot.png";
-const SPOT_ICON_URL = "http://maps.google.com/mapfiles/ms/icons/green-dot.png";
+const FLIGT_ICON_URL = "/image/aircraft.png";
+const FLIGT_MOVING_ICON_URL = "/image/aircraft.png";
+const FLIGT_HOLD_ICON_URL = "/image/aircraft.png";
+const GATE_ICON_URL = "/image/gate.svg";
+const SPOT_ICON_URL = "/image/spot.png";
 
 const QUICK_NEXT_PREV_TIMES = 120;
 
@@ -171,13 +171,13 @@ function drawSurfaceData() {
     // Gate
     for (let gate of expr_data["surface"]["gates"]) {
         const name = "GATE: " + gate["name"];
-        mapView.__drawNode(gate["lat"], gate["lng"], GATE_ICON_URL, "", name);
+        mapView.__drawNode(gate["lat"], gate["lng"], GATE_ICON_URL, "", name, true);
     }
 
     // Spot
     for (let spot of expr_data["surface"]["spots"]) {
         const name = "SPOT POSITION: " + spot["name"];
-        mapView.__drawNode(spot["lat"], spot["lng"], SPOT_ICON_URL, "", name);
+        mapView.__drawNode(spot["lat"], spot["lng"], SPOT_ICON_URL, "", name, true);
     }
 
     // Runway

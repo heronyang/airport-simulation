@@ -17,7 +17,7 @@ const MAP_STYLE = [
         "featureType": "landscape.man_made",
         "elementType": "geometry.stroke",
         "stylers": [{
-            "color": "#ffcc80"
+            "color": "#dcded4"
         }, {
             "weight": 1
         }]
@@ -37,7 +37,7 @@ const MAP_STYLE = [
         "featureType": "transit.station.airport",
         "elementType": "geometry.stroke",
         "stylers": [{
-            "color": "#e8e5ea"
+            "color": "#efeff0"
         }, {
             "lightness": -15
         }]
@@ -117,7 +117,7 @@ class MapView {
         const link = new google.maps.Polyline({
             path: nodes,
             strokeColor: color,
-            strokeOpacity: 0.8,
+            strokeOpacity: 0.9,
             strokeWeight: weight
         });
         link.setMap(this.map);
@@ -125,12 +125,12 @@ class MapView {
     }
 
     drawRunway(nodes) {
-        const link = this.__drawLink(nodes, "#ffcc80", RUNWAY_UNIT_LINK_WEIGHT / ZOOM_FACTORS[this.map.getZoom()]);
+        const link = this.__drawLink(nodes, "#9fa8da", RUNWAY_UNIT_LINK_WEIGHT / ZOOM_FACTORS[this.map.getZoom()]);
         this.runways.push(link);
     }
 
     drawTaxiway(nodes) {
-        const link = this.__drawLink(nodes, "#4db6ac", TAXIWAY_UNIT_LINK_WEIGHT / ZOOM_FACTORS[this.map.getZoom()]);
+        const link = this.__drawLink(nodes, "#6ae4a4", TAXIWAY_UNIT_LINK_WEIGHT / ZOOM_FACTORS[this.map.getZoom()]);
         this.taxiways.push(link);
     }
 
@@ -149,11 +149,11 @@ class MapView {
             image = {
                 url: icon_url,
                 // This marker is 20 pixels wide by 32 pixels high.
-                size: new google.maps.Size(36, 36),
+                size: new google.maps.Size(24, 24),
                 // The origin for this image is (0, 0).
                 origin: new google.maps.Point(0, 0),
                 // The anchor for this image is the base of the flagpole at (0, 32).
-                anchor: new google.maps.Point(18, 18)
+                anchor: new google.maps.Point(12, 12)
             };
         } else {
             image = icon_url;
@@ -163,7 +163,8 @@ class MapView {
             position: {lat: lat, lng: lng},
             map: this.map,
             label: label,
-            icon: image
+            icon: image,
+            zIndex: 999
         });
 
         marker.addListener("click", function () {
