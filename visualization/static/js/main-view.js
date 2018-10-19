@@ -27,11 +27,16 @@ function startVisualization() {
     new VisualizationView(getModeAndPlan());
 }
 
+const AUTO_RUN_INTERVAL = 500;
+const FAST_FORWARD_STEP_SIZE = 120;
+
 class VisualizationView {
     constructor(modeAndPlan) {
         this.mapView = new MapView(document.getElementById("map"));
         this.mode = modeAndPlan[0];
         this.plan = modeAndPlan[1];
+
+        this.autoRunWorker = null;
 
         this.initComponents();
         this.initDataSource();
@@ -81,26 +86,46 @@ class VisualizationView {
     }
 
     initComponents() {
-        $("#auto").click(e => {
-            console.log("auto");
+        // Control Box
+        $("#plan-name").text(this.plan.replace(new RegExp("-", 'g'), " "));
+        $("#plan-mode").text(this.mode);
+
+        $("#control-run").click(e => {
             e.preventDefault();
-            toggleAutoRun();
+            this.toggleAutoRun();
+            return false;
         });
 
-        $("#prev").click(e => {
+        $("#control-prev").click(e => {
             e.preventDefault();
             const state = this.dataConnector.prevState();
             this.handleStateUpdate(state);
+            return false;
         });
 
-        $("#next").click(e => {
+        $("#control-next").click(e => {
             e.preventDefault();
             const state = this.dataConnector.nextState();
             this.handleStateUpdate(state);
+            return false;
+        });
+
+        $("#control-back").click(e => {
+            e.preventDefault();
+            const state = this.dataConnector.prevState(FAST_FORWARD_STEP_SIZE);
+            this.handleStateUpdate(state, false);
+            return false;
+        });
+
+        $("#control-forward").click(e => {
+            e.preventDefault();
+            const state = this.dataConnector.nextState(FAST_FORWARD_STEP_SIZE);
+            this.handleStateUpdate(state, false);
+            return false;
         });
     }
 
-    handleStateUpdate(state) {
+    handleStateUpdate(state, use_animation = true) {
         $("#current-time").text(state["time"]);
 
         let allAircraft = [];
@@ -112,29 +137,23 @@ class VisualizationView {
                 name: aircraft["callsign"]
             });
         }
-        this.mapView.updateAllAircraft(allAircraft);
-    }
-}
-
-/* Controllers */
-var autoRunWorker = null;
-var pauseTime = 500;
-
-function toggleAutoRun() {
-
-    if (autoRunWorker) {
-        clearInterval(autoRunWorker);
-        setAutoRunShow(false);
-        autoRunWorker = null;
-    } else {
-        autoRunWorker = window.setInterval(function () {
-            nextState();
-        }, pauseTime);
-        setAutoRunShow(true);
+        this.mapView.updateAllAircraft(allAircraft, use_animation);
     }
 
+    toggleAutoRun() {
+        if (this.autoRunWorker) {
+            clearInterval(this.autoRunWorker);
+            $("#control-run").removeClass("running");
+            this.autoRunWorker = null;
+        } else {
+            this.autoRunWorker = window.setInterval(() => {
+                const nextState = this.dataConnector.nextState();
+                this.handleStateUpdate(nextState);
+            }, AUTO_RUN_INTERVAL);
+            $("#control-run").addClass("running");
+        }
+    }
 }
-
 
 function parseNodes(rawNodes) {
     var nodes = [];

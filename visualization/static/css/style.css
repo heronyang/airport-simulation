@@ -1,13 +1,5 @@
 #map {
-	height: calc(100% - 56px);
-	height: -o-calc(100% - 56px); /* opera */
-	height: -webkit-calc(100% - 56px); /* google, safari */
-	height: -moz-calc(100% - 56px); /* firefox */
-}
-
-#controller {
-    height: 56px;
-	padding-bottom: 0px;
+    height: 100%;
 }
 
 html, body {
@@ -15,22 +7,37 @@ html, body {
     margin: 0;
     padding: 0;
     overflow: hidden;
+    user-select: none;
 }
 
-.scrollable-menu {
-	height: auto;
-	max-height: 80vh;
-	overflow-x: hidden;
+#control-panel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    max-width: 460px;
+    padding: 40px;
 }
 
-table, th, td {
-    border: 1px solid black;
+#plan-name {
+    text-transform: capitalize;
 }
 
-.past-target {
-    color: #bbb;
+#airport-info-title {
+    display: flex;
+    align-items: center;
 }
 
-.current-target {
-    font-weight: bold;
+#current-time {
+    text-align: center;
+    border-radius: 5px;
+}
+
+#control-box {
+    display: flex;
+    justify-content: space-between;
+}
+
+.running {
+    color: #fff !important;
+    background-color: #1e87f0 !important;
 }

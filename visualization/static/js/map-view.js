@@ -203,16 +203,23 @@ class MapView {
         this.__drawNode(lat, lng, iconUrl, null, name);
     }
 
-    updateAllAircraft(allAircraft) {
+    updateAllAircraft(allAircraft, use_animation) {
         let newAircraftSet = new Map();
 
         for (let each of allAircraft) {
             if (this.aircraft.has(each.name)) {
                 const aircraft = this.aircraft.get(each.name);
-                aircraft.animateTo(new google.maps.LatLng(each.lat, each.lng), {
-                    easing: "linear",
-                    duration: 500
-                });
+                if (use_animation) {
+                    aircraft.animateTo(new google.maps.LatLng(each.lat, each.lng), {
+                        easing: "linear",
+                        duration: 500
+                    });
+                } else {
+                    aircraft.setOptions({
+                        position: new google.maps.LatLng(each.lat, each.lng)
+                    })
+                }
+
                 newAircraftSet.set(each.name, aircraft);
                 this.aircraft.delete(each.name);
             } else {
