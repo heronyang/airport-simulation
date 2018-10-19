@@ -53,6 +53,7 @@ class VisualizationView {
         const surfaceData = this.dataConnector.getSurfaceData();
         const center = surfaceData["airport_center"];
         this.mapView.init(center["lat"], center["lng"]);
+        $("#plan-name").text(surfaceData["airport_name"]);
 
         // Gate
         for (let gate of surfaceData["gates"]) {
@@ -87,7 +88,6 @@ class VisualizationView {
 
     initComponents() {
         // Control Box
-        $("#plan-name").text(this.plan.replace(new RegExp("-", 'g'), " "));
         $("#plan-mode").text(this.mode);
 
         $("#control-run").click(e => {
@@ -138,6 +138,35 @@ class VisualizationView {
             });
         }
         this.mapView.updateAllAircraft(allAircraft, use_animation);
+
+        // Update traffic table
+        let trafficTableHtml = "";
+        let holdCount = 0, allCount = 0;
+        for (let aircraft of state["aircrafts"]) {
+            let statusLabel;
+
+            if (aircraft["state"] === "stop") {
+                statusLabel = `<span class="uk-label uk-label-danger">No Schedule</span>`;
+            } else if (aircraft["is_delayed"]) {
+                statusLabel = `<span class="uk-label uk-label-danger">Hold</span>`;
+                holdCount += 1;
+            } else {
+                statusLabel = `<span class="uk-label uk-label-success">Moving</span>`;
+            }
+            allCount += 1;
+
+            trafficTableHtml += `
+                <tr>
+                    <td>${aircraft["callsign"]}</td>
+                    <td>${statusLabel}</td>
+                    <td><span uk-icon="settings"></span></td>
+                </tr>
+            `;
+        }
+
+        $("#traffic-summary").text(`${allCount} aircraft on the surface. ${holdCount} on hold.`);
+        $("#traffic-table > tbody").html(trafficTableHtml);
+
     }
 
     toggleAutoRun() {

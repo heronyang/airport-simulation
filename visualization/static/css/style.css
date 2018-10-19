@@ -20,6 +20,7 @@ html, body {
 
 #plan-name {
     text-transform: capitalize;
+    max-width: 180px;
 }
 
 #airport-info-title {
@@ -40,4 +41,31 @@ html, body {
 .running {
     color: #fff !important;
     background-color: #1e87f0 !important;
+}
+
+.control-card {
+    margin-bottom: 20px;
+}
+
+#traffic-table {
+    max-height: 50%;
+    max-width: 280px;
+    margin: 0;
+}
+
+#traffic-table tbody {
+    display: block;
+    max-height: 200px;
+    overflow-y: scroll;
+}
+
+#traffic-table thead,
+tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+
+#airport-traffic-title, #traffic-summary {
+    margin: 0;
 }

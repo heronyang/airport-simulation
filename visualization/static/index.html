@@ -14,7 +14,7 @@
 <body>
 <div id="map"></div>
 <div id="control-panel">
-    <div class="uk-card uk-card-default uk-card-body uk-card-small">
+    <div class="uk-card uk-card-default uk-card-body uk-card-small control-card">
         <h4 class="uk-card-subtitle" id="airport-info-title">
             <span id="plan-name">Airport</span>&nbsp;&nbsp;
             <span class="uk-label uk-label-success" id="plan-mode">Mode</span>
@@ -29,6 +29,27 @@
             <a class="uk-icon-button" uk-icon="chevron-right" id="control-next"></a>
             <a class="uk-icon-button" uk-icon="forward" id="control-forward"></a>
         </div>
+    </div>
+    <div class="uk-card uk-card-default uk-card-body uk-card-small control-card">
+        <h4 class="uk-card-subtitle" id="airport-traffic-title">
+            <span>Traffic</span>
+        </h4>
+        <p id="traffic-summary" class="uk-text-meta"></p>
+        <table class="uk-table uk-table-small uk-table-justify" id="traffic-table">
+            <thead>
+            <tr>
+                <th>Flight#</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+    <div class="uk-card uk-card-default uk-card-body uk-card-small control-card">
+        <h4 class="uk-card-subtitle">
+            <span>Aircraft</span>
+        </h4>
     </div>
 </div>
 
