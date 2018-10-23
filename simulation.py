@@ -57,7 +57,6 @@ class Simulation:
         self.scheduler = get_scheduler()
 
         if not params["simulator"]["test_mode"]:
-
             # Sets up the analyst
             self.analyst = Analyst(self)
 
@@ -127,6 +126,9 @@ class Simulation:
         except Exception as error:
             self.logger.error(traceback.format_exc())
             raise error
+
+        # TODO: Streaming Visualization
+        # TODO: return state here
 
     def __is_time_to_reschedule(self):
         reschedule_cycle = Config.params["simulation"]["reschedule_cycle"]

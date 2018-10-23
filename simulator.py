@@ -52,6 +52,10 @@ from utils import get_output_dir_name, get_batch_plan_name
 from reporter import save_batch_result, save_failed_num
 
 
+# TODO: Streaming Visualization
+# TODO: make it class-based
+
+
 def main():
     """Main function of the simulator."""
 
@@ -215,6 +219,10 @@ def run():
     try:
         while True:
             simulation.tick()
+
+            # TODO: Streaming Visualization
+            # TODO: yield state here
+
             if pause_time != 0:
                 time.sleep(pause_time)
     except KeyboardInterrupt:

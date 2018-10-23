@@ -10,6 +10,11 @@ PLAN_OUTPUT_FOLDER = dir_path + "output/"
 app = Flask(__name__, static_url_path="")
 
 
+# TODO: Streaming Visualization
+# TODO: add API to load plans for both modes
+# TODO: call Simulator.run() in api_expr_data
+# TODO: separate surface and state data
+
 @app.route("/")
 def send_index():
     return app.send_static_file("index.html")
@@ -23,7 +28,6 @@ def api_plans():
 
 @app.route("/expr_data")
 def api_expr_data():
-
     try:
         plan = request.args.get("plan")
         airport = get_airport_from_plan(plan)
@@ -50,7 +54,6 @@ def get_airport_from_plan(plan):
 
 
 def get_surface_data(airport):
-
     airport_data_folder = AIRPORT_DATA_FOLDER + airport + "/"
 
     airport_name, airport_center = get_airport_metadata(airport_data_folder)
@@ -72,7 +75,6 @@ def get_surface_data(airport):
 
 
 def get_airport_metadata(airport_data_folder):
-
     filename = airport_data_folder + "build/airport-metadata.json"
     if not os.path.isfile(filename):
         raise Exception("Airport data not found at %s" % filename)
@@ -86,7 +88,6 @@ def get_airport_metadata(airport_data_folder):
 
 
 def get_linknode_data(airport_data_folder, name):
-
     filename = airport_data_folder + "build/" + name + ".json"
     if not os.path.isfile(filename):
         raise Exception("Link data not found at %s" % filename)
@@ -97,7 +98,6 @@ def get_linknode_data(airport_data_folder, name):
 
 
 def get_state_data(plan):
-
     # Finds the state file
     filename = PLAN_OUTPUT_FOLDER + plan + "/states.json"
     if not os.path.isfile(filename):
