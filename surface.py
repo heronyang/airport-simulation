@@ -200,12 +200,12 @@ class Surface:
 class Gate(Node):
     """Extends `Node` class to represent a gate."""
 
-    def __init__(self, name, geo_pos, spots=None):
+    def __init__(self, name, geo_pos, spot=None):
         Node.__init__(self, name, geo_pos)
-        self.spots = spots
+        self.spot = spot
 
     def get_spots(self):
-        return self.spots
+        return self.spot
 
 
 class Spot(Node):
@@ -269,7 +269,7 @@ class SurfaceFactory:
         "taxiways.json"
     ]
 
-    gates_to_spots_mapping = None
+    gate_to_spot_mapping = None
     @classmethod
     def create(cls, dir_path):
         """Creates a new surface object given its source directory."""
@@ -313,7 +313,7 @@ class SurfaceFactory:
 
     @classmethod
     def __load_gates_to_spots_mapping(cls, dir_path):
-        SurfaceFactory.gates_to_spots_mapping = \
+        SurfaceFactory.gate_to_spot_mapping = \
             SurfaceFactory.__retrieve_gate_spots("gates_spots", dir_path)
         cls.logger.info("gates to spots mapping loaded")
 
@@ -352,7 +352,7 @@ class SurfaceFactory:
                     Gate(
                         name,
                         {"lat": node_raw["lat"], "lng": node_raw["lng"]},
-                        SurfaceFactory.gates_to_spots_mapping.get(name, None)
+                        SurfaceFactory.gate_to_spot_mapping.get(name, None)
                     )
                 )
             else:
