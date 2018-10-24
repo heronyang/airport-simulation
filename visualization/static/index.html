@@ -13,6 +13,7 @@
 </head>
 <body>
 <div id="map"></div>
+
 <div id="control-panel">
     <div class="uk-card uk-card-default uk-card-body uk-card-small control-card">
         <h4 class="uk-card-subtitle" id="airport-info-title">
@@ -49,7 +50,58 @@
     <div class="uk-card uk-card-default uk-card-body uk-card-small control-card">
         <h4 class="uk-card-subtitle">
             <span>Aircraft</span>
-        </h4>
+        </h4>d
+    </div>
+</div>
+
+<div class="uk-flex-top" uk-modal id="data-source-modal">
+    <div class="uk-modal-dialog uk-modal-body">
+        <h2 class="uk-modal-title">Select a Data Source</h2>
+        <ul class="uk-child-width-expand" uk-tab="connect: #mode-target" id="mode-tab">
+            <li class="uk-active" id="streaming-tab"><a>Streaming Data</a></li>
+            <li id="batch-tab"><a>Batch Data</a></li>
+        </ul>
+        <div id="mode-target" class="uk-switcher">
+            <article class="uk-article" id="streaming-content">
+                <p class="uk-article-meta">
+                    Run the simulation and the visualization simultaneously.
+                    You'll be able to inject uncertainties and edit aircraft state during the visualization.
+                </p>
+                <div class="uk-inline">
+                    <button class="uk-button uk-button-default" type="button">
+                        Select Plan
+                    </button>
+                    <div uk-dropdown="pos: bottom-justify">
+                        <ul class="uk-nav uk-dropdown-nav" id="streaming-plans-dropdown"></ul>
+                    </div>
+
+                </div>
+                <span uk-icon="chevron-right" class="nav-next"></span>
+                <button class="uk-button uk-button-primary" disabled id="streaming-run">Run</button>
+            </article>
+            <article class="uk-article" id="batch-content">
+                <p class="uk-article-meta">
+                    Visualize a complete day-long simulation from logs.
+                </p>
+                <div class="uk-inline">
+                    <button class="uk-button uk-button-default" type="button">
+                        Select Plan
+                    </button>
+                    <div uk-dropdown="pos: bottom-justify">
+                        <ul class="uk-nav uk-dropdown-nav" id="batch-plans-dropdown"></ul>
+                    </div>
+
+                </div>
+                <span uk-icon="chevron-right" class="nav-next"></span>
+                <button class="uk-button uk-button-primary" disabled id="batch-run">Run</button>
+            </article>
+        </div>
+    </div>
+</div>
+
+<div class="uk-flex-top" uk-modal id="data-loading-modal">
+    <div class="uk-modal-dialog uk-modal-body">
+        <h2 class="uk-modal-title" uk-spinner>Loading Data &nbsp;</h2>
     </div>
 </div>
 

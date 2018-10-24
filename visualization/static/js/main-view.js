@@ -5,20 +5,14 @@ const getModeAndPlan = () => {
     let hashes = window.location.href
         .slice(window.location.href.indexOf("?") + 1)
         .split("&");
-    for (var i = 0; i < hashes.length; i++) {
+    for (let i = 0; i < hashes.length; i++) {
         hash = hashes[i].split("=");
         params.push(hash[0]);
         params[hash[0]] = hash[1];
     }
 
-    if (!("plan" in params)) {
-        alert("Plan missing.");
-        throw "Plan missing.";
-    }
-
-    // default mode: batch
-    const mode = ("mode" in params) ? params["mode"] : "batch";
-    const plan = params["plan"];
+    const mode = ("mode" in params) ? params["mode"] : null;
+    const plan = ("plan" in params) ? params["plan"] : null;
 
     return [mode, plan];
 };
@@ -43,12 +37,65 @@ class VisualizationView {
     }
 
     initDataSource() {
+        if (this.mode && this.plan) {
+            this.initDataConnector();
+            return;
+        }
+
+        UIkit.modal("#data-source-modal").show();
+
+        StreamingDataConnector.loadPlans().then(plans => {
+            for (let p of plans) {
+                const node = document.createElement("li");
+                node.innerHTML = `<a>${p}</a>`;
+                node.addEventListener("click", e => {
+                    $("#streaming-run").text(`Run ${p}`).prop("disabled", false);
+
+                    this.mode = "streaming";
+                    this.plan = p;
+                });
+
+                $("#streaming-plans-dropdown").append(node);
+            }
+        });
+
+        BatchDataConnector.loadPlans().then(plans => {
+            for (let p of plans) {
+                const node = document.createElement("li");
+                node.innerHTML = `<a>${p}</a>`;
+                node.addEventListener("click", e => {
+                    $("#batch-run").text(`Run ${p}`).prop("disabled", false);
+
+                    this.mode = "batch";
+                    this.plan = p;
+                });
+
+                $("#batch-plans-dropdown").append(node);
+            }
+        });
+
+        $("#streaming-run").on("click", e => {
+            UIkit.modal("#data-source-modal").hide();
+            window.location.href = `?mode=streaming&plan=${this.plan}`;
+        });
+
+        $("#batch-run").on("click", e => {
+            UIkit.modal("#data-source-modal").hide();
+            window.location.href = `?mode=batch&plan=${this.plan}`;
+        });
+    }
+
+    initDataConnector() {
+        UIkit.modal("#data-loading-modal").show();
+
         this.dataConnector = (this.mode === "batch") ?
             new BatchDataConnector(this.plan, this.initSurfaceData.bind(this)) :
             new StreamingDataConnector(this.plan, this.initSurfaceData.bind(this));
     }
 
     initSurfaceData() {
+        UIkit.modal("#data-loading-modal").hide();
+
         // Set airport as the map center
         const surfaceData = this.dataConnector.getSurfaceData();
         const center = surfaceData["airport_center"];

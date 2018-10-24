@@ -6,6 +6,10 @@ class DataConnector {
         this.state_index = 0;
     }
 
+    static loadPlans() {
+
+    }
+
     nextState() {
     }
 
@@ -16,6 +20,15 @@ class DataConnector {
 
 class StreamingDataConnector extends DataConnector {
 
+    static loadPlans() {
+        return new Promise((res, rej) => {
+            $.get(`/plans/streaming`, data => {
+                res(JSON.parse(data));
+            }).fail(function (jqXHR, textStatus) {
+                alert(jqXHR.responseText);
+            });
+        });
+    }
 }
 
 class BatchDataConnector extends DataConnector {
@@ -29,9 +42,19 @@ class BatchDataConnector extends DataConnector {
         });
     }
 
+    static loadPlans() {
+        return new Promise((res, rej) => {
+            $.get(`/plans/batch`, data => {
+                res(JSON.parse(data));
+            }).fail(function (jqXHR, textStatus) {
+                alert(jqXHR.responseText);
+            });
+        });
+    }
+
     loadBatchData(plan) {
         return new Promise((res, rej) => {
-            $.get(`/expr_data?plan=${plan}`, data => {
+            $.get(`/data?plan=${plan}`, data => {
                 res(JSON.parse(data));
             }).fail(function (jqXHR, textStatus) {
                 alert(jqXHR.responseText);

@@ -5,6 +5,7 @@ from flask import Flask, request, abort
 
 dir_path = os.path.dirname(os.path.realpath(__file__)) + "/../"
 AIRPORT_DATA_FOLDER = dir_path + "data/"
+PLAN_INPUT_FOLDER = dir_path + "plans/"
 PLAN_OUTPUT_FOLDER = dir_path + "output/"
 
 app = Flask(__name__, static_url_path="")
@@ -20,13 +21,20 @@ def send_index():
     return app.send_static_file("index.html")
 
 
-@app.route("/plans")
-def api_plans():
+@app.route("/plans/batch")
+def api_batch_plans():
     return json.dumps(sorted(
         [f for f in next(os.walk(PLAN_OUTPUT_FOLDER))[1]]))
 
 
-@app.route("/expr_data")
+@app.route("/plans/streaming")
+def api_streaming_plans():
+    plans = [f for f in next(os.walk(PLAN_INPUT_FOLDER))[2]]
+    plans = map(lambda p: p.split(".")[0], list(filter(lambda p: "yaml" in p, plans)))
+    return json.dumps(sorted(plans))
+
+
+@app.route("/data")
 def api_expr_data():
     try:
         plan = request.args.get("plan")

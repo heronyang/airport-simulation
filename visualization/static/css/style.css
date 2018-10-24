@@ -15,7 +15,7 @@ html, body {
     top: 0;
     left: 0;
     max-width: 460px;
-    padding: 40px;
+    padding: 20px;
 }
 
 #plan-name {
@@ -68,4 +68,17 @@ tbody tr {
 
 #airport-traffic-title, #traffic-summary {
     margin: 0;
+}
+
+span.nav-next {
+    line-height: 40px;
+    margin: 0 20px;
+}
+
+.hide {
+    display: none;
+}
+
+.uk-article+.uk-article {
+    margin: 0 !important;
 }

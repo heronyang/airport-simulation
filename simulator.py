@@ -220,9 +220,6 @@ def run():
         while True:
             simulation.tick()
 
-            # TODO: Streaming Visualization
-            # TODO: yield state here
-
             if pause_time != 0:
                 time.sleep(pause_time)
     except KeyboardInterrupt:
