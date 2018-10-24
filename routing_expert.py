@@ -4,7 +4,7 @@ import cache
 
 from link import Link
 from route import Route
-from surface import Runway, Spot, Gate
+from surface import Runway, Spot, Gate, RunwayNode
 
 
 class RoutingExpert:
@@ -74,8 +74,9 @@ class RoutingExpert:
         self.arrival_routing_table = self.__finds_shortest_route_spfa(self.spot_nodes)
 
         # Prints result
-        self.print_route(self.depart_routing_table)
-        self.print_route(self.arrival_routing_table)
+        self.print_depart_route(self.depart_routing_table)
+        # TODO: print arrival route
+        # self.print_route(self.arrival_routing_table)
 
     def __init_adjacent_map(self):
         # Initializes the adjacency map
@@ -151,7 +152,7 @@ class RoutingExpert:
                     raise Exception("Incomplete route found.")
         return routing_table
 
-    def print_route(self, routing_table):
+    def print_depart_route(self, routing_table):
         """Prints all the routes into STDOUT."""
 
         for start in self.runway_nodes:
@@ -172,13 +173,13 @@ class RoutingExpert:
         For arrival, end node must be a gate node.
         Assume the arrival start point is outside of Spot.
         """
-        if type(end) == Runway:
+        if end in self.runway_nodes:
             if start not in self.depart_routing_table[end]:
                 return None
             return self.depart_routing_table[end][start]
 
         if type(end) == Gate:
-            spot =
+            spot = "a"
             node_to_spot = self.arrival_routing_table[start][spot]
             spot_to_gate = self.arrival_routing_table[end][spot]
             spot_to_gate.reverse()
