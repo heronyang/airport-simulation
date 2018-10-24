@@ -4,7 +4,7 @@ import cache
 
 from link import Link
 from route import Route
-from surface import Runway
+from surface import Runway, Spot, Gate
 
 
 class RoutingExpert:
@@ -19,7 +19,8 @@ class RoutingExpert:
         # Setups the logger
         self.logger = logging.getLogger(__name__)
 
-        self.routing_table = {}
+        self.depart_routing_table = {}
+        self.arrival_routing_table = {}
 
         # Adds the two ends of a links as a node as well
         for link in links:
@@ -30,6 +31,7 @@ class RoutingExpert:
         self.links = links
         self.nodes = nodes
         self.runway_nodes = list(map(lambda l: l.start, list(filter(lambda l: type(l) == Runway, self.links))))
+        self.spot_nodes = list(filter(lambda l: type(l) == Spot, self.nodes))
         self.logger.info("%d links and %d nodes are loaded",
                          len(self.links), len(self.nodes))
 
@@ -45,12 +47,12 @@ class RoutingExpert:
         cached = cache.get(hash_key)
 
         if cached:
-            self.routing_table = cached
+            (self.depart_routing_table, self.arrival_routing_table) = cached
             self.logger.debug("Cached routing table is loaded")
         else:
             # Builds the routes
             self.__build_routes()
-            cache.put(hash_key, self.routing_table)
+            cache.put(hash_key, (self.depart_routing_table, self.arrival_routing_table))
 
     def __build_routes(self):
         self.logger.debug("Starts building routes, # nodes: %d # links: %d",
@@ -68,10 +70,12 @@ class RoutingExpert:
 
         # Step 3: Applies SPFA to get shortest routes for all node pairs
         self.logger.debug("Starts SPFA for finding shortest routes")
-        self.__finds_shortest_route_spfa()
+        self.depart_routing_table = self.__finds_shortest_route_spfa(self.runway_nodes)
+        self.arrival_routing_table = self.__finds_shortest_route_spfa(self.spot_nodes)
 
         # Prints result
-        self.print_route()
+        self.print_route(self.depart_routing_table)
+        self.print_route(self.arrival_routing_table)
 
     def __init_adjacent_map(self):
         # Initializes the adjacency map
@@ -107,14 +111,15 @@ class RoutingExpert:
                 self.adjacency_map[start][end] = link
                 self.adjacency_map[end][start] = link.reverse
 
-    def __finds_shortest_route_spfa(self):
-        for r in self.runway_nodes:
-            self.routing_table[r] = {}
+    def __finds_shortest_route_spfa(self, dest_nodes):
+        routing_table = {}
+        for r in dest_nodes:
+            routing_table[r] = {}
 
             for n in self.nodes:
                 if n == r:
                     continue
-                self.routing_table[r][n] = Route(n, r, [])
+                routing_table[r][n] = Route(n, r, [])
 
             candidates = CandidateNeighbors(r)
 
@@ -122,30 +127,31 @@ class RoutingExpert:
                 u = candidates.pop()
 
                 for v in self.adjacency_map[u]:
-                    new_distance = self.routing_table[r][u].distance + self.adjacency_map[u][v].length \
+                    new_distance = routing_table[r][u].distance + self.adjacency_map[u][v].length \
                         if r != u else self.adjacency_map[u][v].length
-                    old_distance = self.routing_table[r][v].distance if r != v else 0
+                    old_distance = routing_table[r][v].distance if r != v else 0
                     if new_distance < old_distance:
-                        self.routing_table[r][v].reset_links()
-                        self.routing_table[r][v].add_link(self.adjacency_map[v][u])
+                        routing_table[r][v].reset_links()
+                        routing_table[r][v].add_link(self.adjacency_map[v][u])
                         if r != u:
-                            self.routing_table[r][v].add_links(self.routing_table[r][u].links)
+                            routing_table[r][v].add_links(routing_table[r][u].links)
 
                         self.logger.debug("%s -> %s -> %s is shorter than "
                                           "%s -> %s", v, u, r, v, r)
 
                         if not candidates.has(v):
                             candidates.push(v)
-                            candidates.re_order(self.routing_table[r])
+                            candidates.re_order(routing_table[r])
 
             for node in self.nodes:
                 # r is in the routing table; some nodes could be unreachable
-                if node not in self.routing_table[r] or not len(self.routing_table[r][node].links):
+                if node not in routing_table[r] or not len(routing_table[r][node].links):
                     continue
-                if not self.routing_table[r][node].is_completed:
+                if not routing_table[r][node].is_completed:
                     raise Exception("Incomplete route found.")
+        return routing_table
 
-    def print_route(self):
+    def print_route(self, routing_table):
         """Prints all the routes into STDOUT."""
 
         for start in self.runway_nodes:
@@ -153,7 +159,7 @@ class RoutingExpert:
                 if start == end:
                     continue
                 self.logger.debug("[%s - %s]", end, start)
-                route = self.routing_table[start][end]
+                route = routing_table[start][end]
                 if route:
                     self.logger.debug(route.description)
                 else:
@@ -162,13 +168,23 @@ class RoutingExpert:
     def get_shortest_route(self, start, end):
         """
         Gets the shortest route by given start and end node.
-        end node must be a runway node
+        For departure, end node must be a runway node.
+        For arrival, end node must be a gate node.
+        Assume the arrival start point is outside of Spot.
         """
-        if end not in self.runway_nodes:
-            raise Exception("End node is not a runway node.")
-        if start not in self.routing_table[end]:
-            return None
-        return self.routing_table[end][start]
+        if type(end) == Runway:
+            if start not in self.depart_routing_table[end]:
+                return None
+            return self.depart_routing_table[end][start]
+
+        if type(end) == Gate:
+            spot =
+            node_to_spot = self.arrival_routing_table[start][spot]
+            spot_to_gate = self.arrival_routing_table[end][spot]
+            spot_to_gate.reverse()
+            return node_to_spot + spot_to_gate
+
+        raise Exception("End node is not a runway node nor a gate node.")
 
     def __getstate__(self):
         attrs = dict(self.__dict__)
