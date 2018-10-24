@@ -179,7 +179,7 @@ class RoutingExpert:
             return self.depart_routing_table[end][start]
 
         if type(end) == Gate:
-            spot = "a"
+            spot = end.get_spot()
             node_to_spot = self.arrival_routing_table[start][spot]
             spot_to_gate = self.arrival_routing_table[end][spot]
             spot_to_gate.reverse()
