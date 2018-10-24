@@ -32,8 +32,10 @@ logger.setLevel(logging.DEBUG)
 flight_template = {
     "model": "A319",
     "airport": "SJC",
-    "runway": "10R/28L",
 }
+
+departure_runway = ["10R/28L"]
+arrival_runway = ["1R/19L"]
 
 gates = ["50", "55", "53", "52", "54A", "51A", "51B", "54B", "56B", "56A",
          "57", "59", "58B", "58A"]
@@ -60,7 +62,17 @@ def main():
         interval = get_random_time_interval()
         current_time += interval
 
-    scenario = {"arrivals": [], "departures": departures}
+    # Generate for the arrival flights
+    arrivals = []
+    current_time = 0
+    while current_time < END_TIME:
+        flight = generate_flight_at(current_time, True)
+        arrivals.append(flight)
+        interval = get_random_time_interval()
+        current_time += interval
+        logger.debug(current_time)
+
+    scenario = {"arrivals": arrivals, "departures": departures}
 
     # Saves to file
     output_filename = OUTPUT_FOLDER + "scenario.json"
@@ -72,10 +84,11 @@ def main():
 index = 1
 
 
-def generate_flight_at(time):
+def generate_flight_at(time, is_arrival=False):
     global index
     flight = flight_template.copy()
-
+    runway = arrival_runway if is_arrival else departure_runway
+    flight["runway"] = random.choice(runway)
     flight["callsign"] = "F" + str(index)
     flight["time"] = sec2time_str(time)
     flight["appear_time"] = sec2time_str(time - APPEAR_BEFORE)
