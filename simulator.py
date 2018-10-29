@@ -251,8 +251,9 @@ def run_generator():
 
 
 def init_streaming_generator(plan):
-    cfg.load_plan(plan)
-    return run_generator()
+    plan_path = cfg.PLANS_DIR + plan + ".yaml"
+    cfg.load_plan(plan_path)
+    return run_generator(), cfg.params["airport"]
 
 
 def __regenerate_scenario():

@@ -2,6 +2,11 @@
 import os
 import json
 from flask import Flask, request, abort
+import sys
+import time
+
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from simulator import init_streaming_generator
 
 dir_path = os.path.dirname(os.path.realpath(__file__)) + "/../"
 AIRPORT_DATA_FOLDER = dir_path + "data/"
@@ -10,17 +15,18 @@ PLAN_OUTPUT_FOLDER = dir_path + "output/"
 
 app = Flask(__name__, static_url_path="")
 
+# WORKAROUND: Since Flask does not support object storage in sessions,
+# use a dictionary to store the generator for each client.
+# A simulator ID is used to identify these clients.
+simulators = {}
 
-# TODO: Streaming Visualization
-# TODO: add API to load plans for both modes
-# TODO: call Simulator.run() in api_expr_data
-# TODO: separate surface and state data
 
 @app.route("/")
 def send_index():
     return app.send_static_file("index.html")
 
 
+# Get Plans
 @app.route("/plans/batch")
 def api_batch_plans():
     return json.dumps(sorted(
@@ -34,8 +40,9 @@ def api_streaming_plans():
     return json.dumps(sorted(plans))
 
 
-@app.route("/data")
-def api_expr_data():
+# Get Data
+@app.route("/data/batch")
+def api_batch_data():
     try:
         plan = request.args.get("plan")
         airport = get_airport_from_plan(plan)
@@ -47,6 +54,45 @@ def api_expr_data():
             "surface": get_surface_data(airport),
             "state": get_state_data(plan)
         })
+
+    except Exception as e:
+        abort(400, description=str(e))
+
+
+@app.route("/data/streaming")
+def api_streaming_data():
+    try:
+        # Init
+        global simulators
+        simulator_id = int(request.args.get("id"))
+
+        if simulator_id < 0:
+            plan = request.args.get("plan")
+
+            if plan is None:
+                abort(400, description="Invalid parameter")
+
+            simulator, airport = init_streaming_generator(plan)
+
+            simulator_id = int(round(time.time() * 1000))
+            simulators[simulator_id] = simulator
+
+            return json.dumps({
+                "surface": get_surface_data(airport),
+                "state": [next(simulator)],
+                "simulatorId": simulator_id
+            })
+
+        else:
+            steps = int(request.args.get("steps"))
+            state = []
+            for i in range(steps):
+                try:
+                    state.append(next(simulators[simulator_id]))
+                except StopIteration:
+                    break
+
+            return json.dumps(state)
 
     except Exception as e:
         abort(400, description=str(e))

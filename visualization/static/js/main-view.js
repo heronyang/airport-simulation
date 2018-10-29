@@ -143,30 +143,30 @@ class VisualizationView {
             return false;
         });
 
-        $("#control-prev").click(e => {
+        $("#control-prev").click(async e => {
             e.preventDefault();
-            const state = this.dataConnector.prevState();
+            const state = await this.dataConnector.prevState();
             this.handleStateUpdate(state);
             return false;
         });
 
-        $("#control-next").click(e => {
+        $("#control-next").click(async e => {
             e.preventDefault();
-            const state = this.dataConnector.nextState();
+            const state = await this.dataConnector.nextState();
             this.handleStateUpdate(state);
             return false;
         });
 
-        $("#control-back").click(e => {
+        $("#control-back").click(async e => {
             e.preventDefault();
-            const state = this.dataConnector.prevState(FAST_FORWARD_STEP_SIZE);
+            const state = await this.dataConnector.prevState(FAST_FORWARD_STEP_SIZE);
             this.handleStateUpdate(state, false);
             return false;
         });
 
-        $("#control-forward").click(e => {
+        $("#control-forward").click(async e => {
             e.preventDefault();
-            const state = this.dataConnector.nextState(FAST_FORWARD_STEP_SIZE);
+            const state = await this.dataConnector.nextState(FAST_FORWARD_STEP_SIZE);
             this.handleStateUpdate(state, false);
             return false;
         });
@@ -222,8 +222,8 @@ class VisualizationView {
             $("#control-run").removeClass("running");
             this.autoRunWorker = null;
         } else {
-            this.autoRunWorker = window.setInterval(() => {
-                const nextState = this.dataConnector.nextState();
+            this.autoRunWorker = window.setInterval(async () => {
+                const nextState = await this.dataConnector.nextState();
                 this.handleStateUpdate(nextState);
             }, AUTO_RUN_INTERVAL);
             $("#control-run").addClass("running");
