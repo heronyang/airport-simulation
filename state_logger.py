@@ -37,15 +37,16 @@ class StateLogger:
 
         with open(self.output_filename, "a") as fout:
             fout.write(json.dumps(state) + "\n")
+        return state
 
     def __parse_aircraft(self, aircraft):
 
         itinerary = self.__parse_itinerary(aircraft.itinerary)
         itinerary_index = aircraft.itinerary.index if itinerary else None
 
-        uc_delayed_index = aircraft.itinerary.uncertainty_delayed_index\
+        uc_delayed_index = aircraft.itinerary.uncertainty_delayed_index \
             if itinerary else None
-        sc_delayed_index = aircraft.itinerary.scheduler_delayed_index\
+        sc_delayed_index = aircraft.itinerary.scheduler_delayed_index \
             if itinerary else None
 
         return {

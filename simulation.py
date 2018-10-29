@@ -88,21 +88,22 @@ class Simulation:
                 self.logger.info("Last schedule time is updated to %s",
                                  self.last_schedule_time)
 
-            # Adds aircrafts
+            # Add aircraft
             self.airport.add_aircrafts(self.scenario, self.now,
                                        self.clock.sim_time)
 
-            # Injects uncertainties
+            # Inject uncertainties
             if self.uncertainty:
                 self.uncertainty.inject(self)
 
-            # Ticks
+            # Tick
             self.airport.tick()
+            state = None
             if not Config.params["simulator"]["test_mode"]:
-                self.state_logger.log_on_tick(self)
+                state = self.state_logger.log_on_tick(self)
             self.clock.tick()
 
-            # Removes aircrafts
+            # Remove aircraft
             self.airport.remove_aircrafts(self.scenario)
 
             # Abort on conflict
@@ -116,6 +117,9 @@ class Simulation:
             if not Config.params["simulator"]["test_mode"]:
                 self.analyst.observe_on_tick(self)
 
+            # return current state for streaming visualization
+            return state
+
         except ClockException as error:
             # Finishes
             if not Config.params["simulator"]["test_mode"]:
@@ -126,9 +130,6 @@ class Simulation:
         except Exception as error:
             self.logger.error(traceback.format_exc())
             raise error
-
-        # TODO: Streaming Visualization
-        # TODO: return state here
 
     def __is_time_to_reschedule(self):
         reschedule_cycle = Config.params["simulation"]["reschedule_cycle"]
