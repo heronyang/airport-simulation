@@ -280,7 +280,7 @@ class SurfaceFactory:
         cls.logger = logging.getLogger(__name__)
         surface = Surface(airport_raw["center"], airport_raw["corners"],
                           dir_path + "airport.jpg")
-        SurfaceFactory.__load_gates_to_spots_mapping(dir_path)
+        # SurfaceFactory.__load_gates_to_spots_mapping(dir_path)
         SurfaceFactory.__load_gates(surface, dir_path)
         SurfaceFactory.__load_spots(surface, dir_path)
         SurfaceFactory.__load_runway(surface, dir_path)
@@ -352,7 +352,10 @@ class SurfaceFactory:
                     Gate(
                         name,
                         {"lat": node_raw["lat"], "lng": node_raw["lng"]},
-                        SurfaceFactory.gate_to_spot_mapping.get(name, None)
+                        SurfaceFactory.gate_to_spot_mapping.get(name,
+                                                                None) if
+                        SurfaceFactory.gate_to_spot_mapping is not None else
+                        None
                     )
                 )
             else:
