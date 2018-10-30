@@ -119,7 +119,7 @@ class Airport:
 #         # Deal with the arrival flights
 #         for flight in scenario.arrivals:
 #             if not (now <= flight.appear_time < next_tick_time):
-#                 continue
+##                 continue
 
     def remove_aircrafts(self, scenario):
         """Removes departure aircrafts if they've moved to the runway.
