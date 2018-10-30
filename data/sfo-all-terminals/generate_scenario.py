@@ -37,8 +37,8 @@ flight_template = {
 departure_runway = ["10R/28L"]
 arrival_runway = ["1R/19L"]
 
-# gates = ["50", "55", "53", "52", "54A", "54B", "56B", "56A",
-#          "57", "59", "58B", "58A"]
+gates = ["50", "55", "53", "52", "54A", "54B", "56B", "56A",
+         "57", "59", "58B", "58A"]
 
 spots_to_gates = {"S2": ["51A", "51B", "50", "52", "53", "41", "43", "45",
                          "47"],
@@ -80,9 +80,9 @@ def main():
     output_filename = OUTPUT_FOLDER + "scenario.json"
     export_to_json(output_filename, scenario)
 
-    logger.debug("Generating gate spots data")
-    gate_spots_filename = OUTPUT_FOLDER + "gates_spots.json"
-    export_to_json(gate_spots_filename, spots_to_gates)
+    # logger.debug("Generating gate spots data")
+    # gate_spots_filename = OUTPUT_FOLDER + "gates_spots.json"
+    # export_to_json(gate_spots_filename, spots_to_gates)
 
     logger.debug("Done")
 
@@ -100,9 +100,10 @@ def generate_flight_at(time, is_arrival=False):
 
     # NOTE: spot position is not actually be used in our simulation, so we pick
     # it randomly
-    flight["spot"] = random.choice(spots)
-
-    gates = spots_to_gates[flight["spot"]]
+    # flight["spot"] = random.choice(spots)
+    #
+    # gates = spots_to_gates[flight["spot"]]
+    # flight["gate"] = random.choice(gates)
     flight["gate"] = random.choice(gates)
 
     index += 1
