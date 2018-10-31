@@ -1,55 +1,122 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Airport Simulation Experiment Output Visualization</title>
-        <meta name="viewport" content="initial-scale=1.0">
-        <meta charset="utf-8">
-		<link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
-        <link rel="stylesheet" href="/css/style.css">
-		<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
-		<link rel="icon" href="/favicon.ico" type="image/x-icon">
-    </head>
-    <body>
-        <div id="map"></div>
-		<nav id="controller" class="navbar fixed-bottom navbar-expand-sm navbar-dark bg-dark">
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarCollapse">
-				<ul class="navbar-nav mr-auto">
-					<li class="nav-item">
-						<a class="nav-link disabled" href="#">Plans</a>
-					</li>
-					<li class="nav-item dropup">
-						<a class="nav-link dropdown-toggle" href="#" id="dropdown-plan-label" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Plans</a>
-						<div id="dropdown-plan" class="dropdown-menu scrollable-menu" aria-labelledby="dropdown-plan-label">
-							<a class="dropdown-item" href="#">Loading...</a>
-						</div>
-					</li>
-				</ul>
-				<form class="form-inline my-2 my-lg-0">
-					<a id="current-time" class="nav-link disabled" href="#">Loading...</a>
-                    <button id="auto" type="button" class="btn btn-secondary">Autorun</button>
-					<button id="prev-prev" type="button" class="btn btn-light">&lt;&lt;</button>
-					<button id="prev" type="button" class="btn btn-light">&lt;</button>
-					<button id="next" type="button" class="btn btn-light">&gt;</button>
-					<button id="next-next" type="button" class="btn btn-light">&gt;&gt;</button>
-				</form>
-			</div>
-		</nav>
+<head>
+    <title>Airport Simulation</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <link rel="stylesheet"
+          href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css"
+          integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+</head>
+<body>
+<div id="map"></div>
 
-        <!-- JQuery -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<div id="control-panel">
+    <div class="uk-card uk-card-default uk-card-body uk-card-small control-card">
+        <h4 class="uk-card-subtitle" id="airport-info-title">
+            <span id="plan-name">Airport</span>&nbsp;&nbsp;
+            <span class="uk-label uk-label-success" id="plan-mode">Mode</span>
+        </h4>
+        <div class="uk-alert-primary" uk-alert id="current-time">
+            Current Time
+        </div>
+        <div id="control-box">
+            <a class="uk-icon-button" uk-icon="reply" id="control-back"></a>
+            <a class="uk-icon-button" uk-icon="chevron-left" id="control-prev"></a>
+            <a class="uk-icon-button" uk-icon="play" id="control-run"></a>
+            <a class="uk-icon-button" uk-icon="chevron-right" id="control-next"></a>
+            <a class="uk-icon-button" uk-icon="forward" id="control-forward"></a>
+        </div>
+    </div>
+    <div class="uk-card uk-card-default uk-card-body uk-card-small control-card">
+        <h4 class="uk-card-subtitle" id="airport-traffic-title">
+            <span>Traffic</span>
+        </h4>
+        <p id="traffic-summary" class="uk-text-meta"></p>
+        <table class="uk-table uk-table-small uk-table-justify" id="traffic-table">
+            <thead>
+            <tr>
+                <th>Flight#</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</div>
 
-        <!-- Bootstrap + Material Design Theme -->
-		<script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous"></script>
-		<script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>
-		<script>$(document).ready(function() { $('body').bootstrapMaterialDesign(); });</script>
+<div class="uk-flex-top" uk-modal id="data-source-modal">
+    <div class="uk-modal-dialog uk-modal-body">
+        <h2 class="uk-modal-title">Select a Data Source</h2>
+        <ul class="uk-child-width-expand" uk-tab="connect: #mode-target" id="mode-tab">
+            <li class="uk-active" id="streaming-tab"><a>Streaming Data</a></li>
+            <li id="batch-tab"><a>Batch Data</a></li>
+        </ul>
+        <div id="mode-target" class="uk-switcher">
+            <article class="uk-article" id="streaming-content">
+                <p class="uk-article-meta">
+                    Run the simulation and the visualization simultaneously.
+                    You'll be able to inject uncertainties and edit aircraft state during the visualization.
+                </p>
+                <div class="uk-inline">
+                    <button class="uk-button uk-button-default" type="button">
+                        Select Plan
+                    </button>
+                    <div uk-dropdown="pos: bottom-justify">
+                        <ul class="uk-nav uk-dropdown-nav" id="streaming-plans-dropdown"></ul>
+                    </div>
 
-        <!-- Main.js -->
-        <script src="/js/main.js"></script>
+                </div>
+                <span uk-icon="chevron-right" class="nav-next"></span>
+                <button class="uk-button uk-button-primary" disabled id="streaming-run">Run</button>
+            </article>
+            <article class="uk-article" id="batch-content">
+                <p class="uk-article-meta">
+                    Visualize a complete day-long simulation from logs.
+                </p>
+                <div class="uk-inline">
+                    <button class="uk-button uk-button-default" type="button">
+                        Select Plan
+                    </button>
+                    <div uk-dropdown="pos: bottom-justify">
+                        <ul class="uk-nav uk-dropdown-nav" id="batch-plans-dropdown"></ul>
+                    </div>
 
-        <!-- Map -->
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCwoYJYXC6j5pDgLBMowtN3oVQ0U4E3fdA&callback=initMap" async defer></script>
-    </body>
+                </div>
+                <span uk-icon="chevron-right" class="nav-next"></span>
+                <button class="uk-button uk-button-primary" disabled id="batch-run">Run</button>
+            </article>
+        </div>
+    </div>
+</div>
+
+<div class="uk-flex-top" uk-modal id="data-loading-modal">
+    <div class="uk-modal-dialog uk-modal-body">
+        <h2 class="uk-modal-title" uk-spinner>Loading Data &nbsp;</h2>
+    </div>
+</div>
+
+<!-- JQuery -->
+<script src="ext/jquery.min.js"></script>
+<script src="ext/jquery.easing.1.3.js"></script>
+
+<!-- UI -->
+<link rel="stylesheet" href="ext/uikit/uikit.min.css"/>
+<script src="ext/uikit/uikit.min.js"></script>
+<script src="ext/uikit/uikit-icons.min.js"></script>
+
+<!-- Main.js -->
+<script src="js/data-connector.js"></script>
+<script src="js/map-view.js"></script>
+<script src="js/main-view.js"></script>
+
+<!-- Map -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCwoYJYXC6j5pDgLBMowtN3oVQ0U4E3fdA&callback=startVisualization"
+        async defer></script>
+<script src="ext/markerAnimate.js"></script>
+</body>
 </html>
