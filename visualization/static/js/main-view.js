@@ -175,15 +175,26 @@ class VisualizationView {
     handleStateUpdate(state, use_animation = true) {
         $("#current-time").text(state["time"]);
 
+        const stateToDisplay = aircraft => {
+            if (aircraft["state"] === "stop") {
+                return "Stopped";
+            } else if (aircraft["is_delayed"]) {
+                return "Hold";
+            } else {
+                return "Moving";
+            }
+        };
+
         let allAircraft = [];
         for (let aircraft of state["aircrafts"]) {
             allAircraft.push({
                 lat: aircraft["location"]["lat"],
                 lng: aircraft["location"]["lng"],
-                status: "moving", // TODO
+                status: stateToDisplay(aircraft),
                 name: aircraft["callsign"]
             });
         }
+
         this.mapView.updateAllAircraft(allAircraft, use_animation);
 
         // Update traffic table
@@ -237,39 +248,6 @@ function parseNodes(rawNodes) {
         nodes.push({"lat": node[1], "lng": node[0]});
     }
     return nodes;
-}
-
-
-function parseAircraftContent(aircraft) {
-    var html = aircraft["callsign"] + "</br>";
-    if (aircraft["itinerary"] == null) {
-        return html + "No itinerary";
-    }
-    html += "<table><tr><th>Target</th><th>LatLng</th><th>UC</th><th>SC</th></tr>";
-    var index = aircraft["itinerary_index"];
-    var uc_delay_index = aircraft["uncertainty_delayed_index"];
-    var sc_delay_index = aircraft["scheduler_delayed_index"];
-    var i = 0;
-    for (let target of aircraft["itinerary"]) {
-        var latlng = target["node_location"]["lat"] + "," +
-            target["node_location"]["lng"];
-        html += "<tr class=\"" + getTargetClassName(i, index) + "\">";
-        html += "<td>" + target["node_name"] + "</td><td>" + latlng + "</td>";
-        if ($.inArray(i, uc_delay_index) >= 0) {
-            html += "<td>V</td>";
-        } else {
-            html += "<td>&nbsp;</td>";
-        }
-        if ($.inArray(i, sc_delay_index) >= 0) {
-            html += "<td>V</td>";
-        } else {
-            html += "<td>&nbsp;</td>";
-        }
-        html += "</tr>";
-        i += 1;
-    }
-    html += "</table>";
-    return html;
 }
 
 function getTargetClassName(current_index, index) {
