@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.com/nasa-airport/airport-simulation.svg?branch=master)](https://travis-ci.com/nasa-airport/airport-simulation)
 
-![demo](https://user-images.githubusercontent.com/7262715/45591580-ef937f80-b90b-11e8-9c15-a596be0bd283.gif)
+![image](https://user-images.githubusercontent.com/7262715/47834212-f95a3080-dd5b-11e8-97dd-a059fdf9f074.png)
 
 
 ## About
