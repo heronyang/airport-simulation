@@ -79,9 +79,9 @@ def main():
     output_filename = OUTPUT_FOLDER + "scenario.json"
     export_to_json(output_filename, scenario)
 
-    # logger.debug("Generating gate spots data")
-    # gate_spots_filename = OUTPUT_FOLDER + "gates_spots.json"
-    # export_to_json(gate_spots_filename, spots_to_gates)
+    logger.debug("Generating gate spots data")
+    gate_spots_filename = OUTPUT_FOLDER + "gates_spots.json"
+    export_to_json(gate_spots_filename, spots_to_gates)
 
     logger.debug("Done")
 
@@ -99,12 +99,12 @@ def generate_flight_at(time, is_arrival=False):
 
     # NOTE: spot position is not actually be used in our simulation, so we pick
     # it randomly
-    # flight["spot"] = random.choice(spots)
-    #
-    # gates = spots_to_gates[flight["spot"]]
-    # flight["gate"] = random.choice(gates)
-    flight["gate"] = random.choice(gates)
     flight["spot"] = random.choice(spots)
+
+    gates = spots_to_gates[flight["spot"]]
+    flight["gate"] = random.choice(gates)
+    # flight["gate"] = random.choice(gates)
+    # flight["spot"] = random.choice(spots)
 
     index += 1
     return flight

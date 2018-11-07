@@ -8,7 +8,6 @@ working with any kind of data but specifying on the `Simple Data` we created.
 import sys
 import numpy
 import logging
-
 from utils import export_to_json, create_output_folder
 
 OUTPUT_FOLDER = "./build/"
@@ -27,6 +26,10 @@ logger_handler.setFormatter(logging.Formatter('%(asctime)s %(message)s'))
 logger_handler.setLevel(logging.DEBUG)
 logger.addHandler(logger_handler)
 logger.setLevel(logging.DEBUG)
+
+spots_to_gates = {"S2": ["G3", "G2"],
+                  "S1": ["S1"]}
+spots = ["S1", "S2"]
 
 flight_template = [
     {
@@ -78,6 +81,9 @@ def main():
     output_filename = OUTPUT_FOLDER + "scenario.json"
     export_to_json(output_filename, scenario)
 
+    logger.debug("Generating gate spots data")
+    gate_spots_filename = OUTPUT_FOLDER + "gates_spots.json"
+    export_to_json(gate_spots_filename, spots_to_gates)
     logger.debug("Done")
 
 
