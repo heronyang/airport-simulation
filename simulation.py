@@ -1,6 +1,6 @@
 """`Simulation` represents an airport simulation of a day on the given
 parameters. `ClonedSimulation` is designed to be an immutable delegate of a
-simultion that can be used for other objects to observe or predict the
+simulation that can be used for other objects to observe or predict the
 simulation states.
 """
 import time
@@ -176,7 +176,7 @@ class Simulation:
         return ClonedSimulation(self)
 
 
-class ClonedSimulation():
+class ClonedSimulation:
     """ClonedSimulation is a copy of a `Simulation` object; however, it shares
     objects with the source `Simulation` object on immutable data objects in
     order to avoid the overhead in copying.
@@ -196,7 +196,7 @@ class ClonedSimulation():
         self.scenario.set_quiet(self.logger)
 
     def pre_tick(self):
-        """Adds aircrafts before a tick."""
+        """Adds aircraft before a tick."""
         self.airport.add_aircrafts(self.scenario, self.now,
                                    self.clock.sim_time)
 
@@ -210,7 +210,7 @@ class ClonedSimulation():
             raise error
 
     def post_tick(self):
-        """Removes aircrafts after a tick."""
+        """Removes aircraft after a tick."""
         self.airport.remove_aircrafts(self.scenario)
 
     @property

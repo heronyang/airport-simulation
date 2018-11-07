@@ -5,14 +5,15 @@ from link import Link
 from routing_expert import RoutingExpert
 from airport import Airport
 from scenario import Scenario
+from surface import RunwayNode, Runway
 
 import sys
 import unittest
+
 sys.path.append('..')
 
 
 class TestRoutingExpert(unittest.TestCase):
-
     """
     G1 is linked to S1 via L1 and L2. L2 is longer than L1.
     """
@@ -22,7 +23,7 @@ class TestRoutingExpert(unittest.TestCase):
     GEO_MIDDLE_SOUTH = {"lat": 47.722000, "lng": -122.079057}
 
     G1 = Node("G1", GEO_WEST)
-    S1 = Node("S1", GEO_EAST)
+    S1 = RunwayNode(GEO_EAST)
     L1 = Link("L1", [
         Node("L1_start", GEO_WEST),
         Node("L1_middle", GEO_MIDDLE_NORTH),
@@ -34,11 +35,14 @@ class TestRoutingExpert(unittest.TestCase):
         Node("L2_end", GEO_EAST)
     ])
 
-    links = [L1, L2]
+    L3 = Runway("Runway", [
+        S1, S1
+    ])
+
+    links = [L1, L2, L3]
     nodes = [G1, S1]
 
     def test_overlapped_link(self):
-
         routing_expert = RoutingExpert(self.links, self.nodes, False)
         route = routing_expert.get_shortest_route(self.G1, self.S1)
 
@@ -49,7 +53,6 @@ class TestRoutingExpert(unittest.TestCase):
         self.assertAlmostEqual(route.distance, 218489.353890, 5)
 
     def test_cache(self):
-
         # Try cache so we starts routing expert twice
         RoutingExpert(self.links, self.nodes, True)
         routing_expert = RoutingExpert(self.links, self.nodes, True)
@@ -63,7 +66,6 @@ class TestRoutingExpert(unittest.TestCase):
         self.assertAlmostEqual(route.distance, 218489.353890, 6)
 
     def test_simple_data(self):
-
         airport_code = "simple"
 
         # Sets up the airport
@@ -71,7 +73,7 @@ class TestRoutingExpert(unittest.TestCase):
 
         # Sets up the scenario
         self.scenario = Scenario.create(airport_code,
-                                               self.airport.surface)
+                                        self.airport.surface)
 
         links = self.airport.surface.links
         nodes = self.airport.surface.nodes
@@ -86,7 +88,6 @@ class TestRoutingExpert(unittest.TestCase):
         self.assertAlmostEqual(routeG3toR1.distance, 1352.6500035604972, 5)
 
     def test_sfo_terminal_2_closest(self):
-
         airport_code = "sfo-terminal-2"
 
         # Sets up the airport
@@ -94,7 +95,7 @@ class TestRoutingExpert(unittest.TestCase):
 
         # Sets up the scenario
         self.scenario = Scenario.create(airport_code,
-                                               self.airport.surface)
+                                        self.airport.surface)
 
         links = self.airport.surface.links
         nodes = self.airport.surface.nodes
@@ -112,7 +113,6 @@ class TestRoutingExpert(unittest.TestCase):
         self.assertEqual(len(routeG58Bto10R.links), 31)
 
     def test_sfo_terminal_2_furthest(self):
-
         airport_code = "sfo-terminal-2"
 
         # Sets up the airport
@@ -120,7 +120,7 @@ class TestRoutingExpert(unittest.TestCase):
 
         # Sets up the scenario
         self.scenario = Scenario.create(airport_code,
-                                               self.airport.surface)
+                                        self.airport.surface)
 
         links = self.airport.surface.links
         nodes = self.airport.surface.nodes
@@ -138,7 +138,6 @@ class TestRoutingExpert(unittest.TestCase):
         self.assertEqual(len(routeG53to10R.links), 38)
 
     def test_sfo_terminal_2_all(self):
-
         airport_code = "sfo-terminal-2"
 
         # Sets up the airport
@@ -146,7 +145,7 @@ class TestRoutingExpert(unittest.TestCase):
 
         # Sets up the scenario
         self.scenario = Scenario.create(airport_code,
-                                               self.airport.surface)
+                                        self.airport.surface)
 
         links = self.airport.surface.links
         nodes = self.airport.surface.nodes

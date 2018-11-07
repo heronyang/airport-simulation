@@ -30,6 +30,10 @@ class Route:
         for link in links:
             self.__add_link(link)
 
+    def add_link(self, link):
+        """Adds a link in this route."""
+        self.__add_link(link)
+
     def __add_link(self, link):
 
         last_node = self.last_attempted_node

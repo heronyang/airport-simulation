@@ -2,6 +2,7 @@
 from config import Config
 from utils import str2sha1
 from id_generator import get_new_link_id
+from geopy.distance import vincenty
 
 
 class Link:
@@ -19,6 +20,7 @@ class Link:
 
         self.name = name
         self.nodes = nodes
+        self.boundary = self.__calculate_boundary(nodes)
         self.hash = str2sha1("%s#%s" % (self.name, self.nodes))
 
     @property
@@ -47,9 +49,38 @@ class Link:
         """
         return Link(self.name, self.nodes[::-1])
 
+    def __calculate_boundary(self, nodes):
+        """Returns the boundary nodes for the area the link formed """
+        boundary = None
+        for node in nodes:
+            lat, lng = node.geo_pos["lat"], node.geo_pos["lng"]
+            if not boundary:
+                boundary = [lat, lat, lng, lng]
+            else:
+                boundary[0] = min(boundary[0], lat)
+                boundary[1] = max(boundary[1], lat)
+                boundary[2] = min(boundary[2], lng)
+                boundary[3] = max(boundary[3], lng)
+
+        threshold = Config.params["simulation"]["close_node_link_threshold"] / 3280.0  # convert to km
+
+        dis_calculator = vincenty(kilometers=threshold)
+
+        return [
+            dis_calculator.destination((boundary[0], boundary[2]), 180).latitude,
+            dis_calculator.destination((boundary[1], boundary[3]), 0).latitude,
+            dis_calculator.destination((boundary[0], boundary[2]), 270).longitude,
+            dis_calculator.destination((boundary[1], boundary[3]), 90).longitude,
+        ]
+
+    def __node_in_boundary(self, node):
+        """Returns true if this node is inside the boundary"""
+        return self.boundary[0] <= node.geo_pos["lat"] <= self.boundary[1] and \
+            self.boundary[2] <= node.geo_pos["lng"] <= self.boundary[3]
+
     def contains_node(self, node):
         """Returns true if this link contains a given `node`."""
-        if self.start.is_close_to(node) or self.end.is_close_to(node):
+        if not self.__node_in_boundary(node) or self.start.is_close_to(node) or self.end.is_close_to(node):
             return False
         return self.contains_node_at(node) is not None
 
