@@ -10,5 +10,9 @@ before_script:
   - python generate.py
   - python generate_scenario.py
   - cd ../..
+  - cd data/sfo-terminal-2
+  - python generate.py
+  - python generate_scenario.py
+  - cd ../..
 script:
   - travis_wait python -m unittest discover tests
