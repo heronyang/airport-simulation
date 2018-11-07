@@ -280,7 +280,7 @@ class SurfaceFactory:
         cls.logger = logging.getLogger(__name__)
         surface = Surface(airport_raw["center"], airport_raw["corners"],
                           dir_path + "airport.jpg")
-        # SurfaceFactory.__load_gates_to_spots_mapping(dir_path)
+        SurfaceFactory.__load_gates_to_spots_mapping(dir_path)
         SurfaceFactory.__load_gates(surface, dir_path)
         SurfaceFactory.__load_spots(surface, dir_path)
         SurfaceFactory.__load_runway(surface, dir_path)
