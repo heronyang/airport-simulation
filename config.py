@@ -5,7 +5,7 @@ parameters that are different from the default one.
 import yaml
 from utils import update_dict
 
-BASE_LINE_EXPERIMENT_PLAN_FILEPATH = "./plans/base.yaml"
+BASE_LINE_EXPERIMENT_PLAN_FILEPATH = "../plans/base.yaml"
 
 
 class MetaConfig(type):

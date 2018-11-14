@@ -173,17 +173,23 @@ class RoutingExpert:
         For arrival, end node must be a gate node.
         Assume the arrival start point is outside of Spot.
         """
+        GEO_MIDDLE_NORTH = {"lat": 37.122000, "lng": -122.079057}
+        SP1 = Spot("SP1", GEO_MIDDLE_NORTH)
         if end in self.runway_nodes:
             if start not in self.depart_routing_table[end]:
                 return None
             return self.depart_routing_table[end][start]
 
         if type(end) == Gate:
-            spot = end.get_spot()
-            node_to_spot = self.arrival_routing_table[start][spot]
-            spot_to_gate = self.arrival_routing_table[end][spot]
+            # spot = end.get_spot()
+            spot = SP1
+            node_to_spot = self.arrival_routing_table[spot][start]
+            spot_to_gate = self.arrival_routing_table[spot][end]
             spot_to_gate.reverse()
-            return node_to_spot + spot_to_gate
+            result = Route(start, end, [])
+            result.add_links(node_to_spot.get_links())
+            result.add_links(spot_to_gate.get_links())
+            return result
 
         raise Exception("End node is not a runway node nor a gate node.")
 
