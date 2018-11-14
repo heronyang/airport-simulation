@@ -34,7 +34,7 @@ class Aircraft:
         """Sets the location of this aircraft to a given location."""
 
         self.location = location
-        self.logger.info("%s location changed to %s", self, location)
+        # self.logger.info("%s location changed to %s", self, location)
 
     @property
     def next_location(self):

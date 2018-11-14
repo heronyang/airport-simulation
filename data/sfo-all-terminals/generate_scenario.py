@@ -16,6 +16,10 @@ OUTPUT_FOLDER = "./build/"
 
 TIGHTNESS_TIME_MEAN = 90  # seconds
 TIGHTNESS_TIME_DEVIATION = 30  # seconds
+
+TIGHTNESS_ARRIVAL_TIME_MEAN = 1800  # seconds
+TIGHTNESS_ARRIVAL_TIME_DEVIATION = 300  # seconds
+
 APPEAR_BEFORE = 0  # seconds
 
 # We stop adding flights before the day ends in order to measure maxspan
@@ -70,7 +74,7 @@ def main():
     while current_time < END_TIME:
         flight = generate_flight_at(current_time, True)
         arrivals.append(flight)
-        interval = get_random_time_interval()
+        interval = get_random_time_interval(is_arrival=True)
         current_time += interval
 
     scenario = {"arrivals": arrivals, "departures": departures}
@@ -120,9 +124,13 @@ def sec2time_str(time):
     return "%02d%02d" % (hour, minute)
 
 
-def get_random_time_interval():
+def get_random_time_interval(is_arrival=False):
     while True:
-        interval = numpy.random.normal(TIGHTNESS_TIME_MEAN,
+        if is_arrival:
+            interval = numpy.random.normal(TIGHTNESS_ARRIVAL_TIME_MEAN,
+                                           TIGHTNESS_ARRIVAL_TIME_DEVIATION)
+        else:
+            interval = numpy.random.normal(TIGHTNESS_TIME_MEAN,
                                        TIGHTNESS_TIME_DEVIATION)
         if interval > 0:
             return interval
