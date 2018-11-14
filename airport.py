@@ -116,10 +116,10 @@ class Airport:
                 self.add_aircraft(aircraft)
                 self.logger.info("Adds %s into the airport", flight)
 
-        # Deal with the arrival flights
-        for flight in scenario.arrivals:
-            if not (now <= flight.appear_time < next_tick_time):
-                continue
+        # # Deal with the arrival flights
+        # for flight in scenario.arrivals:
+        #     if not (now <= flight.appear_time < next_tick_time):
+        #          continue
 
     def remove_aircrafts(self, scenario):
         """Removes departure aircrafts if they've moved to the runway.

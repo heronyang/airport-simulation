@@ -55,6 +55,8 @@ from reporter import save_batch_result, save_failed_num
 def main():
     """Main function of the simulator."""
 
+    # Entry of Simulator from command line
+    # Streaming Visualization will call init_streaming_generator() directly
     __init_params()
 
     if cfg.params["batch"]:
@@ -62,7 +64,12 @@ def main():
         run_batch()
     else:
         print("Starting the simulation")
-        run()
+        rg = run_generator()
+        while True:
+            try:
+                next(rg)
+            except StopIteration:
+                break
 
 
 def __init_params():
@@ -151,7 +158,12 @@ def run_wrapper(expr_var_name, expr_var, name, logs, nth):
     while True:
         try:
             start = time.time()
-            run()
+            rg = run_generator()
+            while True:
+                try:
+                    next(rg)
+                except StopIteration:
+                    break
         except SimulationException:
             failed += 1
             save_failed_num(name, expr_var, nth, failed)
@@ -195,10 +207,21 @@ def __set_plan_name(name, expr_var, nth):
     cfg.params["name"] = get_batch_plan_name(name, expr_var, nth)
 
 
-def run():
+def run_generator():
     """Executes a single simulation by initializing a `Simulation` and call its
     `tick()` function util the Clock` object raises an `ClockException`
     indicating the end of a day.
+
+    The function is a generator. It yields current state after each iterator. Call next()
+    to continue the execution. It's made for the convenience of streaming visualization.
+
+    Usage:
+        rg = run_generator()
+        while True:
+            try:
+                next(rg)
+            except StopIteration:
+                break
     """
 
     logger = __init_logger()
@@ -214,7 +237,8 @@ def run():
     pause_time = cfg.params["simulator"]["pause_time"]
     try:
         while True:
-            simulation.tick()
+            yield simulation.tick()
+
             if pause_time != 0:
                 time.sleep(pause_time)
     except KeyboardInterrupt:
@@ -224,6 +248,12 @@ def run():
     except SimulationException as exception:
         logger.error("Conflict found in the airport, abort")
         raise exception
+
+
+def init_streaming_generator(plan):
+    plan_path = cfg.PLANS_DIR + plan + ".yaml"
+    cfg.load_plan(plan_path)
+    return run_generator(), cfg.params["airport"]
 
 
 def __regenerate_scenario():

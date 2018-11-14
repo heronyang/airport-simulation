@@ -1,5 +1,5 @@
 """`Flight` is extended by `ArrivalFlight` and `DepartureFlight` to cover all
-posible flight that is planned before the simulation started.
+possible flight that is planned before the simulation started.
 """
 from aircraft import Aircraft, State
 

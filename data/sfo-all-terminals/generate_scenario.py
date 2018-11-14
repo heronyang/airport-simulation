@@ -37,8 +37,7 @@ flight_template = {
 departure_runway = ["10R/28L"]
 arrival_runway = ["1R/19L"]
 
-# gates = ["50", "55", "53", "52", "54A", "54B", "56B", "56A",
-#          "57", "59", "58B", "58A"]
+gates = ["50", "55", "53", "52", "54A", "51A", "51B", "54B", "56B", "56A", "57", "59", "58B", "58A"]
 
 spots_to_gates = {"S2": ["51A", "51B", "50", "52", "53", "41", "43", "45",
                          "47"],
@@ -104,6 +103,8 @@ def generate_flight_at(time, is_arrival=False):
 
     gates = spots_to_gates[flight["spot"]]
     flight["gate"] = random.choice(gates)
+    # flight["gate"] = random.choice(gates)
+    # flight["spot"] = random.choice(spots)
 
     index += 1
     return flight

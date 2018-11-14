@@ -40,6 +40,9 @@ gates = ["50", "55", "53", "52", "54A", "51A", "51B", "54B", "56B", "56A",
 
 spots = ["S2", "S3"]
 
+spots_to_gates = {"S2": ["51A", "51B", "50", "52", "53", "41", "43", "45",
+                         "47"],
+                  "S3": ["57", "59", "58B", "58A"]}
 
 def main():
     """
@@ -65,6 +68,10 @@ def main():
     # Saves to file
     output_filename = OUTPUT_FOLDER + "scenario.json"
     export_to_json(output_filename, scenario)
+
+    logger.debug("Generating gate spots data")
+    gate_spots_filename = OUTPUT_FOLDER + "gates_spots.json"
+    export_to_json(gate_spots_filename, spots_to_gates)
 
     logger.debug("Done")
 
