@@ -4,8 +4,10 @@ parameters that are different from the default one.
 """
 import yaml
 from utils import update_dict
+import os
 
-BASE_LINE_EXPERIMENT_PLAN_FILEPATH = "../plans/base.yaml"
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+BASE_LINE_EXPERIMENT_PLAN_FILEPATH = BASE_DIR + "/plans/base.yaml"
 
 
 class MetaConfig(type):
@@ -36,10 +38,11 @@ class Config(metaclass=MetaConfig):
     """
 
     LOG_FORMAT = "[%(name)s.%(funcName)s:%(lineno)d] %(message)s"
-    DATA_ROOT_DIR_PATH = "./data/%s/build/"
-    DATA_GENERATION_DIR_PATH = "./data/%s/"
-    OUTPUT_DIR = "./output/"
-    BATCH_OUTPUT_DIR = "./batch_output/"
+    DATA_ROOT_DIR_PATH = BASE_DIR + "/data/%s/build/"
+    DATA_GENERATION_DIR_PATH = BASE_DIR + "/data/%s/"
+    OUTPUT_DIR = BASE_DIR + "/output/"
+    PLANS_DIR = BASE_DIR + "/plans/"
+    BATCH_OUTPUT_DIR = BASE_DIR + "/batch_output/"
 
     SCHEDULER_DIR_NAME = "scheduler"
     OUTPUT_FIG_DPI = 150
