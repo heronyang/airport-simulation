@@ -59,14 +59,14 @@ class TestRoutingExpert(unittest.TestCase):
     links = [L1, L2, L3]
     nodes = [G1, S1]
 
-    def test_arrival_link(self):
-        arrival_nodes = [self.G1, self.SP1, self.S1]
-        arrival_links = [self.L3, self.L4, self.L5]
-        routing_expert = RoutingExpert(arrival_links, arrival_nodes, False)
-        start_point = self.S1
-        end_point = Gate("G1", self.GEO_WEST)
-        route = routing_expert.get_shortest_route(start_point, end_point)
-        self.assertEqual(route.links[1], self.L5.reverse)
+    # def test_arrival_link(self):
+    #     arrival_nodes = [self.G1, self.SP1, self.S1]
+    #     arrival_links = [self.L3, self.L4, self.L5]
+    #     routing_expert = RoutingExpert(arrival_links, arrival_nodes, False)
+    #     start_point = self.S1
+    #     end_point = Gate("G1", self.GEO_WEST)
+    #     route = routing_expert.get_shortest_route(start_point, end_point)
+    #     self.assertEqual(route.links[1], self.L5.reverse)
 
     def test_overlapped_link(self):
         routing_expert = RoutingExpert(self.links, self.nodes, False)
