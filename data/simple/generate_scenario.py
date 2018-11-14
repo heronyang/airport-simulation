@@ -16,9 +16,6 @@ TIGHTNESS_TIME_MEAN = 180  # seconds
 TIGHTNESS_TIME_DEVIATION = 60  # seconds
 APPEAR_BEFORE = 0  # seconds
 
-TIGHTNESS_ARRIVAL_TIME_MEAN = 1800  # seconds
-TIGHTNESS_ARRIVAL_TIME_DEVIATION = 300  # seconds
-
 # We stop adding flights before the day ends in order to measure maxspan
 END_TIME = 9 * 60 * 60  # seconds
 
@@ -29,12 +26,6 @@ logger_handler.setFormatter(logging.Formatter('%(asctime)s %(message)s'))
 logger_handler.setLevel(logging.DEBUG)
 logger.addHandler(logger_handler)
 logger.setLevel(logging.DEBUG)
-
-spots_to_gates = {"S2": ["G3", "G2"],
-                  "S1": ["S1"]}
-spots = ["S1", "S2"]
-
-gates = ["S1", "G3", "G2"]
 
 flight_template = [
     {
@@ -80,24 +71,12 @@ def main():
         interval = get_random_time_interval()
         current_time += interval
 
-    # Generate for the arrival flights
-    arrivals = []
-    current_time = 0
-    while current_time < END_TIME:
-        flight = generate_flight_at(current_time)
-        arrivals.append(flight)
-        interval = get_random_time_interval(is_arrival=True)
-        current_time += interval
-
-    scenario = {"arrivals": arrivals, "departures": departures}
+    scenario = {"arrivals": [], "departures": departures}
 
     # Saves to file
     output_filename = OUTPUT_FOLDER + "scenario.json"
     export_to_json(output_filename, scenario)
 
-    logger.debug("Generating gate spots data")
-    gate_spots_filename = OUTPUT_FOLDER + "gates_spots.json"
-    export_to_json(gate_spots_filename, spots_to_gates)
     logger.debug("Done")
 
 
@@ -114,28 +93,6 @@ def generate_flight_at(time):
 
     index += 1
     return flight
-#
-#
-# def generate_flight_at(time, is_arrival=False):
-#     global index
-#     flight = flight_template.copy()
-#     runway = arrival_runway if is_arrival else departure_runway
-#     flight["runway"] = random.choice(runway)
-#     flight["callsign"] = "F" + str(index)
-#     flight["time"] = sec2time_str(time)
-#     flight["appear_time"] = sec2time_str(time - APPEAR_BEFORE)
-#
-#     # NOTE: spot position is not actually be used in our simulation, so we pick
-#     # it randomly
-#     flight["spot"] = random.choice(spots)
-#
-#     gates = spots_to_gates[flight["spot"]]
-#     flight["gate"] = random.choice(gates)
-#     # flight["gate"] = random.choice(gates)
-#     # flight["spot"] = random.choice(spots)
-#
-#     index += 1
-#     return flight
 
 
 def sec2time_str(time):
@@ -148,14 +105,10 @@ def sec2time_str(time):
     return "%02d%02d" % (hour, minute)
 
 
-def get_random_time_interval(is_arrival=False):
+def get_random_time_interval():
     while True:
-        if is_arrival:
-            interval = numpy.random.normal(TIGHTNESS_ARRIVAL_TIME_MEAN,
-                                           TIGHTNESS_ARRIVAL_TIME_DEVIATION)
-        else:
-            interval = numpy.random.normal(TIGHTNESS_TIME_MEAN,
-                                           TIGHTNESS_TIME_DEVIATION)
+        interval = numpy.random.normal(TIGHTNESS_TIME_MEAN,
+                                       TIGHTNESS_TIME_DEVIATION)
         if interval > 0:
             return interval
 
