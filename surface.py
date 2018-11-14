@@ -280,10 +280,10 @@ class SurfaceFactory:
         cls.logger = logging.getLogger(__name__)
         surface = Surface(airport_raw["center"], airport_raw["corners"],
                           dir_path + "airport.jpg")
-        SurfaceFactory.__load_gates_to_spots_mapping(dir_path)
         SurfaceFactory.__load_gates(surface, dir_path)
         SurfaceFactory.__load_spots(surface, dir_path)
         SurfaceFactory.__load_runway(surface, dir_path)
+        SurfaceFactory.__load_gates_to_spots_mapping(surface, dir_path)
         SurfaceFactory.__load_taxiway(surface, dir_path)
         SurfaceFactory.__load_pushback_way(surface, dir_path)
 
@@ -312,20 +312,27 @@ class SurfaceFactory:
         cls.logger.info("%s spots loaded", len(surface.spots))
 
     @classmethod
-    def __load_gates_to_spots_mapping(cls, dir_path):
+    def __load_gates_to_spots_mapping(cls, surface, dir_path):
         SurfaceFactory.gate_to_spot_mapping = \
-            SurfaceFactory.__retrieve_gate_spots("gates_spots", dir_path)
+            SurfaceFactory.__retrieve_gate_spots("gates_spots", dir_path, surface)
         cls.logger.info("gates to spots mapping loaded")
 
     @classmethod
-    def __retrieve_gate_spots(cls, type_name, dir_path):
+    def __find_spot_node(cls, spot_name, surface):
+        for node in surface.spots:
+            if node.name == spot_name:
+                return node
+        return None
+
+    @classmethod
+    def __retrieve_gate_spots(cls, type_name, dir_path, surface):
         gates_to_spots = {}
         with open(dir_path + type_name + ".json") as fin:
             spots_to_gates = json.load(fin)
         logging.debug(spots_to_gates)
         for spot, gates in spots_to_gates.items():
             for gate in gates:
-                gates_to_spots[gate] = spot
+                gates_to_spots[gate] =SurfaceFactory.__find_spot_node(spot, surface)
         return gates_to_spots
 
     @classmethod
