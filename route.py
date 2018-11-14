@@ -19,6 +19,20 @@ class Route:
         self.__is_completed = None  # is_completed is calculated lazily
         self.__nodes = []   # nodes are calculated lazily
 
+    def get_links(self):
+        return self.links
+
+    def reverse(self):
+        # reverse start and end
+        temp_node = self.start
+        self.start = self.end
+        self.end = temp_node
+
+        # reverse all the links
+        self.links.reverse()
+        for i in range(len(self.links)):
+            self.links[i] = self.links[i].reverse
+
     def update_link(self, link):
         """Clears all the states stored and update the route with a given link.
         """

@@ -5,7 +5,7 @@ from link import Link
 from routing_expert import RoutingExpert
 from airport import Airport
 from scenario import Scenario
-from surface import RunwayNode, Runway
+from surface import RunwayNode, Runway, Spot, Gate
 
 import sys
 import unittest
@@ -24,6 +24,8 @@ class TestRoutingExpert(unittest.TestCase):
 
     G1 = Node("G1", GEO_WEST)
     S1 = RunwayNode(GEO_EAST)
+    SP1 = Spot("SP1", GEO_MIDDLE_NORTH)
+
     L1 = Link("L1", [
         Node("L1_start", GEO_WEST),
         Node("L1_middle", GEO_MIDDLE_NORTH),
@@ -39,8 +41,32 @@ class TestRoutingExpert(unittest.TestCase):
         S1, S1
     ])
 
+    L4 = Link("L4", [
+        Node("Gate", GEO_WEST),
+        Node("Spot", GEO_MIDDLE_NORTH)
+    ])
+
+    L5 = Link("L5", [
+        Node("Spot", GEO_MIDDLE_NORTH),
+        Node("Runway", GEO_EAST)
+    ])
+    L6 = Link("L6", [
+        Node("Runway", GEO_EAST),
+        Node("Spot", GEO_MIDDLE_NORTH),
+        Node("Gate", GEO_WEST)
+    ])
+
     links = [L1, L2, L3]
     nodes = [G1, S1]
+
+    def test_arrival_link(self):
+        arrival_nodes = [self.G1, self.SP1, self.S1]
+        arrival_links = [self.L3, self.L4, self.L5]
+        routing_expert = RoutingExpert(arrival_links, arrival_nodes, False)
+        start_point = self.S1
+        end_point = Gate("G1", self.GEO_WEST)
+        route = routing_expert.get_shortest_route(start_point, end_point)
+        self.assertEqual(route.links[1], self.L5.reverse)
 
     def test_overlapped_link(self):
         routing_expert = RoutingExpert(self.links, self.nodes, False)
