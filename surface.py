@@ -343,7 +343,7 @@ class SurfaceFactory:
 
         for gate in surface.gates:
             if gate.name in gates_to_spots:
-                gate.set_spots(gates_to_spots[gate])
+                gate.set_spots(gates_to_spots[gate.name])
         return gates_to_spots
 
     @classmethod
