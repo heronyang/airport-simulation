@@ -207,6 +207,9 @@ class Gate(Node):
     def get_spots(self):
         return self.spot
 
+    def set_spots(self, spot_node):
+        self.spot = spot_node
+
 
 class Spot(Node):
     """Extends `Node` class to represent a spot position."""
@@ -270,6 +273,7 @@ class SurfaceFactory:
     ]
 
     gate_to_spot_mapping = None
+
     @classmethod
     def create(cls, dir_path):
         """Creates a new surface object given its source directory."""
@@ -314,7 +318,8 @@ class SurfaceFactory:
     @classmethod
     def __load_gates_to_spots_mapping(cls, surface, dir_path):
         SurfaceFactory.gate_to_spot_mapping = \
-            SurfaceFactory.__retrieve_gate_spots("gates_spots", dir_path, surface)
+            SurfaceFactory.__retrieve_gate_spots("gates_spots", dir_path,
+                                                 surface)
         cls.logger.info("gates to spots mapping loaded")
 
     @classmethod
@@ -332,7 +337,13 @@ class SurfaceFactory:
         logging.debug(spots_to_gates)
         for spot, gates in spots_to_gates.items():
             for gate in gates:
-                gates_to_spots[gate] =SurfaceFactory.__find_spot_node(spot, surface)
+                gates_to_spots[gate] = SurfaceFactory.__find_spot_node(spot,
+
+                                                                       surface)
+
+        for gate in surface.gates:
+            if gate.name in gates_to_spots:
+                gate.set_spots(gates_to_spots[gate])
         return gates_to_spots
 
     @classmethod
@@ -359,10 +370,6 @@ class SurfaceFactory:
                     Gate(
                         name,
                         {"lat": node_raw["lat"], "lng": node_raw["lng"]},
-                        SurfaceFactory.gate_to_spot_mapping.get(name,
-                                                                None) if
-                        SurfaceFactory.gate_to_spot_mapping is not None else
-                        None
                     )
                 )
             else:
