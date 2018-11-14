@@ -5,7 +5,6 @@ from copy import deepcopy
 from itinerary import Itinerary
 from flight import ArrivalFlight
 
-
 class AbstractScheduler:
     """Parent class for different schedulers to extend."""
 

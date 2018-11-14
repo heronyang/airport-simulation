@@ -8,7 +8,7 @@ import logging
 import traceback
 import importlib
 
-from copy import deepcopy
+from copy import deepcopy, copy
 from clock import Clock, ClockException
 from airport import Airport
 from scenario import Scenario
@@ -191,7 +191,7 @@ class ClonedSimulation:
 
         self.clock = deepcopy(simulation.clock)
         self.airport = deepcopy(simulation.airport)
-        self.scenario = deepcopy(simulation.scenario)
+        self.scenario = copy(simulation.scenario)
 
         # Sets up the logger in quiet mode
         self.logger = logging.getLogger("QUIET_MODE")

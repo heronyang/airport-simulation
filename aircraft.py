@@ -34,6 +34,10 @@ class Aircraft:
         """Sets the location of this aircraft to a given location."""
 
         self.location = location
+
+        # print (self.logger)
+        # if self.logger is None:
+        #     self.logger = logging.getLogger(__name__)
         # self.logger.info("%s location changed to %s", self, location)
 
     @property
@@ -48,28 +52,28 @@ class Aircraft:
     def set_itinerary(self, itinerary):
         """Sets the itinerary of this aircraft."""
         self.itinerary = itinerary
-        self.logger.debug("%s: Roger, %s received.", self, itinerary)
+        # self.logger.debug("%s: Roger, %s received.", self, itinerary)
 
-        for target in itinerary.targets:
-            self.logger.debug(target)
+        # for target in itinerary.targets:
+        #     self.logger.debug(target)
 
     def add_uncertainty_delay(self):
         """Adds an uncertainty delay on this aircraft."""
         if not self.itinerary:
-            self.logger.debug("%s: No itinerary to add delay", self)
+            # self.logger.debug("%s: No itinerary to add delay", self)
             return
         delay_added_at = self.itinerary.add_uncertainty_delay()
-        self.logger.debug("%s: Delay added at %s by uncertainty",
-                          self, delay_added_at)
+        # self.logger.debug("%s: Delay added at %s by uncertainty",
+        #                   self, delay_added_at)
 
     def add_scheduler_delay(self):
         """Adds a scheduler delay on this aircraft."""
         if not self.itinerary:
-            self.logger.debug("%s: No itinerary to add delay", self)
+            # self.logger.debug("%s: No itinerary to add delay", self)
             return
         delay_added_at = self.itinerary.add_scheduler_delay()
-        self.logger.debug("%s: Delay added at %s by scheduler",
-                          self, delay_added_at)
+        # self.logger.debug("%s: Delay added at %s by scheduler",
+        #                   self, delay_added_at)
 
     def tick(self):
         """Ticks on this aircraft and its subobjects to move to the next state.
@@ -78,13 +82,15 @@ class Aircraft:
         if self.itinerary:
             self.itinerary.tick()
             if self.itinerary.is_completed:
-                self.logger.debug("%s: %s completed.", self, self.itinerary)
+                # self.logger.debug("%s: %s completed.", self, self.itinerary)
+                pass
             else:
                 self.set_location(self.itinerary.current_target)
         else:
-            self.logger.debug("%s: No itinerary request.", self)
+            # self.logger.debug("%s: No itinerary request.", self)
+            pass
 
-        self.logger.info("%s at %s", self, self.location)
+        # self.logger.info("%s at %s", self, self.location)
 
     @property
     def state(self):
