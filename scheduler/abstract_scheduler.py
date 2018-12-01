@@ -3,7 +3,7 @@ import logging
 
 from copy import deepcopy
 from itinerary import Itinerary
-
+from flight import ArrivalFlight
 
 class AbstractScheduler:
     """Parent class for different schedulers to extend."""
@@ -21,7 +21,11 @@ class AbstractScheduler:
 
         # Retrieves the route from the routing export
         flight = simulation.scenario.get_flight(aircraft)
-        src, dst = aircraft.location, flight.runway.start
+        if type(flight) == ArrivalFlight:
+            src, dst = aircraft.location, flight.to_gate
+        else:
+            src, dst = aircraft.location, flight.runway.start
+
         route = simulation.routing_expert.get_shortest_route(src, dst)
 
         itinerary = Itinerary(deepcopy(route.nodes))

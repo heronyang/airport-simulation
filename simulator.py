@@ -4,7 +4,7 @@ simulations.
 
 Example:
 
-    To run a single simlation, use an experimental plan under folder `plans`:
+    To run a single simulation, use an experimental plan under folder `plans`:
 
         $ ./simulator.py -f plans/base.yaml
 
@@ -18,12 +18,12 @@ Output:
     Simulation results including output metrics, figures, and logs are stored
     under `output` folder with the name specified in the experimental plan. For
     batch runs, a bunch of folders under `output` are created and a folder
-    under `batch_output` is created as well for storing summerized metrics and
+    under `batch_output` is created as well for storing summarized metrics and
     figures of the batch runs.
 
 Definition:
 
-    We define a `simulation` or a `simulation run` as the simlation of a day
+    We define a `simulation` or a `simulation run` as the simulation of a day
     under the same parameters (this matches to an experimental plan under
     `plans`). We also define `sample times` as the number of simulations runs
     we execute under the same parameters for retrieving the average output
@@ -55,6 +55,8 @@ from reporter import save_batch_result, save_failed_num
 def main():
     """Main function of the simulator."""
 
+    # Entry of Simulator from command line
+    # Streaming Visualization will call init_streaming_generator() directly
     __init_params()
 
     if cfg.params["batch"]:
@@ -62,11 +64,15 @@ def main():
         run_batch()
     else:
         print("Starting the simulation")
-        run()
+        rg = run_generator()
+        while True:
+            try:
+                next(rg)
+            except StopIteration:
+                break
 
 
 def __init_params():
-
     # Parses argv
     parser = argparse.ArgumentParser()
     parser.add_argument("-f", "--plan-filepath",
@@ -78,7 +84,6 @@ def __init_params():
 
 
 def __init_logger():
-
     # Removes previous handler
     for handler in logging.root.handlers[:]:
         logging.root.removeHandler(handler)
@@ -153,7 +158,12 @@ def run_wrapper(expr_var_name, expr_var, name, logs, nth):
     while True:
         try:
             start = time.time()
-            run()
+            rg = run_generator()
+            while True:
+                try:
+                    next(rg)
+                except StopIteration:
+                    break
         except SimulationException:
             failed += 1
             save_failed_num(name, expr_var, nth, failed)
@@ -170,7 +180,6 @@ def run_wrapper(expr_var_name, expr_var, name, logs, nth):
 
 
 def __get_expr_var_range(expr_var_name):
-
     # Finds the string value of the experimental field
     params = cfg.params
     expr_var_name_layer = expr_var_name.split(".")
@@ -185,7 +194,6 @@ def __get_expr_var_range(expr_var_name):
 
 
 def __set_expr_var(expr_var_name, expr_var):
-
     # Setup the experimental variable
     params = cfg.params
     expr_var_name_layer = expr_var_name.split(".")
@@ -199,10 +207,21 @@ def __set_plan_name(name, expr_var, nth):
     cfg.params["name"] = get_batch_plan_name(name, expr_var, nth)
 
 
-def run():
+def run_generator():
     """Executes a single simulation by initializing a `Simulation` and call its
     `tick()` function util the Clock` object raises an `ClockException`
     indicating the end of a day.
+
+    The function is a generator. It yields current state after each iterator. Call next()
+    to continue the execution. It's made for the convenience of streaming visualization.
+
+    Usage:
+        rg = run_generator()
+        while True:
+            try:
+                next(rg)
+            except StopIteration:
+                break
     """
 
     logger = __init_logger()
@@ -218,7 +237,8 @@ def run():
     pause_time = cfg.params["simulator"]["pause_time"]
     try:
         while True:
-            simulation.tick()
+            yield simulation.tick()
+
             if pause_time != 0:
                 time.sleep(pause_time)
     except KeyboardInterrupt:
@@ -228,6 +248,12 @@ def run():
     except SimulationException as exception:
         logger.error("Conflict found in the airport, abort")
         raise exception
+
+
+def init_streaming_generator(plan):
+    plan_path = cfg.PLANS_DIR + plan + ".yaml"
+    cfg.load_plan(plan_path)
+    return run_generator(), cfg.params["airport"]
 
 
 def __regenerate_scenario():

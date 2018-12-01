@@ -1,6 +1,6 @@
 """`Simulation` represents an airport simulation of a day on the given
 parameters. `ClonedSimulation` is designed to be an immutable delegate of a
-simultion that can be used for other objects to observe or predict the
+simulation that can be used for other objects to observe or predict the
 simulation states.
 """
 import time
@@ -8,7 +8,7 @@ import logging
 import traceback
 import importlib
 
-from copy import deepcopy
+from copy import deepcopy, copy
 from clock import Clock, ClockException
 from airport import Airport
 from scenario import Scenario
@@ -57,7 +57,6 @@ class Simulation:
         self.scheduler = get_scheduler()
 
         if not params["simulator"]["test_mode"]:
-
             # Sets up the analyst
             self.analyst = Analyst(self)
 
@@ -89,21 +88,22 @@ class Simulation:
                 self.logger.info("Last schedule time is updated to %s",
                                  self.last_schedule_time)
 
-            # Adds aircrafts
+            # Add aircraft
             self.airport.add_aircrafts(self.scenario, self.now,
                                        self.clock.sim_time)
 
-            # Injects uncertainties
+            # Inject uncertainties
             if self.uncertainty:
                 self.uncertainty.inject(self)
 
-            # Ticks
+            # Tick
             self.airport.tick()
+            state = None
             if not Config.params["simulator"]["test_mode"]:
-                self.state_logger.log_on_tick(self)
+                state = self.state_logger.log_on_tick(self)
             self.clock.tick()
 
-            # Removes aircrafts
+            # Remove aircraft
             self.airport.remove_aircrafts(self.scenario)
 
             # Abort on conflict
@@ -116,6 +116,9 @@ class Simulation:
             # Observe
             if not Config.params["simulator"]["test_mode"]:
                 self.analyst.observe_on_tick(self)
+
+            # return current state for streaming visualization
+            return state
 
         except ClockException as error:
             # Finishes
@@ -176,7 +179,7 @@ class Simulation:
         return ClonedSimulation(self)
 
 
-class ClonedSimulation():
+class ClonedSimulation:
     """ClonedSimulation is a copy of a `Simulation` object; however, it shares
     objects with the source `Simulation` object on immutable data objects in
     order to avoid the overhead in copying.
@@ -188,7 +191,7 @@ class ClonedSimulation():
 
         self.clock = deepcopy(simulation.clock)
         self.airport = deepcopy(simulation.airport)
-        self.scenario = deepcopy(simulation.scenario)
+        self.scenario = copy(simulation.scenario)
 
         # Sets up the logger in quiet mode
         self.logger = logging.getLogger("QUIET_MODE")
@@ -196,7 +199,7 @@ class ClonedSimulation():
         self.scenario.set_quiet(self.logger)
 
     def pre_tick(self):
-        """Adds aircrafts before a tick."""
+        """Adds aircraft before a tick."""
         self.airport.add_aircrafts(self.scenario, self.now,
                                    self.clock.sim_time)
 
@@ -210,7 +213,7 @@ class ClonedSimulation():
             raise error
 
     def post_tick(self):
-        """Removes aircrafts after a tick."""
+        """Removes aircraft after a tick."""
         self.airport.remove_aircrafts(self.scenario)
 
     @property

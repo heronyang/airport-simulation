@@ -98,8 +98,7 @@ class Airport:
         for flight in scenario.departures:
 
             # Only if the scheduled appear time is between now and next tick
-            if not (now <= flight.appear_time and
-                    flight.appear_time < next_tick_time):
+            if not (now <= flight.appear_time < next_tick_time):
                 continue
 
             gate, aircraft = flight.from_gate, flight.aircraft
@@ -116,6 +115,17 @@ class Airport:
                 aircraft.set_location(gate)
                 self.add_aircraft(aircraft)
                 self.logger.info("Adds %s into the airport", flight)
+
+        # Deal with the arrival flights, assume that the runway is always not
+        #  occupied because this is an arrival flight
+        for flight in scenario.arrivals:
+            if not (now <= flight.appear_time < next_tick_time):
+                continue
+            runway, aircraft = flight.runway.start, flight.aircraft
+            aircraft.set_location(runway)
+            self.add_aircraft(aircraft)
+            self.logger.info(
+                "Adds {} arrival flight into the airport".format(flight))
 
     def remove_aircrafts(self, scenario):
         """Removes departure aircrafts if they've moved to the runway.
